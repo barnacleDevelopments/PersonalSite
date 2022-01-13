@@ -1,0 +1,4 @@
+This is a Brave Rewards publisher verification file.
+
+Domain: devs-webshop.tech
+Token: 6dc091820efd86aefbb44392c4124701219e9632eff8c58050a496fce1eb76ed

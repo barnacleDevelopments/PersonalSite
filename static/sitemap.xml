@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+<!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
+
+
+<url>
+  <loc>https://www.devs-webshop.tech/</loc>
+  <lastmod>2021-12-17T15:44:04+00:00</lastmod>
+  <priority>1.00</priority>
+</url>
+<url>
+  <loc>https://www.devs-webshop.tech/posts/</loc>
+  <lastmod>2021-12-17T15:44:04+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://www.devs-webshop.tech/contact/</loc>
+  <lastmod>2021-12-17T15:44:04+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://www.devs-webshop.tech/projects/</loc>
+  <lastmod>2021-12-17T15:44:04+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://www.devs-webshop.tech/services/</loc>
+  <lastmod>2021-12-17T15:44:04+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://www.devs-webshop.tech/blog/</loc>
+  <lastmod>2021-12-17T15:44:04+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://www.devs-webshop.tech/blog/programming_blog/posts/content-security-policy/</loc>
+  <lastmod>2021-12-17T15:44:04+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://www.devs-webshop.tech/blog/web_business_blog/posts/%20web-content-strategies-1/</loc>
+  <lastmod>2021-12-17T15:44:04+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://www.devs-webshop.tech/blog/web_business_blog/posts/benefits-of-your-content-management-system-1/</loc>
+  <lastmod>2021-12-17T15:44:04+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://www.devs-webshop.tech/projects/evernote-clone/</loc>
+  <lastmod>2021-12-17T15:44:04+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://www.devs-webshop.tech/projects/novajohnstone-co/</loc>
+  <lastmod>2021-12-17T15:44:04+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://www.devs-webshop.tech/blog/programming_blog/</loc>
+  <lastmod>2021-12-17T15:44:04+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://www.devs-webshop.tech/blog/web_business_blog/</loc>
+  <lastmod>2021-12-17T15:44:04+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+
+
+</urlset>
