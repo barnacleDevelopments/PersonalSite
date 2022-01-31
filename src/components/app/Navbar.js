@@ -141,33 +141,7 @@ const Navbar = () => {
             </Box>
             <Box className="nav-triangle"></Box>
           </Link>}
-        <Box onClick={(e) => {
-          setSideNavOpen(true)
-          disableScroll()
-        }} sx={{
-          width: "30px",
-          height: "25px",
-          display: ["flex", "none"],
-          flexDirection: "column",
-          justifyContent: "space-between",
-          cursor: "pointer",
-        }} href="/">
-          <Box sx={{
-            height: "4px",
-            width: "100%",
-            backgroundColor: "white"
-          }} style={{ backgroundColor: isScrolledTop ? navTextColor : navTextColorScrolled }}></Box>
-          <Box sx={{
-            height: "4px",
-            width: "100%",
-            backgroundColor: "white"
-          }} style={{ backgroundColor: isScrolledTop ? navTextColor : navTextColorScrolled }}></Box>
-          <Box sx={{
-            height: "4px",
-            width: "100%",
-            backgroundColor: "white"
-          }} style={{ backgroundColor: isScrolledTop ? navTextColor : navTextColorScrolled }}></Box>
-        </Box>
+        
         <Box sx={{ display: ["none", "block"], color: "white" }}>
           <NavLink sx={{ mr: 3, color: !isScrolledTop ? navTextColorScrolled : null }} href="/projects">Projects</NavLink>
           <NavLink sx={{ color: !isScrolledTop ? navTextColorScrolled : null }} href="/services">Services</NavLink>

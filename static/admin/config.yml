@@ -1,6 +1,6 @@
 backend:
   name: git-gateway
-  repo: barnacleDevelopments/Dev-s_Web_Shop
+  repo: barnacleDevelopments/PersonalSite
   branch: master
 media_folder: static/assets
 public_folder: /assets
