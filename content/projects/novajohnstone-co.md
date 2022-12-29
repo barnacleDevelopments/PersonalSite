@@ -6,7 +6,7 @@ image1: /assets/nova_home.png
 tech: This site was built with Gatsby and is hosted via Netlify. It also uses
   Netlify's CMS to allow Nova to add new team members to her site without
   needing a developer.
-image2: /assets/nova_home.png
+image2: /assets/gatsby.jpg
 challenges: This was my first site that I built using Gatsby. I had to learn how
   to implement various Gatsby plugins that would allow for quick image
   processing and markdown processing for files created on the Netlify CMS.
