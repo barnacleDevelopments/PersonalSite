@@ -158,8 +158,8 @@ export const pageQuery = graphql`
         keywords,
         image1 {
           childImageSharp {
-            fluid {
-              originalImg
+            childImageSharp {
+              gatsbyImageData
             }
           }
         }
