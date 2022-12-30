@@ -40,7 +40,6 @@ const BlogPost = ({ data }) => {
         <Themed.h1 sx={{ wordWrap: 'wrap', textAlign: "center", mb: 3 }}>{node.frontmatter.title}</Themed.h1>
         <Text variant="regular" sx={{ color: "white" }}>{moment(node.frontmatter.date).format('MMM Do, YYYY')}</Text>
       </Flex>
-      <ArticleAdd />
       <Box sx={{
         margin: "0 auto",
         marginBottom: 5,
@@ -58,7 +57,6 @@ const BlogPost = ({ data }) => {
 
         }} variant="small" dangerouslySetInnerHTML={{ __html: converter.makeHtml(node.frontmatter.content) }}></Text>
       </Box>
-      <ArticleAdd />
     </Layout>
   )
 }

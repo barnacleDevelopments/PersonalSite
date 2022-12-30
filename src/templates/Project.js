@@ -35,24 +35,15 @@ function Project({ data }) {
       {/* Section 1 */}
       <Box sx={{ ...sectionWrapperStyle, backgroundColor: "secondary" }} backgroundColor="#EEEEEE">
         <Grid columns={[1, null, 2]} sx={{ ...sectionFlexStyle, alignItems: "center" }} >
-          <Box sx={{
-            py: 6,
-            pr: 5,
-            order: [1, 2]
-          }}>
+          <Box sx={{ py: [4, 6], pr: 5, order: [1, 2] }}>
             <Heading sx={subHeadingStyle}>Overview</Heading>
             <Text sx={paragraphStyles} dangerouslySetInnerHTML={{ __html: converter.makeHtml(node.frontmatter.description) }}></Text>
           </Box>
-          <Box sx={{
-            order: [1, 2],
-            mb: [5, 0],
-            mt: [0, 3]
-          }}>
+          <Box sx={{ order: [1, 2], mb: [5, 0], mt: [0, 3] }}>
             <GatsbyImage placeholder="blurred" imgStyle={imgStyle} image={getImage(node.frontmatter.image1)} alt={"image 1"} />
           </Box>
         </Grid>
       </Box>
-      <ProjectAdd />
       {/* Section 2 */}
       <Box sx={{ ...sectionWrapperStyle, backgroundColor: "primary" }} color="white">
         <Grid columns={[1, null, 2]} sx={{ ...sectionFlexStyle, alignItems: "center" }}   >
@@ -64,7 +55,7 @@ function Project({ data }) {
             <GatsbyImage style={imgWrapStyle} imgStyle={imgStyle} image={getImage(node.frontmatter.image2)} alt={"image 2"} />
           </Box>
           <Box sx={{
-            py: 6,
+            py: [4, 6],
             pl: 5,
             order: [1, 1, 2],
           }}>
@@ -73,7 +64,6 @@ function Project({ data }) {
           </Box>
         </Grid>
       </Box>
-      <ProjectAdd />
       {/* Section 3 */}
       <Box sx={{ ...sectionWrapperStyle, backgroundColor: "secondary" }} backgroundColor="#EEEEEE">
         <Grid columns={[1, null, 2]} sx={{ ...sectionFlexStyle, alignItems: "center" }}>
@@ -85,7 +75,7 @@ function Project({ data }) {
             <GatsbyImage image={getImage(node.frontmatter.image3)} imgStyle={imgStyle} alt={"image 3"} />
           </Box>
           <Box sx={{
-            py: 6,
+            py: [4, 6],
             pr: 5,
             order: [1, 1, 1],
           }}>
