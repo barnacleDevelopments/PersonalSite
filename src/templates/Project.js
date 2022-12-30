@@ -35,7 +35,7 @@ function Project({ data }) {
       {/* Section 1 */}
       <Box sx={{ ...sectionWrapperStyle, backgroundColor: "secondary" }} backgroundColor="#EEEEEE">
         <Grid columns={[1, null, 2]} sx={{ ...sectionFlexStyle, alignItems: "center" }} >
-          <Box sx={{ py: [4, 6], pr: 5, order: [1, 2] }}>
+          <Box sx={{ py: [4, 6], pr: [0, 5], order: [1, 2] }}>
             <Heading sx={subHeadingStyle}>Overview</Heading>
             <Text sx={paragraphStyles} dangerouslySetInnerHTML={{ __html: converter.makeHtml(node.frontmatter.description) }}></Text>
           </Box>
@@ -47,18 +47,10 @@ function Project({ data }) {
       {/* Section 2 */}
       <Box sx={{ ...sectionWrapperStyle, backgroundColor: "primary" }} color="white">
         <Grid columns={[1, null, 2]} sx={{ ...sectionFlexStyle, alignItems: "center" }}   >
-          <Box sx={{
-            mb: [5, 0],
-            mt: [0, 3],
-            order: [2, 2, 1],
-          }} >
+          <Box sx={{ mb: [5, 0], mt: [0, 3], order: [2, 2, 1] }} >
             <GatsbyImage style={imgWrapStyle} imgStyle={imgStyle} image={getImage(node.frontmatter.image2)} alt={"image 2"} />
           </Box>
-          <Box sx={{
-            py: [4, 6],
-            pl: 5,
-            order: [1, 1, 2],
-          }}>
+          <Box sx={{ py: [4, 6], pl: [0, 5], order: [1, 1, 2] }}>
             <Heading sx={subHeadingStyle}>Tech Used</Heading>
             <Text sx={paragraphStyles} dangerouslySetInnerHTML={{ __html: converter.makeHtml(node.frontmatter.tech) }}></Text>
           </Box>
@@ -67,18 +59,10 @@ function Project({ data }) {
       {/* Section 3 */}
       <Box sx={{ ...sectionWrapperStyle, backgroundColor: "secondary" }} backgroundColor="#EEEEEE">
         <Grid columns={[1, null, 2]} sx={{ ...sectionFlexStyle, alignItems: "center" }}>
-          <Box sx={{
-            mb: [5, 0],
-            mt: [0, 3],
-            order: [2, 2, 2],
-          }}>
+          <Box sx={{ mb: [5, 0], mt: [0, 3], order: [2, 2, 2] }}>
             <GatsbyImage image={getImage(node.frontmatter.image3)} imgStyle={imgStyle} alt={"image 3"} />
           </Box>
-          <Box sx={{
-            py: [4, 6],
-            pr: 5,
-            order: [1, 1, 1],
-          }}>
+          <Box sx={{ py: [4, 6], pr: [0, 5], order: [1, 1, 1] }}>
             <Heading sx={subHeadingStyle}>Challenges</Heading>
             <Text sx={paragraphStyles} dangerouslySetInnerHTML={{ __html: converter.makeHtml(node.frontmatter.challenges) }}></Text>
           </Box>
@@ -125,6 +109,7 @@ const subHeadingStyle = {
 const sectionWrapperStyle = {
   width: ["100%"],
   mx: 'auto',
+  textAlign: ["center", "left"]
 }
 
 const sectionFlexStyle = {
