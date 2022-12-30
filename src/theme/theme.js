@@ -38,9 +38,6 @@ module.exports = {
     }
   },
   links: {
-    inline: {
-
-    },
     footLink: {
       color: "white",
       textDecoration: "none",
@@ -108,7 +105,7 @@ module.exports = {
       m: 0
     },
     h1: {
-      fontSize: [5, 6, 7],
+      fontSize: [4, 5, 6, 7],
       fontWeight: 'bold',
       m: 0
     },
