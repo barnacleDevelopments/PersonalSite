@@ -2,13 +2,14 @@ exports.handler = async function (event, context) {
 
   // get the event body
   const request = JSON.parse(event.body);
+
   // average work times
-  const avgUITime = 8;
-  const avgCMSTime = 5;
-  const avgSEOTime = 10;
-  const avgPageTime = 2;
+  const avgUITime = 20;
+  const avgCMSTime = 10;
+  const avgSEOTime = 25;
+  const avgPageTime = 6;
   const hourlyRate = 50;
-  const avgContactFormTime = .75;
+  const avgContactFormTime = 2;
 
   // acumulate total hours
   const totalHours = [
@@ -20,7 +21,6 @@ exports.handler = async function (event, context) {
 
   // caculate estimate total
   let totalCost = 0
-  totalCost += avgUITime * hourlyRate;
   totalCost += request.hasCMS ? avgCMSTime * hourlyRate : 0;
   totalCost += request.hasContactForm ? avgContactFormTime * hourlyRate : 0;
   totalCost += request.hasSEO ? avgSEOTime * hourlyRate : 0;
