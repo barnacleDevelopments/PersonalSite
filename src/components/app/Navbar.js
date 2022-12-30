@@ -129,16 +129,16 @@ const Navbar = () => {
           setSideNavOpen(true)
           disableScroll()
         }} href="/">
-          <div sx={hamburderPatty}></div>
-          <div sx={hamburderPatty}></div>
-          <div sx={hamburderPatty}></div>
+          <div sx={{ ...hamburderPatty, backgroundColor: isScrolledTop ? navScrollColor : navTextColorScrolled }}></div>
+          <div sx={{ ...hamburderPatty, backgroundColor: isScrolledTop ? navScrollColor : navTextColorScrolled }}></div>
+          <div sx={{ ...hamburderPatty, backgroundColor: isScrolledTop ? navScrollColor : navTextColorScrolled }}></div>
         </Box>
         <Box sx={{ display: ["none", "block"], color: "white" }}>
           <NavLink sx={{ mr: 3, color: !isScrolledTop ? navTextColorScrolled : null }} href="/projects">Projects</NavLink>
           <NavLink sx={{ color: !isScrolledTop ? navTextColorScrolled : null }} href="/services">Services</NavLink>
         </Box>
-      </Box>
-    </Flex>
+      </Box >
+    </Flex >
   )
 }
 
