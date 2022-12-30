@@ -32,7 +32,7 @@ const ServicesPage = () => {
               'Smartphone and Tablet Ready',
               'One Language'
             ]}
-            startPrice={900}
+            startPrice={1500}
           />
           <Box sx={{
             textAlign: ["center"],
