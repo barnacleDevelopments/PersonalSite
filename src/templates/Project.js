@@ -158,9 +158,7 @@ export const pageQuery = graphql`
         keywords,
         image1 {
           childImageSharp {
-            childImageSharp {
-              gatsbyImageData
-            }
+            gatsbyImageData
           }
         }
          image2 {
