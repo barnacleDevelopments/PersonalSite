@@ -97,23 +97,7 @@ const Navbar = () => {
   }, []);
 
   return (
-    <Flex sx={{
-      top: "0px",
-      left: "0px",
-      position: "fixed",
-      width: "100%",
-      height: "60px",
-      display: "flex",
-      justifyContent: "space-around",
-      alignItems: "center",
-      minWidth: "375px",
-      zIndex: "100",
-      backgroundColor: "primary",
-      transition: "background-color .3s",
-      "i": {
-        fontSize: "2em"
-      }
-    }} style={{ backgroundColor: !isScrolledTop ? navScrollColor : null }}>
+    <Flex sx={navWrapper} style={{ backgroundColor: !isScrolledTop ? navScrollColor : null }}>
       <SideNav isOpen={sideNavOpen} setSideNavOpen={setSideNavOpen} enableScrollFunc={enableScroll} />
       <Box sx={{
         width: "90%",
@@ -141,7 +125,14 @@ const Navbar = () => {
             </Box>
             <Box className="nav-triangle"></Box>
           </Link>}
-        
+        <Box sx={hamburgerStyles} onClick={(e) => {
+          setSideNavOpen(true)
+          disableScroll()
+        }} href="/">
+          <div sx={hamburderPatty}></div>
+          <div sx={hamburderPatty}></div>
+          <div sx={hamburderPatty}></div>
+        </Box>
         <Box sx={{ display: ["none", "block"], color: "white" }}>
           <NavLink sx={{ mr: 3, color: !isScrolledTop ? navTextColorScrolled : null }} href="/projects">Projects</NavLink>
           <NavLink sx={{ color: !isScrolledTop ? navTextColorScrolled : null }} href="/services">Services</NavLink>
@@ -149,6 +140,39 @@ const Navbar = () => {
       </Box>
     </Flex>
   )
+}
+
+const navWrapper = {
+  top: "0px",
+  left: "0px",
+  position: "fixed",
+  width: "100%",
+  height: "60px",
+  display: "flex",
+  justifyContent: "space-around",
+  alignItems: "center",
+  minWidth: "375px",
+  zIndex: "100",
+  backgroundColor: "primary",
+  transition: "background-color .3s",
+  "i": {
+    fontSize: "2em"
+  }
+}
+
+const hamburgerStyles = {
+  width: "30px",
+  height: "25px",
+  flexDirection: "column",
+  justifyContent: "space-between",
+  cursor: "pointer",
+  display: ["flex", "none"]
+}
+
+const hamburderPatty = {
+  height: "4px",
+  width: "100%",
+  backgroundColor: "white"
 }
 
 export default Navbar;
