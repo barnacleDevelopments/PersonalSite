@@ -4,7 +4,7 @@ import { jsx } from "theme-ui"
 // Components
 import { Flex, Text, Themed, Button } from "theme-ui";
 
-const OrderDialog = ({ onClose }) => {
+const OrderDialog = ({ onClose, title, message }) => {
 
   return (
     <Flex sx={{
@@ -13,8 +13,8 @@ const OrderDialog = ({ onClose }) => {
       p: 4,
       color: "primary"
     }}>
-      <Themed.h2 sx={{ mb: 3 }}>Order Request Successfull</Themed.h2>
-      <Text variant="regular">I will be in touch with you shorty. An email was sent to you containing your estimate.</Text>
+      <Themed.h2 sx={{ mb: 3 }}>{{title}}</Themed.h2>
+      <Text variant="regular">{{message}}</Text>
       <Button sx={{ mt: 3 }} variant="secondary" onClick={onClose}>Close</Button>
     </Flex>
   )

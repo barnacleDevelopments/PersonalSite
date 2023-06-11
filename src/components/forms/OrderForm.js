@@ -15,6 +15,7 @@ import Loader from "../Loader";
 const OrderForm = ({ estimate, onClose }) => {
   const { handleSubmit } = useForm();
   const [orderSuccessDialogStatus, setOrderSuccessDialogStatus] = useState(false);
+  const [orderFailDialogStatus, setOrderFailDialogStatus] = useState(false);
   const [loaderStatus, setLoaderStatus] = useState(false);
 
   const onSubmit = () => {
@@ -22,9 +23,14 @@ const OrderForm = ({ estimate, onClose }) => {
     fetch("/.netlify/functions/submit_order", {
       method: "POST",
       body: JSON.stringify(estimate)
-    }).then(() => {
-      setOrderSuccessDialogStatus(true)
+    }).then((response) => {
       setLoaderStatus(false)
+      if(response.status !== 200) {
+        setOrderFailDialogStatus(true)
+        return;
+      }
+      setOrderSuccessDialogStatus(true)
+   
     });
   }
 
@@ -33,8 +39,14 @@ const OrderForm = ({ estimate, onClose }) => {
       in={orderSuccessDialogStatus} timeout={100} classNames="estimate">
       {
         orderSuccessDialogStatus ?
-          <OrderDialog onClose={onClose} />
-          : loaderStatus ? <Loader /> :
+          <OrderDialog title={"Order Request Successfull"} 
+            message={`I will be in touch with you shorty. 
+          An email was sent to you containing your estimate.`} 
+            onClose={onClose} />
+          : orderFailDialogStatus ? 
+          <OrderDialog title={"Order Request Failed"} 
+          message={`We are currently working on a fix. Please try again later. `} 
+          onClose={onClose} /> : loaderStatus ? <Loader /> :
             <Box sx={{ bg: "secondary" }} >
               <Box sx={{ bg: "primary", color: "white", p: 3 }} >
                 <Themed.h2 sx={{ mb: 2 }}>Your Estimate</Themed.h2>

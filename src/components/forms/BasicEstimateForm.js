@@ -41,6 +41,12 @@ const BasicEstimateForm = ({ onClose }) => {
     setOrderMenuStatus(true);
   }
 
+  function handleError() {
+    setLoaderStatus(false)
+    setCurrentOrder({});
+    setOrderMenuStatus(false);    
+  }
+
   function handleLanguageSelect(values) {
     let formContent = formContents;
     formContent.languages = values;
@@ -62,7 +68,8 @@ const BasicEstimateForm = ({ onClose }) => {
         body: JSON.stringify(formContent)
       })
         .then(response => response.json())
-        .then((data) => prepareOrder(data));
+        .then((data) => prepareOrder(data))
+        .catch(error => console.log("Oups: ", error));
     }, 3000)
   }
 
