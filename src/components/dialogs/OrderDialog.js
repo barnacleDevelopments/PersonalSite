@@ -13,8 +13,8 @@ const OrderDialog = ({ onClose, title, message }) => {
       p: 4,
       color: "primary"
     }}>
-      <Themed.h2 sx={{ mb: 3 }}>{{title}}</Themed.h2>
-      <Text variant="regular">{{message}}</Text>
+      <Themed.h2 sx={{ mb: 3 }}>{title}</Themed.h2>
+      <Text variant="regular">{message}</Text>
       <Button sx={{ mt: 3 }} variant="secondary" onClick={onClose}>Close</Button>
     </Flex>
   )
