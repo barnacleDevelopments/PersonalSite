@@ -64,8 +64,14 @@ const ContactPage = () => {
             mt: 6
           }}>
             <Box sx={{ mt: 6, mb: 5 }}>
-              <Themed.h1 sx={{ mb: 3, color: "primary", }}>Let's Talk About You</Themed.h1>
-              <Text sx={{ my: 3, display: "block" }} variant="large">Please share with me your vision and I'll deliver you a great website.</Text>
+              <Themed.h1 sx={{ mb: 3, color: "primary", }}>
+                Let's Talk About You
+              </Themed.h1>
+              <Text sx={{ my: 3, display: "block" }} variant="large">
+                Learning about businesses and their owners is one of my favorite things to do.
+                Please reach out I'd love to get to know you and your business. I'd like to play
+                a part in empowering you to reach your goals.
+              </Text>
             </Box>
             <Box as="form" action="/contact" name="Contact Form" method="POST" data-netlify="true">
               <Input sx={{ mb: 3, bg: "secondary" }} type="hidden" name="form-name" value="Contact Form" />

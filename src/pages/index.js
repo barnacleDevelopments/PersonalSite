@@ -8,10 +8,11 @@ import ReviewCard from "../components/cards/ReviewCard";
 import { StaticImage } from "gatsby-plugin-image";
 import { Text, Themed, Button, Flex, Box, Grid, Link } from "theme-ui";
 import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
-import { faChartLine, faListOl, faMousePointer, faStore, faTabletAlt, faUniversalAccess } from "@fortawesome/free-solid-svg-icons";
+import { faBrain, faBug, faChartLine, faDesktop, faMousePointer, faPeopleArrows, faRocket, faServer, faStore, faTabletAlt, faUniversalAccess } from "@fortawesome/free-solid-svg-icons";
 import { faAddressCard, faLightbulb } from "@fortawesome/free-regular-svg-icons";
 import Seo from "../components/app/Seo";
 import Loader from "../components/Loader";
+import { faGit } from "@fortawesome/free-brands-svg-icons";
 
 const IndexPage = ({ data }) => {
   const landingPageData = data.markdownRemark.frontmatter;
@@ -66,8 +67,10 @@ const IndexPage = ({ data }) => {
                   top: "0px",
 
                 }} >
-                  <Link href="/services">
-                    <Button variant="primary">GET AN ESTIMATE</Button>
+                  <Link href="/contact">
+                    <Button variant="primary">
+                      Let's Chat
+                      </Button>
                   </Link>
                 </Flex>
                 <Loader />
@@ -86,7 +89,9 @@ const IndexPage = ({ data }) => {
         }}>
           <Grid gap={3} columns={[1, 2, "1fr 2fr"]}>
             <Box>
-              <StaticImage style={{ height: "300px" }} src="../images/devin_portrait.jpg" alt="dev portrait" />
+              <StaticImage style={{ height: "300px" }} 
+              src="../images/devin_portrait.jpg" 
+              alt="dev portrait" />
             </Box>
             <Box sx={{
               px: [2, 4],
@@ -103,10 +108,11 @@ const IndexPage = ({ data }) => {
                 </Themed.h2>
                 <Text variant="regular">
                   My name is Dev. I'm a web developer
-                  located in Halifax Nova Scotia. I'm here to convince you that
-                  having a modern web presence is a secret
-                  weapon in this modern climate.
-                  Not convinced? Keep scrolling.
+                  located in Halifax Nova Scotia. I specialize in building 
+                  websites and web applications for small to medium sized businesses. 
+                  I work diligently to ensure that those I work with recieve a product 
+                  they can be proud of. I'm always looking for new and exciting projects 
+                  to work on. If you're interested in working together, feel free to reach out!
                 </Text>
               </Box>
             </Box>
@@ -121,7 +127,7 @@ const IndexPage = ({ data }) => {
               bg: "primary",
               color: "secondary"
             }}>
-            The Breakdown
+            Skills
           </Themed.h2>
           {/* <TriangleTab /> */}
         </Box>
@@ -130,51 +136,65 @@ const IndexPage = ({ data }) => {
           borderLeftWidth: "2px",
           borderRightWidth: "2px",
           borderBottomWidth: "2px",
-          borderColor: "primary"
+          borderColor: "primary",
+          pb:3,
+          bg: "secondary",
         }}>
           <Box sx={{
             py: 5,
             px: 4,
-            bg: "secondary",
+          
           }}>
             <Themed.h3 sx={{
               mb: 4
-            }}>THE BENEFITS</Themed.h3>
+            }}>Soft Skills</Themed.h3>
             <Grid gap={3} columns={[1, null, 2]}>
-              <Box sx={{
-                pb: 4,
-                pl: [0, 4]
-              }}>
+              <Box sx={styles.skillCard}>
                 <Flex alignItems="center">
                   <Icon size="2x" icon={faLightbulb} />
-                  <Text variant="regular" sx={{ pl: 3 }}>Provides Consumer Insights</Text>
+                  <Text variant="regular" sx={styles.skillText}>
+                    Creative Problem Solver
+                  </Text>
                 </Flex>
               </Box>
-              <Box sx={{
-                pb: 4,
-                pl: [0, 4]
-              }}>
+              <Box sx={styles.skillCard}>
+                <Flex alignItems="center">
+                  <Icon size="2x" icon={faBrain} />
+                  <Text variant="regular" sx={styles.skillText} >
+                    Analytical Thinker
+                  </Text>
+                </Flex>
+              </Box>
+              <Box sx={styles.skillCard}>
+                <Flex alignItems="center">
+                  <Icon size="2x" icon={faPeopleArrows} />
+                  <Text variant="regular" sx={styles.skillText}>
+                    Client Focused
+                  </Text>
+                </Flex>
+              </Box>
+              <Box sx={styles.skillCard}>
                 <Flex alignItems="center">
                   <Icon size="2x" icon={faChartLine} />
-                  <Text variant="regular" sx={{ pl: 3 }} >Increases Potential Growth</Text>
+                  <Text variant="regular" sx={styles.skillText}>
+                    Adaptable and Flexible
+                  </Text>
                 </Flex>
               </Box>
-              <Box sx={{
-                pb: 4,
-                pl: [0, 4]
-              }}>
-                <Flex alignItems="center">
-                  <Icon size="2x" icon={faAddressCard} />
-                  <Text variant="regular" sx={{ pl: 3 }}>Increases Credibility</Text>
-                </Flex>
-              </Box>
-              <Box sx={{
-                pb: 4,
-                pl: [0, 4]
-              }}>
+              <Box sx={styles.skillCard}>
                 <Flex alignItems="center">
                   <Icon size="2x" icon={faStore} />
-                  <Text variant="regular" sx={{ pl: 3 }}>Increases Market Reach</Text>
+                  <Text variant="regular" sx={styles.skillText}>
+                    Attentive to Details
+                  </Text>
+                </Flex>
+              </Box>
+              <Box sx={styles.skillCard}>
+                <Flex alignItems="center">
+                  <Icon size="2x" icon={faBrain} />
+                  <Text variant="regular" sx={styles.skillText}>
+                    Curious and a Willing to Learn New Things
+                  </Text>
                 </Flex>
               </Box>
             </Grid>
@@ -186,42 +206,54 @@ const IndexPage = ({ data }) => {
           }}>
             <Themed.h3 sx={{
               mb: 4
-            }} >HOW DOES IT WORK?</Themed.h3>
+            }} >Hard Skills</Themed.h3>
             <Grid gap={3} columns={[1, null, 2]} >
-              <Box sx={{
-                pb: 4,
-                pl: [0, 4]
-              }}>
+              <Box sx={styles.skillCard}>
                 <Flex alignItems="center">
-                  <Icon size="2x" icon={faListOl} />
-                  <Text variant="regular" sx={{ pl: 3 }} >Frugal Search Engine Optimization (SEO)</Text>
+                  <Icon size="2x" icon={faServer} />
+                  <Text variant="regular" sx={styles.skillText} >
+                    Back-End Development
+                  </Text>
                 </Flex>
               </Box>
-              <Box sx={{
-                pb: 4,
-                pl: [0, 4]
-              }}>
+              <Box sx={styles.skillCard}>
                 <Flex alignItems="center">
                   <Icon size="2x" icon={faTabletAlt} />
-                  <Text variant="regular" sx={{ pl: 3 }}>Stunning Custom User Interface (UI)</Text>
+                  <Text variant="regular" sx={styles.skillText}>
+                    Front-End Development
+                  </Text>
                 </Flex>
               </Box>
-              <Box sx={{
-                pb: 4,
-                pl: [0, 4]
-              }}>
+              <Box sx={styles.skillCard}>
                 <Flex alignItems="center">
-                  <Icon size="2x" icon={faUniversalAccess} />
-                  <Text variant="regular" sx={{ pl: 3 }}>Accessibility Features</Text>
+                  <Icon size="2x" icon={faDesktop} />
+                  <Text variant="regular" sx={styles.skillText}>
+                    Responsive Design
+                  </Text>
                 </Flex>
               </Box>
-              <Box sx={{
-                pb: 4,
-                pl: [0, 4]
-              }}>
+              <Box sx={styles.skillCard}>
                 <Flex alignItems="center">
-                  <Icon size="2x" icon={faMousePointer} />
-                  <Text variant="regular" sx={{ pl: 3 }}>Interactive Features</Text>
+                  <Icon size="2x" icon={faBug} />
+                  <Text variant="regular" sx={styles.skillText}>
+                    Testing/Debugging
+                  </Text>
+                </Flex>
+              </Box>
+              <Box sx={styles.skillCard}>
+                <Flex alignItems="center">
+                  <Icon size="2x" icon={faRocket} />
+                  <Text variant="regular" sx={styles.skillText}>
+                  Web Performance
+                  </Text>
+                </Flex>
+              </Box>
+              <Box sx={styles.skillCard}>
+                <Flex alignItems="center">
+                  <Icon size="2x" icon={faGit} />
+                  <Text variant="regular" sx={styles.skillText}>
+                    Version Control/Git
+                  </Text>
                 </Flex>
               </Box>
             </Grid>
@@ -240,7 +272,9 @@ const IndexPage = ({ data }) => {
             What People Say...
           </Themed.h2>
           <Box>
-            {landingPageData.socials.map((s, index) => <ReviewCard key={index} content={s.content} />)}
+            {landingPageData.socials.map((s, index) => 
+              <ReviewCard key={index} content={s.content} />
+            )}
           </Box>
         </Box>
         <Flex sx={{
@@ -270,6 +304,18 @@ const IndexPage = ({ data }) => {
     </Layout >
   );
 };
+
+const styles = {
+  skillCard: {
+    pb: 4,
+    pl: [4, 4],
+    pt: 4,
+    bg: '#30362F',
+    color: 'white',
+    borderRadius: "5px"
+  },
+  skillText: { pl: 3, color: "white" }
+}
 
 export const landingPageQuery = graphql`
 query LandingPageQuery {
