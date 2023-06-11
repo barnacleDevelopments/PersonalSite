@@ -23,7 +23,11 @@ const BlogPage = () => {
             mb: 3,
             color: "primary",
           }}>Blog</Themed.h1>
-          <Text variant="large" sx={{ textAlign: "center" }}>Welcome to my blog! Here I write articles on all things web for buisness owners and developers like myself.</Text>
+          <Text variant="large" sx={{ textAlign: "center" }}>
+            I'm on a lifelong journey of learning and I love to share what I learn with others.
+            When I get the chance I like to write about what I'm learning. 
+            This is an archive of my blog posts I have written.
+          </Text>
         </Box>
         <Grid sx={{
           mb: 6

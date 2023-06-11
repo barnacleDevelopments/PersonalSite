@@ -23,7 +23,11 @@ const ProjectsPage = ({ data }) => {
             mb: 3,
             color: "primary",
           }}>Projects</Themed.h1>
-          <Text variant="large" sx={{ textAlign: "center" }}>Here are a few of my projects! If you're inspired to get your own, <a href="/contact">let's get in touch</a> or <a href="/services">try my estimate feature</a>!</Text>
+          <Text variant="large" sx={{ textAlign: "center" }}>
+            Here are a few of my projects! I'm always looking for new projects to work on so 
+            <a href="/contact"> let's get in touch</a> or 
+            <a href="/services"> try my estimate feature</a>!
+            </Text>
         </Box>
         <Grid sx={{
           mb: 6
@@ -39,11 +43,6 @@ const ProjectsPage = ({ data }) => {
                 buttonText={"View"} />
             )
           })}
-          <ProjectCard
-            title="Get Yours!"
-            content="A business website gives you an advantage."
-            siteLink="/services"
-            buttonText="Get Yours!" />
         </Grid>
       </Box>
     </Layout >

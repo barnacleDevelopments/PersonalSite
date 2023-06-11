@@ -13,7 +13,9 @@ const ReviewCard = ({ content }) => {
     <Card sx={{
       mt: 3,
     }}>
-      <Text sx={{ "strong": { fontWeight: "bold", lineHeight: 3, } }} variant="large" dangerouslySetInnerHTML={{ __html: converter.makeHtml(content) }} />
+      <Text sx={{ "strong": { fontWeight: "bold", lineHeight: 3, } }} 
+      variant="large"
+      dangerouslySetInnerHTML={{ __html: converter.makeHtml(content) }} />
     </Card >
   )
 }

@@ -1,5 +1,5 @@
 ---
-indexHeader: A Website Should Provide Utility Beyond Its Design
+indexHeader: "I help build awesome solutions for our modern landscape"
 indexContent: A website is a fundamental part of sucessfull business venture in
   this modern climate. Let's get started!
 socials:
@@ -21,3 +21,5 @@ latestProject:
   projectName: N.Johnstone&Co
   projectLink: https://www.njohnstoneandco.com/
 ---
+
+<!-- @format -->

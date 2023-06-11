@@ -18,7 +18,7 @@ const Footer = () => {
         <Box sx={{ textAlign: "center" }}>
           <Themed.h4 sx={{ mb: 3, color: "white" }}>Media</Themed.h4>
           <Flex sx={{ flexDirection: "column", alignItems: "center" }}>
-            <Link href="https://www.linkedin.com/in/devin-dev-davis-63008412b/" sx={{ mb: 2, width: "max-content", "svg": { fontSize: "1.2em" } }} variant="footLink">
+            <Link href="https://www.linkedin.com/in/devin-dev-d-63008412b" sx={{ mb: 2, width: "max-content", "svg": { fontSize: "1.2em" } }} variant="footLink">
               <Icon
                 icon={faLinkedin} />
               <Text sx={{ color: "white", ml: 1 }} variant="small" > Linkdin</Text>

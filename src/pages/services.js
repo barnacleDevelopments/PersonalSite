@@ -49,7 +49,7 @@ const ServicesPage = () => {
               <Box>
                 <Text variant="regular" sx={{ color: "white", fontWeight: 300 }}>
                   Sometimes businesses need something more feature rich.
-                  If you have an idea please reach out!
+                  If you have an idea please reach out! I'd love to work with you.
                 </Text>
               </Box>
               <Box>
