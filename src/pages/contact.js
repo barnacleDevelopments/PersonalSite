@@ -74,11 +74,20 @@ const ContactPage = () => {
               </Text>
             </Box>
             <Box as="form" action="/contact" name="Contact Form" method="POST" data-netlify="true">
-              <Input sx={{ mb: 3, bg: "secondary" }} type="hidden" name="form-name" value="Contact Form" />
-              <Input sx={{ mb: 3, bg: "primary", color: "secondary", border: "none", p: 3 }} name="email" {...register("email")} type="text" placeholder="Email Address..."></Input>
+              <Input sx={{ mb: 3, bg: "secondary" }} 
+                type="hidden" 
+                name="form-name" 
+                value="Contact Form" />
+
+              <Input sx={{ mb: 3, bg: "primary", color: "secondary", border: "none", p: 3 }} 
+                name="email" {...register("email")} 
+                type="text" 
+                placeholder="Email Address..."/>
               {errors.email && <Text sx={{ color: "red", mb: 3, display: "block" }}>{errors.email?.message}</Text>}
+              
               <Input sx={{ mb: 3, bg: "primary", color: "secondary", border: "none", p: 3 }} name="subject" {...register("subject")} type="text" placeholder="Subject..."></Input>
               {errors.subject && <Text sx={{ color: "red", mb: 3, display: "block" }}>{errors.subject?.message}</Text>}
+              
               <Textarea sx={{ mb: 3, bg: "primary", color: "secondary", border: "none", p: 3, fontFamily: "roboto", minHeight: "300px", resize: "vertical" }} name="message" {...register("message")} type="text" placeholder="Message..."></Textarea>
               {errors.message && <Text sx={{ color: "red", mb: 3, display: "block" }} >{errors.message?.message}</Text>}
               <Link onClick={handleSubmit(onSubmit)} type="submit">
