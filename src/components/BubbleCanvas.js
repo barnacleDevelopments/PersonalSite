@@ -11,7 +11,26 @@ const BubbleCanvas = ({skills}) => {
         canvas.height = window.innerHeight;
 
         const bubbles = [];
-        const sparks = [];
+
+        let radius; // The radius of the bubbles
+        const width = window.innerWidth;
+
+        // Set the radius based on the screen size
+        if (width > 800) {
+            radius = 150; // Desktop
+        } else if (width > 500) {
+            radius = 100; // Tablet
+        } else {
+            radius = 50; // Mobile
+        }
+
+        for (let i = 0; i < skills.length; i++) {
+            let x = Math.random() * (canvas.width - radius * 2) + radius;
+            let y = Math.random() * (canvas.height - radius * 2) + radius;
+            let dx = (Math.random() - 0.5) * 4;
+            let dy = (Math.random() - 0.5) * 4;
+            bubbles.push(new Bubble(x, y, dx, dy, radius, skills[i]));
+        }
 
         function Bubble(x, y, dx, dy, radius, skillImagePath) {
             this.x = x;
@@ -22,21 +41,19 @@ const BubbleCanvas = ({skills}) => {
         
             // Load the image
             this.image = new Image();
-            this.image.src = skillImagePath;
+            this.image.src = skillImagePath; // replace this with the path to your image
         
             this.draw = function() {
-                ctx.drawImage(this.image, this.x, this.y, this.radius * 2, this.radius * 2);
+                ctx.drawImage(this.image, this.x, this.y, this.radius*2, this.radius*2);
             };
         
             this.update = function() {
-                if (this.x + this.radius * 2 > canvas.width || this.x < 0) {
+                if (this.x + this.radius > canvas.width || this.x - this.radius < 0) {
                     this.dx = -this.dx;
-                    sparks.push(new Spark(this.x, this.y));
                 }
         
-                if (this.y + this.radius * 2 > canvas.height || this.y < 0) {
+                if (this.y + this.radius > canvas.height || this.y - this.radius < 0) {
                     this.dy = -this.dy;
-                    sparks.push(new Spark(this.x, this.y));
                 }
         
                 this.x += this.dx;
@@ -46,72 +63,12 @@ const BubbleCanvas = ({skills}) => {
             };
         }
 
-        function Spark(x, y) {
-            this.x = x;
-            this.y = y;
-            this.particles = [];
-
-            // Create particles
-            for (let i = 0; i < 5; i++) {
-                this.particles.push({
-                    x: x,
-                    y: y,
-                    dx: (Math.random() - 0.5) * 5,
-                    dy: (Math.random() - 0.5) * 5,
-                    alpha: 1,
-                    radius: Math.random() * 5,
-                });
-            }
-
-            this.draw = function() {
-                ctx.save(); // Save the current state
-
-                this.particles.forEach(particle => {
-                    ctx.globalAlpha = particle.alpha; // Apply opacity
-                    ctx.beginPath();
-                    ctx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2, false);
-                    ctx.fillStyle = 'var(--theme-ui-colors-orange)';
-                    ctx.fill();
-                });
-
-                ctx.restore(); // Restore to previous state
-            };
-        
-            this.update = function() {
-                this.particles.forEach(particle => {
-                    particle.x += particle.dx;
-                    particle.y += particle.dy;
-                    particle.alpha -= 0.01; // Reduce opacity over time
-                });
-
-                this.particles = this.particles.filter(particle => particle.alpha > 0);
-
-                this.draw();
-            };
-        }
-
-        const radius = 100; // Constant radius for all bubbles
-        for (let i = 0; i < skills.length; i++) {
-            let x = Math.random() * (canvas.width - radius * 2);
-            let y = Math.random() * (canvas.height - radius * 2);
-            let dx = (Math.random() - 0.5) * 4;
-            let dy = (Math.random() - 0.5) * 4;
-            bubbles.push(new Bubble(x, y, dx, dy, radius, skills[i]));
-        }
-
         function animate() {
             requestAnimationFrame(animate);
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
             for (let i = 0; i < bubbles.length; i++) {
                 bubbles[i].update();
-            }
-
-            for (let i = sparks.length - 1; i >= 0; i--) {
-                sparks[i].update();
-                if (sparks[i].particles.length === 0) { // If all particles are gone
-                    sparks.splice(i, 1); // Remove spark
-                }
             }
         }
 
