@@ -21,7 +21,7 @@ const schema = yup.object({
 
 const ContactPage = () => {
   const [isPostSuccessful, setIsPostSuccessful] = useState(false);
-  const { register, handleSubmit, formState: { errors, isSubmitting, isSubmitted, isValid, } } = useForm({
+  const { register, handleSubmit, formState: { errors, isSubmitting, isSubmitted, isValid } } = useForm({
     resolver: yupResolver(schema),
     mode: "onBlur"
 
@@ -44,7 +44,6 @@ const ContactPage = () => {
     })
 
     if (response.ok) {
-      console.log("good response")
       setIsPostSuccessful(true)
     }
   }
@@ -78,28 +77,28 @@ const ContactPage = () => {
                 type="hidden" 
                 name="form-name" 
                 value="Contact Form" />
-
-              <Input sx={{ mb: 3, bg: "primary", color: "secondary", border: "none", p: 3 }} 
-                name="email" {...register("email")} 
-                type="text" 
-                placeholder="Email Address..."/>
-              {errors.email && <Text sx={{ color: "red", mb: 3, display: "block" }}>{errors.email?.message}</Text>}
-              
-              <Input sx={{ mb: 3, bg: "primary", color: "secondary", border: "none", p: 3 }} 
-                name="subject" {...register("subject")} 
-                type="text" 
-                placeholder="Subject..."/>
+              <Box>
+                <Input sx={{ mb: 3, bg: "primary", color: "secondary", border: "none", p: 3 }} 
+                  name="email" {...register("email")} 
+                  type="text" 
+                  placeholder="Email Address..."/>
+                {errors.email && <Text sx={{ color: "red", mb: 3, display: "block" }}>{errors.email?.message}</Text>}
+              </Box>
+              <Box>
+                <Input sx={{ mb: 3, bg: "primary", color: "secondary", border: "none", p: 3 }} 
+                  name="subject" {...register("subject")} 
+                  type="text" 
+                  placeholder="Subject..."/>
               {errors.subject && <Text sx={{ color: "red", mb: 3, display: "block" }}>{errors.subject?.message}</Text>}
-              
-              <Textarea sx={{ mb: 3, bg: "primary", color: "secondary", border: "none", p: 3, fontFamily: "roboto", minHeight: "300px", resize: "vertical" }} 
-                name="message" {...register("message")} 
-                type="text" 
-                placeholder="Message..."></Textarea>
-              {errors.message && <Text sx={{ color: "red", mb: 3, display: "block" }} >{errors.message?.message}</Text>}
-              
-              <button sx={{backgroundColor: 'transparent', border: 'none', padding: '0'}} onClick={isValid ? handleSubmit(onSubmit): null}>
-                <Button variant="primary" disabled={!isValid}>send</Button>
-              </button>
+              </Box>
+              <Box>
+                <Textarea sx={{ mb: 3, bg: "primary", color: "secondary", border: "none", p: 3, fontFamily: "roboto", minHeight: "300px", resize: "vertical" }} 
+                  name="message" {...register("message")} 
+                  type="text" 
+                  placeholder="Message..."></Textarea>
+                {errors.message && <Text sx={{ color: "red", mb: 3, display: "block" }} >{errors.message?.message}</Text>}
+              </Box>
+              <Button variant="primary" onClick={handleSubmit(onSubmit)} type="submit" disabled={!isValid}>send</Button>
             </Box>
           </Box>}
 
