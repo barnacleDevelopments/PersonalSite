@@ -97,9 +97,9 @@ const ContactPage = () => {
                 placeholder="Message..."></Textarea>
               {errors.message && <Text sx={{ color: "red", mb: 3, display: "block" }} >{errors.message?.message}</Text>}
               
-              <Link onClick={handleSubmit(onSubmit)} type="submit">
-                <Button variant="primary">send</Button>
-              </Link>
+              <button sx={{backgroundColor: 'transparent', border: 'none', padding: '0'}} onClick={isValid ? handleSubmit(onSubmit): null}>
+                <Button variant="primary" disabled={!isValid}>send</Button>
+              </button>
             </Box>
           </Box>}
 
