@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from "theme-ui";
+import { Link, jsx } from "theme-ui";
 import { graphql } from "gatsby";
 
 // Components
@@ -25,8 +25,8 @@ const ProjectsPage = ({ data }) => {
           }}>Projects</Themed.h1>
           <Text variant="large">
             Here are a few of my projects! I'm always looking for new projects to work on so 
-            <a href="/contact"> let's get in touch</a> or 
-            <a href="/services"> try my estimate feature</a>!
+            <Link href="/contact"> let's get in touch</Link> or 
+            <Link href="/about"> try my estimate feature</Link>!
             </Text>
         </Box>
         <Grid sx={{

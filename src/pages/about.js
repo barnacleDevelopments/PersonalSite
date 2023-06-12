@@ -7,8 +7,23 @@ import { Box, Text, Themed, Grid, Button, Link } from "theme-ui";
 import Seo from "../components/app/Seo";
 import ServiceCard from "../components/cards/ServiceCard";
 import { StaticImage } from "gatsby-plugin-image";
+import BubbleCanvas from "../components/BubbleCanvas";
 
 const ServicesPage = () => {
+
+  const skills = [
+    "/assets/angular_icon.png", 
+    "/assets/react_icon.png", 
+    "/assets/javascript_logo.png", 
+    "/assets/net_logo.png",
+    "/assets/vue_logo.png",
+    "/assets/azure_logo.png",
+    "/assets/chat_logo.png",
+    "/assets/mssql_logo.png",
+    "/assets/git_logo.png",
+  ]
+
+
   return (
     <Layout>
       <Seo title="About" />
@@ -17,7 +32,7 @@ const ServicesPage = () => {
         width: ["90%", "80%", "70%"],
         my: 6
       }}>
-          <Box sx={{ mt: 6, mb: 5 }}>
+        <Box sx={{ mt: 6, mb: 5 }}>
           <Themed.h1 sx={{
             mb: 3,
             color: "primary",
@@ -34,6 +49,26 @@ const ServicesPage = () => {
             a avid boulderer who currently lives in the beautiful city of Halifax.  
           </Text>
         </Box>
+        <Box>
+          <Themed.h2 sx={{
+            mb: 3,
+            color: "primary",
+          }}>Skills</Themed.h2>
+          <Text variant="regular" sx={{pt: 3}}>
+            Skills are aquired through experience. I've been working with web technologies for over 5 years now.
+            What I've learned is that skills are not static. They are constantly evolving and changing.
+            I'm always learning new things and I'm always excited to learn more. Here are some of the skills I've aquired over the years.
+          </Text>
+          <Box sx={{
+            border: '2px solid #eaeaea',
+            mt: 3,
+            borderRadius: '5px',
+            backgroundColor: '#f8f8f8'
+          }}>
+            <BubbleCanvas skills={skills} />
+          </Box>
+        </Box>
+    
         <Box sx={{ mt: 6, mb: 5 }}>
           <Themed.h1 sx={{
             mb: 3,
