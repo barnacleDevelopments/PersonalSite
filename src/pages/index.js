@@ -8,8 +8,8 @@ import ReviewCard from "../components/cards/ReviewCard";
 import { StaticImage } from "gatsby-plugin-image";
 import { Text, Themed, Button, Flex, Box, Grid, Link } from "theme-ui";
 import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
-import { faBrain, faBug, faChartLine, faDesktop, faMousePointer, faPeopleArrows, faRocket, faServer, faStore, faTabletAlt, faUniversalAccess } from "@fortawesome/free-solid-svg-icons";
-import { faAddressCard, faLightbulb } from "@fortawesome/free-regular-svg-icons";
+import { faBrain, faBug, faChartLine, faDesktop, faPeopleArrows, faRocket, faServer, faStore, faTabletAlt } from "@fortawesome/free-solid-svg-icons";
+import { faLightbulb } from "@fortawesome/free-regular-svg-icons";
 import Seo from "../components/app/Seo";
 import Loader from "../components/Loader";
 import { faGit } from "@fortawesome/free-brands-svg-icons";
@@ -290,14 +290,18 @@ const IndexPage = ({ data }) => {
           <Themed.h2 sx={{
             mb: 4,
           }}>
-            Explore Services
+            Let's Work Together
           </Themed.h2>
           <Text
             variant="regular" sx={{ color: "white" }}>
-            Whether you are looking for something simple or more advanced, I can create a custom solutions to represent your business at its best.
+            I'm an pasionate developer who is always trying to master new skills and be of service to those I work with.
           </Text>
           <Box sx={{ mt: 4 }} >
-            <Link href="/services" ><Button variant="primary">Choose Your Service</Button></Link>
+            <Link href="/about" >
+              <Button variant="primary">
+                Learn how I can help
+              </Button>
+            </Link>
           </Box>
         </Flex>
       </Box>

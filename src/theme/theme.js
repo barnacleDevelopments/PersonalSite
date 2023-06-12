@@ -21,19 +21,22 @@ module.exports = {
     },
     small: {
       fontSize: [1, 2],
-      lineHeight: 1.5
+      lineHeight: 1.5,
+      display: 'block'
     },
     regular: {
       color: "primary",
       fontSize: [2, 3],
-      lineHeight: 1.5
+      lineHeight: 1.5,
+      display: 'block'
 
     },
     large: {
       color: "primary",
       fontSize: [3, 4],
       fontWeight: "500",
-      lineHeight: 1.5
+      lineHeight: 1.5,
+      display: 'block'
     }
   },
   links: {

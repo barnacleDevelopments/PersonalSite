@@ -63,7 +63,7 @@ const SideNav = ({ isOpen, setSideNavOpen, enableScrollFunc }) => {
           <NavLink href="/posts">Blog</NavLink>
           <NavLink href="/contact">Contact</NavLink>
           <NavLink href="/projects">Projects</NavLink>
-          <NavLink href="/services">Services</NavLink>
+          <NavLink href="/about">About</NavLink>
         </Flex>
       </Box >
     </Flex>

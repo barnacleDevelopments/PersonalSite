@@ -23,7 +23,7 @@ const ProgrammingPostsPage = ({ data }) => {
             mb: 3,
             color: "primary",
           }}>Blog Posts</Themed.h1>
-          <Text variant="large" sx={{ textAlign: "center" }}>Looking to learn more about websites? Here I post content about various web related topics.</Text>
+          <Text variant="large" sx={{ textAlign: "center" }}>Looking to learn more about web development? Here I post content about various web related topics.</Text>
         </Box>
         <Grid sx={{
           mb: 6

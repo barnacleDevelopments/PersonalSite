@@ -23,7 +23,7 @@ const ProjectsPage = ({ data }) => {
             mb: 3,
             color: "primary",
           }}>Projects</Themed.h1>
-          <Text variant="large" sx={{ textAlign: "center" }}>
+          <Text variant="large">
             Here are a few of my projects! I'm always looking for new projects to work on so 
             <a href="/contact"> let's get in touch</a> or 
             <a href="/services"> try my estimate feature</a>!

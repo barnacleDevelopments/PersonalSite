@@ -31,7 +31,7 @@ const Footer = () => {
             <Link sx={{ mb: 2, width: "max-content" }} variant="footLink" href="/">Home</Link>
             <Link sx={{ mb: 2, width: "max-content" }} variant="footLink" href="/contact">Contact</Link>
             <Link sx={{ mb: 2, width: "max-content" }} variant="footLink" href="/projects">Projects</Link>
-            <Link sx={{ mb: 2, width: "max-content" }} variant="footLink" href="/services">Services</Link>
+            <Link sx={{ mb: 2, width: "max-content" }} variant="footLink" href="/services">About</Link>
           </Flex>
         </Box>
       </Grid>

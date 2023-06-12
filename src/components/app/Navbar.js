@@ -135,7 +135,7 @@ const Navbar = () => {
         </Box>
         <Box sx={{ display: ["none", "block"], color: "white" }}>
           <NavLink sx={{ mr: 3, color: !isScrolledTop ? navTextColorScrolled : null }} href="/projects">Projects</NavLink>
-          <NavLink sx={{ color: !isScrolledTop ? navTextColorScrolled : null }} href="/services">Services</NavLink>
+          <NavLink sx={{ color: !isScrolledTop ? navTextColorScrolled : null }} href="/about">About</NavLink>
         </Box>
       </Box >
     </Flex >
