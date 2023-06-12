@@ -1,8 +1,8 @@
 ---
 title: Resson's Marketing Website
-description: Paul Legere and I have worked together to design and implement a
-  high-fidelity and high-performing website for the Resson aerospace company,
-  recently acquired by McCain.
+description: "[Paul Legere](https://www.linkedin.com/in/paul-legere) and I have
+  worked together to design and implement a high-fidelity and high-performing
+  website for the Resson aerospace company, recently acquired by McCain."
 image1: /assets/screenshot-from-2022-12-29-15-36-07.png
 tech: The site was developed using the Gatsby JavaScript framework along with
   the Netlify content management system to allow for blazing fast page loads and
