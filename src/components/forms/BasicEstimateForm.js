@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui"
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import 'react-picky/dist/picky.css';
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -50,13 +50,13 @@ const BasicEstimateForm = ({ onClose }) => {
   function handleLanguageSelect(values) {
     let formContent = formContents;
     formContent.languages = values;
-    setFormContent(values);
+    setFormContent({...formContent});
   }
 
   function handlePageCountSelect(value) {
     let formContent = formContents;
     formContent.pageCount = value;
-    setFormContent(formContent);
+    setFormContent({...formContent});
   }
 
   function onSubmit(data) {
@@ -112,7 +112,7 @@ const BasicEstimateForm = ({ onClose }) => {
                   <Themed.h4 sx={{ mb: 3, mt: 2 }}>Website Info</Themed.h4>
                   <Box sx={{ ml: 2 }}>
                     <Box>
-                      <Label for="picky-pages">Page Count:</Label>
+                      <Label>Page Count:</Label>
                       <Picky
                         buttonProps={{
                           style: { marginTop: 10, marginBottom: 15 }
@@ -125,7 +125,7 @@ const BasicEstimateForm = ({ onClose }) => {
                       />
                     </Box>
                     <Box>
-                      <Label for="picky-languages">Languages:</Label>
+                      <Label>Languages:</Label>
                       <Picky
                         buttonProps={{
                           style: { marginTop: 10, marginBottom: 15 }
@@ -140,18 +140,18 @@ const BasicEstimateForm = ({ onClose }) => {
                     </Box>
                     <Flex sx={{ mb: 3 }}>
                       <input id="hasContactForm" {...register("hasContactForm")} type="checkbox" />
-                      <Label for="hasContactForm">Contact Form</Label>
+                      <Label>Contact Form</Label>
                     </Flex>
                     <Flex sx={{ mb: 3 }}>
                       <input id="hasSEO" {...register("hasSEO")} type="checkbox" />
-                      <Label for="hasSEO">Search Engine Optimization (SEO)</Label>
+                      <Label>Search Engine Optimization (SEO)</Label>
                     </Flex>
                     <Flex sx={{ mb: 3 }}>
                       <input id="hasCMS" {...register("hasCMS")} type="checkbox" />
-                      <Label for="hasCMS">Content Mangement System (CMS)</Label>
+                      <Label>Content Mangement System (CMS)</Label>
                     </Flex>
                     <Box sx={{ mb: 3 }}>
-                      <Label sx={{ mb: 2 }} for="notes">Notes: </Label>
+                      <Label sx={{ mb: 2 }}>Notes: </Label>
                       <Textarea sx={{ resize: "vertical" }} id="notes" {...register("notes")} type="text" />
                     </Box>
                   </Box>
