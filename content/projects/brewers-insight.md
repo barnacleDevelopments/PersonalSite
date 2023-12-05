@@ -1,5 +1,5 @@
 ---
-title: Brewers Insight
+title: Brewers Insight - Packaging BOM
 description: Over the last year, I have actively participated in the development
   of Brewer's Insight (BI). BI gives brewers and owners insight into their
   operations by digitizing, streamlining and communicating their tasks and data
