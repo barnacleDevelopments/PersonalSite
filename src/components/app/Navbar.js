@@ -1,9 +1,10 @@
 /** @jsx jsx */
-import { jsx } from "theme-ui"
+import { jsx } from "theme-ui";
 import { StaticImage } from "gatsby-plugin-image";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import SideNav from "./SideNav";
 import { Box, Flex, NavLink, Link } from "theme-ui";
+import { WalletContext } from "../../contexts/WalletContext";
 
 const Navbar = () => {
   const [navTextColor, setNavTextColor] = useState("");
@@ -12,18 +13,21 @@ const Navbar = () => {
   const [isScrolledTop, setIsScrolledTop] = useState(true);
   const [sideNavOpen, setSideNavOpen] = useState(false);
 
+  // setup wallet context
+  const { connectWallet, walletAddress } = useContext(WalletContext);
+
   const styleNavBar = () => {
     if (window.scrollY < 20) {
       setIsScrolledTop(true);
     } else {
       setIsScrolledTop(false);
     }
-  }
+  };
 
   const getPath = () => {
-    let path = typeof window !== 'undefined' ? window.location.pathname : '';
-    return path.replaceAll("/", "")
-  }
+    let path = typeof window !== "undefined" ? window.location.pathname : "";
+    return path.replaceAll("/", "");
+  };
 
   const getTextColor = (path) => {
     switch (path) {
@@ -38,7 +42,7 @@ const Navbar = () => {
       default:
         return "#ffffff";
     }
-  }
+  };
 
   const getTextScrolled = (path) => {
     switch (path) {
@@ -53,7 +57,7 @@ const Navbar = () => {
       default:
         return "#30362F";
     }
-  }
+  };
 
   const getScrollColor = (path) => {
     switch (path) {
@@ -66,17 +70,23 @@ const Navbar = () => {
       default:
         return "#ffffff";
     }
-  }
+  };
 
   function disableScroll() {
     var x = window.scrollX;
     var y = window.scrollY;
-    window.onscroll = function () { window.scrollTo(x, y); };
+    window.onscroll = function () {
+      window.scrollTo(x, y);
+    };
   }
 
   function enableScroll() {
-    window.onscroll = function () { };
+    window.onscroll = function () {};
   }
+
+  const truncateAddress = (address) => {
+    return address.slice(0, 6) + "..." + address.slice(-4);
+  };
 
   useEffect(() => {
     const path = getPath();
@@ -86,61 +96,128 @@ const Navbar = () => {
 
     setNavScrollColor(scrollColor);
     setNavTextColor(textColor);
-    setNavTextColorScrolled(textColorScrolled)
-
+    setNavTextColorScrolled(textColorScrolled);
 
     window.addEventListener("scroll", styleNavBar);
 
     return function removeScrollListener() {
-      window.removeEventListener("scroll", styleNavBar)
-    }
+      window.removeEventListener("scroll", styleNavBar);
+    };
   }, []);
 
   return (
-    <Flex sx={navWrapper} style={{ backgroundColor: !isScrolledTop ? navScrollColor : null }}>
-      <SideNav isOpen={sideNavOpen} setSideNavOpen={setSideNavOpen} enableScrollFunc={enableScroll} />
-      <Box sx={{
-        width: "90%",
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
-      }}>
+    <Flex
+      sx={navWrapper}
+      style={{ backgroundColor: !isScrolledTop ? navScrollColor : null }}
+    >
+      <SideNav
+        isOpen={sideNavOpen}
+        setSideNavOpen={setSideNavOpen}
+        enableScrollFunc={enableScroll}
+      />
+      <Box
+        sx={{
+          width: "90%",
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
+      >
         <Box sx={{ display: ["none", "block"], color: "white" }}>
-          <NavLink sx={{ mr: 3, color: !isScrolledTop ? navTextColorScrolled : null }} href="/blog">Blog</NavLink>
-          <NavLink sx={{ color: !isScrolledTop ? navTextColorScrolled : null }} href="/contact">Contact</NavLink>
+          <NavLink
+            sx={{ mr: 3, color: !isScrolledTop ? navTextColorScrolled : null }}
+            href="/blog"
+          >
+            Blog
+          </NavLink>
+          <NavLink
+            sx={{ color: !isScrolledTop ? navTextColorScrolled : null }}
+            href="/contact"
+          >
+            Contact
+          </NavLink>
         </Box>
-        {isScrolledTop ?
+        {isScrolledTop ? (
           <Link sx={{ width: "60px" }} href="/">
             <Box className="nav-triangle"></Box>
             <Box>
-              <StaticImage src="../../images/logo.png" alt="Dev's Webshop Logo" />
+              <StaticImage
+                src="../../images/logo.png"
+                alt="Dev's Webshop Logo"
+              />
             </Box>
             <Box className="nav-triangle"></Box>
           </Link>
-          :
+        ) : (
           <Link sx={{ width: "60px" }} href="/">
             <Box className="nav-triangle"></Box>
             <Box>
-              <StaticImage src="../../images/logo_2.png" alt="Dev's Webshop Logo" />
+              <StaticImage
+                src="../../images/logo_2.png"
+                alt="Dev's Webshop Logo"
+              />
             </Box>
             <Box className="nav-triangle"></Box>
-          </Link>}
-        <Box sx={hamburgerStyles} onClick={(e) => {
-          setSideNavOpen(true)
-          disableScroll()
-        }} href="/">
-          <div sx={{ ...hamburderPatty, backgroundColor: isScrolledTop ? navScrollColor : navTextColorScrolled }}></div>
-          <div sx={{ ...hamburderPatty, backgroundColor: isScrolledTop ? navScrollColor : navTextColorScrolled }}></div>
-          <div sx={{ ...hamburderPatty, backgroundColor: isScrolledTop ? navScrollColor : navTextColorScrolled }}></div>
+          </Link>
+        )}
+        <Box
+          sx={hamburgerStyles}
+          onClick={(e) => {
+            setSideNavOpen(true);
+            disableScroll();
+          }}
+          href="/"
+        >
+          <div
+            sx={{
+              ...hamburderPatty,
+              backgroundColor: isScrolledTop
+                ? navScrollColor
+                : navTextColorScrolled,
+            }}
+          ></div>
+          <div
+            sx={{
+              ...hamburderPatty,
+              backgroundColor: isScrolledTop
+                ? navScrollColor
+                : navTextColorScrolled,
+            }}
+          ></div>
+          <div
+            sx={{
+              ...hamburderPatty,
+              backgroundColor: isScrolledTop
+                ? navScrollColor
+                : navTextColorScrolled,
+            }}
+          ></div>
         </Box>
         <Box sx={{ display: ["none", "block"], color: "white" }}>
-          <NavLink sx={{ mr: 3, color: !isScrolledTop ? navTextColorScrolled : null }} href="/projects">Projects</NavLink>
-          <NavLink sx={{ color: !isScrolledTop ? navTextColorScrolled : null }} href="/about">About</NavLink>
+          <NavLink
+            sx={{ mr: 3, color: !isScrolledTop ? navTextColorScrolled : null }}
+            href="/projects"
+          >
+            Projects
+          </NavLink>
+          <NavLink
+            sx={{ color: !isScrolledTop ? navTextColorScrolled : null }}
+            href="/about"
+          >
+            About
+          </NavLink>
+          <div>
+            {walletAddress ? (
+              <p>Connected as {truncateAddress(walletAddress)}</p>
+            ) : (
+              <button onClick={connectWallet}>Connect Wallet</button>
+            )}
+          </div>
         </Box>
-      </Box >
-    </Flex >
-  )
-}
+      </Box>
+    </Flex>
+  );
+};
 
 const navWrapper = {
   top: "0px",
@@ -155,10 +232,10 @@ const navWrapper = {
   zIndex: "100",
   backgroundColor: "primary",
   transition: "background-color .3s",
-  "i": {
-    fontSize: "2em"
-  }
-}
+  i: {
+    fontSize: "2em",
+  },
+};
 
 const hamburgerStyles = {
   width: "30px",
@@ -166,13 +243,13 @@ const hamburgerStyles = {
   flexDirection: "column",
   justifyContent: "space-between",
   cursor: "pointer",
-  display: ["flex", "none"]
-}
+  display: ["flex", "none"],
+};
 
 const hamburderPatty = {
   height: "4px",
   width: "100%",
-  backgroundColor: "white"
-}
+  backgroundColor: "white",
+};
 
 export default Navbar;

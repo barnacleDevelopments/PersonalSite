@@ -38,4 +38,8 @@ contract ProjectVoting {
     function getBalanceOf() public view returns (uint) {
         return address(this).balance;
     }
+
+    function hasVotedForProject() public view returns (bool) {
+        return hasVoted[msg.sender];
+    }
 }

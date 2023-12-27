@@ -2,32 +2,23 @@
 import { jsx } from "theme-ui";
 import { GatsbyImage } from "gatsby-plugin-image";
 import { getImage } from "gatsby-plugin-image";
-import Web3 from "web3";
-import projectVotingABI from "../../../backend/build/contracts/ProjectVoting.json";
 
 // Components
 import { Themed, Card, Text, Button, Flex, Box } from "theme-ui";
-import { useEffect, useState } from "react";
+import useProjectVoting from "../../hooks/project-voting";
+import { useEffect, useContext } from "react";
+import { WalletContext } from "../../contexts/WalletContext";
 
 // markup
-const ProjectCard = ({ image, title, content, siteLink, buttonText }) => {
+const ProjectCard = ({ id, image, title, content, siteLink, buttonText }) => {
   const cardImage = getImage(image);
-  const [voteCount, setVoteCount] = useState();
+  const { hasVoted, voteCount, voteForProject, checkHasVoted } =
+    useProjectVoting(id);
+  const { isWalletConnected } = useContext(WalletContext);
 
   useEffect(() => {
-    const web3 = new Web3(Web3.givenProvider || "http://localhost:9545");
-    const contractAddress = "0x9F88CbE3f79F1a2780ede54480A2e5EfbB73c135";
-    const contract = new web3.eth.Contract(
-      projectVotingABI.abi,
-      contractAddress
-    );
-    contract.methods
-      .getVoteCount(0)
-      .call()
-      .then((x) => {
-        setVoteCount(x.toString());
-      });
-  }, []);
+    checkHasVoted();
+  }, [isWalletConnected]);
 
   return (
     <Card
@@ -84,6 +75,15 @@ const ProjectCard = ({ image, title, content, siteLink, buttonText }) => {
               {buttonText}
             </Button>
           </a>
+          <Button
+            disabled={hasVoted || !isWalletConnected}
+            variant="secondary"
+            sx={{ mt: 3 }}
+            className="secondary-btn"
+            onClick={voteForProject}
+          >
+            Vote
+          </Button>
         </Box>
       </Flex>
     </Card>
