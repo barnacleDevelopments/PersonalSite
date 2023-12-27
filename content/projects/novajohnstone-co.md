@@ -1,4 +1,5 @@
 ---
+id: 1
 title: NovaJohnstone&Co
 description: Nova operates an excuative assistant consulting business and I set
   her up with a welcoming web presence.

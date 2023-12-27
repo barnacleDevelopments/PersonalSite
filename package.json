@@ -61,6 +61,7 @@
     "react-transition-group": "^4.4.2",
     "showdown": "^2.1.0",
     "theme-ui": "^0.14.0",
+    "web3": "^4.3.0",
     "yup": "^0.32.11"
   }
 }

@@ -1,4 +1,5 @@
 ---
+id: 3
 thumnail: /assets/logo_2.png
 title: Evernote Clone
 description: I started this desktop application while attending the [Nova Scotia

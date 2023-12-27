@@ -9,13 +9,20 @@ module.exports = {
     image: {
       src: `assets/logo_2.png`,
       width: 110,
-      height: 110
+      height: 110,
     },
     titleTemplate: "Web Development Services",
     defaultTitle: "Web Development Services",
-    description: "Web development services for small business and startups. Get in touch!",
+    description:
+      "Web development services for small business and startups. Get in touch!",
     lang: "en",
-    keywords: ["webdev", "developer", "gatsby", "web services", "website development"]
+    keywords: [
+      "webdev",
+      "developer",
+      "gatsby",
+      "web services",
+      "website development",
+    ],
   },
   plugins: [
     `gatsby-transformer-sharp`,
@@ -24,18 +31,15 @@ module.exports = {
       resolve: `gatsby-transformer-remark`,
       options: {
         plugins: [
-          'gatsby-remark-relative-images',
+          "gatsby-remark-relative-images",
           {
             resolve: `gatsby-remark-images`,
             options: {},
           },
           {
             resolve: "gatsby-remark-prismjs",
-            options: {
-
-            }
+            options: {},
           },
-
         ],
       },
     },
@@ -43,7 +47,7 @@ module.exports = {
       resolve: `gatsby-source-filesystem`,
       options: {
         path: `${__dirname}/static/assets`,
-        name: 'images',
+        name: "images",
       },
     },
     {
@@ -55,10 +59,10 @@ module.exports = {
     },
 
     {
-      resolve: 'gatsby-plugin-theme-ui',
+      resolve: "gatsby-plugin-theme-ui",
       options: {
-        preset: require(`${__dirname}/src/theme/theme.js`)
-      }
+        preset: require(`${__dirname}/src/theme/theme.js`),
+      },
     },
     {
       resolve: `gatsby-plugin-manifest`,
@@ -70,7 +74,8 @@ module.exports = {
         theme_color: `#30362F`,
         display: `standalone`,
         icon: "src/images/logo.png",
-        description: "Web development services for small business and startups. Get in touch!"
+        description:
+          "Web development services for small business and startups. Get in touch!",
       },
     },
     {
@@ -91,25 +96,29 @@ module.exports = {
         mergeScriptHashes: false,
         mergeStyleHashes: false,
         directives: {
-          "script-src": "'self' 'unsafe-inline' 'unsafe-eval' google-analytics.com pagead2.googlesyndication.com adservice.google.ca adservice.google.com partner.googleadservices.com tpc.googlesyndication.com",
-          "style-src": "'self' 'unsafe-inline' fonts.googleapis.com fonts.gstatic.com",
-          'font-src': "fonts.gstatic.com",
-          'connect-src': "'self' pagead2.googlesyndication.com",
-          'frame-src': "googleads.g.doubleclick.net www.google.com tpc.googlesyndication.com",
-          'img-src': "'self' data: pagead2.googlesyndication.com"
+          "script-src":
+            "'self' 'unsafe-inline' 'unsafe-eval' google-analytics.com pagead2.googlesyndication.com adservice.google.ca adservice.google.com partner.googleadservices.com tpc.googlesyndication.com",
+          "style-src":
+            "'self' 'unsafe-inline' fonts.googleapis.com fonts.gstatic.com",
+          "font-src": "fonts.gstatic.com",
+          "connect-src": "'self' pagead2.googlesyndication.com",
+          "frame-src":
+            "googleads.g.doubleclick.net www.google.com tpc.googlesyndication.com",
+          "img-src": "'self' data: pagead2.googlesyndication.com",
           // you can add your directives or override defaults
-        }
-      }
+        },
+      },
     },
     {
-      resolve: 'gatsby-plugin-robots-txt',
+      // TODO: Fix this
+      resolve: "gatsby-plugin-robots-txt",
       options: {
-        host: 'https://www.devs-webshop.tech',
-        sitemap: 'https://www.devs-webshop.tech/sitemap.xml',
-        policy: [{ userAgent: 'Mediapartners-Google*', allow: '/' }]
-      }
+        host: "https://www.devs-webshop.tech",
+        sitemap: "https://www.devs-webshop.tech/sitemap.xml",
+        policy: [{ userAgent: "Mediapartners-Google*", allow: "/" }],
+      },
     },
-    'gatsby-plugin-react-helmet',
+    "gatsby-plugin-react-helmet",
     `gatsby-plugin-image`,
   ],
 };
