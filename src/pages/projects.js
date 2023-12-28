@@ -4,17 +4,16 @@ import { graphql } from "gatsby";
 
 // Components
 import ProjectCard from "../components/cards/ProjectCard";
-import Layout from "../components/app/Layout";
 import { Box, Text, Themed, Grid } from "theme-ui";
 import Seo from "../components/app/Seo";
 import { useContext, useEffect, useState } from "react";
 import { Button, Flex } from "theme-ui";
+
 // Hooks
 import useProjectVoting from "../hooks/project-voting";
 
 // Contexts
 import { WalletContext } from "../contexts/WalletContext";
-import { StaticImage } from "gatsby-plugin-image";
 
 import MetaMask from "../images/meta-mask.svg";
 
@@ -75,7 +74,7 @@ const ProjectsPage = ({ data }) => {
             here why not vote for your favourite project?
           </Text>
           <Box>
-            <Themed.h2 sx={{ mt: 4 }}>What is WEB3</Themed.h2>
+            <Themed.h2 sx={{ mt: 4 }}>How to Vote - Web3</Themed.h2>
             <Text variant="regular" sx={{ mt: 3 }}>
               Web3 is a trending topic in the web development world. It is a
               collection of technologies that enable the creation of
@@ -120,9 +119,11 @@ const ProjectsPage = ({ data }) => {
                       recorded because the Ethereum blockchain is slow.
                     </Text>
                   )}
-                  <Box mt={3} sx={{ color: "orange" }}>
+                  <Box mt={3} sx={{ color: "white" }}>
                     {walletAddress ? (
-                      `Connected as ${truncateAddress(walletAddress)}`
+                      <Text variant="regular" color="white">
+                        {`Connected as ${truncateAddress(walletAddress)}`}
+                      </Text>
                     ) : (
                       <Button
                         sx={{ display: "flex", alignItems: "center" }}
