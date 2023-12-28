@@ -3,6 +3,7 @@ import { jsx } from "theme-ui";
 
 // STYLES
 import "../../css/reset.css";
+
 // COMPONENTS
 import Navbar from "./Navbar";
 import Footer from "./Footer";
