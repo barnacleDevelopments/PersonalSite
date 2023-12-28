@@ -14,7 +14,7 @@ const Navbar = () => {
   const [sideNavOpen, setSideNavOpen] = useState(false);
 
   // setup wallet context
-  const { connectWallet, walletAddress } = useContext(WalletContext);
+  const { hasVoted, isWalletConnected } = useContext(WalletContext);
 
   const styleNavBar = () => {
     if (window.scrollY < 20) {
@@ -84,10 +84,6 @@ const Navbar = () => {
     window.onscroll = function () {};
   }
 
-  const truncateAddress = (address) => {
-    return address.slice(0, 6) + "..." + address.slice(-4);
-  };
-
   useEffect(() => {
     const path = getPath();
     const scrollColor = getScrollColor(path);
@@ -106,116 +102,129 @@ const Navbar = () => {
   }, []);
 
   return (
-    <Flex
-      sx={navWrapper}
-      style={{ backgroundColor: !isScrolledTop ? navScrollColor : null }}
-    >
-      <SideNav
-        isOpen={sideNavOpen}
-        setSideNavOpen={setSideNavOpen}
-        enableScrollFunc={enableScroll}
-      />
-      <Box
-        sx={{
-          width: "90%",
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-        }}
+    <Box>
+      <Flex
+        sx={navWrapper}
+        style={{ backgroundColor: !isScrolledTop ? navScrollColor : null }}
       >
-        <Box sx={{ display: ["none", "block"], color: "white" }}>
-          <NavLink
-            sx={{ mr: 3, color: !isScrolledTop ? navTextColorScrolled : null }}
-            href="/blog"
-          >
-            Blog
-          </NavLink>
-          <NavLink
-            sx={{ color: !isScrolledTop ? navTextColorScrolled : null }}
-            href="/contact"
-          >
-            Contact
-          </NavLink>
-        </Box>
-        {isScrolledTop ? (
-          <Link sx={{ width: "60px" }} href="/">
-            <Box className="nav-triangle"></Box>
-            <Box>
-              <StaticImage
-                src="../../images/logo.png"
-                alt="Dev's Webshop Logo"
-              />
-            </Box>
-            <Box className="nav-triangle"></Box>
-          </Link>
-        ) : (
-          <Link sx={{ width: "60px" }} href="/">
-            <Box className="nav-triangle"></Box>
-            <Box>
-              <StaticImage
-                src="../../images/logo_2.png"
-                alt="Dev's Webshop Logo"
-              />
-            </Box>
-            <Box className="nav-triangle"></Box>
-          </Link>
-        )}
+        <SideNav
+          isOpen={sideNavOpen}
+          setSideNavOpen={setSideNavOpen}
+          enableScrollFunc={enableScroll}
+        />
         <Box
-          sx={hamburgerStyles}
-          onClick={(e) => {
-            setSideNavOpen(true);
-            disableScroll();
+          sx={{
+            width: "90%",
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
           }}
-          href="/"
         >
-          <div
-            sx={{
-              ...hamburderPatty,
-              backgroundColor: isScrolledTop
-                ? navScrollColor
-                : navTextColorScrolled,
+          <Box sx={{ display: ["none", "block"], color: "white" }}>
+            <NavLink
+              sx={{
+                mr: 3,
+                color: !isScrolledTop ? navTextColorScrolled : null,
+              }}
+              href="/blog"
+            >
+              Blog
+            </NavLink>
+            <NavLink
+              sx={{ color: !isScrolledTop ? navTextColorScrolled : null }}
+              href="/contact"
+            >
+              Contact
+            </NavLink>
+          </Box>
+          {isScrolledTop ? (
+            <Link sx={{ width: "60px" }} href="/">
+              <Box className="nav-triangle"></Box>
+              <Box>
+                <StaticImage
+                  src="../../images/logo.png"
+                  alt="Dev's Webshop Logo"
+                />
+              </Box>
+              <Box className="nav-triangle"></Box>
+            </Link>
+          ) : (
+            <Link sx={{ width: "60px" }} href="/">
+              <Box className="nav-triangle"></Box>
+              <Box>
+                <StaticImage
+                  src="../../images/logo_2.png"
+                  alt="Dev's Webshop Logo"
+                />
+              </Box>
+              <Box className="nav-triangle"></Box>
+            </Link>
+          )}
+          <Box
+            sx={hamburgerStyles}
+            onClick={(e) => {
+              setSideNavOpen(true);
+              disableScroll();
             }}
-          ></div>
-          <div
-            sx={{
-              ...hamburderPatty,
-              backgroundColor: isScrolledTop
-                ? navScrollColor
-                : navTextColorScrolled,
-            }}
-          ></div>
-          <div
-            sx={{
-              ...hamburderPatty,
-              backgroundColor: isScrolledTop
-                ? navScrollColor
-                : navTextColorScrolled,
-            }}
-          ></div>
-        </Box>
-        <Box sx={{ display: ["none", "block"], color: "white" }}>
-          <NavLink
-            sx={{ mr: 3, color: !isScrolledTop ? navTextColorScrolled : null }}
-            href="/projects"
+            href="/"
           >
-            Projects
-          </NavLink>
-          <NavLink
-            sx={{ color: !isScrolledTop ? navTextColorScrolled : null }}
-            href="/about"
-          >
-            About
-          </NavLink>
-          <div>
-            {walletAddress ? (
-              <p>Connected as {truncateAddress(walletAddress)}</p>
-            ) : (
-              <button onClick={connectWallet}>Connect Wallet</button>
-            )}
-          </div>
+            <div
+              sx={{
+                ...hamburderPatty,
+                backgroundColor: isScrolledTop
+                  ? navScrollColor
+                  : navTextColorScrolled,
+              }}
+            ></div>
+            <div
+              sx={{
+                ...hamburderPatty,
+                backgroundColor: isScrolledTop
+                  ? navScrollColor
+                  : navTextColorScrolled,
+              }}
+            ></div>
+            <div
+              sx={{
+                ...hamburderPatty,
+                backgroundColor: isScrolledTop
+                  ? navScrollColor
+                  : navTextColorScrolled,
+              }}
+            ></div>
+          </Box>
+          <Box sx={{ display: ["none", "block"], color: "white" }}>
+            <NavLink
+              sx={{
+                mr: 3,
+                color: !isScrolledTop ? navTextColorScrolled : null,
+              }}
+              href="/projects"
+            >
+              Projects
+            </NavLink>
+            <NavLink
+              sx={{ color: !isScrolledTop ? navTextColorScrolled : null }}
+              href="/about"
+            >
+              About
+            </NavLink>
+          </Box>
         </Box>
-      </Box>
-    </Flex>
+        {isWalletConnected && hasVoted ? (
+          <Box
+            sx={{
+              width: "100%",
+              height: "18px",
+              backgroundColor: "orange",
+              display: "block",
+            }}
+          >
+            {" "}
+          </Box>
+        ) : null}
+      </Flex>
+    </Box>
   );
 };
 
@@ -224,8 +233,8 @@ const navWrapper = {
   left: "0px",
   position: "fixed",
   width: "100%",
-  height: "60px",
   display: "flex",
+  flexDirection: "column",
   justifyContent: "space-around",
   alignItems: "center",
   minWidth: "375px",

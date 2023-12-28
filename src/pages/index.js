@@ -28,7 +28,7 @@ const IndexPage = ({ data }) => {
   const landingPageData = data.markdownRemark.frontmatter;
 
   return (
-    <Layout>
+    <Box>
       <Seo />
       <Box
         sx={{
@@ -360,7 +360,7 @@ const IndexPage = ({ data }) => {
           </Box>
         </Flex>
       </Box>
-    </Layout>
+    </Box>
   );
 };
 

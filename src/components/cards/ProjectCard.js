@@ -5,20 +5,27 @@ import { getImage } from "gatsby-plugin-image";
 
 // Components
 import { Themed, Card, Text, Button, Flex, Box } from "theme-ui";
-import useProjectVoting from "../../hooks/project-voting";
-import { useEffect, useContext } from "react";
+import { useContext } from "react";
 import { WalletContext } from "../../contexts/WalletContext";
 
 // markup
-const ProjectCard = ({ id, image, title, content, siteLink, buttonText }) => {
+const ProjectCard = ({
+  id,
+  image,
+  title,
+  content,
+  siteLink,
+  buttonText,
+  voteForProject,
+  hasVoted,
+  voteCount,
+}) => {
   const cardImage = getImage(image);
-  const { hasVoted, voteCount, voteForProject, checkHasVoted } =
-    useProjectVoting(id);
   const { isWalletConnected } = useContext(WalletContext);
 
-  useEffect(() => {
-    checkHasVoted();
-  }, [isWalletConnected]);
+  const isDisabled = () => {
+    return hasVoted || !isWalletConnected;
+  };
 
   return (
     <Card
@@ -76,11 +83,11 @@ const ProjectCard = ({ id, image, title, content, siteLink, buttonText }) => {
             </Button>
           </a>
           <Button
-            disabled={hasVoted || !isWalletConnected}
-            variant="secondary"
+            disabled={isDisabled()}
+            variant={isDisabled() ? "disabled" : "secondary"}
             sx={{ mt: 3 }}
             className="secondary-btn"
-            onClick={voteForProject}
+            onClick={() => voteForProject(id)}
           >
             Vote
           </Button>

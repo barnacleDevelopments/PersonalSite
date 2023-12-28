@@ -120,5 +120,13 @@ module.exports = {
     },
     "gatsby-plugin-react-helmet",
     `gatsby-plugin-image`,
+    {
+      resolve: "gatsby-plugin-react-svg",
+      options: {
+        rule: {
+          include: /images/, // See below to configure properly
+        },
+      },
+    },
   ],
 };

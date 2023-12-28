@@ -23,7 +23,7 @@ const ServicesPage = () => {
   ];
 
   return (
-    <Layout>
+    <Box>
       <Seo title="About" />
       <Box
         sx={{
@@ -154,7 +154,7 @@ const ServicesPage = () => {
           </Box>
         </Grid>
       </Box>
-    </Layout>
+    </Box>
   );
 };
 

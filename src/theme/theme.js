@@ -95,6 +95,10 @@ module.exports = {
         bg: "primary",
         color: "white",
       },
+      disabled: {
+        cursor: "not-allowed",
+        opacity: "0.5",
+      },
     },
   },
   styles: {
