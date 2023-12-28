@@ -1,4 +1,4 @@
-const { tailwind } = require('@theme-ui/presets');
+const { tailwind } = require("@theme-ui/presets");
 
 module.exports = {
   ...tailwind,
@@ -6,44 +6,42 @@ module.exports = {
     primary: "#30362F",
     secondary: "#eeeeee",
     orange: "#FFA630",
-    lightOrange: '#FFA63050'
+    lightOrange: "#FFA63050",
   },
   cards: {
-    primary: {
-    }
+    primary: {},
   },
   fonts: {
-    body: "'Raleway', sans-serif"
+    body: "'Raleway', sans-serif",
   },
   text: {
     hero: {
-      color: "white"
+      color: "white",
     },
     small: {
       fontSize: [1, 2],
       lineHeight: 1.5,
-      display: 'block'
+      display: "block",
     },
     regular: {
       color: "primary",
       fontSize: [2, 3],
       lineHeight: 1.5,
-      display: 'block'
-
+      display: "block",
     },
     large: {
       color: "primary",
       fontSize: [3, 4],
       fontWeight: "500",
       lineHeight: 1.5,
-      display: 'block'
-    }
+      display: "block",
+    },
   },
   links: {
     footLink: {
       color: "white",
       textDecoration: "none",
-      '&:hover': {
+      "&:hover": {
         color: "orange",
       },
     },
@@ -52,9 +50,9 @@ module.exports = {
       fontSize: "1.5em",
       fontWeight: 400,
       ":hover": {
-        color: "orange"
+        color: "orange",
       },
-    }
+    },
   },
   buttons: {
     primary: {
@@ -72,10 +70,10 @@ module.exports = {
       borderRadius: "0px",
       width: "max-content",
       cursor: "pointer",
-      '&:hover': {
+      "&:hover": {
         bg: "white",
-        color: "orange"
-      }
+        color: "orange",
+      },
     },
     secondary: {
       fontFamily: "'Raleway', sans-serif",
@@ -93,35 +91,34 @@ module.exports = {
       textAlign: "center",
       width: "max-content",
       cursor: "pointer",
-      '&:hover': {
+      "&:hover": {
         bg: "primary",
-        color: "white"
-      }
-    }
+        color: "white",
+      },
+    },
   },
   styles: {
     root: {
-      fontFamily: 'body',
-      lineHeight: 'body',
-      fontWeight: 'body',
-      m: 0
+      fontFamily: "body",
+      lineHeight: "body",
+      fontWeight: "body",
+      m: 0,
     },
     h1: {
       fontSize: [4, 5, 6, 7],
-      fontWeight: 'bold',
-      m: 0
+      fontWeight: "bold",
+      m: 0,
     },
     h2: {
       fontSize: [5, 5, 5, 6],
-      m: 0
+      m: 0,
     },
     h3: {
       fontSize: [4, 5, 5, 5],
-      m: 0
+      m: 0,
     },
     h4: {
       fontSize: 3,
-    }
-  }
-
-}
+    },
+  },
+};
