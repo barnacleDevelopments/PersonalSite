@@ -240,6 +240,7 @@ const navWrapper = {
   minWidth: "375px",
   zIndex: "100",
   backgroundColor: "primary",
+  boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.25)",
   transition: "background-color .3s",
   i: {
     fontSize: "2em",

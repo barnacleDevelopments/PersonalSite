@@ -21,7 +21,7 @@ const BlogPost = ({ data }) => {
   }, []);
 
   return (
-    <Layout>
+    <Box>
       <Seo
         title={`Post - ${node.frontmatter.title}`}
         keywords={node.frontmatter?.keywords.split(",")}
@@ -73,7 +73,7 @@ const BlogPost = ({ data }) => {
           }}
         ></Text>
       </Box>
-    </Layout>
+    </Box>
   );
 };
 

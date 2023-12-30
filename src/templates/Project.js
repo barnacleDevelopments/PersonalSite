@@ -16,7 +16,7 @@ function Project({ data }) {
   const converter = new showdown.Converter();
 
   return (
-    <Layout>
+    <Box>
       <Seo
         title={node.frontmatter.title}
         keywords={node.frontmatter.keywords.split(",")}
@@ -133,7 +133,7 @@ function Project({ data }) {
           </Box>
         </Grid>
       </Box>
-    </Layout>
+    </Box>
   );
 }
 

@@ -2,45 +2,46 @@
 pragma solidity ^0.8.0;
 
 contract ProjectVoting {
-    mapping(uint => uint) public projectVotes;
+    mapping(string => uint) public projectVotes;
     mapping(address => bool) public hasVoted;
-    mapping(uint => string) public projects;
-    uint[] public projectIds;
+    mapping(string => string) public projects;
+    mapping(address => string) public addressVotes;
+    string[] public projectIds;
     address public owner;
 
     constructor() {
         owner = msg.sender;
     }
 
-    function addProject(string memory projectName) public {
+    function add(string memory projectName, string memory projectId) public {
+        require(bytes(projects[projectId]).length == 0, "Project already exists");
         require(msg.sender == owner, "Only owner can add projects");        
-        uint projectId = projectIds.length;
         projects[projectId] = projectName;
-        projectIds.push(projectId);
+        projectIds.push(projectId);    
     }
 
-    function voteForProject(uint projectId) payable public {
+    function vote(string memory projectId) payable public {
         require(msg.value >= 0.01 ether, "Minimum 0.01 ether");
         require(!hasVoted[msg.sender], "Already voted");
-        require(bytes(projects[projectId]).length > 0, "Project does not exist");
-
+        
+        addressVotes[msg.sender] = projectId; 
         projectVotes[projectId]++;
         hasVoted[msg.sender] = true;
     }
 
-    function getVoteCount(uint projectId) public view returns (uint) {
+    function getVoteCount(string memory projectId) public view returns (uint) {
         return projectVotes[projectId];
     }
 
-    function getAllProjects() public view returns (uint[] memory) {
+    function getAll() public view returns (string[] memory) {
         return projectIds;
     }
 
-    function getBalanceOf() public view returns (uint) {
-        return address(this).balance;
+    function checkHasVoted() public view returns (bool) {
+        return hasVoted[msg.sender];
     }
 
-    function hasVotedForProject() public view returns (bool) {
-        return hasVoted[msg.sender];
+    function getVote() public view returns (string memory) {
+        return  addressVotes[msg.sender]; 
     }
 }

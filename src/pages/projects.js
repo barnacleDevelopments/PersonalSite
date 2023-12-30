@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import { Link, jsx } from "theme-ui";
 import { graphql } from "gatsby";
+import scrollTo from "gatsby-plugin-smoothscroll";
 
 // Components
 import ProjectCard from "../components/cards/ProjectCard";
@@ -20,19 +21,38 @@ import MetaMask from "../images/meta-mask.svg";
 const ProjectsPage = ({ data }) => {
   const pageData = data.allMarkdownRemark.edges;
   const [voteCounts, setVoteCounts] = useState({});
-  const { hasVoted, getVoteCount, voteForProject, checkHasVoted } =
+  const [addressVote, setAddressVote] = useState();
+  const { hasVoted, getVoteCount, vote, checkHasVoted, getVote } =
     useProjectVoting();
   const { walletAddress, connectWallet, isWalletConnected } =
     useContext(WalletContext);
 
   useEffect(() => {
     const init = async () => {
-      await checkHasVoted();
       await fetchVoteCount();
+      await checkHasVoted();
+      const vote = await getVote();
+      setAddressVote(vote);
     };
 
     init();
-  }, []);
+  }, [walletAddress]);
+
+  const voteForProject = async (id) => {
+    await vote(id);
+    await fetchVoteCount();
+    setAddressVote(id);
+  };
+
+  const getProject = () => {
+    const project = pageData.find(
+      (project) => project.node.frontmatter.id === addressVote
+    );
+
+    if (!project) return "";
+
+    return project.node.frontmatter;
+  };
 
   const fetchVoteCount = async () => {
     const counts = {};
@@ -67,30 +87,36 @@ const ProjectsPage = ({ data }) => {
             Projects
           </Themed.h1>
           <Text variant="large">
-            Here are a few of my projects! I'm always looking for new projects
-            to work on so
-            <Link href="/contact"> let's get in touch</Link> or
-            <Link href="/about"> try my estimate feature</Link>! While you are
-            here why not vote for your favourite project?
+            Discover a selection of my latest projects! If you're interested in
+            collaboration or want to learn more, feel free to{" "}
+            <Link href="/contact">contact me</Link> or explore my{" "}
+            <Link href="/about">services and rates</Link>. Plus, take a moment
+            to vote for your favorite project and see what others are loving!
           </Text>
           <Box>
-            <Themed.h2 sx={{ mt: 4 }}>How to Vote - Web3</Themed.h2>
+            <Themed.h2 sx={{ mt: 4 }}>Participate in Web3 Voting</Themed.h2>
             <Text variant="regular" sx={{ mt: 3 }}>
-              Web3 is a trending topic in the web development world. It is a
-              collection of technologies that enable the creation of
-              decentralized applications. In the spirit of Web3, I've created a
-              decentralized voting feature for my projects.
+              Embracing the new era of Web3, I've integrated a decentralized
+              voting system for my projects. Your votes, securely recorded on
+              the Ethereum blockchain. You can help highlight the most popular
+              projects.
             </Text>
-
             <Box
               p={4}
               mt={4}
               sx={{
                 backgroundColor: !isWalletConnected ? "primary" : "orange",
+                borderRadius: "10px",
+                overflow: "hidden",
               }}
             >
-              <Flex sx={{ justifyContent: "space-between" }}>
+              <Flex
+                sx={{
+                  justifyContent: "space-between",
+                }}
+              >
                 <Box>
+                  {/* title */}
                   {!isWalletConnected ? (
                     <Themed.h2 sx={{ color: "white" }}>
                       Connect Wallet & Vote
@@ -100,23 +126,36 @@ const ProjectsPage = ({ data }) => {
                       Your wallet is connected
                     </Themed.h2>
                   )}
+                  {/* body */}
                   {!isWalletConnected ? (
                     <Text variant="regular" sx={{ mt: 3, color: "white" }}>
-                      Voting is done using a the Ethereum blockchain. This means
-                      that your vote is immutable and can't be tampered with. To
-                      vote you'll need to connect your Ethereum wallet such as
-                      MetaMask.
+                      Join the Web3 revolution! Connect your Ethereum wallet,
+                      like{" "}
+                      <Link target="_blank" href="https://metamask.io">
+                        MetaMask
+                      </Link>
+                      , to participate. Your vote is secure and tamper-proof,
+                      thanks to blockchain technology. .
                     </Text>
                   ) : hasVoted ? (
-                    <Text>You have already voted using this wallet.</Text>
+                    <Text
+                      variant="small"
+                      sx={{
+                        color: "white",
+                      }}
+                    >
+                      You've already cast your vote for{" "}
+                      <a onClick={() => scrollTo(`#id${getProject()?.id}`)}>
+                        {getProject()?.title}
+                      </a>
+                      . Thank you for participating!
+                    </Text>
                   ) : (
                     <Text variant="regular" sx={{ mt: 3, color: "white" }}>
-                      You can vote for your favourite project by clicking the
-                      vote button on the project card. Metamask will prompt you
-                      to confirm the transaction. Once you confirm your vote it
-                      will be recorded on the Ethereum blockchain. Please be
-                      patient as it may take a few minutes for your vote to be
-                      recorded because the Ethereum blockchain is slow.
+                      Ready to vote? Select your favorite project and confirm
+                      the transaction via MetaMask. Your vote will be recorded
+                      on the Ethereum blockchain via the Sepolia Test Network.
+                      Please be patient as processing may take a few minutes.
                     </Text>
                   )}
                   <Box mt={3} sx={{ color: "white" }}>
@@ -136,7 +175,6 @@ const ProjectsPage = ({ data }) => {
                 </Box>
               </Flex>
             </Box>
-
             <Text variant="regular"></Text>
           </Box>
         </Box>
@@ -149,18 +187,22 @@ const ProjectsPage = ({ data }) => {
         >
           {pageData.map(({ node }, index) => {
             const project = node.frontmatter;
+
             return (
-              <ProjectCard
-                id={project.id}
-                image={project.image1}
-                title={project.title}
-                siteLink={node.fields.slug}
-                key={index}
-                buttonText={"View"}
-                voteForProject={voteForProject}
-                hasVoted={hasVoted}
-                voteCount={voteCounts[project.id]}
-              />
+              <Box id={"id" + project.id}>
+                <ProjectCard
+                  id={project.id}
+                  image={project.image1}
+                  title={project.title}
+                  siteLink={node.fields.slug}
+                  key={index}
+                  buttonText={"View"}
+                  vote={voteForProject}
+                  hasVoted={hasVoted}
+                  voteCount={voteCounts[project.id]}
+                  isVote={addressVote === project.id}
+                />
+              </Box>
             );
           })}
         </Grid>

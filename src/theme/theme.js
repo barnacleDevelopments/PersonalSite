@@ -7,6 +7,7 @@ module.exports = {
     secondary: "#eeeeee",
     orange: "#FFA630",
     lightOrange: "#FFA63050",
+    lightOrange: "#FFA63050",
   },
   cards: {
     primary: {},
@@ -67,7 +68,7 @@ module.exports = {
       fontSize: "1.010em",
       display: "inline-block",
       textAlign: "center",
-      borderRadius: "0px",
+      borderRadius: "10px",
       width: "max-content",
       cursor: "pointer",
       "&:hover": {
@@ -123,6 +124,12 @@ module.exports = {
     },
     h4: {
       fontSize: 3,
+    },
+    a: {
+      color: "orange",
+      "&:visited": {
+        color: "lightOrange",
+      },
     },
   },
 };

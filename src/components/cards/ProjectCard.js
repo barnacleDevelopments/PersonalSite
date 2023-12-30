@@ -16,9 +16,10 @@ const ProjectCard = ({
   content,
   siteLink,
   buttonText,
-  voteForProject,
+  vote,
   hasVoted,
   voteCount,
+  isVote,
 }) => {
   const cardImage = getImage(image);
   const { isWalletConnected } = useContext(WalletContext);
@@ -33,8 +34,36 @@ const ProjectCard = ({
       sx={{
         color: "white",
         height: "max-content",
+        border: isVote ? "3px solid orange" : "none",
+        position: "relative",
+        borderRadius: "10px",
+        overflow: "hidden",
+        backgroundColor: "primary",
       }}
     >
+      {isVote && (
+        <Box
+          sx={{
+            position: "absolute",
+            top: "0px",
+            right: "0px",
+            bg: "orange",
+            color: "white",
+            p: 2,
+            fontSize: "10px",
+            zIndex: "1",
+          }}
+        >
+          <Text
+            variant="small"
+            sx={{
+              fontWeight: "bold",
+            }}
+          >
+            Your Vote
+          </Text>
+        </Box>
+      )}
       {image && (
         <GatsbyImage
           style={{ height: "200px" }}
@@ -65,7 +94,7 @@ const ProjectCard = ({
           {title}
         </Themed.h3>
         <Text variant="regular" sx={{ color: "white" }}>
-          Votes: {voteCount}
+          {voteCount} Vote{voteCount > 1 && "s"}
         </Text>
         {content && (
           <Text variant="regular" sx={{ color: "white" }}>
@@ -87,7 +116,7 @@ const ProjectCard = ({
             variant={isDisabled() ? "disabled" : "secondary"}
             sx={{ mt: 3 }}
             className="secondary-btn"
-            onClick={() => voteForProject(id)}
+            onClick={() => vote(id)}
           >
             Vote
           </Button>

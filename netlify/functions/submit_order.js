@@ -1,12 +1,8 @@
 const nodemailer = require("nodemailer");
 
-const {
-  SMTP_HOST_EMAIL,
-  SMTP_PASS
-} = process.env;
+const { SMTP_HOST_EMAIL, SMTP_PASS } = process.env;
 
 exports.handler = function (event, context) {
-
   // get the event body
   const request = JSON.parse(event.body);
 
@@ -17,15 +13,16 @@ exports.handler = function (event, context) {
     secure: true,
     auth: {
       user: SMTP_HOST_EMAIL,
-      pass: SMTP_PASS
-    }
+      pass: SMTP_PASS,
+    },
   });
 
-  transporter.sendMail({
-    from: SMTP_HOST_EMAIL,
-    to: "devins.d@protonmail.com",
-    subject: `FREELANCE: Order Form Submission`,
-    html: `
+  transporter
+    .sendMail({
+      from: SMTP_HOST_EMAIL,
+      to: "devins.d@protonmail.com",
+      subject: `FREELANCE: Order Form Submission`,
+      html: `
     <h1>New Order Form Submission</h1>
     <h2>You recieved a message from: ${request.firstName} ${request.lastName}</h2>
     <div> 
@@ -37,13 +34,15 @@ exports.handler = function (event, context) {
       <p>${request.notes}</p>
     </div>
     `,
-  }).catch(() => sendSuccessfull = false);
+    })
+    .catch(() => (sendSuccessfull = false));
 
-  transporter.sendMail({
-    from: SMTP_HOST_EMAIL,
-    to: request.email,
-    subject: `Thank You - DevDeveloper`,
-    html: `
+  transporter
+    .sendMail({
+      from: SMTP_HOST_EMAIL,
+      to: request.email,
+      subject: `Thank You - DevDeveloper`,
+      html: `
     <h1>Your Order Summary</h1>
     <p>
     Thank you for taking the time to submit an order. 
@@ -57,17 +56,17 @@ exports.handler = function (event, context) {
       <h3>Notes:</h3>
       <p>${request.notes}</p>
     </div>
-    `
-  }).catch(() => sendSuccessfull = false);
+    `,
+    })
+    .catch(() => (sendSuccessfull = false));
 
   if (sendSuccessfull) {
     return {
       statusCode: 200,
-    }
+    };
   } else {
     return {
       statusCode: 500,
-    }
+    };
   }
-
-}
+};
