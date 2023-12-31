@@ -7,8 +7,11 @@ const useProjectVoting = () => {
   const [hasVoted, setHasVoted] = useState(false);
   const { walletAddress } = useContext(WalletContext);
 
-  const web3 = new Web3(Web3.givenProvider || "http://localhost:9545");
-  const contractAddress = "0x9F88CbE3f79F1a2780ede54480A2e5EfbB73c135";
+  const web3 = new Web3(
+    Web3.givenProvider ||
+      "https://eth-sepolia.g.alchemy.com/v2/PYGtQRsHvAShEDHeiY9ckck3xwNhPQGr"
+  );
+  const contractAddress = "0xfc2279b66ec791fe462ff07713737d545b19f8ca";
   const contract = new web3.eth.Contract(projectVotingABI.abi, contractAddress);
 
   const checkHasVoted = async () => {
