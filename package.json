@@ -24,7 +24,6 @@
     "@theme-ui/presets": "^0.12.1",
     "babel-plugin-prismjs": "^2.1.0",
     "babel-preset-gatsby": "^2.4.0",
-    "dotenv": "^16.3.1",
     "gatsby": "^4.25.0",
     "gatsby-image": "^3.11.0",
     "gatsby-plugin-anchor-links": "^1.2.1",
