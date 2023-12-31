@@ -41,10 +41,10 @@
  * https://trufflesuite.com/docs/truffle/getting-started/using-the-truffle-dashboard/
  */
 
-// require('dotenv').config();
-// const { MNEMONIC, PROJECT_ID } = process.env;
+require("dotenv").config();
+const { MNEMONIC, SEPOLIA_URL } = process.env;
 
-// const HDWalletProvider = require('@truffle/hdwallet-provider');
+const HDWalletProvider = require("@truffle/hdwallet-provider");
 
 module.exports = {
   /**
@@ -64,10 +64,25 @@ module.exports = {
     // tab if you use this network and you must also set the `host`, `port` and `network_id`
     // options below to some value.
     //
-    development: {
-      host: "127.0.0.1", // Localhost (default: none)
-      port: 9545, // Standard Ethereum port (default: none)
-      network_id: "*", // Any network (default: none)
+    // development: {
+    //   host: "127.0.0.1", // Localhost (default: none)
+    //   port: 9545, // Standard Ethereum port (default: none)
+    //   network_id: "*", // Any network (default: none)
+    // },
+    sepolia: {
+      provider: () =>
+        new HDWalletProvider({
+          mnemonic: {
+            phrase: MNEMONIC,
+          },
+          providerOrUrl: SEPOLIA_URL,
+        }),
+      network_id: 11155111, // Sepolia's network ID
+      gas: 4000000, // Adjust the gas limit as per your requirements
+      gasPrice: 44792793392, // Set the gas price to an appropriate value
+      confirmations: 2, // Set the number of confirmations needed for a transaction
+      timeoutBlocks: 200, // Set the timeout for transactions
+      skipDryRun: true, // Skip the dry run option
     },
     //
     // An additional network, but with some advanced options…
