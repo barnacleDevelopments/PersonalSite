@@ -22,10 +22,10 @@ const ProjectCard = ({
   isVote,
 }) => {
   const cardImage = getImage(image);
-  const { isWalletConnected } = useContext(WalletContext);
+  const walletContext = useContext(WalletContext);
 
   const isDisabled = () => {
-    return hasVoted || !isWalletConnected;
+    return hasVoted || !walletContext?.isWalletConnected;
   };
 
   return (

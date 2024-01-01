@@ -5,7 +5,7 @@ import { WalletContext } from "../contexts/WalletContext";
 
 const useProjectVoting = () => {
   const [hasVoted, setHasVoted] = useState(false);
-  const { walletAddress } = useContext(WalletContext);
+  const walletContext = useContext(WalletContext);
 
   const web3 = new Web3(
     Web3.givenProvider ||
@@ -17,7 +17,7 @@ const useProjectVoting = () => {
   const checkHasVoted = async () => {
     try {
       const result = await contract.methods.checkHasVoted().call({
-        from: walletAddress,
+        from: walletContext.walletAddress,
       });
 
       console.log("has voted", result);
@@ -31,7 +31,7 @@ const useProjectVoting = () => {
     console.log("Rerieving vote count for project:", id);
     try {
       const count = await contract.methods.getVoteCount(id).call({
-        from: walletAddress,
+        from: walletContext.walletAddress,
       });
 
       console.log("vote count", count);
@@ -47,14 +47,14 @@ const useProjectVoting = () => {
       const data = contract.methods.vote(id).encodeABI();
       const value = web3.utils.toWei(amountInEther, "ether");
       const gas = await web3.eth.estimateGas({
-        from: walletAddress,
+        from: walletContext.walletAddress,
         to: contractAddress,
         data,
         value,
       });
       const params = [
         {
-          from: walletAddress,
+          from: walletContext?.walletAddress,
           to: contractAddress,
           data,
           gas: web3.utils.toHex(gas),
@@ -74,7 +74,7 @@ const useProjectVoting = () => {
   const getVote = async () => {
     try {
       const result = await contract.methods.getVote().call({
-        from: walletAddress,
+        from: walletContext?.walletAddress,
       });
 
       return result;
