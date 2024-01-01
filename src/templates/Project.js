@@ -5,10 +5,9 @@ import { GatsbyImage } from "gatsby-plugin-image";
 import showdown from "showdown";
 import { getImage } from "gatsby-plugin-image";
 import moment from "moment";
-import useProjectVoting from "../hooks/project-voting";
+
 // Components
 import { Box, Flex, Button, Heading, Text, Themed, Grid } from "theme-ui";
-import Layout from "../components/app/Layout";
 import Seo from "../components/app/Seo";
 
 function Project({ data }) {
