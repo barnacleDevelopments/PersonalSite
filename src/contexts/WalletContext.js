@@ -17,20 +17,22 @@ export const WalletProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    if (window.ethereum) {
-      window.ethereum.on("accountsChanged", handleAccountsChanged);
-    } else {
-      console.log("MetaMask is not installed!");
-    }
-
-    return () => {
+    if (typeof window !== "undefined") {
       if (window.ethereum) {
-        window.ethereum.removeListener(
-          "accountsChanged",
-          handleAccountsChanged
-        );
+        window.ethereum.on("accountsChanged", handleAccountsChanged);
+      } else {
+        console.log("MetaMask is not installed!");
       }
-    };
+
+      return () => {
+        if (window.ethereum) {
+          window.ethereum.removeListener(
+            "accountsChanged",
+            handleAccountsChanged
+          );
+        }
+      };
+    }
   }, []);
 
   const connectWallet = async () => {

@@ -24,19 +24,20 @@ const ProjectsPage = ({ data }) => {
   const [addressVote, setAddressVote] = useState();
   const { hasVoted, getVoteCount, vote, checkHasVoted, getVote } =
     useProjectVoting();
-  const { walletAddress, connectWallet, isWalletConnected } =
-    useContext(WalletContext);
+  const walletContext = useContext(WalletContext);
 
   useEffect(() => {
-    const init = async () => {
-      await fetchVoteCount();
-      await checkHasVoted();
-      const vote = await getVote();
-      setAddressVote(vote);
-    };
+    if (typeof window !== "undefined") {
+      const init = async () => {
+        await fetchVoteCount();
+        await checkHasVoted();
+        const vote = await getVote();
+        setAddressVote(vote);
+      };
 
-    init();
-  }, [walletAddress]);
+      init();
+    }
+  }, [walletContext?.walletAddress]);
 
   const voteForProject = async (id) => {
     await vote(id);
@@ -105,7 +106,9 @@ const ProjectsPage = ({ data }) => {
               p={4}
               mt={4}
               sx={{
-                backgroundColor: !isWalletConnected ? "primary" : "orange",
+                backgroundColor: !walletContext?.isWalletConnected
+                  ? "primary"
+                  : "orange",
                 borderRadius: "10px",
                 overflow: "hidden",
               }}
@@ -117,7 +120,7 @@ const ProjectsPage = ({ data }) => {
               >
                 <Box>
                   {/* title */}
-                  {!isWalletConnected ? (
+                  {!walletContext?.isWalletConnected ? (
                     <Themed.h2 sx={{ color: "white" }}>
                       Connect Wallet & Vote
                     </Themed.h2>
@@ -127,7 +130,7 @@ const ProjectsPage = ({ data }) => {
                     </Themed.h2>
                   )}
                   {/* body */}
-                  {!isWalletConnected ? (
+                  {!walletContext?.isWalletConnected ? (
                     <Text variant="regular" sx={{ mt: 3, color: "white" }}>
                       Join the Web3 revolution! Connect your Ethereum wallet,
                       like{" "}
@@ -159,14 +162,16 @@ const ProjectsPage = ({ data }) => {
                     </Text>
                   )}
                   <Box mt={3} sx={{ color: "white" }}>
-                    {walletAddress ? (
+                    {walletContext?.walletAddress ? (
                       <Text variant="regular" color="white">
-                        {`Connected as ${truncateAddress(walletAddress)}`}
+                        {`Connected as ${truncateAddress(
+                          walletContext?.walletAddress
+                        )}`}
                       </Text>
                     ) : (
                       <Button
                         sx={{ display: "flex", alignItems: "center" }}
-                        onClick={connectWallet}
+                        onClick={walletContext?.connectWallet}
                       >
                         <Box mr={3}>Connect</Box> <MetaMask width="25px" />{" "}
                       </Button>

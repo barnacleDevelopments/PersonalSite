@@ -24,6 +24,9 @@
     "@theme-ui/presets": "^0.12.1",
     "babel-plugin-prismjs": "^2.1.0",
     "babel-preset-gatsby": "^2.4.0",
+    "buffer": "^6.0.3",
+    "crypto-browserify": "^3.12.0",
+    "dotenv": "^16.3.1",
     "gatsby": "^4.25.0",
     "gatsby-image": "^3.11.0",
     "gatsby-plugin-anchor-links": "^1.2.1",
@@ -61,6 +64,7 @@
     "react-picky": "^5.3.2",
     "react-transition-group": "^4.4.2",
     "showdown": "^2.1.0",
+    "stream-browserify": "^3.0.0",
     "theme-ui": "^0.14.0",
     "web3": "^4.3.0",
     "yup": "^0.32.11"
