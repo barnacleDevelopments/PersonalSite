@@ -26,7 +26,7 @@ content: >-
   Blockchain has unlimited potential in the era of information. A practical use case would be to store the votes of citizens during a election. Each citizen would have the ability to vote from their phone which would send a transaction to the network of computers. Each vote would pass through this distributed blockchain system and would be stored permanently. Each vote would be timestamped. On election day, all votes would be aggregated. This would make an election completely auditable and would eliminate any attempt at tempering. This is because each computer in the network would need to individually hacked at the same time which is basically impossible. If anything a blockchain voting system is multiple order of magnitudes more secure then our current voting system. Of course there are many issues that need to be addressed before such a system could be implemented, especially around regulation. 
 
 
-  If you would like to learn more about this technology, I encourage you to take a look at my projects page. I have created a voting system that uses blockchain technology. If you'd like to learn more about how blockchain works, I highly recommend reading Blockchain Revolution. https://blockchain-revolution.com/
+  If you would like to learn more about this technology, I encourage you to take a look at my projects page. I have created a voting system that uses blockchain technology. If you'd like to learn more about how blockchain works, I highly recommend reading [Blockchain Revolution](https://blockchain-revolution.com/).
 thumnail: /assets/blockchain_1.jpg
 date: 2024-01-01T13:48:58.632Z
 keywords: blockchain, ethereum, consensus, voting, cryptocurrency, bitcoin
