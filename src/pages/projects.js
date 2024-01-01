@@ -42,7 +42,10 @@ const ProjectsPage = ({ data }) => {
   const voteForProject = async (id) => {
     await vote(id);
     await fetchVoteCount();
-    setAddressVote(id);
+
+    if (hasVoted) {
+      setAddressVote(id);
+    }
   };
 
   const getProject = () => {
