@@ -4,7 +4,7 @@ require("dotenv").config({
 
 module.exports = {
   siteMetadata: {
-    url: "https://devs-webshop.tech/",
+    url: "https://devdeveloper.ca/",
     title: "Dev's Web Shop",
     image: {
       src: `assets/logo_2.png`,
@@ -101,7 +101,8 @@ module.exports = {
           "style-src":
             "'self' 'unsafe-inline' fonts.googleapis.com fonts.gstatic.com",
           "font-src": "fonts.gstatic.com",
-          "connect-src": "'self' pagead2.googlesyndication.com",
+          "connect-src":
+            "'self' pagead2.googlesyndication.com https://eth-sepolia.g.alchemy.com",
           "frame-src":
             "googleads.g.doubleclick.net www.google.com tpc.googlesyndication.com",
           "img-src": "'self' data: pagead2.googlesyndication.com",
