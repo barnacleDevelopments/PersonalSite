@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useContext } from "react";
 import Web3 from "web3";
 import projectVotingABI from "../../backend/build/contracts/ProjectVoting.json";
 import { WalletContext } from "../contexts/WalletContext";
@@ -20,7 +20,6 @@ const useProjectVoting = () => {
         from: walletContext.walletAddress,
       });
 
-      console.log("has voted", result);
       setHasVoted(result);
     } catch (error) {
       console.error("Error in checking if has voted:", error);
@@ -28,13 +27,11 @@ const useProjectVoting = () => {
   };
 
   const getVoteCount = async (id) => {
-    console.log("Rerieving vote count for project:", id);
     try {
       const count = await contract.methods.getVoteCount(id).call({
         from: walletContext.walletAddress,
       });
 
-      console.log("vote count", count);
       return count.toString();
     } catch (error) {
       console.error("Error in getting vote count:", error);
@@ -61,11 +58,10 @@ const useProjectVoting = () => {
           value,
         },
       ];
-      const txHash = await window.ethereum.request({
+      await window.ethereum.request({
         method: "eth_sendTransaction",
         params,
       });
-      console.log("txHash", txHash);
     } catch (error) {
       console.error("Error in voting for project:", error);
     }
