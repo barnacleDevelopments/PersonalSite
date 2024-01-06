@@ -4,7 +4,7 @@ import { GatsbyImage } from "gatsby-plugin-image";
 import { getImage } from "gatsby-plugin-image";
 
 // Components
-import { Themed, Card, Text, Button, Flex, Box } from "theme-ui";
+import { Themed, Card, Text, Button, Flex, Box, Link } from "theme-ui";
 import { useContext } from "react";
 import { WalletContext } from "../../contexts/WalletContext";
 
@@ -102,7 +102,7 @@ const ProjectCard = ({
           </Text>
         )}
         <Box>
-          <a href={siteLink}>
+          <Link href={siteLink}>
             <Button
               variant="secondary"
               sx={{ mt: 3 }}
@@ -110,16 +110,18 @@ const ProjectCard = ({
             >
               {buttonText}
             </Button>
-          </a>
-          <Button
-            disabled={isDisabled()}
-            variant={isDisabled() ? "disabled" : "secondary"}
-            sx={{ mt: 3 }}
-            className="secondary-btn"
-            onClick={() => vote(id)}
-          >
-            Vote
-          </Button>
+          </Link>
+          {!isDisabled() && (
+            <Button
+              disabled={isDisabled()}
+              variant={isDisabled() ? "disabled" : "secondary"}
+              sx={{ mt: 3, ml: 3 }}
+              className="secondary-btn"
+              onClick={() => vote(id)}
+            >
+              Vote
+            </Button>
+          )}
         </Box>
       </Flex>
     </Card>
