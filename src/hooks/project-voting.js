@@ -7,9 +7,7 @@ const useProjectVoting = () => {
   const [hasVoted, setHasVoted] = useState(false);
   const walletContext = useContext(WalletContext);
 
-  const web3 = new Web3(
-    Web3.givenProvider || process.env.GATSBY_WEB3_HTTPS_URL
-  );
+  const web3 = new Web3(Web3.givenProvider || process.env.WEB3_HTTPS_URL);
 
   const contract = new web3.eth.Contract(
     projectVotingABI.abi,
