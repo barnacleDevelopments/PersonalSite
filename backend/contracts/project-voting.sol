@@ -8,7 +8,9 @@ contract ProjectVoting {
     mapping(address => string) public addressVotes;
     string[] public projectIds;
     address private owner;
+    uint private threshold = 1 ether;
 
+    event AutoTransferExecuted(address recipient, uint256 amount);
     event ProjectAdded(string projectId, string projectName); // Event for adding a project
     event Voted(address voter, string projectId); // Event for a vote
    
@@ -27,19 +29,19 @@ contract ProjectVoting {
         require(bytes(projectId).length > 0, "Project ID is required"); // Input validation for projectId
         projects[projectId] = projectName;
         projectIds.push(projectId);
-        emit ProjectAdded(projectId, projectName); // Emitting event after project addition
+        emit ProjectAdded(projectId, projectName); 
     }
 
     function vote(string memory projectId) payable public {
         require(msg.value >= 0.01 ether, "Minimum 0.01 ether");
         require(!hasVoted[msg.sender], "Already voted");
-        require(bytes(projects[projectId]).length > 0, "Project does not exist"); // Check if project exists
+        require(bytes(projects[projectId]).length > 0, "Project does not exist"); 
 
         addressVotes[msg.sender] = projectId;
         projectVotes[projectId]++;
         hasVoted[msg.sender] = true;
-
-        emit Voted(msg.sender, projectId); // Emitting event after voting
+        checkAndTransfer();
+        emit Voted(msg.sender, projectId);
     }
 
     function getVoteCount(string memory projectId) public view returns (uint) {
@@ -56,6 +58,19 @@ contract ProjectVoting {
 
     function getVote() public view returns (string memory) {
         return  addressVotes[msg.sender]; 
+    }
+
+    function checkAndTransfer() internal {
+        if (address(this).balance >= threshold) {
+            uint256 amountToSend = address(this).balance;
+            (bool sent, ) = msg.sender.call{value: amountToSend}("");
+            require(sent, "Failed to send Ether");
+            emit AutoTransferExecuted(msg.sender, amountToSend);
+        }
+    }
+
+    function getBalance() public view returns (uint256) {
+        return address(this).balance;
     }
 
     function transferOwnership(address newOwner) public onlyOwner {
