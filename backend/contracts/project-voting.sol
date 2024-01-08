@@ -8,10 +8,10 @@ contract ProjectVoting {
     mapping(address => string) public addressVotes;
     string[] public projectIds;
     address private owner;
-    uint private threshold = 1 ether;
+    uint private threshold = 0.01 ether;
 
-    event ProjectAdded(string projectId, string projectName); // Event for adding a project
-    event Voted(address voter, string projectId); // Event for a vote
+    event ProjectAdded(string projectId, string projectName);
+    event Voted(address voter, string projectId); 
     event AutoTransferExecuted(address recipient, uint256 amount);
 
     modifier onlyOwner() {
@@ -33,7 +33,7 @@ contract ProjectVoting {
     }
 
     function vote(string memory projectId) payable public {
-        require(msg.value >= 0.01 ether, "Minimum 0.01 ether");
+        require(msg.value >= 0.0001 ether, "Minimum 0.01 ether");
         require(!hasVoted[msg.sender], "Already voted");
         require(bytes(projects[projectId]).length > 0, "Project does not exist"); 
 
@@ -71,6 +71,10 @@ contract ProjectVoting {
 
     function getBalance() public view returns (uint256) {
         return address(this).balance;
+    }
+
+    function getThreshold() public view returns (uint256) {
+        return threshold;
     }
 
     function transferOwnership(address newOwner) public onlyOwner {
