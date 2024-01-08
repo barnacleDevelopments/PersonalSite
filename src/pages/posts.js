@@ -3,8 +3,7 @@ import { jsx } from "theme-ui";
 import { graphql } from "gatsby";
 
 // Components
-import PostCard from "../components/cards/PostCard";
-import Layout from "../components/app/Layout";
+import PostCard from "../components/blog/PostCard";
 import { Box, Text, Themed, Grid } from "theme-ui";
 import Seo from "../components/app/Seo";
 

@@ -2,8 +2,6 @@
 import { jsx } from "theme-ui";
 
 // Components
-import PostCard from "../components/cards/PostCard";
-import Layout from "../components/app/Layout";
 import { Box, Text, Themed, Grid } from "theme-ui";
 import Seo from "../components/app/Seo";
 import PostCategoryCard from "../components/styled/PostCategoryCard";

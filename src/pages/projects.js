@@ -1,14 +1,13 @@
 /** @jsx jsx */
 import { Link, jsx } from "theme-ui";
 import { graphql } from "gatsby";
-import scrollTo from "gatsby-plugin-smoothscroll";
 
 // Components
-import ProjectCard from "../components/cards/ProjectCard";
+import ProjectCard from "../components/projects/ProjectCard";
 import { Box, Text, Themed, Grid } from "theme-ui";
 import Seo from "../components/app/Seo";
 import { useContext, useEffect, useState } from "react";
-import { Button, Flex } from "theme-ui";
+import WalletBanner from "../components/projects/WalletBanner";
 
 // Hooks
 import useProjectVoting from "../hooks/project-voting";
@@ -16,13 +15,11 @@ import useProjectVoting from "../hooks/project-voting";
 // Contexts
 import { WalletContext } from "../contexts/WalletContext";
 
-import MetaMask from "../images/meta-mask.svg";
-
 const ProjectsPage = ({ data }) => {
   const pageData = data.allMarkdownRemark.edges;
   const [voteCounts, setVoteCounts] = useState({});
   const [addressVote, setAddressVote] = useState();
-  const { hasVoted, getVoteCount, vote, checkHasVoted, getVote } =
+  const { hasVoted, getVoteCount, vote, checkHasVoted, getVote, threshold } =
     useProjectVoting();
   const walletContext = useContext(WalletContext);
 
@@ -67,10 +64,6 @@ const ProjectsPage = ({ data }) => {
     setVoteCounts(counts);
   };
 
-  const truncateAddress = (address) => {
-    return address.slice(0, 6) + "..." + address.slice(-4);
-  };
-
   return (
     <Box>
       <Seo title="Projects" />
@@ -95,7 +88,7 @@ const ProjectsPage = ({ data }) => {
             collaboration or want to learn more, feel free to{" "}
             <Link href="/contact">contact me</Link> or explore my{" "}
             <Link href="/about">services and rates</Link>. Plus, take a moment
-            to vote for your favorite project and see what others are loving!
+            to vote for your favorite project and you might win a prize!
           </Text>
           <Box>
             <Themed.h2 sx={{ mt: 4 }}>Participate in Web3 Voting</Themed.h2>
@@ -105,84 +98,14 @@ const ProjectsPage = ({ data }) => {
               the Ethereum blockchain. You can help highlight the most popular
               projects.
             </Text>
-            <Box
-              p={4}
-              mt={4}
-              sx={{
-                backgroundColor: !walletContext?.isWalletConnected
-                  ? "primary"
-                  : "orange",
-                borderRadius: "10px",
-                overflow: "hidden",
-              }}
-            >
-              <Flex
-                sx={{
-                  justifyContent: "space-between",
-                }}
-              >
-                <Box>
-                  {/* title */}
-                  {!walletContext?.isWalletConnected ? (
-                    <Themed.h2 sx={{ color: "white" }}>
-                      Connect Wallet & Vote
-                    </Themed.h2>
-                  ) : (
-                    <Themed.h2 sx={{ color: "white" }}>
-                      Your wallet is connected
-                    </Themed.h2>
-                  )}
-                  {/* body */}
-                  {!walletContext?.isWalletConnected ? (
-                    <Text variant="regular" sx={{ mt: 3, color: "white" }}>
-                      Join the Web3 revolution! Connect your Ethereum wallet,
-                      like{" "}
-                      <Link target="_blank" href="https://metamask.io">
-                        MetaMask
-                      </Link>
-                      , to participate. Your vote is secure and tamper-proof,
-                      thanks to blockchain technology. .
-                    </Text>
-                  ) : hasVoted ? (
-                    <Text
-                      variant="small"
-                      sx={{
-                        color: "white",
-                      }}
-                    >
-                      You've already cast your vote for{" "}
-                      <a onClick={() => scrollTo(`#id${getProject()?.id}`)}>
-                        {getProject()?.title}
-                      </a>
-                      . Thank you for participating!
-                    </Text>
-                  ) : (
-                    <Text variant="regular" sx={{ mt: 3, color: "white" }}>
-                      Ready to vote? Select your favorite project and confirm
-                      the transaction via MetaMask. Your vote will be recorded
-                      on the Ethereum blockchain via the Sepolia Test Network.
-                      Please be patient as processing may take a few minutes.
-                    </Text>
-                  )}
-                  <Box mt={3} sx={{ color: "white" }}>
-                    {walletContext?.walletAddress ? (
-                      <Text variant="regular" color="white">
-                        {`Connected as ${truncateAddress(
-                          walletContext?.walletAddress
-                        )}`}
-                      </Text>
-                    ) : (
-                      <Button
-                        sx={{ display: "flex", alignItems: "center" }}
-                        onClick={walletContext?.connectWallet}
-                      >
-                        <Box mr={3}>Connect</Box> <MetaMask width="25px" />{" "}
-                      </Button>
-                    )}
-                  </Box>
-                </Box>
-              </Flex>
-            </Box>
+            <WalletBanner
+              walletAddress={walletContext?.walletAddress}
+              project={getProject()}
+              isWalletConnected={walletContext?.isWalletConnected}
+              hasVoted={walletContext?.hasVoted}
+              threshold={threshold}
+              onConnectClick={walletContext?.connectWallet}
+            ></WalletBanner>
             <Text variant="regular"></Text>
           </Box>
         </Box>
@@ -197,7 +120,7 @@ const ProjectsPage = ({ data }) => {
             const project = node.frontmatter;
 
             return (
-              <Box id={"id" + project.id}>
+              <Box id={"id" + project.id} key={project.id}>
                 <ProjectCard
                   id={project.id}
                   image={project.image1}
