@@ -10,10 +10,10 @@ contract ProjectVoting {
     address private owner;
     uint private threshold = 1 ether;
 
-    event AutoTransferExecuted(address recipient, uint256 amount);
     event ProjectAdded(string projectId, string projectName); // Event for adding a project
     event Voted(address voter, string projectId); // Event for a vote
-   
+    event AutoTransferExecuted(address recipient, uint256 amount);
+
     modifier onlyOwner() {
         require(msg.sender == owner, "Only owner can execute");
         _;

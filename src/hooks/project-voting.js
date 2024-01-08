@@ -8,11 +8,13 @@ const useProjectVoting = () => {
   const walletContext = useContext(WalletContext);
 
   const web3 = new Web3(
-    Web3.givenProvider ||
-      "https://eth-sepolia.g.alchemy.com/v2/PYGtQRsHvAShEDHeiY9ckck3xwNhPQGr"
+    Web3.givenProvider || process.env.GATSBY_WEB3_HTTPS_URL
   );
-  const contractAddress = "0xfc2279b66ec791fe462ff07713737d545b19f8ca";
-  const contract = new web3.eth.Contract(projectVotingABI.abi, contractAddress);
+
+  const contract = new web3.eth.Contract(
+    projectVotingABI.abi,
+    process.env.PROJECT_VOTING_CONTRACT_ADDRESS
+  );
 
   const checkHasVoted = async () => {
     try {
@@ -45,14 +47,14 @@ const useProjectVoting = () => {
       const value = web3.utils.toWei(amountInEther, "ether");
       const gas = await web3.eth.estimateGas({
         from: walletContext.walletAddress,
-        to: contractAddress,
+        to: process.env.PROJECT_VOTING_CONTRACT_ADDRESS,
         data,
         value,
       });
       const params = [
         {
           from: walletContext?.walletAddress,
-          to: contractAddress,
+          to: process.env.PROJECT_VOTING_CONTRACT_ADDRESS,
           data,
           gas: web3.utils.toHex(gas),
           value,
