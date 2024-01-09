@@ -1,6 +1,8 @@
 // SPDX-License-Identifier: MIT 
 pragma solidity ^0.8.0;
 
+import "@openzeppelin/contracts/utils/Address.sol";
+
 contract ProjectVoting {
     mapping(string => uint) public projectVotes;
     mapping(address => bool) public hasVoted;
@@ -8,7 +10,8 @@ contract ProjectVoting {
     mapping(address => string) public addressVotes;
     string[] public projectIds;
     address private owner;
-    uint private threshold = 0.01 ether;
+    address[] private voters;
+    uint private threshold = 0.1 ether;
 
     event ProjectAdded(string projectId, string projectName);
     event Voted(address voter, string projectId); 
@@ -33,14 +36,16 @@ contract ProjectVoting {
     }
 
     function vote(string memory projectId) payable public {
-        require(msg.value >= 0.0001 ether, "Minimum 0.01 ether");
+        require(msg.value >= 0.001 ether, "Minimum 0.01 ether");
+        require(msg.value <= 0.05 ether, "Maximum 0.01 ether");
         require(!hasVoted[msg.sender], "Already voted");
         require(bytes(projects[projectId]).length > 0, "Project does not exist"); 
 
         addressVotes[msg.sender] = projectId;
         projectVotes[projectId]++;
         hasVoted[msg.sender] = true;
-        checkAndTransfer();
+        voters.push(msg.sender);
+        checkAndTransfer(); // TODO: This is breaking 
         emit Voted(msg.sender, projectId);
     }
 
@@ -62,10 +67,14 @@ contract ProjectVoting {
 
     function checkAndTransfer() internal {
         if (address(this).balance >= threshold) {
+            require(voters.length > 0, "No voters to reward");
+            uint randomIndex = uint(keccak256(abi.encodePacked(block.timestamp, block.prevrandao))) % voters.length;
+            address payable luckyVoter = payable(voters[randomIndex]);
             uint256 amountToSend = address(this).balance;
-            (bool sent, ) = msg.sender.call{value: amountToSend}("");
-            require(sent, "Failed to send Ether");
-            emit AutoTransferExecuted(msg.sender, amountToSend);
+            voters = new address[](0); 
+            Address.sendValue(luckyVoter, amountToSend);
+
+            emit AutoTransferExecuted(luckyVoter, amountToSend);
         }
     }
 
