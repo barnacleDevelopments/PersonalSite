@@ -69,7 +69,7 @@ const ContactPage = () => {
       <Seo title="Contact" />
       <Box
         sx={{
-          width: ["100%", "80%", "70%"],
+          width: ["90%", "80%", "70%"],
           mx: "auto",
           my: 6,
         }}
@@ -77,7 +77,6 @@ const ContactPage = () => {
         {(!isSubmitted || !isValid) && (
           <Box
             sx={{
-              width: "90%",
               margin: "0 auto",
               mt: 6,
             }}

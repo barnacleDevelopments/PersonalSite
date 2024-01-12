@@ -8,6 +8,8 @@ import { Box, Text, Themed, Grid } from "theme-ui";
 import Seo from "../components/app/Seo";
 import { useContext, useEffect, useState } from "react";
 import WalletBanner from "../components/projects/WalletBanner";
+import ProgressGauge from "../components/projects/ProgressGauge";
+import ContributionForm from "../components/projects/ContributionForm";
 
 // Hooks
 import useProjectVoting from "../hooks/project-voting";
@@ -18,9 +20,19 @@ import { WalletContext } from "../contexts/WalletContext";
 const ProjectsPage = ({ data }) => {
   const pageData = data.allMarkdownRemark.edges;
   const [voteCounts, setVoteCounts] = useState({});
+  const [balance, setBalance] = useState(0);
+  const [contribution, setContribution] = useState(0);
   const [addressVote, setAddressVote] = useState();
-  const { hasVoted, getVoteCount, vote, checkHasVoted, getVote, threshold } =
-    useProjectVoting();
+  const {
+    hasVoted,
+    getVoteCount,
+    vote,
+    checkHasVoted,
+    getVote,
+    threshold,
+    getBalance,
+    checkStatus,
+  } = useProjectVoting();
   const walletContext = useContext(WalletContext);
 
   useEffect(() => {
@@ -28,7 +40,10 @@ const ProjectsPage = ({ data }) => {
       const init = async () => {
         await fetchVoteCount();
         await checkHasVoted();
+        await updateBalance();
         const vote = await getVote();
+        console.log("Users Vote:", vote);
+
         setAddressVote(vote);
       };
 
@@ -37,12 +52,22 @@ const ProjectsPage = ({ data }) => {
   }, [walletContext?.walletAddress]);
 
   const voteForProject = async (id) => {
-    await vote(id);
-    await fetchVoteCount();
-
-    if (hasVoted) {
-      setAddressVote(id);
+    try {
+      const hash = await vote(id, contribution);
+      const succeeded = await checkStatus(hash);
+      console.log(hash);
+      if (succeeded) {
+        await updateBalance();
+        await fetchVoteCount();
+        setAddressVote(id);
+      }
+    } catch (error) {
+      console.error("Error in voting for project:", error);
     }
+  };
+
+  const updateBalance = async () => {
+    setBalance(await getBalance());
   };
 
   const getProject = () => {
@@ -71,6 +96,7 @@ const ProjectsPage = ({ data }) => {
         sx={{
           margin: "0 auto",
           width: ["90%", "80%", "70%"],
+          mt: "60px",
           my: 5,
         }}
       >
@@ -106,7 +132,15 @@ const ProjectsPage = ({ data }) => {
               threshold={threshold}
               onConnectClick={walletContext?.connectWallet}
             ></WalletBanner>
-            <Text variant="regular"></Text>
+            <ProgressGauge
+              currentProgress={balance}
+              maxProgress={threshold}
+            ></ProgressGauge>
+            {!hasVoted && walletContext?.walletAddress && (
+              <ContributionForm
+                onInput={(value) => setContribution(value)}
+              ></ContributionForm>
+            )}
           </Box>
         </Box>
         <Grid
@@ -118,7 +152,6 @@ const ProjectsPage = ({ data }) => {
         >
           {pageData.map(({ node }, index) => {
             const project = node.frontmatter;
-
             return (
               <Box id={"id" + project.id} key={project.id}>
                 <ProjectCard

@@ -69,11 +69,10 @@ const WalletBanner = ({
           ) : (
             <Text variant="regular" sx={{ mt: 3, color: "white" }}>
               Ready to vote? Select your favorite project and confirm the
-              transaction via MetaMask. The transaction price is approximetly{" "}
-              <b>{"$0.50 CAD"}</b> in ETH with applicable transaction fees.
-              Please be patient as processing may take a few minutes. The voter
-              who reaches the threshold {threshold} will receive the contracts
-              balance as a prize! Your vote will be recorded on the Ethereum
+              transaction via MetaMask. Please be patient as processing may take
+              a few minutes. Once the threshold has been reached, a winner will
+              randomly be selected and the balance of the contract will be sent
+              to their wallet. Your vote will be recorded on the Ethereum
               blockchain via the Sepolia Test Network.
             </Text>
           )}
