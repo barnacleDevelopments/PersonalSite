@@ -162,6 +162,8 @@ const ProjectsPage = ({ data }) => {
                       the transaction via MetaMask. Your vote will be recorded
                       on the Ethereum blockchain via the Sepolia Test Network.
                       Please be patient as processing may take a few minutes.
+                      This is a beta release before official mainnet
+                      implementation.
                     </Text>
                   )}
                   <Box mt={3} sx={{ color: "white" }}>
