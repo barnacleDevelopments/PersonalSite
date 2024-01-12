@@ -36,8 +36,8 @@ contract ProjectVoting {
     }
 
     function vote(string memory projectId) payable public {
-        require(msg.value >= 0.001 ether, "Minimum 0.01 ether");
-        require(msg.value <= 0.05 ether, "Maximum 0.01 ether");
+        require(msg.value >= 0.001 ether, "Minimum 0.001 ether");
+        // require(msg.value <= 0.05 ether, "Maximum 0.05 ether");
         require(!hasVoted[msg.sender], "Already voted");
         require(bytes(projects[projectId]).length > 0, "Project does not exist"); 
 
