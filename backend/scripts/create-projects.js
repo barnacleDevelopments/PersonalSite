@@ -1,4 +1,5 @@
 const ProjectVoting = artifacts.require("ProjectVoting");
+require("dotenv").config();
 
 module.exports = async function (callback) {
   try {
@@ -32,7 +33,6 @@ module.exports = async function (callback) {
     );
 
     const projects = await myContractInstance.getAll();
-
     console.log(projects);
   } catch (error) {
     console.error("Error in script execution", error);

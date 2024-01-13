@@ -102,9 +102,21 @@ const useProjectVoting = () => {
       console.log(amountInEther);
       const minimumEther = 0.001;
       const maximumEther = 0.05;
+      console.log(
+        "Contribution:",
+        amountInEther,
+        "\n",
+        "Minimum:",
+        minimumEther,
+        "\n",
+        "Maximum",
+        maximumEther
+      );
+
       if (amountInEther >= minimumEther && amountInEther <= maximumEther) {
         const data = contract.methods.vote(id).encodeABI();
         const value = web3.utils.toWei(amountInEther.toString(), "ether");
+
         const estimatedGas = await web3.eth.estimateGas({
           from: walletContext.walletAddress,
           to: process.env.PROJECT_VOTING_CONTRACT_ADDRESS,
@@ -112,35 +124,29 @@ const useProjectVoting = () => {
           value,
         });
 
-        // const gasBuffer = (estimatedGas * 20n) / 100n;
-        // estimatedGas += gasBuffer;
+        const receipt = await contract.methods
+          .vote(id)
+          .send({ from: walletContext.walletAddress, value, gas: estimatedGas })
+          .on("transactionHash", console.log)
+          .on("receipt", console.log);
 
-        const params = [
-          {
-            from: walletContext?.walletAddress,
-            to: process.env.PROJECT_VOTING_CONTRACT_ADDRESS,
-            data,
-            gas: web3.utils.toHex(estimatedGas),
-            value,
-          },
-        ];
-
-        return await window.ethereum.request({
-          method: "eth_sendTransaction",
-          params,
-        });
+        return receipt.transactionHash;
       } else {
         console.error(
-          "Error in voting for project: amount must be greater than 0.001 ETH"
+          "Error in voting for project: amount must be between 0.001 and 0.05 ETH"
+        );
+        throw new Error(
+          "Invalid amount: amount must be between 0.001 and 0.05 ETH"
         );
       }
     } catch (error) {
+      // Decode the error using the ABI decoder
       const decodedError = web3.eth.abi.decodeParameters(
         ["uint256", "uint256", "uint256"],
         error.data
       );
       console.error("Error in voting for project:", decodedError);
-      throw Error("Error in voting for project:", decodedError);
+      throw new Error("Error in voting for project: " + decodedError);
     }
   };
 
