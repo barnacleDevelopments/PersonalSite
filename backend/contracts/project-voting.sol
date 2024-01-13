@@ -37,7 +37,7 @@ contract ProjectVoting {
 
     function vote(string memory projectId) payable public {
         require(msg.value >= 0.001 ether, "Minimum 0.001 ether");
-        // require(msg.value <= 0.05 ether, "Maximum 0.05 ether");
+        require(msg.value <= 0.05 ether, "Maximum 0.05 ether");
         require(!hasVoted[msg.sender], "Already voted");
         require(bytes(projects[projectId]).length > 0, "Project does not exist"); 
 
@@ -47,6 +47,10 @@ contract ProjectVoting {
         voters.push(msg.sender);
         checkAndTransfer(); // TODO: This is breaking 
         emit Voted(msg.sender, projectId);
+    }
+
+    function voteTest() public payable returns (uint) {
+        return msg.value;
     }
 
     function getVoteCount(string memory projectId) public view returns (uint) {
@@ -71,7 +75,6 @@ contract ProjectVoting {
             uint randomIndex = uint(keccak256(abi.encodePacked(block.timestamp, block.prevrandao))) % voters.length;
             address payable luckyVoter = payable(voters[randomIndex]);
             uint256 amountToSend = address(this).balance;
-            voters = new address[](0); 
             Address.sendValue(luckyVoter, amountToSend);
 
             emit AutoTransferExecuted(luckyVoter, amountToSend);

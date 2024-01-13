@@ -2,8 +2,20 @@
 import { jsx } from "theme-ui";
 import React from "react";
 import { Text, Themed, Box, Flex } from "theme-ui";
+import { useEffect, useState } from "react";
 
 const ProgressGauge = ({ maxProgress = 30, currentProgress = 0 }) => {
+  const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    if (currentProgress > 0) {
+      const p = currentProgress / maxProgress;
+      console.log("Current Progress Percentage:", p * 100);
+
+      setProgress(p * 100);
+    }
+  }, [currentProgress]);
+
   return (
     <Box
       className="progress-container"
@@ -33,7 +45,7 @@ const ProgressGauge = ({ maxProgress = 30, currentProgress = 0 }) => {
       >
         <Box
           sx={{
-            width: `${currentProgress}%`,
+            width: `${progress}%`,
             height: "100%",
             backgroundColor: "orange",
             transition: "width 0.5s ease-out",

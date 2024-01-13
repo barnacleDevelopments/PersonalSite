@@ -32,6 +32,7 @@ const ProjectsPage = ({ data }) => {
     threshold,
     getBalance,
     checkStatus,
+    winnerAccounced,
   } = useProjectVoting();
   const walletContext = useContext(WalletContext);
 
@@ -42,8 +43,6 @@ const ProjectsPage = ({ data }) => {
         await checkHasVoted();
         await updateBalance();
         const vote = await getVote();
-        console.log("Users Vote:", vote);
-
         setAddressVote(vote);
       };
 
@@ -55,7 +54,6 @@ const ProjectsPage = ({ data }) => {
     try {
       const hash = await vote(id, contribution);
       const succeeded = await checkStatus(hash);
-      console.log(hash);
       if (succeeded) {
         await updateBalance();
         await fetchVoteCount();
@@ -67,7 +65,9 @@ const ProjectsPage = ({ data }) => {
   };
 
   const updateBalance = async () => {
-    setBalance(await getBalance());
+    const balance = await getBalance();
+    console.log("Balance:", balance);
+    setBalance(balance);
   };
 
   const getProject = () => {
