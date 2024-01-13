@@ -32,7 +32,6 @@ const ProjectsPage = ({ data }) => {
     threshold,
     getBalance,
     checkStatus,
-    winnerAccounced,
   } = useProjectVoting();
   const walletContext = useContext(WalletContext);
 
