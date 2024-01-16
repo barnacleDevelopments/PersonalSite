@@ -1,10 +1,10 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui";
 import React from "react";
-import { Text, Themed, Box, Flex } from "theme-ui";
+import { Text, Themed, Box, Flex, Progress } from "theme-ui";
 import { useEffect, useState } from "react";
 
-const ProgressGauge = ({ maxProgress = 30, currentProgress = 0 }) => {
+const ProgressGauge = ({ maxProgress = 100, currentProgress = 0 }) => {
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
@@ -52,7 +52,7 @@ const ProgressGauge = ({ maxProgress = 30, currentProgress = 0 }) => {
           }}
         ></Box>
         {[...Array(6)].map((x, i) => {
-          const segment = `${((maxProgress / 6) * i).toFixed(4)} eth`;
+          const segment = `${((maxProgress / 5) * i).toFixed(4)} eth`;
 
           return (
             <React.Fragment key={i}>

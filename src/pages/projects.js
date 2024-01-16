@@ -10,6 +10,7 @@ import { useContext, useEffect, useState } from "react";
 import WalletBanner from "../components/projects/WalletBanner";
 import ProgressGauge from "../components/projects/ProgressGauge";
 import ContributionForm from "../components/projects/ContributionForm";
+import WinnerList from "../components/projects/WinnerListing";
 
 // Hooks
 import useProjectVoting from "../hooks/project-voting";
@@ -22,7 +23,9 @@ const ProjectsPage = ({ data }) => {
   const [voteCounts, setVoteCounts] = useState({});
   const [balance, setBalance] = useState(0);
   const [contribution, setContribution] = useState(0);
+  const [name, setName] = useState("");
   const [addressVote, setAddressVote] = useState();
+  const [winners, setWinners] = useState([]);
   const {
     hasVoted,
     getVoteCount,
@@ -32,17 +35,14 @@ const ProjectsPage = ({ data }) => {
     threshold,
     getBalance,
     checkStatus,
+    getWinners,
   } = useProjectVoting();
   const walletContext = useContext(WalletContext);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
       const init = async () => {
-        await fetchVoteCount();
-        await checkHasVoted();
-        await updateBalance();
-        const vote = await getVote();
-        setAddressVote(vote);
+        updateVoteStates();
       };
 
       init();
@@ -51,16 +51,46 @@ const ProjectsPage = ({ data }) => {
 
   const voteForProject = async (id) => {
     try {
-      const hash = await vote(id, contribution);
+      if (!validateContributionInput(name, contribution)) {
+        window.alert("Display name or contribution amount not entered.");
+        return;
+      }
+      const hash = await vote(id, contribution, name);
       const succeeded = await checkStatus(hash);
       if (succeeded) {
-        await updateBalance();
-        await fetchVoteCount();
-        setAddressVote(id);
+        await updateVoteStates();
       }
     } catch (error) {
       console.error("Error in voting for project:", error);
     }
+  };
+
+  const updateVoteStates = async () => {
+    await checkHasVoted();
+    await updateBalance();
+    await updateWinners();
+    await updateVoteCounts();
+    await updateAddressVote();
+  };
+
+  const validateContributionInput = (name, contributionAmount) => {
+    return (
+      typeof name === "string" &&
+      typeof contributionAmount === "number" &&
+      contributionAmount >= 0.001 &&
+      contributionAmount <= 0.05 &&
+      name.length > 0
+    );
+  };
+
+  const updateAddressVote = async () => {
+    const vote = await getVote();
+    setAddressVote(vote);
+  };
+
+  const updateWinners = async () => {
+    const winners = await getWinners();
+    setWinners(winners);
   };
 
   const updateBalance = async () => {
@@ -79,7 +109,7 @@ const ProjectsPage = ({ data }) => {
     return project.node.frontmatter;
   };
 
-  const fetchVoteCount = async () => {
+  const updateVoteCounts = async () => {
     const counts = {};
     for (const { node } of pageData) {
       const count = await getVoteCount(node.frontmatter.id);
@@ -99,7 +129,7 @@ const ProjectsPage = ({ data }) => {
           my: 5,
         }}
       >
-        <Box sx={{ mt: 6, mb: 5 }} textAlign="center">
+        <Box sx={{ mt: 6, mb: 4 }} textAlign="center">
           <Themed.h1
             sx={{
               mb: 3,
@@ -115,32 +145,32 @@ const ProjectsPage = ({ data }) => {
             <Link href="/about">services and rates</Link>. Plus, take a moment
             to vote for your favorite project and you might win a prize!
           </Text>
-          <Box>
-            <Themed.h2 sx={{ mt: 4 }}>Participate in Web3 Voting</Themed.h2>
-            <Text variant="regular" sx={{ mt: 3 }}>
-              Embracing the new era of Web3, I've integrated a decentralized
-              voting system for my projects. Your votes, securely recorded on
-              the Ethereum blockchain. You can help highlight the most popular
-              projects.
-            </Text>
-            <WalletBanner
-              walletAddress={walletContext?.walletAddress}
-              project={getProject()}
-              isWalletConnected={walletContext?.isWalletConnected}
-              hasVoted={walletContext?.hasVoted}
-              threshold={threshold}
-              onConnectClick={walletContext?.connectWallet}
-            ></WalletBanner>
-            <ProgressGauge
-              currentProgress={balance}
-              maxProgress={threshold}
-            ></ProgressGauge>
-            {!hasVoted && walletContext?.walletAddress && (
-              <ContributionForm
-                onInput={(value) => setContribution(value)}
-              ></ContributionForm>
-            )}
-          </Box>
+          <Themed.h2 sx={{ mt: 4 }}>Participate in Web3 Voting</Themed.h2>
+          <Text variant="regular" sx={{ mt: 3 }}>
+            Embracing the new era of Web3, I've integrated a decentralized
+            voting system for my projects. Your votes, securely recorded on the
+            Ethereum blockchain. You can help highlight the most popular
+            projects.
+          </Text>
+          <WalletBanner
+            walletAddress={walletContext?.walletAddress}
+            project={getProject()}
+            isWalletConnected={walletContext?.isWalletConnected}
+            hasVoted={walletContext?.hasVoted}
+            threshold={threshold}
+            onConnectClick={walletContext?.connectWallet}
+          ></WalletBanner>
+          <ProgressGauge
+            currentProgress={balance}
+            maxProgress={threshold}
+          ></ProgressGauge>
+          {winners.length > 0 && <WinnerList winners={winners}></WinnerList>}
+          {!hasVoted && walletContext?.walletAddress && (
+            <ContributionForm
+              onContributionInput={(value) => setContribution(value)}
+              onNameInput={(value) => setName(value)}
+            ></ContributionForm>
+          )}
         </Box>
         <Grid
           sx={{
