@@ -8,6 +8,8 @@ contract ProjectVoting {
     mapping(address => bool) public hasVoted;
     mapping(string => string) public projects;
     mapping(address => string) public addressVotes;
+    mapping(address => string) public addressNames;
+    string[] public winners;
     string[] public projectIds;
     address private owner;
     address[] private voters;
@@ -15,7 +17,7 @@ contract ProjectVoting {
 
     event ProjectAdded(string projectId, string projectName);
     event Voted(address voter, string projectId); 
-    event AutoTransferExecuted(address recipient, uint256 amount);
+    event WinnerAnnounced(address winner, uint256 amount);
 
     modifier onlyOwner() {
         require(msg.sender == owner, "Only owner can execute");
@@ -35,18 +37,22 @@ contract ProjectVoting {
         emit ProjectAdded(projectId, projectName); 
     }
 
-    function vote(string memory projectId) payable public {
+    function vote(string memory projectId, string memory voterName) payable public {
         require(msg.value >= 0.001 ether, "Minimum 0.001 ether");
         require(msg.value <= 0.05 ether, "Maximum 0.05 ether");
         require(!hasVoted[msg.sender], "Already voted");
         require(bytes(projects[projectId]).length > 0, "Project does not exist"); 
-
+        addressNames[msg.sender] = voterName;
         addressVotes[msg.sender] = projectId;
         projectVotes[projectId]++;
         hasVoted[msg.sender] = true;
         voters.push(msg.sender);
-        checkAndTransfer(); // TODO: This is breaking 
+        checkAndTransfer();  
         emit Voted(msg.sender, projectId);
+    }
+
+    function getWinners() public view returns (string[] memory) {
+        return winners;
     }
 
     function voteTest() public payable returns (uint) {
@@ -74,10 +80,11 @@ contract ProjectVoting {
             require(voters.length > 0, "No voters to reward");
             uint randomIndex = uint(keccak256(abi.encodePacked(block.timestamp, block.prevrandao))) % voters.length;
             address payable luckyVoter = payable(voters[randomIndex]);
+            // TODO: check if already won
             uint256 amountToSend = address(this).balance;
             Address.sendValue(luckyVoter, amountToSend);
-
-            emit AutoTransferExecuted(luckyVoter, amountToSend);
+            winners.push(addressNames[luckyVoter]);
+            emit WinnerAnnounced(luckyVoter, amountToSend);
         }
     }
 
