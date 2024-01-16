@@ -9,7 +9,8 @@ contract ProjectVoting {
     mapping(string => string) public projects;
     mapping(address => string) public addressVotes;
     mapping(address => string) public addressNames;
-    string[] public winners;
+    mapping(address => string) public winners;
+    string[] public winnerNames;
     string[] public projectIds;
     address private owner;
     address[] private voters;
@@ -80,10 +81,10 @@ contract ProjectVoting {
             require(voters.length > 0, "No voters to reward");
             uint randomIndex = uint(keccak256(abi.encodePacked(block.timestamp, block.prevrandao))) % voters.length;
             address payable luckyVoter = payable(voters[randomIndex]);
-            // TODO: check if already won
             uint256 amountToSend = address(this).balance;
             Address.sendValue(luckyVoter, amountToSend);
-            winners.push(addressNames[luckyVoter]);
+            winners[luckyVoter] = addressNames[luckyVoter];
+            winnerNames.push(addressNames[luckyVoter]);
             emit WinnerAnnounced(luckyVoter, amountToSend);
         }
     }
