@@ -49,6 +49,18 @@ const useProjectVoting = () => {
     }
   }
 
+  const getWinners = async () => {
+    try {
+      const result = await contract.methods.getWinners().call({
+        from: walletContext.walletAddress,
+      });
+
+      return result;
+    } catch (error) {
+      console.error("Error in getting winners:", error);
+    }
+  };
+
   const getBalance = async () => {
     try {
       const result = await contract.methods.getBalance().call({
@@ -97,24 +109,13 @@ const useProjectVoting = () => {
     }
   };
 
-  const vote = async (id, amountInEther) => {
+  const vote = async (id, amountInEther, name) => {
     try {
-      console.log(amountInEther);
       const minimumEther = 0.001;
       const maximumEther = 0.05;
-      console.log(
-        "Contribution:",
-        amountInEther,
-        "\n",
-        "Minimum:",
-        minimumEther,
-        "\n",
-        "Maximum",
-        maximumEther
-      );
 
       if (amountInEther >= minimumEther && amountInEther <= maximumEther) {
-        const data = contract.methods.vote(id).encodeABI();
+        const data = contract.methods.vote(id, name).encodeABI();
         const value = web3.utils.toWei(amountInEther.toString(), "ether");
 
         const estimatedGas = await web3.eth.estimateGas({
@@ -125,7 +126,7 @@ const useProjectVoting = () => {
         });
 
         const receipt = await contract.methods
-          .vote(id)
+          .vote(id, name)
           .send({ from: walletContext.walletAddress, value, gas: estimatedGas })
           .on("transactionHash", console.log)
           .on("receipt", console.log);
@@ -171,6 +172,7 @@ const useProjectVoting = () => {
     threshold,
     getBalance,
     checkStatus,
+    getWinners,
   };
 };
 

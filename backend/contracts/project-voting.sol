@@ -53,7 +53,7 @@ contract ProjectVoting {
     }
 
     function getWinners() public view returns (string[] memory) {
-        return winners;
+        return winnerNames;
     }
 
     function voteTest() public payable returns (uint) {
