@@ -1,8 +1,10 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui";
 import React from "react";
-import { Text, Themed, Box, Flex, Progress } from "theme-ui";
 import { useEffect, useState } from "react";
+
+// Components
+import { Text, Themed, Box, Flex } from "theme-ui";
 
 const ProgressGauge = ({ maxProgress = 100, currentProgress = 0 }) => {
   const [progress, setProgress] = useState(0);
