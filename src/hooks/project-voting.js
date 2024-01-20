@@ -150,44 +150,44 @@ const useProjectVoting = () => {
   };
 
   const vote = async (id, amountInEther, name) => {
+    const ethereum = window.ethereum;
     try {
       const minimumEther = 0.001;
       const maximumEther = 0.05;
 
-      if (amountInEther >= minimumEther && amountInEther <= maximumEther) {
-        const data = contract.methods.vote(id, name).encodeABI();
-        const value = web3.utils.toWei(amountInEther.toString(), "ether");
-
-        const estimatedGas = await web3.eth.estimateGas({
-          from: walletContext.walletAddress,
-          to: process.env.GATSBY_PROJECT_VOTING_CONTRACT_ADDRESS,
-          data,
-          value,
-        });
-
-        const receipt = await contract.methods
-          .vote(id, name)
-          .send({ from: walletContext.walletAddress, value, gas: estimatedGas })
-          .on("transactionHash", console.log)
-          .on("receipt", console.log);
-
-        return receipt.transactionHash;
-      } else {
-        console.error(
-          "Error in voting for project: amount must be between 0.001 and 0.05 ETH"
-        );
+      if (amountInEther < minimumEther || amountInEther > maximumEther) {
         throw new Error(
           "Invalid amount: amount must be between 0.001 and 0.05 ETH"
         );
       }
+
+      const data = contract.methods.vote(id, name).encodeABI();
+      const value = web3.utils.toWei(amountInEther.toString(), "ether");
+
+      const estimatedGas = await web3.eth.estimateGas({
+        from: ethereum.selectedAddress,
+        to: process.env.GATSBY_PROJECT_VOTING_CONTRACT_ADDRESS,
+        data: data,
+        value: value,
+      });
+
+      const transactionParameters = {
+        to: process.env.GATSBY_PROJECT_VOTING_CONTRACT_ADDRESS,
+        from: ethereum.selectedAddress,
+        value: value,
+        data: data,
+        gas: estimatedGas.toString(16),
+      };
+
+      const txHash = await ethereum.request({
+        method: "eth_sendTransaction",
+        params: [transactionParameters],
+      });
+
+      return txHash;
     } catch (error) {
-      // Decode the error using the ABI decoder
-      const decodedError = web3.eth.abi.decodeParameters(
-        ["uint256", "uint256", "uint256"],
-        error.data
-      );
-      console.error("Error in voting for project:", decodedError);
-      throw new Error("Error in voting for project: " + decodedError);
+      console.error("Error in voting for project:", error);
+      throw error;
     }
   };
 
