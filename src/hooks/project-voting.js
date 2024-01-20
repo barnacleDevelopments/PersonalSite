@@ -7,11 +7,13 @@ const useProjectVoting = () => {
   const [threshold, setThreshold] = useState(0);
   const walletContext = useContext(WalletContext);
 
-  const web3 = new Web3(Web3.givenProvider || process.env.WEB3_HTTPS_URL);
+  const web3 = new Web3(
+    Web3.givenProvider || process.env.GATSBY_WEB3_HTTPS_URL
+  );
 
   const contract = new web3.eth.Contract(
     projectVotingABI.abi,
-    process.env.PROJECT_VOTING_CONTRACT_ADDRESS
+    process.env.GATSBY_PROJECT_VOTING_CONTRACT_ADDRESS
   );
 
   useEffect(() => {
@@ -158,7 +160,7 @@ const useProjectVoting = () => {
 
         const estimatedGas = await web3.eth.estimateGas({
           from: walletContext.walletAddress,
-          to: process.env.PROJECT_VOTING_CONTRACT_ADDRESS,
+          to: process.env.GATSBY_PROJECT_VOTING_CONTRACT_ADDRESS,
           data,
           value,
         });

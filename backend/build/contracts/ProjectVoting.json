@@ -21827,12 +21827,12 @@
     "11155111": {
       "events": {},
       "links": {},
-      "address": "0xfc2279B66eC791fE462FF07713737D545b19f8cA",
-      "transactionHash": "0xf4e84a6d2c2b6e899196fab1d6583a51690a45d889dd15cf373a83ad27e1a79e"
+      "address": "0x0A3865820c92A7a92530fCc8908D5BcF4C14B645",
+      "transactionHash": "0xc8e56f314aa8229668f4e6961996847b7b9ae6a7a9e65646d91299f2832976d6"
     }
   },
   "schemaVersion": "3.4.16",
-  "updatedAt": "2024-01-20T15:46:20.354Z",
+  "updatedAt": "2024-01-20T16:39:38.646Z",
   "networkType": "ethereum",
   "devdoc": {
     "errors": {
