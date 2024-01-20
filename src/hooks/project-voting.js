@@ -4,7 +4,6 @@ import projectVotingABI from "../../backend/build/contracts/ProjectVoting.json";
 import { WalletContext } from "../contexts/WalletContext";
 
 const useProjectVoting = () => {
-  const [hasVoted, setHasVoted] = useState(false);
   const [threshold, setThreshold] = useState(0);
   const walletContext = useContext(WalletContext);
 
@@ -49,15 +48,58 @@ const useProjectVoting = () => {
     }
   }
 
-  const getWinners = async () => {
+  const getVoters = async () => {
     try {
-      const result = await contract.methods.getWinners().call({
-        from: walletContext.walletAddress,
+      const result = await contract.getPastEvents("Voted", {
+        fromBlock: 0,
+        toBlock: "latest",
       });
 
-      return result;
+      return result.map((event) => ({
+        id: event.returnValues.voter,
+        name: event.returnValues.name,
+        project: event.returnValues.projectId,
+      }));
+    } catch (error) {
+      console.error("Error in getting voters:", error);
+    }
+  };
+
+  const getWinners = async () => {
+    try {
+      const result = await contract.getPastEvents("WinnerAnnounced", {
+        fromBlock: 0,
+        toBlock: "latest",
+      });
+      return result.reduce((acc, winner) => {
+        console.log("WinnerAnnounced", winner);
+        acc[winner.returnValues.winner] = {
+          id: winner.returnValues.winner,
+          amount: web3.utils.fromWei(
+            winner.returnValues.amount.toString(),
+            "ether"
+          ),
+        };
+
+        return acc;
+      }, {});
     } catch (error) {
       console.error("Error in getting winners:", error);
+    }
+  };
+
+  const getProjects = async () => {
+    try {
+      const result = await contract.getPastEvents("ProjectAdded", {
+        fromBlock: 0,
+        toBlock: "latest",
+      });
+      return result.map((project) => ({
+        id: project.returnValues.projectId,
+        title: project.returnValues.projectName,
+      }));
+    } catch (error) {
+      console.error("Error in getting projects:", error);
     }
   };
 
@@ -66,7 +108,6 @@ const useProjectVoting = () => {
       const result = await contract.methods.getBalance().call({
         from: walletContext.walletAddress,
       });
-
       return parseFloat(web3.utils.fromWei(result, "ether"));
     } catch (error) {
       console.error("Error in getting balance:", error);
@@ -78,7 +119,6 @@ const useProjectVoting = () => {
       const result = await contract.methods.getThreshold().call({
         from: walletContext.walletAddress,
       });
-
       return web3.utils.fromWei(result, "ether");
     } catch (error) {
       console.error("Error in getting threshold:", error);
@@ -90,8 +130,7 @@ const useProjectVoting = () => {
       const result = await contract.methods.checkHasVoted().call({
         from: walletContext.walletAddress,
       });
-
-      setHasVoted(result);
+      return result;
     } catch (error) {
       console.error("Error in checking if has voted:", error);
     }
@@ -102,7 +141,6 @@ const useProjectVoting = () => {
       const count = await contract.methods.getVoteCount(id).call({
         from: walletContext.walletAddress,
       });
-
       return count.toString();
     } catch (error) {
       console.error("Error in getting vote count:", error);
@@ -164,7 +202,6 @@ const useProjectVoting = () => {
   };
 
   return {
-    hasVoted,
     getVoteCount,
     vote,
     checkHasVoted,
@@ -173,6 +210,8 @@ const useProjectVoting = () => {
     getBalance,
     checkStatus,
     getWinners,
+    getProjects,
+    getVoters,
   };
 };
 

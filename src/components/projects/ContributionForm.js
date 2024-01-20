@@ -1,13 +1,13 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui";
+import { useEffect, useState } from "react";
 
 // Components
-import { Box, Text, Themed, Input, Field, Button } from "theme-ui";
-import { useEffect, useState } from "react";
+import { Box, Text, Field, Button } from "theme-ui";
 
 const ContributionForm = ({ onContributionInput, onNameInput }) => {
   const [contributionValid, setContributionValid] = useState(false);
-  const [contributionAmount, setContributionAmount] = useState();
+  const [contributionAmount, setContributionAmount] = useState(0);
   const [contributionAmountTouched, setContributionAmountTouched] =
     useState(false);
 
@@ -57,7 +57,18 @@ const ContributionForm = ({ onContributionInput, onNameInput }) => {
             width: "100%",
             textAlign: "left",
             mt: 2,
-            flex: 1, // Adjust the field to take up available space
+            flex: 1,
+            "::-webkit-inner-spin-button, ::-webkit-outer-spin-button": {
+              WebkitAppearance: "none !important",
+              margin: 0,
+            },
+            "::-moz-focus-inner": {
+              MozAppearance: "textfield",
+              margin: 0,
+            },
+            "::-ms-clear": {
+              display: "none !important",
+            },
           }}
           type="number"
           onBlur={() => setContributionAmountTouched(true)}
@@ -66,7 +77,7 @@ const ContributionForm = ({ onContributionInput, onNameInput }) => {
           placeholder="Enter your contribution"
         ></Field>
         <Button
-          style={{
+          sx={{
             marginLeft: "10px",
             position: "absolute",
             right: "8px",
@@ -83,17 +94,6 @@ const ContributionForm = ({ onContributionInput, onNameInput }) => {
             paddingBottom: "3px",
             paddingLeft: "4px",
             paddingRight: "4px",
-            "::-webkit-inner-spin-button, ::-webkit-outer-spin-button": {
-              WebkitAppearance: "none !important",
-              margin: 0,
-            },
-            "::-moz-focus-inner": {
-              MozAppearance: "textfield",
-              margin: 0,
-            },
-            "::-ms-clear": {
-              display: "none !important",
-            },
           }}
           onClick={() => setContributionAmount(0.05)}
         >

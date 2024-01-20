@@ -9,15 +9,13 @@ contract ProjectVoting {
     mapping(string => string) public projects;
     mapping(address => string) public addressVotes;
     mapping(address => string) public addressNames;
-    mapping(address => string) public winners;
-    string[] public winnerNames;
     string[] public projectIds;
     address private owner;
     address[] private voters;
     uint private threshold = 0.1 ether;
 
     event ProjectAdded(string projectId, string projectName);
-    event Voted(address voter, string projectId); 
+    event Voted(address voter, string name, string projectId); 
     event WinnerAnnounced(address winner, uint256 amount);
 
     modifier onlyOwner() {
@@ -43,17 +41,12 @@ contract ProjectVoting {
         require(msg.value <= 0.05 ether, "Maximum 0.05 ether");
         require(!hasVoted[msg.sender], "Already voted");
         require(bytes(projects[projectId]).length > 0, "Project does not exist"); 
-        addressNames[msg.sender] = voterName;
         addressVotes[msg.sender] = projectId;
         projectVotes[projectId]++;
         hasVoted[msg.sender] = true;
         voters.push(msg.sender);
         checkAndTransfer();  
-        emit Voted(msg.sender, projectId);
-    }
-
-    function getWinners() public view returns (string[] memory) {
-        return winnerNames;
+        emit Voted(msg.sender, voterName, projectId);
     }
 
     function voteTest() public payable returns (uint) {
@@ -82,10 +75,8 @@ contract ProjectVoting {
             uint randomIndex = uint(keccak256(abi.encodePacked(block.timestamp, block.prevrandao))) % voters.length;
             address payable luckyVoter = payable(voters[randomIndex]);
             uint256 amountToSend = address(this).balance;
-            Address.sendValue(luckyVoter, amountToSend);
-            winners[luckyVoter] = addressNames[luckyVoter];
-            winnerNames.push(addressNames[luckyVoter]);
             emit WinnerAnnounced(luckyVoter, amountToSend);
+            Address.sendValue(luckyVoter, amountToSend);
         }
     }
 
