@@ -82,7 +82,6 @@ const VoterList = ({ winners = {}, voters = [{ name: "" }] }) => {
           </tbody>
         </table>
       </Box>
-      )
     </Box>
   );
 };
