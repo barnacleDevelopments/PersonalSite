@@ -2,7 +2,7 @@
 import { jsx } from "theme-ui";
 import { Themed, Box } from "theme-ui";
 
-const VoterList = ({ winners = {}, voters = [] }) => {
+const VoterList = ({ winners = {}, voters = [{ name: "" }] }) => {
   return (
     <Box
       sx={{
@@ -82,6 +82,7 @@ const VoterList = ({ winners = {}, voters = [] }) => {
           </tbody>
         </table>
       </Box>
+      )
     </Box>
   );
 };

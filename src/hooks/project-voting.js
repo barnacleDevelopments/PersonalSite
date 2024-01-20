@@ -168,13 +168,14 @@ const useProjectVoting = () => {
         from: ethereum.selectedAddress,
         to: process.env.GATSBY_PROJECT_VOTING_CONTRACT_ADDRESS,
         data: data,
-        value: value,
+        value: web3.utils.toHex(parseInt(value)),
       });
 
+      console.log("Gas Estimate: ", estimatedGas, web3.utils.toHex(value));
       const transactionParameters = {
         to: process.env.GATSBY_PROJECT_VOTING_CONTRACT_ADDRESS,
         from: ethereum.selectedAddress,
-        value: value,
+        value: web3.utils.toHex(parseInt(value)),
         data: data,
         gas: estimatedGas.toString(16),
       };

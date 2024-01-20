@@ -4,7 +4,7 @@ import { graphql } from "gatsby";
 
 // Components
 import ProjectCard from "../components/projects/ProjectCard";
-import { Box, Text, Themed } from "theme-ui";
+import { Box, Text, Themed, Spinner } from "theme-ui";
 import Seo from "../components/app/Seo";
 import { useContext, useEffect, useState } from "react";
 import WalletBanner from "../components/projects/WalletBanner";
@@ -225,24 +225,36 @@ const ProjectsPage = ({ data }) => {
             mb: 6,
           }}
         >
-          {projects.map((project, index) => {
-            return (
-              <Box id={"id" + project.id} key={project.id} mb={3}>
-                <ProjectCard
-                  id={project.id}
-                  image={project.image1}
-                  title={project.title}
-                  siteLink={project.link}
-                  key={index}
-                  buttonText={"View"}
-                  vote={voteForProject}
-                  hasVoted={hasVoted}
-                  voteCount={project.votes}
-                  isVote={addressVote === project.id}
-                />
-              </Box>
-            );
-          })}
+          {projects.length > 0 ? (
+            projects.map((project, index) => {
+              return (
+                <Box id={"id" + project.id} key={project.id} mb={3}>
+                  <ProjectCard
+                    id={project.id}
+                    image={project.image1}
+                    title={project.title}
+                    siteLink={project.link}
+                    key={index}
+                    buttonText={"View"}
+                    vote={voteForProject}
+                    hasVoted={hasVoted}
+                    voteCount={project.votes}
+                    isVote={addressVote === project.id}
+                  />
+                </Box>
+              );
+            })
+          ) : (
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <Spinner />
+            </Box>
+          )}
         </Box>
       </Box>
     </Box>
