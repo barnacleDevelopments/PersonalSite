@@ -68,5 +68,8 @@
     "theme-ui": "^0.14.0",
     "web3": "^4.3.0",
     "yup": "^0.32.11"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
   }
 }
