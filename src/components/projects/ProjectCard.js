@@ -11,7 +11,6 @@ import { WalletContext } from "../../contexts/WalletContext";
 // markup
 const ProjectCard = ({
   id,
-  image,
   title,
   content,
   siteLink,
@@ -21,7 +20,6 @@ const ProjectCard = ({
   voteCount,
   isVote,
 }) => {
-  const cardImage = getImage(image);
   const walletContext = useContext(WalletContext);
 
   const isDisabled = () => {
@@ -63,16 +61,6 @@ const ProjectCard = ({
             Your Vote
           </Text>
         </Box>
-      )}
-      {image && (
-        <GatsbyImage
-          style={{ height: "200px" }}
-          imgStyle={{ objectFit: "cover" }}
-          placeholder="blurred"
-          crossOrigin="anonymous"
-          image={cardImage}
-          alt={title}
-        />
       )}
       <Flex
         sx={{

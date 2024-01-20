@@ -1,14 +1,16 @@
 /** @jsx jsx */
 import { Link, jsx } from "theme-ui";
 import { graphql } from "gatsby";
-import scrollTo from "gatsby-plugin-smoothscroll";
 
 // Components
-import ProjectCard from "../components/cards/ProjectCard";
-import { Box, Text, Themed, Grid } from "theme-ui";
+import ProjectCard from "../components/projects/ProjectCard";
+import { Box, Text, Themed } from "theme-ui";
 import Seo from "../components/app/Seo";
 import { useContext, useEffect, useState } from "react";
-import { Button, Flex } from "theme-ui";
+import WalletBanner from "../components/projects/WalletBanner";
+import ProgressGauge from "../components/projects/ProgressGauge";
+import ContributionForm from "../components/projects/ContributionForm";
+import VoterList from "../components/projects/VoterList";
 
 // Hooks
 import useProjectVoting from "../hooks/project-voting";
@@ -16,59 +18,150 @@ import useProjectVoting from "../hooks/project-voting";
 // Contexts
 import { WalletContext } from "../contexts/WalletContext";
 
-import MetaMask from "../images/meta-mask.svg";
-
 const ProjectsPage = ({ data }) => {
   const pageData = data.allMarkdownRemark.edges;
-  const [voteCounts, setVoteCounts] = useState({});
+  const [projects, setProjects] = useState([]);
+  const [hasVoted, setHasVoted] = useState(false);
+  const [balance, setBalance] = useState(0);
+  const [contribution, setContribution] = useState(0);
+  const [name, setName] = useState("");
   const [addressVote, setAddressVote] = useState();
-  const { hasVoted, getVoteCount, vote, checkHasVoted, getVote } =
-    useProjectVoting();
+  const [winners, setWinners] = useState({});
+  const [voters, setVoters] = useState([]);
+  const {
+    getVoteCount,
+    vote,
+    checkHasVoted,
+    getVote,
+    threshold,
+    getBalance,
+    checkStatus,
+    getWinners,
+    getProjects,
+    getVoters,
+  } = useProjectVoting();
   const walletContext = useContext(WalletContext);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
       const init = async () => {
-        await fetchVoteCount();
-        await checkHasVoted();
-        const vote = await getVote();
-        setAddressVote(vote);
+        await updateVoteStates();
+        await getProjectWithContent();
       };
 
       init();
     }
   }, [walletContext?.walletAddress]);
 
-  const voteForProject = async (id) => {
-    await vote(id);
-    await fetchVoteCount();
+  const getProjectWithContent = async () => {
+    const projects = await getProjects();
+    const voteCounts = await getVoteCounts(projects);
+    const formattedProjects = (await getProjects()).map((project) => {
+      const data = pageData.find(
+        ({ node }) => node.frontmatter.id === project.id
+      );
 
-    if (hasVoted) {
-      setAddressVote(id);
+      return {
+        id: project.id,
+        title: project.title,
+        votes: voteCounts[project.id],
+        image: data?.node?.frontmatter?.image1,
+        link: data?.node?.fields?.slug,
+      };
+    });
+    formattedProjects.sort((a, b) => a.votes < b.votes);
+    setProjects(formattedProjects);
+  };
+
+  const voteForProject = async (id) => {
+    try {
+      validateContributionInput(name, parseFloat(contribution));
+      const hash = await vote(id, contribution, name);
+      const succeeded = await checkStatus(hash);
+      if (succeeded) {
+        await updateVoteStates();
+        await updateProjectVoteCount(id);
+      }
+    } catch (error) {
+      alert(error.message);
     }
+  };
+
+  const updateVoteStates = async () => {
+    await updateHasVoted();
+    await updateBalance();
+    await updateWinners();
+    await updateVoters();
+    await updateAddressVote();
+  };
+
+  const validateContributionInput = (name, contributionAmount) => {
+    if (typeof name !== "string" || name.length <= 0)
+      throw new Error(`Must provide a display name`);
+    if (typeof contributionAmount !== "number")
+      throw new Error(`Must provide a contribution amount`);
+    if (isNaN(contributionAmount))
+      throw new Error(`Contribution amount must be a number`);
+    if (contributionAmount < 0.001 || contributionAmount > 0.05)
+      throw new Error(
+        `Contribution amount must be greater than 0.001 and less than 0.05`
+      );
+  };
+
+  const updateAddressVote = async () => {
+    const vote = await getVote();
+    setAddressVote(vote);
+  };
+
+  const updateWinners = async () => {
+    const winners = await getWinners();
+    setWinners(winners);
+  };
+
+  const updateVoters = async () => {
+    const voters = await getVoters();
+    console.log(voters);
+    setVoters(voters);
+  };
+
+  const updateHasVoted = async () => {
+    const hasVoted = await checkHasVoted();
+    setHasVoted(hasVoted);
+  };
+
+  const updateBalance = async () => {
+    const balance = await getBalance();
+    setBalance(balance);
   };
 
   const getProject = () => {
-    const project = pageData.find(
-      (project) => project.node.frontmatter.id === addressVote
-    );
-
+    const project = projects.find((project) => project.id === addressVote);
     if (!project) return "";
-
-    return project.node.frontmatter;
+    return project;
   };
 
-  const fetchVoteCount = async () => {
+  const getVoteCounts = async (projects) => {
     const counts = {};
-    for (const { node } of pageData) {
-      const count = await getVoteCount(node.frontmatter.id);
-      counts[node.frontmatter.id] = count;
+    for (const project of projects) {
+      const count = await getVoteCount(project.id);
+      counts[project.id] = count;
     }
-    setVoteCounts(counts);
+    return counts;
   };
 
-  const truncateAddress = (address) => {
-    return address.slice(0, 6) + "..." + address.slice(-4);
+  const updateProjectVoteCount = async (projectId) => {
+    const voteCount = await getVoteCount(projectId);
+    setProjects((projects) => {
+      return projects.map((project) => {
+        if (project.id === projectId) {
+          return {
+            ...project,
+            votes: Number.parseFloat(voteCount),
+          };
+        }
+        return project;
+      });
+    });
   };
 
   return (
@@ -78,10 +171,11 @@ const ProjectsPage = ({ data }) => {
         sx={{
           margin: "0 auto",
           width: ["90%", "80%", "70%"],
+          mt: "60px",
           my: 5,
         }}
       >
-        <Box sx={{ mt: 6, mb: 5 }} textAlign="center">
+        <Box sx={{ mt: 6, mb: 4 }} textAlign="center">
           <Themed.h1
             sx={{
               mb: 3,
@@ -95,127 +189,61 @@ const ProjectsPage = ({ data }) => {
             collaboration or want to learn more, feel free to{" "}
             <Link href="/contact">contact me</Link> or explore my{" "}
             <Link href="/about">services and rates</Link>. Plus, take a moment
-            to vote for your favorite project and see what others are loving!
+            to vote for your favorite project and you might win a prize!
           </Text>
-          <Box>
-            <Themed.h2 sx={{ mt: 4 }}>Participate in Web3 Voting</Themed.h2>
-            <Text variant="regular" sx={{ mt: 3 }}>
-              Embracing the new era of Web3, I've integrated a decentralized
-              voting system for my projects. Your votes, securely recorded on
-              the Ethereum blockchain. You can help highlight the most popular
-              projects.
-            </Text>
-            <Box
-              p={4}
-              mt={4}
-              sx={{
-                backgroundColor: !walletContext?.isWalletConnected
-                  ? "primary"
-                  : "orange",
-                borderRadius: "10px",
-                overflow: "hidden",
-              }}
-            >
-              <Flex
-                sx={{
-                  justifyContent: "space-between",
-                }}
-              >
-                <Box>
-                  {/* title */}
-                  {!walletContext?.isWalletConnected ? (
-                    <Themed.h2 sx={{ color: "white" }}>
-                      Connect Wallet & Vote
-                    </Themed.h2>
-                  ) : (
-                    <Themed.h2 sx={{ color: "white" }}>
-                      Your wallet is connected
-                    </Themed.h2>
-                  )}
-                  {/* body */}
-                  {!walletContext?.isWalletConnected ? (
-                    <Text variant="regular" sx={{ mt: 3, color: "white" }}>
-                      Join the Web3 revolution! Connect your Ethereum wallet,
-                      like{" "}
-                      <Link target="_blank" href="https://metamask.io">
-                        MetaMask
-                      </Link>
-                      , to participate. Your vote is secure and tamper-proof,
-                      thanks to blockchain technology. .
-                    </Text>
-                  ) : hasVoted ? (
-                    <Text
-                      variant="small"
-                      sx={{
-                        color: "white",
-                      }}
-                    >
-                      You've already cast your vote for{" "}
-                      <a onClick={() => scrollTo(`#id${getProject()?.id}`)}>
-                        {getProject()?.title}
-                      </a>
-                      . Thank you for participating!
-                    </Text>
-                  ) : (
-                    <Text variant="regular" sx={{ mt: 3, color: "white" }}>
-                      Ready to vote? Select your favorite project and confirm
-                      the transaction via MetaMask. Your vote will be recorded
-                      on the Ethereum blockchain via the Sepolia Test Network.
-                      Please be patient as processing may take a few minutes.
-                      This is a beta release before official mainnet
-                      implementation.
-                    </Text>
-                  )}
-                  <Box mt={3} sx={{ color: "white" }}>
-                    {walletContext?.walletAddress ? (
-                      <Text variant="regular" color="white">
-                        {`Connected as ${truncateAddress(
-                          walletContext?.walletAddress
-                        )}`}
-                      </Text>
-                    ) : (
-                      <Button
-                        sx={{ display: "flex", alignItems: "center" }}
-                        onClick={walletContext?.connectWallet}
-                      >
-                        <Box mr={3}>Connect</Box> <MetaMask width="25px" />{" "}
-                      </Button>
-                    )}
-                  </Box>
-                </Box>
-              </Flex>
-            </Box>
-            <Text variant="regular"></Text>
-          </Box>
+          <Themed.h2 sx={{ mt: 4 }}>Participate in Web3 Voting</Themed.h2>
+          <Text variant="regular" sx={{ mt: 3 }}>
+            Embracing the new era of Web3, I've integrated a decentralized
+            voting system for my projects. Your votes, securely recorded on the
+            Ethereum blockchain. You can help highlight the most popular
+            projects.
+          </Text>
+          <WalletBanner
+            walletAddress={walletContext?.walletAddress}
+            project={getProject()}
+            isWalletConnected={walletContext?.isWalletConnected}
+            hasVoted={hasVoted}
+            threshold={threshold}
+            onConnectClick={walletContext?.connectWallet}
+          ></WalletBanner>
+          <ProgressGauge
+            currentProgress={balance}
+            maxProgress={threshold}
+          ></ProgressGauge>
+          {voters?.length > 0 && (
+            <VoterList winners={winners} voters={voters}></VoterList>
+          )}
+          {!hasVoted && walletContext?.walletAddress && (
+            <ContributionForm
+              onContributionInput={(value) => setContribution(value)}
+              onNameInput={(value) => setName(value)}
+            ></ContributionForm>
+          )}
         </Box>
-        <Grid
+        <Box
           sx={{
             mb: 6,
           }}
-          gap={3}
-          columns={[1, null, 2, 3]}
         >
-          {pageData.map(({ node }, index) => {
-            const project = node.frontmatter;
-
+          {projects.map((project, index) => {
             return (
-              <Box id={"id" + project.id}>
+              <Box id={"id" + project.id} key={project.id} mb={3}>
                 <ProjectCard
                   id={project.id}
                   image={project.image1}
                   title={project.title}
-                  siteLink={node.fields.slug}
+                  siteLink={project.link}
                   key={index}
                   buttonText={"View"}
                   vote={voteForProject}
                   hasVoted={hasVoted}
-                  voteCount={voteCounts[project.id]}
+                  voteCount={project.votes}
                   isVote={addressVote === project.id}
                 />
               </Box>
             );
           })}
-        </Grid>
+        </Box>
       </Box>
     </Box>
   );
