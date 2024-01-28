@@ -29,8 +29,8 @@ contract ProjectVoting {
 
     function add(string memory projectName, string memory projectId) public onlyOwner {
         require(bytes(projects[projectId]).length == 0, "Project already exists");
-        require(bytes(projectName).length > 0, "Project name is required"); // Input validation for projectName
-        require(bytes(projectId).length > 0, "Project ID is required"); // Input validation for projectId
+        require(bytes(projectName).length > 0, "Project name is required");
+        require(bytes(projectId).length > 0, "Project ID is required"); 
         projects[projectId] = projectName;
         projectIds.push(projectId);
         emit ProjectAdded(projectId, projectName); 

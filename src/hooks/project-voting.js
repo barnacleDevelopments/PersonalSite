@@ -160,22 +160,22 @@ const useProjectVoting = () => {
           "Invalid amount: amount must be between 0.001 and 0.05 ETH"
         );
       }
-
       const data = contract.methods.vote(id, name).encodeABI();
-      const value = web3.utils.toWei(amountInEther.toString(), "ether");
+      const value = window?.BigInt(
+        web3.utils.toWei(amountInEther.toString(), "ether")
+      );
 
       const estimatedGas = await web3.eth.estimateGas({
         from: ethereum.selectedAddress,
         to: process.env.GATSBY_PROJECT_VOTING_CONTRACT_ADDRESS,
         data: data,
-        value: web3.utils.toHex(parseInt(value)),
+        value: value,
       });
 
-      console.log("Gas Estimate: ", estimatedGas, web3.utils.toHex(value));
       const transactionParameters = {
         to: process.env.GATSBY_PROJECT_VOTING_CONTRACT_ADDRESS,
         from: ethereum.selectedAddress,
-        value: web3.utils.toHex(parseInt(value)),
+        value: value.toString(16),
         data: data,
         gas: estimatedGas.toString(16),
       };
