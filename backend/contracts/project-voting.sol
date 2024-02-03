@@ -1,9 +1,13 @@
-// SPDX-License-Identifier: MIT 
+// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/utils/Address.sol";
+import "@chainlink/contracts/src/v0.8/vrf/VRFConsumerBaseV2.sol";
+import "@chainlink/contracts/src/v0.8/interfaces/VRFCoordinatorV2Interface.sol";
+import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
-contract ProjectVoting {
+
+contract ProjectVoting is VRFConsumerBaseV2{
     mapping(string => uint) public projectVotes;
     mapping(address => bool) public hasVoted;
     mapping(string => string) public projects;
@@ -14,17 +18,35 @@ contract ProjectVoting {
     address[] private voters;
     uint private threshold = 0.1 ether;
 
+    // Chainlink VRF Variables
+    VRFCoordinatorV2Interface COORDINATOR;
+    uint64 private subscriptionId; // this can be found here https://vrf.chain.link/sepolia
+    bytes32 private keyHash;
+    uint32 private callbackGasLimit = 100000; // Adjust the gas limit based on the requirement
+    uint16 private requestConfirmations = 3; // Minimum number of confirmations
+    uint32 private numWords =  1; // Number of random values to request
+
     event ProjectAdded(string projectId, string projectName);
     event Voted(address voter, string name, string projectId); 
     event WinnerAnnounced(address winner, uint256 amount);
+
+    event RandomNumberRequested(uint256 requestId);
+    event RandomNumberReceived(uint256 randomNumber);
 
     modifier onlyOwner() {
         require(msg.sender == owner, "Only owner can execute");
         _;
     }
   
-    constructor() {
+    constructor(
+        address _vrfCoordinator,
+        uint64 _subscriptionId,
+        bytes32 _keyHash
+    ) VRFConsumerBaseV2(_vrfCoordinator) {
         owner = msg.sender;
+        subscriptionId = _subscriptionId;
+        keyHash = _keyHash;
+        COORDINATOR = VRFCoordinatorV2Interface(_vrfCoordinator);
     }
 
     function add(string memory projectName, string memory projectId) public onlyOwner {
@@ -69,16 +91,6 @@ contract ProjectVoting {
         return  addressVotes[msg.sender]; 
     }
 
-    function checkAndTransfer() internal {
-        if (address(this).balance >= threshold) {
-            require(voters.length > 0, "No voters to reward");
-            uint randomIndex = uint(keccak256(abi.encodePacked(block.timestamp, block.prevrandao))) % voters.length;
-            address payable luckyVoter = payable(voters[randomIndex]);
-            uint256 amountToSend = address(this).balance;
-            emit WinnerAnnounced(luckyVoter, amountToSend);
-            Address.sendValue(luckyVoter, amountToSend);
-        }
-    }
 
     function getBalance() public view returns (uint256) {
         return address(this).balance;
@@ -92,6 +104,30 @@ contract ProjectVoting {
         require(newOwner != address(0), "New owner cannot be the zero address");
         owner = newOwner;
     }
+
+    function checkAndTransfer() internal {
+        if (address(this).balance >= threshold) {
+            require(voters.length > 0, "No voters to reward");
+            uint256 requestId = COORDINATOR.requestRandomWords(
+                keyHash,
+                subscriptionId,
+                requestConfirmations,
+                callbackGasLimit,
+                numWords
+            );
+            emit RandomNumberRequested(requestId);
+        }
+    }
+
+    function fulfillRandomWords(uint256 /* requestId */, uint256[] memory randomWords) internal override {
+        uint256 randomResult = randomWords[0];
+        emit RandomNumberReceived(randomWords[0]);
+        uint randomIndex = randomResult % voters.length;
+        address payable luckyVoter = payable(voters[randomIndex]);
+        uint256 amountToSend = address(this).balance;
+        emit WinnerAnnounced(luckyVoter, amountToSend);
+        luckyVoter.transfer(amountToSend);
+    } 
 
     function withdraw() public onlyOwner {
         payable(owner).transfer(address(this).balance);
