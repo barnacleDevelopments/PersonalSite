@@ -194,10 +194,15 @@ const ProjectsPage = ({ data }) => {
           <Themed.h2 sx={{ mt: 4 }}>Participate in Web3 Voting</Themed.h2>
           <Text variant="regular" sx={{ mt: 3 }}>
             Embracing the new era of Web3, I've integrated a decentralized
-            voting system for my projects. Your votes, securely recorded on the
-            Ethereum blockchain. You can help highlight the most popular
-            projects.
-          </Text>
+            voting system for my projects. You can help highlight the most
+            popular projects using the power of Ethereum. Your votes, securely
+            recorded on the Ethereum blockchain. A random winner will be chosen,
+            using{" "}
+            <Link href="https://chain.link/vrf" target="_blank">
+              Chainlink's VRF random number generator
+            </Link>
+            , every time the prize pool reaches the threshold.
+          </Text>{" "}
           <WalletBanner
             walletAddress={walletContext?.walletAddress}
             project={getProject()}

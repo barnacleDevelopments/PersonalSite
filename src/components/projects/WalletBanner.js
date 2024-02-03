@@ -50,9 +50,9 @@ const WalletBanner = ({
               Join the Web3 revolution! Connect your Ethereum wallet, like{" "}
               <Link target="_blank" href="https://metamask.io">
                 MetaMask
-              </Link>
-              , to participate and you may win a prize! Your vote is secure and
-              tamper-proof, thanks to blockchain technology.
+              </Link>{" "}
+              and connect to the Sepolia test network to begin voting. Your vote
+              will be secure and tamper-proof, thanks to blockchain technology.
             </Text>
           ) : hasVoted ? (
             <Text
