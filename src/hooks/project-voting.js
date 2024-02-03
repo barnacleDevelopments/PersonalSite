@@ -161,6 +161,7 @@ const useProjectVoting = () => {
         );
       }
       const data = contract.methods.vote(id, name).encodeABI();
+
       const value = window?.BigInt(
         web3.utils.toWei(amountInEther.toString(), "ether")
       );
