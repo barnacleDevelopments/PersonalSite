@@ -51,7 +51,7 @@ const ProjectsPage = ({ data }) => {
 
       init();
     }
-  }, [walletContext?.walletAddress]);
+  }, [walletContext?.walletAddress, walletContext?.isWalletConnected]);
 
   const getProjectWithContent = async () => {
     const projects = await getProjects();
@@ -88,11 +88,13 @@ const ProjectsPage = ({ data }) => {
   };
 
   const updateVoteStates = async () => {
-    await updateHasVoted();
+    if (walletContext?.walletAddress) {
+      await updateHasVoted();
+      await updateAddressVote();
+    }
     await updateBalance();
     await updateWinners();
     await updateVoters();
-    await updateAddressVote();
   };
 
   const validateContributionInput = (name, contributionAmount) => {
@@ -120,7 +122,6 @@ const ProjectsPage = ({ data }) => {
 
   const updateVoters = async () => {
     const voters = await getVoters();
-    console.log(voters);
     setVoters(voters);
   };
 
