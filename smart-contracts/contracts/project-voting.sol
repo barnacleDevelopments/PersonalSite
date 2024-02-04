@@ -6,8 +6,9 @@ import "@chainlink/contracts/src/v0.8/vrf/VRFConsumerBaseV2.sol";
 import "@chainlink/contracts/src/v0.8/interfaces/VRFCoordinatorV2Interface.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
-
 contract ProjectVoting is VRFConsumerBaseV2{
+    
+    // Voting Variables 
     mapping(string => uint) public projectVotes;
     mapping(address => bool) public hasVoted;
     mapping(string => string) public projects;
@@ -26,10 +27,12 @@ contract ProjectVoting is VRFConsumerBaseV2{
     uint16 private requestConfirmations = 3; // Minimum number of confirmations
     uint32 private numWords =  1; // Number of random values to request
 
+    // Voting Events
     event ProjectAdded(string projectId, string projectName);
     event Voted(address voter, string name, string projectId); 
     event WinnerAnnounced(address winner, uint256 amount);
 
+    // Chainlink VRF Events
     event RandomNumberRequested(uint256 requestId);
     event RandomNumberReceived(uint256 randomNumber);
 
@@ -90,7 +93,6 @@ contract ProjectVoting is VRFConsumerBaseV2{
     function getVote() public view returns (string memory) {
         return  addressVotes[msg.sender]; 
     }
-
 
     function getBalance() public view returns (uint256) {
         return address(this).balance;

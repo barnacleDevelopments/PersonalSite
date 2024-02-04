@@ -1,6 +1,6 @@
 import { useState, useContext, useEffect } from "react";
 import Web3 from "web3";
-import projectVotingABI from "../../backend/build/contracts/ProjectVoting.json";
+import projectVotingABI from "../../smart-contracts/build/contracts/ProjectVoting.json";
 import { WalletContext } from "../contexts/WalletContext";
 
 const useProjectVoting = () => {
@@ -35,7 +35,6 @@ const useProjectVoting = () => {
             console.log("Transaction succeeded");
             return true;
           } else if (receipt.status === 0n) {
-            console.log("Transaction has been reverted by the EVM");
             return false;
           }
         } else {
@@ -107,9 +106,7 @@ const useProjectVoting = () => {
 
   const getBalance = async () => {
     try {
-      const result = await contract.methods.getBalance().call({
-        from: walletContext.walletAddress,
-      });
+      const result = await contract.methods.getBalance().call();
       return parseFloat(web3.utils.fromWei(result, "ether"));
     } catch (error) {
       console.error("Error in getting balance:", error);
@@ -118,9 +115,7 @@ const useProjectVoting = () => {
 
   const getThreshold = async () => {
     try {
-      const result = await contract.methods.getThreshold().call({
-        from: walletContext.walletAddress,
-      });
+      const result = await contract.methods.getThreshold().call();
       return web3.utils.fromWei(result, "ether");
     } catch (error) {
       console.error("Error in getting threshold:", error);
@@ -140,9 +135,7 @@ const useProjectVoting = () => {
 
   const getVoteCount = async (id) => {
     try {
-      const count = await contract.methods.getVoteCount(id).call({
-        from: walletContext.walletAddress,
-      });
+      const count = await contract.methods.getVoteCount(id).call();
       return count.toString();
     } catch (error) {
       console.error("Error in getting vote count:", error);
