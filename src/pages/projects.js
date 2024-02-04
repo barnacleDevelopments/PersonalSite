@@ -187,17 +187,16 @@ const ProjectsPage = ({ data }) => {
           <Text variant="large">
             Discover a selection of my latest projects! If you're interested in
             collaboration or want to learn more, feel free to{" "}
-            <Link href="/contact">contact me</Link> or explore my{" "}
-            <Link href="/about">services and rates</Link>. Plus, take a moment
-            to vote for your favorite project and you might win a prize!
+            <Link href="/contact">contact me</Link>. Plus, take a moment to vote
+            for your favorite project and you might win a prize!
           </Text>
           <Themed.h2 sx={{ mt: 4 }}>Participate in Web3 Voting</Themed.h2>
           <Text variant="regular" sx={{ mt: 3 }}>
             Embracing the new era of Web3, I've integrated a decentralized
             voting system for my projects. You can help highlight the most
-            popular projects using the power of Ethereum. Your votes, securely
-            recorded on the Ethereum blockchain. A random winner will be chosen,
-            using{" "}
+            popular projects using the power of Ethereum. Your vote will be
+            securely recorded on the Ethereum blockchain. A random winner will
+            be chosen, using{" "}
             <Link href="https://chain.link/vrf" target="_blank">
               Chainlink's VRF random number generator
             </Link>
