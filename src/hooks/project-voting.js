@@ -73,7 +73,6 @@ const useProjectVoting = () => {
         toBlock: "latest",
       });
       return result.reduce((acc, winner) => {
-        console.log("WinnerAnnounced", winner);
         acc[winner.returnValues.winner] = {
           id: winner.returnValues.winner,
           amount: web3.utils.fromWei(
