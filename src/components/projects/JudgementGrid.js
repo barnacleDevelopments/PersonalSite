@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui";
-import { Box } from "theme-ui";
+import { Box, Text } from "theme-ui";
 import { Section } from "../app/Section";
 
 export const JudgementGrid = ({
@@ -15,8 +15,8 @@ export const JudgementGrid = ({
           <Box
             key={`${y}-${x}`}
             sx={{
-              width: "40px",
-              height: "40px",
+              width: "25px",
+              height: "25px",
               borderRadius: "9999px",
               bg: "orange",
               display: "inline-block",
@@ -81,6 +81,11 @@ export const JudgementGrid = ({
 
   return (
     <Section>
+      <Text variant="regular" color="white" mb={3}>
+        Please take the chance to view, read and comment on each of the
+        projects. Doing so will increase your chance of winning the contract
+        balance.
+      </Text>
       <Box
         sx={{
           display: "grid",

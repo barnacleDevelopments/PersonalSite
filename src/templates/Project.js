@@ -9,11 +9,12 @@ import moment from "moment";
 // Components
 import { Box, Flex, Button, Heading, Text, Themed, Grid } from "theme-ui";
 import Seo from "../components/app/Seo";
+import useProjectVoting from "../hooks/project-voting";
 
 function Project({ data }) {
   const { markdownRemark: node } = data;
   const converter = new showdown.Converter();
-
+  const {} = useProjectVoting();
   return (
     <Box>
       <Seo

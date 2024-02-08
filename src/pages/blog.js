@@ -4,7 +4,7 @@ import { jsx } from "theme-ui";
 // Components
 import { Box, Text, Themed, Grid } from "theme-ui";
 import Seo from "../components/app/Seo";
-import PostCategoryCard from "../components/styled/PostCategoryCard";
+import PostCategoryCard from "../components/blog/PostCategoryCard";
 
 const BlogPage = () => {
   return (
