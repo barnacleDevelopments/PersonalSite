@@ -1,15 +1,11 @@
 import { useState, useContext, useEffect } from "react";
-import Web3 from "web3";
 import projectVotingABI from "../../smart-contracts/build/contracts/ProjectVoting.json";
 import { WalletContext } from "../contexts/WalletContext";
+import web3 from "../web3-subscription";
 
 const useProjectVoting = () => {
   const [threshold, setThreshold] = useState(0);
   const walletContext = useContext(WalletContext);
-
-  const web3 = new Web3(
-    Web3.givenProvider || process.env.GATSBY_WEB3_HTTPS_URL
-  );
 
   const contract = new web3.eth.Contract(
     projectVotingABI.abi,
@@ -194,6 +190,31 @@ const useProjectVoting = () => {
       return result;
     } catch (error) {
       console.error("Error in getting vote:", error);
+    }
+  };
+
+  const uploadTaskProgress = async ({ task }) => {
+    if (window.ethereum) {
+      try {
+        // Request account access
+        const accounts = await window.ethereum.request({
+          method: "eth_requestAccounts",
+        });
+        const account = accounts[0];
+
+        // Prepare the data to sign
+        const data = JSON.stringify({
+          task,
+        });
+
+        // Sign the data
+        const signature = await web3.eth.personal.sign(data, account, "");
+        console.log("Signature:", signature);
+      } catch (error) {
+        console.error("Error signing data:", error);
+      }
+    } else {
+      console.log("MetaMask is not installed!");
     }
   };
 

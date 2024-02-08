@@ -11,6 +11,7 @@ import WalletBanner from "../components/projects/WalletBanner";
 import ProgressGauge from "../components/projects/ProgressGauge";
 import ContributionForm from "../components/projects/ContributionForm";
 import VoterList from "../components/projects/VoterList";
+import { JudgementGrid } from "../components/projects/JudgementGrid";
 
 // Hooks
 import useProjectVoting from "../hooks/project-voting";

@@ -5,7 +5,6 @@ import { jsx } from "theme-ui";
 import { Box, Text, Themed, Grid } from "theme-ui";
 import Seo from "../components/app/Seo";
 import PostCategoryCard from "../components/blog/PostCategoryCard";
-
 const BlogPage = () => {
   return (
     <Box>
