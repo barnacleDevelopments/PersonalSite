@@ -17,6 +17,7 @@ import useProjectVoting from "../hooks/project-voting";
 
 // Contexts
 import { WalletContext } from "../contexts/WalletContext";
+import { JudgementGrid } from "../components/projects/JudgementGrid";
 
 const ProjectsPage = ({ data }) => {
   const pageData = data.allMarkdownRemark.edges;
@@ -215,6 +216,7 @@ const ProjectsPage = ({ data }) => {
             currentProgress={balance}
             maxProgress={threshold}
           ></ProgressGauge>
+          <JudgementGrid projects={projects}></JudgementGrid>
           {voters?.length > 0 && (
             <VoterList winners={winners} voters={voters}></VoterList>
           )}
