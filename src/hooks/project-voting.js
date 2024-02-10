@@ -2,7 +2,9 @@ import { useState, useContext, useEffect } from "react";
 import projectVotingABI from "../../smart-contracts/build/contracts/ProjectVoting.json";
 import { WalletContext } from "../contexts/WalletContext";
 import web3 from "../web3-subscription";
+// import { createHelia } from "helia";
 
+// console.log("Stuff", Object.keys(helia));
 const useProjectVoting = () => {
   const [threshold, setThreshold] = useState(0);
   const walletContext = useContext(WalletContext);
@@ -196,20 +198,15 @@ const useProjectVoting = () => {
   const uploadTaskProgress = async ({ task }) => {
     if (window.ethereum) {
       try {
-        // Request account access
-        const accounts = await window.ethereum.request({
-          method: "eth_requestAccounts",
-        });
-        const account = accounts[0];
-
-        // Prepare the data to sign
+        debugger;
         const data = JSON.stringify({
           task,
+          walletAddress: walletContext?.walletAddress,
         });
-
-        // Sign the data
-        const signature = await web3.eth.personal.sign(data, account, "");
-        console.log("Signature:", signature);
+        const signature = await window.ethereum.request({
+          method: "personal_sign",
+          params: [data, walletContext?.walletAddress],
+        });
       } catch (error) {
         console.error("Error signing data:", error);
       }
@@ -217,6 +214,19 @@ const useProjectVoting = () => {
       console.log("MetaMask is not installed!");
     }
   };
+
+  async function uploadJson(jsonObj) {
+    try {
+      // Convert the JSON object to a string
+      const jsonStr = JSON.stringify(jsonObj);
+      // const helia = await createHelia();
+      // const j = json(helia);
+      // await j.add(jsonStr);
+      // Optional: Save the CID to a file for later retrieval
+    } catch (error) {
+      console.error("Error uploading JSON: ", error);
+    }
+  }
 
   return {
     getVoteCount,
@@ -229,6 +239,7 @@ const useProjectVoting = () => {
     getWinners,
     getProjects,
     getVoters,
+    uploadTaskProgress,
   };
 };
 

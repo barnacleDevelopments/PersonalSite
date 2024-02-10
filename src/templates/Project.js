@@ -9,12 +9,15 @@ import moment from "moment";
 // Components
 import { Box, Flex, Button, Heading, Text, Themed, Grid } from "theme-ui";
 import Seo from "../components/app/Seo";
+
+// Hooks
 import useProjectVoting from "../hooks/project-voting";
 
 function Project({ data }) {
   const { markdownRemark: node } = data;
   const converter = new showdown.Converter();
-  const {} = useProjectVoting();
+  const { uploadTaskProgress } = useProjectVoting();
+
   return (
     <Box>
       <Seo
@@ -48,7 +51,8 @@ function Project({ data }) {
           </a>
         ) : (
           ""
-        )}
+        )}{" "}
+        <Button onClick={() => uploadTaskProgress({ task: "view" })}></Button>
       </Flex>
       {/* Section 1 */}
       <Box
