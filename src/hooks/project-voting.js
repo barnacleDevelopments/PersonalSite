@@ -2,9 +2,9 @@ import { useState, useContext, useEffect } from "react";
 import projectVotingABI from "../../smart-contracts/build/contracts/ProjectVoting.json";
 import { WalletContext } from "../contexts/WalletContext";
 import web3 from "../web3-subscription";
-// import { createHelia } from "helia";
+import { createHelia } from "helia";
+import { json } from "@helia/json";
 
-// console.log("Stuff", Object.keys(helia));
 const useProjectVoting = () => {
   const [threshold, setThreshold] = useState(0);
   const walletContext = useContext(WalletContext);
@@ -207,6 +207,8 @@ const useProjectVoting = () => {
           method: "personal_sign",
           params: [data, walletContext?.walletAddress],
         });
+
+        uploadJson(signature);
       } catch (error) {
         console.error("Error signing data:", error);
       }
@@ -219,9 +221,10 @@ const useProjectVoting = () => {
     try {
       // Convert the JSON object to a string
       const jsonStr = JSON.stringify(jsonObj);
-      // const helia = await createHelia();
-      // const j = json(helia);
-      // await j.add(jsonStr);
+      const helia = await createHelia();
+      const j = json(helia);
+      const cid = await j.add(jsonStr);
+      console.log(cid);
       // Optional: Save the CID to a file for later retrieval
     } catch (error) {
       console.error("Error uploading JSON: ", error);

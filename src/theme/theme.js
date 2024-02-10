@@ -3,127 +3,55 @@ const { tailwind } = require("@theme-ui/presets");
 module.exports = {
   ...tailwind,
   colors: {
+    ...tailwind.colors,
     primary: "#30362F",
     secondary: "#eeeeee",
     orange: "#FFA630",
     lightOrange: "#FFA63050",
-    lightOrange: "#FFA63050",
-  },
-  cards: {
-    primary: {},
   },
   fonts: {
     body: "'Raleway', sans-serif",
+    heading: "'Raleway', sans-serif",
+    monospace: "Menlo, monospace",
+  },
+  fontSizes: [12, 14, 16, 18, 20, 24, 28, 32, 36, 40, 44, 48, 56, 64, 72],
+  fontWeights: {
+    body: 400,
+    heading: 700,
+    bold: 700,
+  },
+  lineHeights: {
+    body: 1.5,
+    heading: 1.25,
   },
   text: {
+    ...tailwind.text,
     hero: {
-      color: "white",
+      color: "background",
+      bg: "primary",
+      fontFamily: "heading",
+      lineHeight: "heading",
     },
     small: {
-      fontSize: [1, 2],
-      lineHeight: 1.5,
-      display: "block",
+      fontSize: 1,
+      lineHeight: "body",
     },
     regular: {
-      color: "primary",
-      fontSize: [2, 3],
-      lineHeight: 1.5,
-      display: "block",
+      fontSize: 2,
+      lineHeight: "body",
     },
     large: {
-      color: "primary",
-      fontSize: [3, 4],
-      fontWeight: "500",
-      lineHeight: 1.5,
-      display: "block",
-    },
-  },
-  links: {
-    footLink: {
-      color: "white",
-      textDecoration: "none",
-      "&:hover": {
-        color: "orange",
-      },
-    },
-    nav: {
-      textDecoration: "none",
-      fontSize: "1.5em",
-      fontWeight: 400,
-      ":hover": {
-        color: "orange",
-      },
-    },
-  },
-  buttons: {
-    primary: {
-      fontFamily: "'Raleway', sans-serif",
-      color: "white",
-      bg: "orange",
-      border: "2px solid orange",
-      textTransform: "uppercase",
-      boxShadow: "rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px",
-      textDecoration: "none",
+      fontSize: 3,
       fontWeight: "bold",
-      fontSize: "1.010em",
-      display: "inline-block",
-      textAlign: "center",
-      borderRadius: "10px",
-      width: "max-content",
-      cursor: "pointer",
-      "&:hover": {
-        bg: "white",
-        color: "orange",
-      },
-    },
-    secondary: {
-      fontFamily: "'Raleway', sans-serif",
-      backgroundColor: "secondary",
-      color: "black",
-      border: "2px solid",
-      borderRadius: "0px",
-      borderColor: "secondary",
-      textTransform: "uppercase",
-      boxShadow: "rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px",
-      textDecoration: "none",
-      fontWeight: "bold",
-      fontSize: "1.010em",
-      display: "inline-block",
-      textAlign: "center",
-      width: "max-content",
-      cursor: "pointer",
-      "&:hover": {
-        bg: "primary",
-        color: "white",
-      },
-      disabled: {
-        cursor: "not-allowed",
-        opacity: "0.5",
-      },
+      lineHeight: "heading",
     },
   },
   styles: {
+    ...tailwind.styles,
     root: {
       fontFamily: "body",
       lineHeight: "body",
       fontWeight: "body",
-      m: 0,
-    },
-    h1: {
-      fontSize: [4, 5, 6, 7],
-      fontWeight: "bold",
-      m: 0,
-    },
-    h2: {
-      fontSize: [5, 5, 5, 6],
-      m: 0,
-    },
-    h3: {
-      fontSize: [4, 5, 5, 5],
-      m: 0,
-    },
-    h4: {
-      fontSize: 3,
     },
     a: {
       color: "orange",
@@ -131,5 +59,47 @@ module.exports = {
         color: "lightOrange",
       },
     },
+    h1: {
+      fontSize: [5, 6, 7], // Responsive font sizes
+      fontFamily: "heading",
+      fontWeight: "heading",
+      lineHeight: "heading",
+    },
+    h2: {
+      fontSize: [4, 5, 6],
+      fontFamily: "heading",
+      fontWeight: "heading",
+      lineHeight: "heading",
+    },
+    // Additional heading styles (h3, h4) go here...
   },
+  buttons: {
+    primary: {
+      fontFamily: "body",
+      fontWeight: "bold",
+      color: "white",
+      bg: "orange",
+      transition: "all 0.3s ease-in-out",
+      "&:hover": {
+        backgroundColor: "white",
+        color: "orange",
+        boxShadow: "0 0 0 2px orange inset",
+      },
+    },
+    secondary: {
+      fontFamily: "body",
+      fontWeight: "bold",
+      color: "primary",
+      bg: "secondary",
+      border: "2px solid transparent",
+      transition: "all 0.3s ease-in-out",
+      "&:hover": {
+        color: "white",
+        backgroundColor: "orange",
+        borderColor: "orange",
+      },
+    },
+  },
+
+  // Define other theme scales such as space, sizes, zIndices, etc., as needed
 };
