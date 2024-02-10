@@ -7,7 +7,7 @@ import { getImage } from "gatsby-plugin-image";
 import moment from "moment";
 
 // Components
-import { Box, Flex, Button, Heading, Text, Themed, Grid } from "theme-ui";
+import { Box, Flex, Button, Heading, Text, Grid } from "theme-ui";
 import Seo from "../components/app/Seo";
 
 // Hooks
@@ -26,7 +26,7 @@ function Project({ data }) {
       />
       {/* Hero */}
       <Flex sx={pageWrapper}>
-        <Themed.h1>{node.frontmatter.title}</Themed.h1>
+        <h1>{node.frontmatter.title}</h1>
         <Text
           sx={{
             my: 2,

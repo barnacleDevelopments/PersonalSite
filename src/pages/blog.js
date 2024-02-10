@@ -2,7 +2,7 @@
 import { jsx } from "theme-ui";
 
 // Components
-import { Box, Text, Themed, Grid } from "theme-ui";
+import { Box, Text, Grid } from "theme-ui";
 import Seo from "../components/app/Seo";
 import PostCategoryCard from "../components/blog/PostCategoryCard";
 
@@ -18,14 +18,14 @@ const BlogPage = () => {
         }}
       >
         <Box sx={{ mt: 6, mb: 5 }} textAlign="center">
-          <Themed.h1
+          <h1
             sx={{
               mb: 3,
               color: "primary",
             }}
           >
             Blog
-          </Themed.h1>
+          </h1>
           <Text variant="large">
             I'm on a lifelong journey of learning and I love to share what I
             learn with others. When I get the chance I like to write about what

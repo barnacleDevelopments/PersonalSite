@@ -4,7 +4,7 @@ import React from "react";
 import { useEffect, useState } from "react";
 
 // Components
-import { Text, Themed, Box, Flex } from "theme-ui";
+import { Text, Box, Flex } from "theme-ui";
 
 const ProgressGauge = ({ maxProgress = 100, currentProgress = 0 }) => {
   const [progress, setProgress] = useState(0);
@@ -31,7 +31,7 @@ const ProgressGauge = ({ maxProgress = 100, currentProgress = 0 }) => {
         borderRadius: "10px",
       }}
     >
-      <Themed.h2 sx={{ textAlign: "center" }}>Current Prize Balance</Themed.h2>
+      <h2 sx={{ textAlign: "center" }}>Current Prize Balance</h2>
       <Flex sx={{ justifyContent: "center" }}>
         <Text variant="regular" sx={{ color: "white" }}>
           {currentProgress} ETH

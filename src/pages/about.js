@@ -2,8 +2,7 @@
 import { jsx } from "theme-ui";
 
 // COMPONENTS
-import Layout from "../components/app/Layout";
-import { Box, Text, Themed, Grid, Button, Link } from "theme-ui";
+import { Box, Text, Grid, Button, Link } from "theme-ui";
 import Seo from "../components/app/Seo";
 import ServiceCard from "../components/cards/ServiceCard";
 import { StaticImage } from "gatsby-plugin-image";
@@ -33,14 +32,14 @@ const ServicesPage = () => {
         }}
       >
         <Box sx={{ mt: 6, mb: 5 }}>
-          <Themed.h1
+          <h1
             sx={{
               mb: 3,
               color: "primary",
             }}
           >
             A Little More About Me
-          </Themed.h1>
+          </h1>
           <Box>
             <StaticImage
               style={{ height: "300px" }}
@@ -57,14 +56,14 @@ const ServicesPage = () => {
           </Text>
         </Box>
         <Box>
-          <Themed.h2
+          <h2
             sx={{
               mb: 3,
               color: "primary",
             }}
           >
             Skills
-          </Themed.h2>
+          </h2>
           <Text variant="regular" sx={{ pt: 3 }}>
             Skills are aquired through experience. I've been working with web
             technologies for over 5 years now. What I've learned is that skills
@@ -85,14 +84,14 @@ const ServicesPage = () => {
         </Box>
 
         <Box sx={{ mt: 6, mb: 5 }}>
-          <Themed.h1
+          <h1
             sx={{
               mb: 3,
               color: "primary",
             }}
           >
             Services
-          </Themed.h1>
+          </h1>
           <Text variant="regular">
             Though I dedicate the grand magority of my time to the specific
             organization I work with I do take on the occasional freelance
@@ -132,7 +131,7 @@ const ServicesPage = () => {
               }}
             >
               <Box>
-                <Themed.h3 sx={{ mb: 3 }}>Something Else?</Themed.h3>
+                <h3 sx={{ mb: 3 }}>Something Else?</h3>
               </Box>
               <Box>
                 <Text

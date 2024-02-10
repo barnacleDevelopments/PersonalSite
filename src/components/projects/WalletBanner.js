@@ -3,7 +3,7 @@ import { jsx } from "theme-ui";
 import scrollTo from "gatsby-plugin-smoothscroll";
 
 // Components
-import { Themed, Text, Button, Box, Link, Flex } from "theme-ui";
+import { Text, Button, Box, Link, Flex } from "theme-ui";
 import MetaMask from "../../images/meta-mask.svg";
 
 const WalletBanner = ({
@@ -35,11 +35,9 @@ const WalletBanner = ({
         <Box>
           {/* title */}
           {!isWalletConnected ? (
-            <Themed.h2 sx={{ color: "white" }}>Connect Wallet & Vote</Themed.h2>
+            <h2 sx={{ color: "white" }}>Connect Wallet & Vote</h2>
           ) : (
-            <Themed.h2 sx={{ color: "white" }}>
-              Your wallet is connected
-            </Themed.h2>
+            <h2 sx={{ color: "white" }}>Your wallet is connected</h2>
           )}
           {/* body */}
           {!isWalletConnected ? (
