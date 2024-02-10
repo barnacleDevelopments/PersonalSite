@@ -113,7 +113,6 @@ exports.createPages = async ({ actions, graphql }) => {
 };
 
 exports.onCreateNode = ({ node, actions, getNode }) => {
-  fmImagesToRelative(node);
   const { createNodeField } = actions;
 
   if (node.internal.type === `MarkdownRemark`) {
