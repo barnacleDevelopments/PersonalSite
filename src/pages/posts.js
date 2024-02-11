@@ -4,7 +4,7 @@ import { graphql } from "gatsby";
 
 // Components
 import PostCard from "../components/blog/PostCard";
-import { Box, Text, Grid } from "theme-ui";
+import { Box, Text, Grid, Heading } from "theme-ui";
 import Seo from "../components/app/Seo";
 
 const ProgrammingPostsPage = ({ data }) => {
@@ -20,14 +20,9 @@ const ProgrammingPostsPage = ({ data }) => {
         }}
       >
         <Box sx={{ mt: 6, mb: 5 }} textAlign="center">
-          <h1
-            sx={{
-              mb: 3,
-              color: "primary",
-            }}
-          >
+          <Heading as="h1" variant="hero">
             Blog Posts
-          </h1>
+          </Heading>
           <Text variant="large" sx={{ textAlign: "center" }}>
             Looking to learn more about web development? Here I post content
             about various web related topics.

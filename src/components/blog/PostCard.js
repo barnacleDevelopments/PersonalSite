@@ -5,7 +5,7 @@ import { getImage } from "gatsby-plugin-image";
 import showdown from "showdown";
 
 // Components
-import { Card, Text, Button, Box, Grid, Link } from "theme-ui";
+import { Heading, Card, Text, Button, Box, Grid, Link } from "theme-ui";
 
 // markup
 const PostCard = ({ post }) => {
@@ -50,20 +50,24 @@ const PostCard = ({ post }) => {
             p: 3,
           }}
         >
-          <h3
+          <Heading
+            as="h2"
+            variant="subheading1"
             sx={{
               whiteSpace: "nowrap",
               maxWidth: "100%",
               textOverflow: "ellipsis",
               overflow: "hidden",
               height: "38px",
+              color: "white",
             }}
           >
             {post.title}
-          </h3>
+          </Heading>
           <Text
             sx={{
               a: { color: "orange" },
+              color: "white",
             }}
             variant="small"
             dangerouslySetInnerHTML={{

@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui";
-import { Box, Flex, Text } from "theme-ui";
+import { Heading, Box, Flex, Text } from "theme-ui";
 import { graphql } from "gatsby";
 import showdown from "showdown";
 import moment from "moment";
@@ -41,9 +41,13 @@ const BlogPost = ({ data }) => {
           px: 2,
         }}
       >
-        <h1 sx={{ wordWrap: "wrap", textAlign: "center", mb: 3 }}>
+        <Heading
+          as="h1"
+          variant="hero"
+          sx={{ wordWrap: "wrap", textAlign: "center", mb: 3, color: "white" }}
+        >
           {node.frontmatter.title}
-        </h1>
+        </Heading>
         <Text variant="regular" sx={{ color: "white" }}>
           {moment(node.frontmatter.date).format("MMM Do, YYYY")}
         </Text>

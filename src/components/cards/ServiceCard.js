@@ -6,7 +6,7 @@ import "../../css/estimate_form_transitions.css";
 
 // Components
 import Shadow from "../Shadow";
-import { Box, Text, Card, Flex, Button } from "theme-ui";
+import { Heading, Box, Text, Card, Flex, Button } from "theme-ui";
 import BasicEstimateForm from "../forms/BasicEstimateForm";
 
 function ServiceCard({ features, title, startPrice }) {
@@ -62,7 +62,13 @@ function ServiceCard({ features, title, startPrice }) {
       </CSSTransition>
 
       {/* CARD CONTENTS */}
-      <h3 sx={{ px: 3, my: 3 }}>{title}</h3>
+      <Heading
+        as="h2"
+        variant="subheading1"
+        sx={{ color: "white", px: 3, my: 3 }}
+      >
+        {title}
+      </Heading>
       <Box
         sx={{
           bg: "secondary",

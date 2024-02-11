@@ -23,7 +23,7 @@ const Footer = () => {
             <Link
               href="https://www.linkedin.com/in/devin-dev-d-63008412b"
               sx={{ mb: 2, width: "max-content", svg: { fontSize: "1.2em" } }}
-              variant="footLink"
+              variant="footer"
             >
               <Icon icon={faLinkedin} />
               <Text sx={{ color: "white", ml: 1 }} variant="small">
@@ -38,30 +38,18 @@ const Footer = () => {
           <Flex sx={{ flexDirection: "column", alignItems: "center" }}>
             <Link
               sx={{ mb: 2, width: "max-content" }}
-              variant="footLink"
               href="/"
+              variant="footer"
             >
               Home
             </Link>
-            <Link
-              sx={{ mb: 2, width: "max-content" }}
-              variant="footLink"
-              href="/contact"
-            >
+            <Link sx={{ mb: 2, width: "max-content" }} href="/contact">
               Contact
             </Link>
-            <Link
-              sx={{ mb: 2, width: "max-content" }}
-              variant="footLink"
-              href="/projects"
-            >
+            <Link sx={{ mb: 2, width: "max-content" }} href="/projects">
               Projects
             </Link>
-            <Link
-              sx={{ mb: 2, width: "max-content" }}
-              variant="footLink"
-              href="/services"
-            >
+            <Link sx={{ mb: 2, width: "max-content" }} href="/services">
               About
             </Link>
           </Flex>
