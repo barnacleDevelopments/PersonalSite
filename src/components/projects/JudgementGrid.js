@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui";
-import { Box, Text } from "theme-ui";
+import { Link, Box, Text } from "theme-ui";
 import { Section } from "../app/Section";
 
 export const JudgementGrid = ({
@@ -83,8 +83,18 @@ export const JudgementGrid = ({
     <Section>
       <Text variant="regular" color="white" mb={3}>
         Please take the chance to view, read and comment on each of the
-        projects. Doing so will increase your chance of winning the contract
-        balance.
+        projects. Each action will prompt a signature from you to confirm you
+        completed it. These signatures will be stored on the{" "}
+        <Link
+          href="https://docs.ipfs.tech/concepts/what-is-ipfs/"
+          target="_blanc"
+        >
+          Interplanetary File System (IPFS)
+        </Link>
+        . They will be later referenced by the{" "}
+        <Link href="">Project Voting</Link> smart contract to increase your
+        winning probability. Each action will increase your chance of winning by
+        0.5%.
       </Text>
       <Box
         sx={{

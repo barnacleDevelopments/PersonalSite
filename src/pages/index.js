@@ -5,7 +5,7 @@ import { graphql } from "gatsby";
 // Components
 import ReviewCard from "../components/cards/ReviewCard";
 import { StaticImage } from "gatsby-plugin-image";
-import { Text, Button, Flex, Box, Grid, Link } from "theme-ui";
+import { Text, Button, Flex, Box, Grid, Link, Heading } from "theme-ui";
 import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
 import {
   faBrain,
@@ -57,15 +57,12 @@ const IndexPage = ({ data }) => {
           }}
         >
           <Box>
-            <h1
-              sx={{
-                mb: 4,
-                color: "secondary",
-              }}
-            >
+            <Heading as="h1" variant="hero" color="white">
               Dev the Developer
-            </h1>
-            <Text variant="hero">{landingPageData.indexHeader}</Text>
+            </Heading>
+            <Text variant="regular" color="white ">
+              {landingPageData.indexHeader}
+            </Text>
           </Box>
           <Box
             sx={{
@@ -133,13 +130,9 @@ const IndexPage = ({ data }) => {
                   height: "100%",
                 }}
               >
-                <h2
-                  sx={{
-                    mb: 3,
-                  }}
-                >
+                <Heading as="h2" variant="subheading1">
                   Hey there!
-                </h2>
+                </Heading>
                 <Text variant="regular">
                   My name is Dev. I'm a web developer located in Halifax Nova
                   Scotia. I specialize in building websites and web applications
@@ -152,20 +145,6 @@ const IndexPage = ({ data }) => {
               </Box>
             </Box>
           </Grid>
-        </Box>
-        <Box>
-          <h2
-            sx={{
-              fontWeight: "500",
-              py: 3,
-              textAlign: "center",
-              bg: "primary",
-              color: "secondary",
-            }}
-          >
-            Skills
-          </h2>
-          {/* <TriangleTab /> */}
         </Box>
         <Box
           sx={{
@@ -184,13 +163,9 @@ const IndexPage = ({ data }) => {
               px: 4,
             }}
           >
-            <h3
-              sx={{
-                mb: 4,
-              }}
-            >
+            <Heading as="h3" variant="subheading1">
               Soft Skills
-            </h3>
+            </Heading>
             <Grid gap={3} columns={[1, null, 2]}>
               <Box sx={styles.skillCard}>
                 <Flex alignItems="center">
@@ -249,13 +224,9 @@ const IndexPage = ({ data }) => {
               bg: "secondary",
             }}
           >
-            <h3
-              sx={{
-                mb: 4,
-              }}
-            >
+            <Heading as="h3" variant="subheading1">
               Hard Skills
-            </h3>
+            </Heading>
             <Grid gap={3} columns={[1, null, 2]}>
               <Box sx={styles.skillCard}>
                 <Flex alignItems="center">
@@ -314,15 +285,9 @@ const IndexPage = ({ data }) => {
             mb: 5,
           }}
         >
-          <h2
-            sx={{
-              my: 4,
-              textAlign: ["left", "center"],
-              fontWeight: 600,
-            }}
-          >
+          <Heading as="h1" variant="hero" textAlign="center">
             What People Say...
-          </h2>
+          </Heading>
           <Box>
             {landingPageData.socials.map((s, index) => (
               <ReviewCard key={index} content={s.content} />
@@ -341,13 +306,9 @@ const IndexPage = ({ data }) => {
             p: 4,
           }}
         >
-          <h2
-            sx={{
-              mb: 4,
-            }}
-          >
+          <Heading as="h2" variant="subheading1" color="white">
             Let's Work Together
-          </h2>
+          </Heading>
           <Text variant="regular" sx={{ color: "white" }}>
             I'm an pasionate developer who is always trying to master new skills
             and be of service to those I work with.

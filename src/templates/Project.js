@@ -26,7 +26,9 @@ function Project({ data }) {
       />
       {/* Hero */}
       <Flex sx={pageWrapper}>
-        <h1>{node.frontmatter.title}</h1>
+        <Heading as="h1" variant="hero" color="white">
+          {node.frontmatter.title}
+        </Heading>
         <Text
           sx={{
             my: 2,
@@ -43,16 +45,21 @@ function Project({ data }) {
         >
           {node.frontmatter.completeTime} Hours
         </Text>
-        {node.frontmatter.link ? (
-          <a href={node.frontmatter.link}>
-            <Button mt={3} variant="primary" mr={2}>
-              View Live Site
-            </Button>
-          </a>
-        ) : (
-          ""
-        )}{" "}
-        <Button onClick={() => uploadTaskProgress({ task: "view" })}></Button>
+        <Box>
+          {" "}
+          {node.frontmatter.link ? (
+            <a href={node.frontmatter.link}>
+              <Button mt={3} variant="primary" mr={2}>
+                View Live Site
+              </Button>
+            </a>
+          ) : (
+            ""
+          )}{" "}
+          <Button onClick={() => uploadTaskProgress({ task: "view" })}>
+            Mark as Viewed
+          </Button>
+        </Box>
       </Flex>
       {/* Section 1 */}
       <Box
@@ -64,7 +71,9 @@ function Project({ data }) {
           sx={{ ...sectionFlexStyle, alignItems: "center" }}
         >
           <Box sx={{ py: [4, 6], pr: [0, 5], order: [1, 2] }}>
-            <Heading sx={subHeadingStyle}>Overview</Heading>
+            <Heading as="h2" variant="subheading1">
+              Overview
+            </Heading>
             <Text
               sx={paragraphStyles}
               dangerouslySetInnerHTML={{
@@ -100,7 +109,9 @@ function Project({ data }) {
             />
           </Box>
           <Box sx={{ py: [4, 6], pl: [0, 5], order: [1, 1, 2] }}>
-            <Heading sx={subHeadingStyle}>Tech Used</Heading>
+            <Heading as="h2" variant="subheading1" color="white">
+              Tech Used
+            </Heading>
             <Text
               sx={paragraphStyles}
               dangerouslySetInnerHTML={{
@@ -127,7 +138,9 @@ function Project({ data }) {
             />
           </Box>
           <Box sx={{ py: [4, 6], pr: [0, 5], order: [1, 1, 1] }}>
-            <Heading sx={subHeadingStyle}>Challenges</Heading>
+            <Heading as="h2" variant="subheading1">
+              Challenges
+            </Heading>
             <Text
               sx={paragraphStyles}
               dangerouslySetInnerHTML={{
@@ -168,11 +181,6 @@ const imgWrapStyle = {
 const imgStyle = {
   objectFit: "contain",
   maxWidth: "500px",
-};
-
-const subHeadingStyle = {
-  mb: 2,
-  fontSize: [5, 6],
 };
 
 const sectionWrapperStyle = {

@@ -8,7 +8,17 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 
 // Components
-import { Box, Flex, Button, Text, Input, Textarea, Link } from "theme-ui";
+import {
+  Box,
+  Flex,
+  Button,
+  Heading,
+  Text,
+  Input,
+  Textarea,
+  Link,
+  Paragraph,
+} from "theme-ui";
 import Loader from "../components/Loader";
 import Seo from "../components/app/Seo";
 
@@ -72,13 +82,15 @@ const ContactPage = () => {
             }}
           >
             <Box sx={{ mt: 6, mb: 5 }}>
-              <h1 sx={{ mb: 3, color: "primary" }}>Let's Talk About You</h1>
-              <Text sx={{ my: 3, display: "block" }} variant="large">
+              <Heading as="h1" variant="hero">
+                Let's Talk About You
+              </Heading>
+              <Paragraph sx={{ my: 3, display: "block" }} variant="large">
                 Learning about businesses and their owners is one of my favorite
                 things to do. Please reach out I'd love to get to know you and
                 your business. I'd like to play a part in empowering you to
                 reach your goals.
-              </Text>
+              </Paragraph>
             </Box>
             <Box
               as="form"

@@ -2,7 +2,7 @@
 import { jsx } from "theme-ui";
 
 // Components
-import { Flex, Text, Button, Link } from "theme-ui";
+import { Text, Flex, Button, Link, Heading } from "theme-ui";
 
 function PostCategoryCard({ title, content, link }) {
   return (
@@ -16,7 +16,9 @@ function PostCategoryCard({ title, content, link }) {
         textAlign: "center",
       }}
     >
-      <h2 sx={{ mb: 3 }}>{title}</h2>
+      <Heading as="h2" variant="subheading1" color="white">
+        {title}
+      </Heading>
       <Text variant="regular" sx={{ color: "white", mb: 4 }}>
         {content}
       </Text>

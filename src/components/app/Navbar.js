@@ -122,6 +122,7 @@ const Navbar = () => {
         >
           <Box sx={{ display: ["none", "block"], color: "white" }}>
             <NavLink
+              variant="nav"
               sx={{
                 mr: 3,
                 color: !isScrolledTop ? navTextColorScrolled : null,
