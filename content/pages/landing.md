@@ -1,5 +1,5 @@
 ---
-indexHeader: "I help build awesome solutions for our modern landscape"
+indexHeader: I help build awesome solutions for our modern landscape
 indexContent: A website is a fundamental part of sucessfull business venture in
   this modern climate. Let's get started!
 socials:
@@ -19,7 +19,7 @@ latestProject:
   comment: Nova Johnstone is a local Halifax entrepreneur offering executive
     assistant services.
   projectName: N.Johnstone&Co
-  projectLink: https://www.njohnstoneandco.com/
+  projectLink: https://njohnstoneandco.netlify.app/
 ---
 
 <!-- @format -->
