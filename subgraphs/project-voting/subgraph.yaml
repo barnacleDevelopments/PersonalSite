@@ -1,0 +1,38 @@
+specVersion: 1.0.0
+indexerHints:
+  prune: auto
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: ProjectVoting
+    network: sepolia
+    source:
+      address: "0xDA5C80e5998d682D87c209E56D830CBF83Bee67b"
+      abi: ProjectVoting
+      startBlock: 5212467
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - ProjectAdded
+        - RandomNumberReceived
+        - RandomNumberRequested
+        - Voted
+        - WinnerAnnounced
+      abis:
+        - name: ProjectVoting
+          file: ./abis/ProjectVoting.json
+      eventHandlers:
+        - event: ProjectAdded(string,string)
+          handler: handleProjectAdded
+        - event: RandomNumberReceived(uint256)
+          handler: handleRandomNumberReceived
+        - event: RandomNumberRequested(uint256)
+          handler: handleRandomNumberRequested
+        - event: Voted(address,string,string)
+          handler: handleVoted
+        - event: WinnerAnnounced(address,uint256)
+          handler: handleWinnerAnnounced
+      file: ./src/project-voting.ts
