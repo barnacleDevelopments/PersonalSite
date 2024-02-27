@@ -14,6 +14,7 @@ contract ProjectVoting is VRFConsumerBaseV2{
     mapping(string => string) public projects;
     mapping(address => string) public addressVotes;
     mapping(address => string) public addressNames;
+    mapping(address => string[]) public addressActions;
     string[] public projectIds;
     address private owner;
     address[] private voters;
@@ -31,6 +32,9 @@ contract ProjectVoting is VRFConsumerBaseV2{
     event ProjectAdded(string projectId, string projectName);
     event Voted(address voter, string name, string projectId); 
     event WinnerAnnounced(address winner, uint256 amount);
+
+    // User Action Events
+    event ActionPerformed(address voter, string[] actionCIDs);
 
     // Chainlink VRF Events
     event RandomNumberRequested(uint256 requestId);
@@ -91,7 +95,7 @@ contract ProjectVoting is VRFConsumerBaseV2{
     }
 
     function getVote() public view returns (string memory) {
-        return  addressVotes[msg.sender]; 
+        return addressVotes[msg.sender]; 
     }
 
     function getBalance() public view returns (uint256) {
@@ -100,6 +104,10 @@ contract ProjectVoting is VRFConsumerBaseV2{
 
     function getThreshold() public view returns (uint256) {
         return threshold;
+    }
+
+    function getAddressAction() public view returns (string[] memory) {
+        return addressActions[msg.sender];
     }
 
     function transferOwnership(address newOwner) public onlyOwner {
@@ -129,7 +137,14 @@ contract ProjectVoting is VRFConsumerBaseV2{
         uint256 amountToSend = address(this).balance;
         emit WinnerAnnounced(luckyVoter, amountToSend);
         luckyVoter.transfer(amountToSend);
-    } 
+    }
+
+    function addActions(string[] memory actionCIDs) public {
+        for(uint i = 0; i < actionCIDs.length; i++) {
+            addressActions[msg.sender].push(actionCIDs[i]); 
+        }
+        emit ActionPerformed(msg.sender, actionCIDs);
+    }
 
     function withdraw() public onlyOwner {
         payable(owner).transfer(address(this).balance);
