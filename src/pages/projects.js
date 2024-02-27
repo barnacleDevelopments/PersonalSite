@@ -30,6 +30,7 @@ const ProjectsPage = ({ data }) => {
   const [addressVote, setAddressVote] = useState();
   const [winners, setWinners] = useState({});
   const [voters, setVoters] = useState([]);
+  const [actions, setActions] = useState([])
   const {
     getVoteCount,
     vote,
@@ -41,6 +42,7 @@ const ProjectsPage = ({ data }) => {
     getWinners,
     getProjects,
     getVoters,
+    getActions
   } = useProjectVoting();
   const walletContext = useContext(WalletContext);
 
@@ -97,7 +99,14 @@ const ProjectsPage = ({ data }) => {
     await updateBalance();
     await updateWinners();
     await updateVoters();
+    await updateActions();
   };
+
+  const updateActions = async () => {
+    const actions = await getActions() 
+    console.log(actions)
+    setActions(actions);
+  }
 
   const validateContributionInput = (name, contributionAmount) => {
     if (typeof name !== "string" || name.length <= 0)

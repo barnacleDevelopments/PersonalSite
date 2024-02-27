@@ -16,7 +16,7 @@ import useProjectVoting from "../hooks/project-voting";
 function Project({ data }) {
   const { markdownRemark: node } = data;
   const converter = new showdown.Converter();
-  const { uploadTaskProgress } = useProjectVoting();
+  const { uploadAction } = useProjectVoting();
 
   return (
     <Box>
@@ -56,7 +56,7 @@ function Project({ data }) {
           ) : (
             ""
           )}{" "}
-          <Button onClick={() => uploadTaskProgress({ task: "view" })}>
+          <Button onClick={() => uploadAction({ task: "view" })}>
             Mark as Viewed
           </Button>
         </Box>

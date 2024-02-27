@@ -1,13 +1,13 @@
 import { useState, useContext, useEffect } from "react";
 import projectVotingABI from "../../smart-contracts/build/contracts/ProjectVoting.json";
 import { WalletContext } from "../contexts/WalletContext";
-import web3 from "../web3-subscription";
-import { createHelia } from "helia";
-import { json } from "@helia/json";
+import useIPFS from "./ipfs";
+import web3 from "../web3-subscription"
 
 const useProjectVoting = () => {
   const [threshold, setThreshold] = useState(0);
   const walletContext = useContext(WalletContext);
+  const {uploadJson} = useIPFS()
 
   const contract = new web3.eth.Contract(
     projectVotingABI.abi,
@@ -195,20 +195,58 @@ const useProjectVoting = () => {
     }
   };
 
-  const uploadTaskProgress = async ({ task }) => {
+  const getActions  = async() => {
+    try {
+      const result = await contract.methods.getAddressAction().call({
+        from: walletContext?.walletAddress
+      })
+
+      return result;
+    } catch(error) {
+        console.error("Error in getting address actions");
+    }
+  }
+
+  const uploadAction = async ({ task, projectId }) => {
     if (window.ethereum) {
       try {
-        debugger;
         const data = JSON.stringify({
           task,
+          projectId,
           walletAddress: walletContext?.walletAddress,
         });
+
         const signature = await window.ethereum.request({
           method: "personal_sign",
           params: [data, walletContext?.walletAddress],
         });
 
-        uploadJson(signature);
+        const hash = await uploadJson(signature);
+
+        const abi = contract.methods.addActions([hash]).encodeABI();
+
+        const estimatedGas = await web3.eth.estimateGas({
+          from: window.ethereum.selectedAddress,
+          to: process.env.GATSBY_PROJECT_VOTING_CONTRACT_ADDRESS,
+          data: abi,
+        });
+  
+        const transactionParameters = {
+          to: process.env.GATSBY_PROJECT_VOTING_CONTRACT_ADDRESS,
+          from: window.ethereum.selectedAddress,
+          data: abi,
+          gas: estimatedGas.toString(16),
+        };
+  
+        const txHash = await window.ethereum.request({
+          method: "eth_sendTransaction",
+          params: [transactionParameters],
+        });
+
+        
+
+        console.log("Action Result: ", txHash)
+
       } catch (error) {
         console.error("Error signing data:", error);
       }
@@ -216,20 +254,6 @@ const useProjectVoting = () => {
       console.log("MetaMask is not installed!");
     }
   };
-
-  async function uploadJson(jsonObj) {
-    try {
-      // Convert the JSON object to a string
-      const jsonStr = JSON.stringify(jsonObj);
-      const helia = await createHelia();
-      const j = json(helia);
-      const cid = await j.add(jsonStr);
-      console.log(cid);
-      // Optional: Save the CID to a file for later retrieval
-    } catch (error) {
-      console.error("Error uploading JSON: ", error);
-    }
-  }
 
   return {
     getVoteCount,
@@ -242,7 +266,8 @@ const useProjectVoting = () => {
     getWinners,
     getProjects,
     getVoters,
-    uploadTaskProgress,
+    uploadAction, 
+    getActions
   };
 };
 
