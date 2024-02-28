@@ -4,7 +4,7 @@ import { graphql } from "gatsby";
 
 // Components
 import ProjectCard from "../components/projects/ProjectCard";
-import { Box, Text, Spinner, Heading } from "theme-ui";
+import { Box, Spinner, Heading } from "theme-ui";
 import Seo from "../components/app/Seo";
 import { useContext, useEffect, useState } from "react";
 import WalletBanner from "../components/projects/WalletBanner";
@@ -13,13 +13,24 @@ import ContributionForm from "../components/projects/ContributionForm";
 import VoterList from "../components/projects/VoterList";
 import { JudgementGrid } from "../components/projects/JudgementGrid";
 
-// Hooks
-import useProjectVoting from "../hooks/project-voting";
-
 // Contexts
 import { WalletContext } from "../contexts/WalletContext";
-import { createHelia } from "helia";
-console.log(createHelia);
+
+// Functions 
+import {
+  getVoteCount,
+  vote,
+  checkHasVoted,
+  getVote,
+  getBalance,
+  checkStatus,
+  getWinners,
+  getProjects,
+  getVoters,
+  getActionCIDs,
+  getThreshold
+} from "../functions/project-voting";
+
 const ProjectsPage = ({ data }) => {
   const pageData = data.allMarkdownRemark.edges;
   const [projects, setProjects] = useState([]);
@@ -30,26 +41,15 @@ const ProjectsPage = ({ data }) => {
   const [addressVote, setAddressVote] = useState();
   const [winners, setWinners] = useState({});
   const [voters, setVoters] = useState([]);
-  const [actions, setActions] = useState([])
-  const {
-    getVoteCount,
-    vote,
-    checkHasVoted,
-    getVote,
-    threshold,
-    getBalance,
-    checkStatus,
-    getWinners,
-    getProjects,
-    getVoters,
-    getActions
-  } = useProjectVoting();
+  const [threshold, setThreshold] = useState(0);
+  
   const walletContext = useContext(WalletContext);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
       const init = async () => {
         await updateVoteStates();
+        await updateThreshold();
         await getProjectWithContent();
       };
 
@@ -99,14 +99,7 @@ const ProjectsPage = ({ data }) => {
     await updateBalance();
     await updateWinners();
     await updateVoters();
-    await updateActions();
   };
-
-  const updateActions = async () => {
-    const actions = await getActions() 
-    console.log(actions)
-    setActions(actions);
-  }
 
   const validateContributionInput = (name, contributionAmount) => {
     if (typeof name !== "string" || name.length <= 0)
@@ -122,7 +115,7 @@ const ProjectsPage = ({ data }) => {
   };
 
   const updateAddressVote = async () => {
-    const vote = await getVote();
+    const vote = await getVote(walletContext?.walletAddress);
     setAddressVote(vote);
   };
 
@@ -137,7 +130,7 @@ const ProjectsPage = ({ data }) => {
   };
 
   const updateHasVoted = async () => {
-    const hasVoted = await checkHasVoted();
+    const hasVoted = await checkHasVoted(walletContext?.walletAddress);
     setHasVoted(hasVoted);
   };
 
@@ -145,6 +138,11 @@ const ProjectsPage = ({ data }) => {
     const balance = await getBalance();
     setBalance(balance);
   };
+
+  const updateThreshold = async () => {
+    const threshold = await getThreshold();
+    setThreshold(threshold);
+  }
 
   const getProject = () => {
     const project = projects.find((project) => project.id === addressVote);
