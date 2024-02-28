@@ -2,15 +2,54 @@
 import { jsx } from "theme-ui";
 import { Link, Box, Text } from "theme-ui";
 import { Section } from "../app/Section";
+import { useEffect, useState, useContext } from "react";
+
+// Functions 
+import { getActionCIDs } from "../../functions/project-voting";
+import { WalletContext } from "../../contexts/WalletContext";
+import { getRecords } from "../../functions/ipfs";
 
 export const JudgementGrid = ({
   projects = [],
-  judgements = ["Viewed", "Read", "Commented"],
+  judgements = ["view", "read", "comment"],
 }) => {
+  const [projectActions, setProjectActions] = useState([]);
+  const walletContext = useContext(WalletContext);
+
+  useEffect(() => {
+    const init = async () => {
+      await updateActions();
+    }
+    init();
+  },[projects.length]);
+
+  const updateActions = async () => {
+    if(walletContext?.walletAddress)  {
+      const actionCIDs = await getActionCIDs(walletContext?.walletAddress);
+      console.log(actionCIDs)
+      const actions = await getRecords(actionCIDs);
+      console.log(actions)
+      if(actions.length > 0) {
+        const result = projects.map((project) => {
+          for(const action of actions) {
+            if(project.id === action.projectId) {
+              project.actionType = action.type;
+            }
+          }
+          return project;
+        });
+        setProjectActions(result);
+      }
+    }
+  }
+
   const renderCircles = () => {
     const items = [];
-    for (let y = 1; y <= projects.length; y++) {
+    for (let y = 1; y <= projectActions.length; y++) {
       for (let x = 1; x <= judgements.length; x++) {
+        // console.log(judgements[x - 1]);
+        // console.log(projectActions[y - 1]);
+
         items.push(
           <Box
             key={`${y}-${x}`}
@@ -18,7 +57,7 @@ export const JudgementGrid = ({
               width: "25px",
               height: "25px",
               borderRadius: "9999px",
-              bg: "orange",
+              bg: judgements[x - 1] === projectActions[y - 1].actionType ? "orange" : "primary",
               display: "inline-block",
               margin: 2,
             }}

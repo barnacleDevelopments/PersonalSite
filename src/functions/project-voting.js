@@ -1,28 +1,13 @@
-import { useState, useContext, useEffect } from "react";
 import projectVotingABI from "../../smart-contracts/build/contracts/ProjectVoting.json";
-import { WalletContext } from "../contexts/WalletContext";
-import useIPFS from "./ipfs";
-import web3 from "../web3-subscription"
+import web3 from "../web3-subscription";
+import {uploadJson} from "./ipfs"
 
-const useProjectVoting = () => {
-  const [threshold, setThreshold] = useState(0);
-  const walletContext = useContext(WalletContext);
-  const {uploadJson} = useIPFS()
-
-  const contract = new web3.eth.Contract(
+const contract = new web3.eth.Contract(
     projectVotingABI.abi,
     process.env.GATSBY_PROJECT_VOTING_CONTRACT_ADDRESS
-  );
+);
 
-  useEffect(() => {
-    async function init() {
-      setThreshold(await getThreshold());
-    }
-
-    init();
-  }, []);
-
-  async function checkStatus(hash) {
+  export async function checkStatus(hash) {
     let receipt = null;
 
     while (true) {
@@ -47,7 +32,7 @@ const useProjectVoting = () => {
     }
   }
 
-  const getVoters = async () => {
+  export const getVoters = async () => {
     try {
       const result = await contract.getPastEvents("Voted", {
         fromBlock: 0,
@@ -64,7 +49,7 @@ const useProjectVoting = () => {
     }
   };
 
-  const getWinners = async () => {
+  export const getWinners = async () => {
     try {
       const result = await contract.getPastEvents("WinnerAnnounced", {
         fromBlock: 0,
@@ -86,7 +71,7 @@ const useProjectVoting = () => {
     }
   };
 
-  const getProjects = async () => {
+  export const getProjects = async () => {
     try {
       const result = await contract.getPastEvents("ProjectAdded", {
         fromBlock: 0,
@@ -101,7 +86,17 @@ const useProjectVoting = () => {
     }
   };
 
-  const getBalance = async () => {
+  // TODO: get project content from IPFS
+  export const getProjectById = async (id) => {
+    try {
+      const result = await contract.methods.getProjectById(id).call();
+      return result;
+    } catch(error) {
+      console.error("Error in getProjectById", error)
+    }
+  }
+
+  export const getBalance = async () => {
     try {
       const result = await contract.methods.getBalance().call();
       return parseFloat(web3.utils.fromWei(result, "ether"));
@@ -110,7 +105,7 @@ const useProjectVoting = () => {
     }
   };
 
-  const getThreshold = async () => {
+  export const getThreshold = async () => {
     try {
       const result = await contract.methods.getThreshold().call();
       return web3.utils.fromWei(result, "ether");
@@ -119,10 +114,10 @@ const useProjectVoting = () => {
     }
   };
 
-  const checkHasVoted = async () => {
+  export const checkHasVoted = async (walletAddress) => {
     try {
       const result = await contract.methods.checkHasVoted().call({
-        from: walletContext.walletAddress,
+        from: walletAddress,
       });
       return result;
     } catch (error) {
@@ -130,7 +125,7 @@ const useProjectVoting = () => {
     }
   };
 
-  const getVoteCount = async (id) => {
+  export const getVoteCount = async (id) => {
     try {
       const count = await contract.methods.getVoteCount(id).call();
       return count.toString();
@@ -139,7 +134,7 @@ const useProjectVoting = () => {
     }
   };
 
-  const vote = async (id, amountInEther, name) => {
+  export const vote = async (id, amountInEther, name) => {
     const ethereum = window.ethereum;
     try {
       const minimumEther = 0.001;
@@ -183,10 +178,10 @@ const useProjectVoting = () => {
     }
   };
 
-  const getVote = async () => {
+  export const getVote = async (walletAddress) => {
     try {
       const result = await contract.methods.getVote().call({
-        from: walletContext?.walletAddress,
+        from: walletAddress,
       });
 
       return result;
@@ -195,10 +190,10 @@ const useProjectVoting = () => {
     }
   };
 
-  const getActions  = async() => {
+  export const getActionCIDs  = async (walletAddress) => {
     try {
       const result = await contract.methods.getAddressAction().call({
-        from: walletContext?.walletAddress
+        from: walletAddress
       })
 
       return result;
@@ -206,19 +201,19 @@ const useProjectVoting = () => {
         console.error("Error in getting address actions");
     }
   }
-
-  const uploadAction = async ({ task, projectId }) => {
+  
+  export const uploadAction = async (walletAddress, { task, projectId }) => {
     if (window.ethereum) {
       try {
         const data = JSON.stringify({
           task,
           projectId,
-          walletAddress: walletContext?.walletAddress,
+          walletAddress: walletAddress,
         });
 
         const signature = await window.ethereum.request({
           method: "personal_sign",
-          params: [data, walletContext?.walletAddress],
+          params: [data, walletAddress],
         });
 
         const hash = await uploadJson(signature);
@@ -243,8 +238,6 @@ const useProjectVoting = () => {
           params: [transactionParameters],
         });
 
-        
-
         console.log("Action Result: ", txHash)
 
       } catch (error) {
@@ -254,21 +247,3 @@ const useProjectVoting = () => {
       console.log("MetaMask is not installed!");
     }
   };
-
-  return {
-    getVoteCount,
-    vote,
-    checkHasVoted,
-    getVote,
-    threshold,
-    getBalance,
-    checkStatus,
-    getWinners,
-    getProjects,
-    getVoters,
-    uploadAction, 
-    getActions
-  };
-};
-
-export default useProjectVoting;

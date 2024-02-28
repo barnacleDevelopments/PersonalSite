@@ -10,13 +10,15 @@ import moment from "moment";
 import { Box, Flex, Button, Heading, Text, Grid } from "theme-ui";
 import Seo from "../components/app/Seo";
 
-// Hooks
-import useProjectVoting from "../hooks/project-voting";
+// Functions 
+import { uploadAction } from "../functions/project-voting";
+import { useContext } from "react";
+import { WalletContext } from "../contexts/WalletContext";
 
 function Project({ data }) {
   const { markdownRemark: node } = data;
   const converter = new showdown.Converter();
-  const { uploadAction } = useProjectVoting();
+  const walletContext = useContext(WalletContext);
 
   return (
     <Box>
@@ -56,7 +58,7 @@ function Project({ data }) {
           ) : (
             ""
           )}{" "}
-          <Button onClick={() => uploadAction({ task: "view" })}>
+          <Button onClick={() => uploadAction(walletContext?.walletAddress, { task: "view", projectId: node.frontmatter.id })}>
             Mark as Viewed
           </Button>
         </Box>
@@ -200,6 +202,7 @@ export const pageQuery = graphql`
   query ProjectBySlug($slug: String!) {
     markdownRemark(fields: { slug: { eq: $slug } }) {
       frontmatter {
+        id
         title
         date
         completeTime
