@@ -34,6 +34,11 @@ module.exports = async function (callback) {
       "ca7d73d1-1c78-42b7-956e-ec580994c232"
     );
 
+    await myContractInstance.add(
+      "BrewersInsight - Planning and Forecasting",
+      "fe925bea-43f4-423e-84f9-a4c452f59f5a"
+    );
+
     const projects = await myContractInstance.getAll();
     console.log(projects);
   } catch (error) {
