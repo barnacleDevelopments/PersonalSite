@@ -10,15 +10,15 @@ import moment from "moment";
 import { Box, Flex, Button, Heading, Text, Grid } from "theme-ui";
 import Seo from "../components/app/Seo";
 
-// Functions 
-import { uploadAction } from "../functions/project-voting";
-import { useContext } from "react";
-import { WalletContext } from "../contexts/WalletContext";
+// Functions
+// import { uploadAction } from "../functions/project-voting";
+// import { useContext } from "react";
+// import { WalletContext } from "../contexts/WalletContext";
 
 function Project({ data }) {
   const { markdownRemark: node } = data;
   const converter = new showdown.Converter();
-  const walletContext = useContext(WalletContext);
+  // const walletContext = useContext(WalletContext);
 
   return (
     <Box>
@@ -58,9 +58,9 @@ function Project({ data }) {
           ) : (
             ""
           )}{" "}
-          <Button onClick={() => uploadAction(walletContext?.walletAddress, { task: "view", projectId: node.frontmatter.id })}>
+          {/* <Button onClick={() => uploadAction(walletContext?.walletAddress, { task: "view", projectId: node.frontmatter.id })}>
             Mark as Viewed
-          </Button>
+          </Button> */}
         </Box>
       </Flex>
       {/* Section 1 */}
