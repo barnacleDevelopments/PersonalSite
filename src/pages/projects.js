@@ -96,6 +96,8 @@ const ProjectsPage = ({ data }) => {
       await updateHasVoted();
       await updateAddressVote();
     }
+
+    await updateThreshold();
     await updateBalance();
     await updateWinners();
     await updateVoters();
@@ -136,6 +138,7 @@ const ProjectsPage = ({ data }) => {
 
   const updateBalance = async () => {
     const balance = await getBalance();
+    console.log(balance);
     setBalance(balance);
   };
 
