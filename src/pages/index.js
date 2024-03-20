@@ -107,11 +107,16 @@ const IndexPage = ({ data }) => {
       >
         <Box
           sx={{
-            py: [5],
+            py: [4],
           }}
         >
           <Grid gap={3} columns={[1, 2, "1fr 2fr"]}>
-            <Box>
+            <Box
+              sx={{
+                overflow: "hidden",
+                borderRadius: "10px",
+              }}
+            >
               <StaticImage
                 style={{ height: "300px" }}
                 src="../images/devin_portrait.jpg"
@@ -148,136 +153,107 @@ const IndexPage = ({ data }) => {
         </Box>
         <Box
           sx={{
-            border: `2px solid`,
-            borderLeftWidth: "2px",
-            borderRightWidth: "2px",
-            borderBottomWidth: "2px",
-            borderColor: "primary",
-            pb: 3,
-            bg: "secondary",
+            py: 2,
           }}
         >
-          <Box
-            sx={{
-              py: 5,
-              px: 4,
-            }}
-          >
-            <Heading as="h3" variant="subheading1">
-              Soft Skills
-            </Heading>
-            <Grid gap={3} columns={[1, null, 2]}>
-              <Box sx={styles.skillCard}>
-                <Flex alignItems="center">
-                  <Icon size="2x" icon={faLightbulb} />
-                  <Text variant="regular" sx={styles.skillText}>
-                    Creative Problem Solver
-                  </Text>
-                </Flex>
-              </Box>
-              <Box sx={styles.skillCard}>
-                <Flex alignItems="center">
-                  <Icon size="2x" icon={faBrain} />
-                  <Text variant="regular" sx={styles.skillText}>
-                    Analytical Thinker
-                  </Text>
-                </Flex>
-              </Box>
-              <Box sx={styles.skillCard}>
-                <Flex alignItems="center">
-                  <Icon size="2x" icon={faPeopleArrows} />
-                  <Text variant="regular" sx={styles.skillText}>
-                    Client Focused
-                  </Text>
-                </Flex>
-              </Box>
-              <Box sx={styles.skillCard}>
-                <Flex alignItems="center">
-                  <Icon size="2x" icon={faChartLine} />
-                  <Text variant="regular" sx={styles.skillText}>
-                    Adaptable and Flexible
-                  </Text>
-                </Flex>
-              </Box>
-              <Box sx={styles.skillCard}>
-                <Flex alignItems="center">
-                  <Icon size="2x" icon={faStore} />
-                  <Text variant="regular" sx={styles.skillText}>
-                    Attentive to Details
-                  </Text>
-                </Flex>
-              </Box>
-              <Box sx={styles.skillCard}>
-                <Flex alignItems="center">
-                  <Icon size="2x" icon={faBrain} />
-                  <Text variant="regular" sx={styles.skillText}>
-                    Curious and a Willing to Learn New Things
-                  </Text>
-                </Flex>
-              </Box>
-            </Grid>
-          </Box>
-          <Box
-            sx={{
-              py: 2,
-              px: 4,
-              bg: "secondary",
-            }}
-          >
-            <Heading as="h3" variant="subheading1">
-              Hard Skills
-            </Heading>
-            <Grid gap={3} columns={[1, null, 2]}>
-              <Box sx={styles.skillCard}>
-                <Flex alignItems="center">
-                  <Icon size="2x" icon={faServer} />
-                  <Text variant="regular" sx={styles.skillText}>
-                    Back-End Development
-                  </Text>
-                </Flex>
-              </Box>
-              <Box sx={styles.skillCard}>
-                <Flex alignItems="center">
-                  <Icon size="2x" icon={faTabletAlt} />
-                  <Text variant="regular" sx={styles.skillText}>
-                    Front-End Development
-                  </Text>
-                </Flex>
-              </Box>
-              <Box sx={styles.skillCard}>
-                <Flex alignItems="center">
-                  <Icon size="2x" icon={faDesktop} />
-                  <Text variant="regular" sx={styles.skillText}>
-                    Responsive Design
-                  </Text>
-                </Flex>
-              </Box>
-              <Box sx={styles.skillCard}>
-                <Flex alignItems="center">
-                  <Icon size="2x" icon={faBug} />
-                  <Text variant="regular" sx={styles.skillText}>
-                    Testing/Debugging
-                  </Text>
-                </Flex>
-              </Box>
-              <Box sx={styles.skillCard}>
-                <Flex alignItems="center">
-                  <Icon size="2x" icon={faRocket} />
-                  <Text variant="regular" sx={styles.skillText}>
-                    Web Performance
-                  </Text>
-                </Flex>
-              </Box>
-              <Box sx={styles.skillCard}>
-                <Flex alignItems="center">
-                  <Icon size="2x" icon={faGit} />
-                  <Text variant="regular" sx={styles.skillText}>
-                    Version Control/Git
-                  </Text>
-                </Flex>
-              </Box>
-            </Grid>
-          </Box>
+          <Heading as="h3" variant="subheading1">
+            Soft Skills
+          </Heading>
+          <Grid gap={3} columns={[1, null, 2]}>
+            <Box sx={styles.skillCard}>
+              <Flex alignItems="center">
+                <Icon size="2x" icon={faBrain} />
+                <Text variant="regular" sx={styles.skillText}>
+                  Analytical Thinker
+                </Text>
+              </Flex>
+            </Box>
+            <Box sx={styles.skillCard}>
+              <Flex alignItems="center">
+                <Icon size="2x" icon={faPeopleArrows} />
+                <Text variant="regular" sx={styles.skillText}>
+                  Client Focused
+                </Text>
+              </Flex>
+            </Box>
+            <Box sx={styles.skillCard}>
+              <Flex alignItems="center">
+                <Icon size="2x" icon={faChartLine} />
+                <Text variant="regular" sx={styles.skillText}>
+                  Adaptable
+                </Text>
+              </Flex>
+            </Box>
+            <Box sx={styles.skillCard}>
+              <Flex alignItems="center">
+                <Icon size="2x" icon={faStore} />
+                <Text variant="regular" sx={styles.skillText}>
+                  Detail Oriented
+                </Text>
+              </Flex>
+            </Box>
+            <Box sx={styles.skillCard}>
+              <Flex alignItems="center">
+                <Icon size="2x" icon={faBrain} />
+                <Text variant="regular" sx={styles.skillText}>
+                  Active Learner
+                </Text>
+              </Flex>
+            </Box>
+          </Grid>
+          <Heading sx={{ mt: 4 }} as="h3" variant="subheading1">
+            Hard Skills
+          </Heading>
+          <Grid gap={3} columns={[1, null, 2]}>
+            <Box sx={styles.skillCard}>
+              <Flex alignItems="center">
+                <Icon size="2x" icon={faServer} />
+                <Text variant="regular" sx={styles.skillText}>
+                  Back-End Development
+                </Text>
+              </Flex>
+            </Box>
+            <Box sx={styles.skillCard}>
+              <Flex alignItems="center">
+                <Icon size="2x" icon={faTabletAlt} />
+                <Text variant="regular" sx={styles.skillText}>
+                  Front-End Development
+                </Text>
+              </Flex>
+            </Box>
+            <Box sx={styles.skillCard}>
+              <Flex alignItems="center">
+                <Icon size="2x" icon={faDesktop} />
+                <Text variant="regular" sx={styles.skillText}>
+                  Responsive Design
+                </Text>
+              </Flex>
+            </Box>
+            <Box sx={styles.skillCard}>
+              <Flex alignItems="center">
+                <Icon size="2x" icon={faBug} />
+                <Text variant="regular" sx={styles.skillText}>
+                  Testing/Debugging
+                </Text>
+              </Flex>
+            </Box>
+            <Box sx={styles.skillCard}>
+              <Flex alignItems="center">
+                <Icon size="2x" icon={faRocket} />
+                <Text variant="regular" sx={styles.skillText}>
+                  Web Performance
+                </Text>
+              </Flex>
+            </Box>
+            <Box sx={styles.skillCard}>
+              <Flex alignItems="center">
+                <Icon size="2x" icon={faGit} />
+                <Text variant="regular" sx={styles.skillText}>
+                  Version Control/Git
+                </Text>
+              </Flex>
+            </Box>
+          </Grid>
         </Box>
         <Box
           sx={{
