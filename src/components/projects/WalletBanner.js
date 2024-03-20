@@ -72,10 +72,11 @@ const WalletBanner = ({
               transaction via MetaMask. Please be patient as processing may take
               a few minutes. Once the threshold has been reached, a winner will
               randomly be selected and the balance of the contract will be sent
-              to their wallet. There are a few activites you can perform that
+              to their wallet.
+              {/* There are a few activites you can perform that
               will help increase your chance of winning. Be sure to check those
               out! Your vote will be recorded on the Ethereum blockchain via the
-              Sepolia Test Network.
+              Sepolia Test Network. */}
             </Paragraph>
           )}
           <Box mt={3} sx={{ color: "white" }}>

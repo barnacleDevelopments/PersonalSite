@@ -4,7 +4,7 @@ import { Link, Box, Text } from "theme-ui";
 import { Section } from "../app/Section";
 import { useEffect, useState, useContext } from "react";
 
-// Functions 
+// Functions
 import { getActionCIDs } from "../../functions/project-voting";
 import { WalletContext } from "../../contexts/WalletContext";
 import { getRecords } from "../../functions/ipfs";
@@ -19,20 +19,19 @@ export const JudgementGrid = ({
   useEffect(() => {
     const init = async () => {
       await updateActions();
-    }
+    };
     init();
-  },[projects.length]);
+  }, [projects.length]);
 
   const updateActions = async () => {
-    if(walletContext?.walletAddress)  {
+    if (walletContext?.walletAddress) {
       const actionCIDs = await getActionCIDs(walletContext?.walletAddress);
-      console.log(actionCIDs)
       const actions = await getRecords(actionCIDs);
-      console.log(actions)
-      if(actions.length > 0) {
+      console.log(actions);
+      if (actions.length > 0) {
         const result = projects.map((project) => {
-          for(const action of actions) {
-            if(project.id === action.projectId) {
+          for (const action of actions) {
+            if (project.id === action.projectId) {
               project.actionType = action.type;
             }
           }
@@ -41,7 +40,7 @@ export const JudgementGrid = ({
         setProjectActions(result);
       }
     }
-  }
+  };
 
   const renderCircles = () => {
     const items = [];
@@ -57,7 +56,10 @@ export const JudgementGrid = ({
               width: "25px",
               height: "25px",
               borderRadius: "9999px",
-              bg: judgements[x - 1] === projectActions[y - 1].actionType ? "orange" : "primary",
+              bg:
+                judgements[x - 1] === projectActions[y - 1].actionType
+                  ? "orange"
+                  : "primary",
               display: "inline-block",
               margin: 2,
             }}
