@@ -1,12 +1,11 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui";
-import { Themed, Box, Flex, Text } from "theme-ui";
+import { Heading, Box, Flex, Text } from "theme-ui";
 import { graphql } from "gatsby";
 import showdown from "showdown";
 import moment from "moment";
 
 // COMPONENTS
-import Layout from "../components/app/Layout";
 import Seo from "../components/app/Seo";
 import { useEffect } from "react";
 import Prism from "prismjs";
@@ -42,9 +41,13 @@ const BlogPost = ({ data }) => {
           px: 2,
         }}
       >
-        <Themed.h1 sx={{ wordWrap: "wrap", textAlign: "center", mb: 3 }}>
+        <Heading
+          as="h1"
+          variant="hero"
+          sx={{ wordWrap: "wrap", textAlign: "center", mb: 3, color: "white" }}
+        >
           {node.frontmatter.title}
-        </Themed.h1>
+        </Heading>
         <Text variant="regular" sx={{ color: "white" }}>
           {moment(node.frontmatter.date).format("MMM Do, YYYY")}
         </Text>

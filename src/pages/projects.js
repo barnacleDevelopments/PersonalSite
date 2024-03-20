@@ -1,22 +1,35 @@
 /** @jsx jsx */
-import { Link, jsx } from "theme-ui";
+import { Link, Paragraph, jsx } from "theme-ui";
 import { graphql } from "gatsby";
 
 // Components
 import ProjectCard from "../components/projects/ProjectCard";
-import { Box, Text, Themed, Spinner } from "theme-ui";
+import { Box, Spinner, Heading } from "theme-ui";
 import Seo from "../components/app/Seo";
 import { useContext, useEffect, useState } from "react";
 import WalletBanner from "../components/projects/WalletBanner";
 import ProgressGauge from "../components/projects/ProgressGauge";
 import ContributionForm from "../components/projects/ContributionForm";
 import VoterList from "../components/projects/VoterList";
-
-// Hooks
-import useProjectVoting from "../hooks/project-voting";
+import { JudgementGrid } from "../components/projects/JudgementGrid";
 
 // Contexts
 import { WalletContext } from "../contexts/WalletContext";
+
+// Functions
+import {
+  getVoteCount,
+  vote,
+  checkHasVoted,
+  getVote,
+  getBalance,
+  checkStatus,
+  getWinners,
+  getProjects,
+  getVoters,
+  getActionCIDs,
+  getThreshold,
+} from "../functions/project-voting";
 
 const ProjectsPage = ({ data }) => {
   const pageData = data.allMarkdownRemark.edges;
@@ -28,24 +41,15 @@ const ProjectsPage = ({ data }) => {
   const [addressVote, setAddressVote] = useState();
   const [winners, setWinners] = useState({});
   const [voters, setVoters] = useState([]);
-  const {
-    getVoteCount,
-    vote,
-    checkHasVoted,
-    getVote,
-    threshold,
-    getBalance,
-    checkStatus,
-    getWinners,
-    getProjects,
-    getVoters,
-  } = useProjectVoting();
+  const [threshold, setThreshold] = useState(0);
+
   const walletContext = useContext(WalletContext);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
       const init = async () => {
         await updateVoteStates();
+        await updateThreshold();
         await getProjectWithContent();
       };
 
@@ -111,7 +115,7 @@ const ProjectsPage = ({ data }) => {
   };
 
   const updateAddressVote = async () => {
-    const vote = await getVote();
+    const vote = await getVote(walletContext?.walletAddress);
     setAddressVote(vote);
   };
 
@@ -126,13 +130,18 @@ const ProjectsPage = ({ data }) => {
   };
 
   const updateHasVoted = async () => {
-    const hasVoted = await checkHasVoted();
+    const hasVoted = await checkHasVoted(walletContext?.walletAddress);
     setHasVoted(hasVoted);
   };
 
   const updateBalance = async () => {
     const balance = await getBalance();
     setBalance(balance);
+  };
+
+  const updateThreshold = async () => {
+    const threshold = await getThreshold();
+    setThreshold(threshold);
   };
 
   const getProject = () => {
@@ -177,22 +186,19 @@ const ProjectsPage = ({ data }) => {
         }}
       >
         <Box sx={{ mt: 6, mb: 4 }} textAlign="center">
-          <Themed.h1
-            sx={{
-              mb: 3,
-              color: "primary",
-            }}
-          >
+          <Heading as="h1" variant="hero">
             Projects
-          </Themed.h1>
-          <Text variant="large">
+          </Heading>
+          <Paragraph variant="large">
             Discover a selection of my latest projects! If you're interested in
             collaboration or want to learn more, feel free to{" "}
             <Link href="/contact">contact me</Link>. Plus, take a moment to vote
             for your favorite project and you might win a prize!
-          </Text>
-          <Themed.h2 sx={{ mt: 4 }}>Participate in Web3 Voting</Themed.h2>
-          <Text variant="regular" sx={{ mt: 3 }}>
+          </Paragraph>
+          <Heading as="h2" variant="subheading1" sx={{ mt: 4 }}>
+            Participate in Web3 Voting
+          </Heading>
+          <Paragraph variant="regular" sx={{ mt: 3 }}>
             Embracing the new era of Web3, I've integrated a decentralized
             voting system for my projects. You can help highlight the most
             popular projects using the power of Ethereum. Your vote will be
@@ -202,7 +208,7 @@ const ProjectsPage = ({ data }) => {
               Chainlink's VRF random number generator
             </Link>
             , every time the prize pool reaches the threshold.
-          </Text>{" "}
+          </Paragraph>{" "}
           <WalletBanner
             walletAddress={walletContext?.walletAddress}
             project={getProject()}
@@ -215,6 +221,7 @@ const ProjectsPage = ({ data }) => {
             currentProgress={balance}
             maxProgress={threshold}
           ></ProgressGauge>
+          {/** <JudgementGrid projects={projects}></JudgementGrid>  */}
           {voters?.length > 0 && (
             <VoterList winners={winners} voters={voters}></VoterList>
           )}

@@ -4,7 +4,7 @@ import { graphql } from "gatsby";
 
 // Components
 import PostCard from "../components/blog/PostCard";
-import { Box, Text, Themed, Grid, Link, Button } from "theme-ui";
+import { Box, Text, Grid, Link, Button } from "theme-ui";
 import Seo from "../components/app/Seo";
 
 const CategoryPosts = ({ data }) => {
@@ -21,14 +21,14 @@ const CategoryPosts = ({ data }) => {
         }}
       >
         <Box sx={{ mt: 6, mb: 5 }} textAlign="center">
-          <Themed.h1
+          <h1
             sx={{
               mb: 3,
               color: "primary",
             }}
           >
             {postCategory}
-          </Themed.h1>
+          </h1>
           <Text variant="large" sx={{ textAlign: "center" }}></Text>
         </Box>
         <Grid
@@ -46,9 +46,7 @@ const CategoryPosts = ({ data }) => {
             })
           ) : (
             <Box sx={{ height: "80vh" }}>
-              <Themed.h1 sx={{ mb: 3 }}>
-                Nothing here for now... check in later!
-              </Themed.h1>
+              <h1 sx={{ mb: 3 }}>Nothing here for now... check in later!</h1>
               <Link href="/blog">
                 <Button>Go Back</Button>
               </Link>

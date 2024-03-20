@@ -1,5 +1,4 @@
 exports.handler = async function (event, context) {
-
   // get the event body
   const request = JSON.parse(event.body);
 
@@ -17,14 +16,15 @@ exports.handler = async function (event, context) {
     avgUITime,
     avgContactFormTime,
     avgSEOTime,
-    avgPageTime].reduce((acum, value) => acum + value);
+    avgPageTime,
+  ].reduce((acum, value) => acum + value);
 
   // caculate estimate total
-  let totalCost = 0
+  let totalCost = 0;
   totalCost += request.hasCMS ? avgCMSTime * hourlyRate : 0;
   totalCost += request.hasContactForm ? avgContactFormTime * hourlyRate : 0;
   totalCost += request.hasSEO ? avgSEOTime * hourlyRate : 0;
-  totalCost += (avgPageTime * request.pageCount) * hourlyRate;
+  totalCost += avgPageTime * request.pageCount * hourlyRate;
 
   // acumulate inculde feature names into an array
   let newEstimate = {
@@ -43,6 +43,6 @@ exports.handler = async function (event, context) {
 
   return {
     statusCode: 200,
-    body: JSON.stringify(newEstimate)
-  }
-}
+    body: JSON.stringify(newEstimate),
+  };
+};

@@ -1,10 +1,8 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui";
-import { GatsbyImage } from "gatsby-plugin-image";
-import { getImage } from "gatsby-plugin-image";
 
 // Components
-import { Themed, Card, Text, Button, Flex, Box, Link } from "theme-ui";
+import { Card, Text, Button, Flex, Box, Link, Heading } from "theme-ui";
 import { useContext } from "react";
 import { WalletContext } from "../../contexts/WalletContext";
 
@@ -70,7 +68,10 @@ const ProjectCard = ({
           flexDirection: "column",
         }}
       >
-        <Themed.h3
+        <Heading
+          as="h2"
+          variant="subheading1"
+          color="white"
           sx={{
             whiteSpace: "nowrap",
             maxWidth: "100%",
@@ -80,7 +81,7 @@ const ProjectCard = ({
           }}
         >
           {title}
-        </Themed.h3>
+        </Heading>
         <Text variant="regular" sx={{ color: "white" }}>
           {voteCount} Vote{voteCount > 1 && "s"}
         </Text>

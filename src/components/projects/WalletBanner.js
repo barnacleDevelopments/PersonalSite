@@ -1,10 +1,9 @@
 /** @jsx jsx */
-import { jsx } from "theme-ui";
-import React from "react";
+import { Paragraph, jsx } from "theme-ui";
 import scrollTo from "gatsby-plugin-smoothscroll";
 
 // Components
-import { Themed, Text, Button, Box, Link, Flex } from "theme-ui";
+import { Text, Button, Box, Link, Flex, Heading } from "theme-ui";
 import MetaMask from "../../images/meta-mask.svg";
 
 const WalletBanner = ({
@@ -36,11 +35,13 @@ const WalletBanner = ({
         <Box>
           {/* title */}
           {!isWalletConnected ? (
-            <Themed.h2 sx={{ color: "white" }}>Connect Wallet & Vote</Themed.h2>
+            <Heading as="h2" variant="subheading1" sx={{ color: "white" }}>
+              Connect Wallet & Vote
+            </Heading>
           ) : (
-            <Themed.h2 sx={{ color: "white" }}>
+            <Heading as="h2" variant="subheading1" sx={{ color: "white" }}>
               Your wallet is connected
-            </Themed.h2>
+            </Heading>
           )}
           {/* body */}
           {!isWalletConnected ? (
@@ -66,14 +67,17 @@ const WalletBanner = ({
               . Thank you for participating!
             </Text>
           ) : (
-            <Text variant="regular" sx={{ mt: 3, color: "white" }}>
+            <Paragraph variant="regular" sx={{ mt: 3, color: "white" }}>
               Ready to vote? Select your favorite project and confirm the
               transaction via MetaMask. Please be patient as processing may take
               a few minutes. Once the threshold has been reached, a winner will
               randomly be selected and the balance of the contract will be sent
-              to their wallet. Your vote will be recorded on the Ethereum
-              blockchain via the Sepolia Test Network.
-            </Text>
+              to their wallet.
+              {/* There are a few activites you can perform that
+              will help increase your chance of winning. Be sure to check those
+              out! Your vote will be recorded on the Ethereum blockchain via the
+              Sepolia Test Network. */}
+            </Paragraph>
           )}
           <Box mt={3} sx={{ color: "white" }}>
             {walletAddress ? (

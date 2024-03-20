@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui";
-import { Themed, Box } from "theme-ui";
+import { Box } from "theme-ui";
 
 const VoterList = ({ winners = {}, voters = [{ name: "" }] }) => {
   return (
@@ -16,7 +16,7 @@ const VoterList = ({ winners = {}, voters = [{ name: "" }] }) => {
       }}
     >
       <Box sx={{ textAlign: "center", mt: 3 }}>
-        <Themed.h2 sx={{ textAlign: "center" }}>Recent Voter List</Themed.h2>
+        <h2 sx={{ textAlign: "center" }}>Recent Voter List</h2>
         <table
           sx={{
             mt: 3,

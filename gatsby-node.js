@@ -1,7 +1,7 @@
-// In your gatsby-node.js file
 const path = require("path");
-const { fmImagesToRelative } = require("gatsby-remark-relative-images");
 const { createFilePath } = require("gatsby-source-filesystem");
+
+// TODO: Update the source of projects to IPFS. 
 
 exports.createPages = async ({ actions, graphql }) => {
   const { createPage } = actions;
@@ -69,7 +69,7 @@ exports.createPages = async ({ actions, graphql }) => {
     if (result.errors) {
       Promise.reject(result.errors);
     }
-
+     
     result.data.allMarkdownRemark.edges.forEach(({ node }) => {
       const project = node.frontmatter;
       genProjectPage(node, project);
@@ -113,7 +113,6 @@ exports.createPages = async ({ actions, graphql }) => {
 };
 
 exports.onCreateNode = ({ node, actions, getNode }) => {
-  fmImagesToRelative(node);
   const { createNodeField } = actions;
 
   if (node.internal.type === `MarkdownRemark`) {
