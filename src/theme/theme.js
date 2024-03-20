@@ -107,6 +107,9 @@ module.exports = {
     },
   },
   links: {
+    mobileNav: {
+      color: "primary",
+    },
     footer: {
       color: "white",
       textDecoration: "none",
