@@ -1,7 +1,6 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui";
 import { Box, Link, Text, Grid, Button, Flex } from "theme-ui";
-import { Themed } from "theme-ui";
 import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
 import { faLinkedin } from "@fortawesome/free-brands-svg-icons";
 
@@ -10,7 +9,7 @@ const Footer = () => {
     <footer>
       <Grid sx={{ bg: "primary", pb: 4 }} columns={[1, null, 3]}>
         <Box sx={{ textAlign: "center" }}>
-          <Themed.h4 sx={{ mb: 3, color: "white" }}>Contact Me</Themed.h4>
+          <h4 sx={{ mb: 3, color: "white" }}>Contact Me</h4>
           <Text variant="small" sx={{ color: "white" }}>
             Please get in touch.
           </Text>
@@ -19,12 +18,12 @@ const Footer = () => {
           </Link>
         </Box>
         <Box sx={{ textAlign: "center" }}>
-          <Themed.h4 sx={{ mb: 3, color: "white" }}>Media</Themed.h4>
+          <h4 sx={{ mb: 3, color: "white" }}>Media</h4>
           <Flex sx={{ flexDirection: "column", alignItems: "center" }}>
             <Link
               href="https://www.linkedin.com/in/devin-dev-d-63008412b"
               sx={{ mb: 2, width: "max-content", svg: { fontSize: "1.2em" } }}
-              variant="footLink"
+              variant="footer"
             >
               <Icon icon={faLinkedin} />
               <Text sx={{ color: "white", ml: 1 }} variant="small">
@@ -35,34 +34,22 @@ const Footer = () => {
           </Flex>
         </Box>
         <Box sx={{ textAlign: "center" }}>
-          <Themed.h4 sx={{ mb: 3, color: "white" }}>Navigation</Themed.h4>
+          <h4 sx={{ mb: 3, color: "white" }}>Navigation</h4>
           <Flex sx={{ flexDirection: "column", alignItems: "center" }}>
             <Link
               sx={{ mb: 2, width: "max-content" }}
-              variant="footLink"
               href="/"
+              variant="footer"
             >
               Home
             </Link>
-            <Link
-              sx={{ mb: 2, width: "max-content" }}
-              variant="footLink"
-              href="/contact"
-            >
+            <Link sx={{ mb: 2, width: "max-content" }} href="/contact">
               Contact
             </Link>
-            <Link
-              sx={{ mb: 2, width: "max-content" }}
-              variant="footLink"
-              href="/projects"
-            >
+            <Link sx={{ mb: 2, width: "max-content" }} href="/projects">
               Projects
             </Link>
-            <Link
-              sx={{ mb: 2, width: "max-content" }}
-              variant="footLink"
-              href="/services"
-            >
+            <Link sx={{ mb: 2, width: "max-content" }} href="/services">
               About
             </Link>
           </Flex>

@@ -12,14 +12,14 @@ import {
   Box,
   Flex,
   Button,
+  Heading,
   Text,
   Input,
   Textarea,
   Link,
-  Themed,
+  Paragraph,
 } from "theme-ui";
 import Loader from "../components/Loader";
-import Layout from "../components/app/Layout";
 import Seo from "../components/app/Seo";
 
 const schema = yup
@@ -82,15 +82,15 @@ const ContactPage = () => {
             }}
           >
             <Box sx={{ mt: 6, mb: 5 }}>
-              <Themed.h1 sx={{ mb: 3, color: "primary" }}>
+              <Heading as="h1" variant="hero">
                 Let's Talk About You
-              </Themed.h1>
-              <Text sx={{ my: 3, display: "block" }} variant="large">
+              </Heading>
+              <Paragraph sx={{ my: 3, display: "block" }} variant="large">
                 Learning about businesses and their owners is one of my favorite
                 things to do. Please reach out I'd love to get to know you and
                 your business. I'd like to play a part in empowering you to
                 reach your goals.
-              </Text>
+              </Paragraph>
             </Box>
             <Box
               as="form"
@@ -203,7 +203,7 @@ const ContactPage = () => {
             }}
           >
             <Box textAlign="center">
-              <Themed.h2 sx={{ mb: 3 }}>Thank you for the email!</Themed.h2>
+              <h2 sx={{ mb: 3 }}>Thank you for the email!</h2>
               <Text variant="regular" sx={{ my: 3, display: "block" }}>
                 {" "}
                 I'll be in touch with you shortly.
@@ -225,7 +225,7 @@ const ContactPage = () => {
             }}
           >
             <Box textAlign="center">
-              <Themed.h2 sx={{ mb: 3 }}>Oups!</Themed.h2>
+              <h2 sx={{ mb: 3 }}>Oups!</h2>
               <Text variant="regular" sx={{ my: 3, display: "block" }}>
                 We couldn't send your email.
               </Text>

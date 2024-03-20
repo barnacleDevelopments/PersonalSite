@@ -1,6 +1,8 @@
 const ProjectVoting = artifacts.require("ProjectVoting");
 require("dotenv").config();
 
+// TODO: Upload each projects markdown to IPFS (make sure to pin) and create the reference to content on blockchain.
+
 module.exports = async function (callback) {
   try {
     // Get the deployed contract instance
@@ -30,6 +32,11 @@ module.exports = async function (callback) {
     await myContractInstance.add(
       "Brewers Insight - Packaging BOM",
       "ca7d73d1-1c78-42b7-956e-ec580994c232"
+    );
+
+    await myContractInstance.add(
+      "BrewersInsight - Planning and Forecasting",
+      "fe925bea-43f4-423e-84f9-a4c452f59f5a"
     );
 
     const projects = await myContractInstance.getAll();

@@ -5,16 +5,15 @@ require("dotenv").config({
 module.exports = {
   siteMetadata: {
     url: "https://devdeveloper.ca/",
-    title: "Dev's Web Shop",
+    title: "devdeveloper",
     image: {
       src: `assets/logo_2.png`,
       width: 110,
       height: 110,
     },
-    titleTemplate: "Web Development Services",
-    defaultTitle: "Web Development Services",
-    description:
-      "Web development services for small business and startups. Get in touch!",
+    titleTemplate: "devdeveloper portfolio",
+    defaultTitle: "devdeveloper portfolio",
+    description:"my personal porfolio site",
     lang: "en",
     keywords: [
       "webdev",
@@ -67,25 +66,14 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `DEV'S WEB SHOP`,
-        short_name: `DEV'S SHOP`,
+        name: `devdeveloper`,
+        short_name: `devdeveloper`,
         start_url: `/`,
         background_color: `#FFF`,
         theme_color: `#30362F`,
         display: `standalone`,
         icon: "src/images/logo.png",
-        description:
-          "Web development services for small business and startups. Get in touch!",
-      },
-    },
-    {
-      resolve: "gatsby-plugin-netlify-cms",
-      options: {
-        /**
-         * One convention is to place your Netlify CMS customization code in a
-         * `src/cms` directory.
-         */
-        modulePath: `${__dirname}/src/cms/cms.js`,
+        description: "personal engineer portfolio for Devin Davis"
       },
     },
     {
@@ -114,8 +102,8 @@ module.exports = {
       // TODO: Fix this
       resolve: "gatsby-plugin-robots-txt",
       options: {
-        host: "https://www.devs-webshop.tech",
-        sitemap: "https://www.devs-webshop.tech/sitemap.xml",
+        host: "https://devdeveloper.ca",
+        sitemap: "https://devdeveloper.ca/sitemap.xml",
         policy: [{ userAgent: "Mediapartners-Google*", allow: "/" }],
       },
     },

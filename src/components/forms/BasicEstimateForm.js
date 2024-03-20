@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "react-picky/dist/picky.css";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -8,16 +8,7 @@ import * as yup from "yup";
 import { CSSTransition } from "react-transition-group";
 
 // Components
-import {
-  Box,
-  Flex,
-  Text,
-  Themed,
-  Label,
-  Input,
-  Textarea,
-  Button,
-} from "theme-ui";
+import { Box, Flex, Text, Label, Input, Textarea, Button } from "theme-ui";
 import { Picky } from "react-picky";
 import OrderForm from "./OrderForm";
 
@@ -105,7 +96,7 @@ const BasicEstimateForm = ({ onClose }) => {
               p: 3,
             }}
           >
-            <Themed.h2 sx={{ fontSize: [1] }}>Estimate Form</Themed.h2>
+            <h2 sx={{ fontSize: [1] }}>Estimate Form</h2>
           </Box>
           <Box
             as="form"
@@ -120,7 +111,7 @@ const BasicEstimateForm = ({ onClose }) => {
             }}
           >
             <fieldset className="personal-info">
-              <Themed.h4 sx={{ mb: 2 }}>Personal Info</Themed.h4>
+              <h4 sx={{ mb: 2 }}>Personal Info</h4>
               <Box sx={{ ml: 2 }}>
                 <Box sx={{ mb: 2 }}>
                   <Input
@@ -158,7 +149,7 @@ const BasicEstimateForm = ({ onClose }) => {
               </Box>
             </fieldset>
             <fieldset>
-              <Themed.h4 sx={{ mb: 3, mt: 2 }}>Website Info</Themed.h4>
+              <h4 sx={{ mb: 3, mt: 2 }}>Website Info</h4>
               <Box sx={{ ml: 2 }}>
                 <Box>
                   <Label>Page Count:</Label>

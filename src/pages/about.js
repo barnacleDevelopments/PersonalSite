@@ -2,8 +2,7 @@
 import { jsx } from "theme-ui";
 
 // COMPONENTS
-import Layout from "../components/app/Layout";
-import { Box, Text, Themed, Grid, Button, Link } from "theme-ui";
+import { Box, Text, Grid, Heading, Button, Link } from "theme-ui";
 import Seo from "../components/app/Seo";
 import ServiceCard from "../components/cards/ServiceCard";
 import { StaticImage } from "gatsby-plugin-image";
@@ -33,22 +32,23 @@ const ServicesPage = () => {
         }}
       >
         <Box sx={{ mt: 6, mb: 5 }}>
-          <Themed.h1
+          <Heading as="h1" variant="hero">
+            A Little More About Me
+          </Heading>
+          <Box
             sx={{
+              overflow: "hidden",
+              borderRadius: "10px",
               mb: 3,
-              color: "primary",
             }}
           >
-            A Little More About Me
-          </Themed.h1>
-          <Box>
             <StaticImage
               style={{ height: "300px" }}
               src="../images/devin_climbing.jpg"
               alt="dev portrait"
             />
           </Box>
-          <Text variant="regular" sx={{ pt: 3 }}>
+          <Text variant="regular">
             I'm a full stack web developer with a passion for helping businesses
             build awesome solutions by using the latest web technologies. I'm a
             big fan of C# and ASP.NET Core, Javascript Frameworks, and Azure.
@@ -57,14 +57,9 @@ const ServicesPage = () => {
           </Text>
         </Box>
         <Box>
-          <Themed.h2
-            sx={{
-              mb: 3,
-              color: "primary",
-            }}
-          >
+          <Heading variant="subheading1" as="h2" color="primary">
             Skills
-          </Themed.h2>
+          </Heading>
           <Text variant="regular" sx={{ pt: 3 }}>
             Skills are aquired through experience. I've been working with web
             technologies for over 5 years now. What I've learned is that skills
@@ -84,15 +79,17 @@ const ServicesPage = () => {
           </Box>
         </Box>
 
-        <Box sx={{ mt: 6, mb: 5 }}>
-          <Themed.h1
+        <Box sx={{ mt: 4, mb: 5 }}>
+          <Heading
+            as="h2"
+            variant="subheading1"
             sx={{
               mb: 3,
               color: "primary",
             }}
           >
             Services
-          </Themed.h1>
+          </Heading>
           <Text variant="regular">
             Though I dedicate the grand magority of my time to the specific
             organization I work with I do take on the occasional freelance
@@ -132,7 +129,9 @@ const ServicesPage = () => {
               }}
             >
               <Box>
-                <Themed.h3 sx={{ mb: 3 }}>Something Else?</Themed.h3>
+                <Heading as="h2" variant="subheading1" color="white">
+                  Something Else?
+                </Heading>
               </Box>
               <Box>
                 <Text
