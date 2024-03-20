@@ -16,7 +16,7 @@ import { JudgementGrid } from "../components/projects/JudgementGrid";
 // Contexts
 import { WalletContext } from "../contexts/WalletContext";
 
-// Functions 
+// Functions
 import {
   getVoteCount,
   vote,
@@ -28,7 +28,7 @@ import {
   getProjects,
   getVoters,
   getActionCIDs,
-  getThreshold
+  getThreshold,
 } from "../functions/project-voting";
 
 const ProjectsPage = ({ data }) => {
@@ -42,7 +42,7 @@ const ProjectsPage = ({ data }) => {
   const [winners, setWinners] = useState({});
   const [voters, setVoters] = useState([]);
   const [threshold, setThreshold] = useState(0);
-  
+
   const walletContext = useContext(WalletContext);
 
   useEffect(() => {
@@ -142,7 +142,7 @@ const ProjectsPage = ({ data }) => {
   const updateThreshold = async () => {
     const threshold = await getThreshold();
     setThreshold(threshold);
-  }
+  };
 
   const getProject = () => {
     const project = projects.find((project) => project.id === addressVote);
@@ -221,7 +221,7 @@ const ProjectsPage = ({ data }) => {
             currentProgress={balance}
             maxProgress={threshold}
           ></ProgressGauge>
-          <JudgementGrid projects={projects}></JudgementGrid>
+          {/** <JudgementGrid projects={projects}></JudgementGrid>  */}
           {voters?.length > 0 && (
             <VoterList winners={winners} voters={voters}></VoterList>
           )}
