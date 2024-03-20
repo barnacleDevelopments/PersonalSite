@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from "theme-ui";
+import { Paragraph, jsx } from "theme-ui";
 
 // COMPONENTS
 import { Box, Text, Grid, Heading, Button, Link } from "theme-ui";
@@ -31,80 +31,56 @@ const ServicesPage = () => {
           my: 6,
         }}
       >
-        <Box sx={{ mt: 6, mb: 5 }}>
-          <Heading as="h1" variant="hero">
-            A Little More About Me
-          </Heading>
-          <Box
-            sx={{
-              overflow: "hidden",
-              borderRadius: "10px",
-              mb: 3,
-            }}
-          >
-            <StaticImage
-              style={{ height: "300px" }}
-              src="../images/devin_climbing.jpg"
-              alt="dev portrait"
-            />
-          </Box>
-          <Text variant="regular">
-            I'm a full stack web developer with a passion for helping businesses
-            build awesome solutions by using the latest web technologies. I'm a
-            big fan of C# and ASP.NET Core, Javascript Frameworks, and Azure.
-            I'm also a avid boulderer who currently lives in the beautiful city
-            of Halifax.
-          </Text>
+        <Heading as="h1" variant="hero">
+          A Little More About Me
+        </Heading>
+        <Box
+          sx={{
+            overflow: "hidden",
+            borderRadius: "10px",
+            mb: 3,
+          }}
+        >
+          <StaticImage
+            style={{ height: "300px" }}
+            src="../images/devin_climbing.jpg"
+            alt="dev portrait"
+          />
         </Box>
-        <Box>
-          <Heading variant="subheading1" as="h2" color="primary">
-            Skills
-          </Heading>
-          <Text variant="regular" sx={{ pt: 3 }}>
-            Skills are aquired through experience. I've been working with web
-            technologies for over 5 years now. What I've learned is that skills
-            are not static. They are constantly evolving and changing. I'm
-            always learning new things and I'm always excited to learn more.
-            Here are some of the skills I've aquired over the years.
-          </Text>
-          <Box
-            sx={{
-              border: "2px solid #eaeaea",
-              mt: 3,
-              borderRadius: "5px",
-              backgroundColor: "#f8f8f8",
-            }}
-          >
-            <BubbleCanvas skills={skills} />
-          </Box>
-        </Box>
-
-        <Box sx={{ mt: 4, mb: 5 }}>
-          <Heading
-            as="h2"
-            variant="subheading1"
-            sx={{
-              mb: 3,
-              color: "primary",
-            }}
-          >
-            Services
-          </Heading>
-          <Text variant="regular">
-            Though I dedicate the grand magority of my time to the specific
-            organization I work with I do take on the occasional freelance
-            project. Get an estimate by selecting a project bellow or{" "}
-            <a href="/contact">send me an email!</a>
-          </Text>
-          <br />
-          <Text variant="regular">
-            If the project is a website I often work closely with my friend and
-            designer{" "}
-            <a href="https://www.linkedin.com/in/paul-legere">Paul Legere</a>.
-            Please check out his work!
-          </Text>
-        </Box>
-        <Grid gap={3} columns={[1, null, 2]}>
+        <Paragraph variant="regular">
+          I'm a full stack web developer with a passion for helping businesses
+          build awesome solutions by using the latest web technologies. I like
+          to focus on building simple solutions using the minimal tech stack
+          required. My interests currently are in Blockchain technologies and a
+          new front-end library called <a href="https://htmx.org/">HTMX</a>.{" "}
+          Outside of the office, I'm an avid boulderer who currently lives in
+          the beautiful city of Montreal.
+        </Paragraph>
+        <Heading
+          as="h2"
+          variant="subheading1"
+          sx={{
+            mb: 3,
+            mt: 4,
+            color: "primary",
+          }}
+        >
+          Services
+        </Heading>
+        <Text variant="regular">
+          Though I dedicate the grand magority of my time to the specific
+          organization I work with I can take on the occasional freelance
+          project. Get an estimate by selecting a project type bellow or{" "}
+          <a href="/contact">send me an email!</a>
+        </Text>
+        <br />
+        <Text variant="regular">
+          If the project is a website I often work closely with my friend and
+          designer{" "}
+          <a href="https://www.linkedin.com/in/paul-legere">Paul Legere</a>.
+          Please check out his work!
+        </Text>
+        <Grid sx={{ mt: 4 }} gap={3} columns={[1, null, 2]}>
           <ServiceCard
             title="Basic 5 Page Site"
             features={[
@@ -126,6 +102,7 @@ const ServicesPage = () => {
                 color: "white",
                 px: 3,
                 py: 4,
+                borderRadius: "10px",
               }}
             >
               <Box>

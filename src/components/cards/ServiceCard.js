@@ -45,7 +45,7 @@ function ServiceCard({ features, title, startPrice }) {
   }
 
   return (
-    <Card sx={{ bg: "primary", color: "white" }}>
+    <Card sx={{ bg: "primary", color: "white", borderRadius: "10px" }}>
       {/* ESTIMATE MENU */}
       <CSSTransition
         in={estimateMenuStatus}

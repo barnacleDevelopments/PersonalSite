@@ -14,6 +14,7 @@ function PostCategoryCard({ title, content, link }) {
         alignItems: "center",
         flexDirection: "column",
         textAlign: "center",
+        borderRadius: "10px",
       }}
     >
       <Heading as="h2" variant="subheading1" color="white">
