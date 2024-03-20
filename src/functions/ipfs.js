@@ -2,10 +2,9 @@ import { json } from "@helia/json";
 import { createHelia } from "helia";
 import { CID } from "multiformats/cid";
 
-const helia = await createHelia();
-const j = json(helia);
-
 export async function uploadJson(jsonObj) {
+  const helia = await createHelia();
+  const j = json(helia);
   try {
     // Convert the JSON object to a string and store in local memory
     const jsonString = JSON.stringify(jsonObj);
@@ -26,6 +25,8 @@ export async function uploadJson(jsonObj) {
 }
 
 export async function getRecords(cids) {
+  const helia = await createHelia();
+  const j = json(helia);
   try {
     let actions = [];
     console.log("Getting records...", cids);

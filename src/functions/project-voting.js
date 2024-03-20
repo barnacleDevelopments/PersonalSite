@@ -2,11 +2,6 @@ import projectVotingABI from "../../smart-contracts/build/contracts/ProjectVotin
 import web3 from "../web3-subscription";
 import { uploadJson } from "./ipfs";
 
-const contract = new web3.eth.Contract(
-  projectVotingABI.abi,
-  process.env.GATSBY_PROJECT_VOTING_CONTRACT_ADDRESS
-);
-
 export async function checkStatus(hash) {
   let receipt = null;
 
@@ -33,6 +28,10 @@ export async function checkStatus(hash) {
 }
 
 export const getVoters = async () => {
+  const contract = new web3.eth.Contract(
+    projectVotingABI.abi,
+    process.env.GATSBY_PROJECT_VOTING_CONTRACT_ADDRESS
+  );
   try {
     const result = await contract.getPastEvents("Voted", {
       fromBlock: 0,
@@ -50,6 +49,10 @@ export const getVoters = async () => {
 };
 
 export const getWinners = async () => {
+  const contract = new web3.eth.Contract(
+    projectVotingABI.abi,
+    process.env.GATSBY_PROJECT_VOTING_CONTRACT_ADDRESS
+  );
   try {
     const result = await contract.getPastEvents("WinnerAnnounced", {
       fromBlock: 0,
@@ -72,6 +75,10 @@ export const getWinners = async () => {
 };
 
 export const getProjects = async () => {
+  const contract = new web3.eth.Contract(
+    projectVotingABI.abi,
+    process.env.GATSBY_PROJECT_VOTING_CONTRACT_ADDRESS
+  );
   try {
     const result = await contract.getPastEvents("ProjectAdded", {
       fromBlock: 0,
@@ -88,6 +95,10 @@ export const getProjects = async () => {
 
 // TODO: get project content from IPFS
 export const getProjectById = async (id) => {
+  const contract = new web3.eth.Contract(
+    projectVotingABI.abi,
+    process.env.GATSBY_PROJECT_VOTING_CONTRACT_ADDRESS
+  );
   try {
     const result = await contract.methods.getProjectById(id).call();
     return result;
@@ -97,6 +108,10 @@ export const getProjectById = async (id) => {
 };
 
 export const getBalance = async () => {
+  const contract = new web3.eth.Contract(
+    projectVotingABI.abi,
+    process.env.GATSBY_PROJECT_VOTING_CONTRACT_ADDRESS
+  );
   try {
     const result = await contract.methods.getBalance().call();
     return parseFloat(web3.utils.fromWei(result, "ether"));
@@ -106,6 +121,10 @@ export const getBalance = async () => {
 };
 
 export const getThreshold = async () => {
+  const contract = new web3.eth.Contract(
+    projectVotingABI.abi,
+    process.env.GATSBY_PROJECT_VOTING_CONTRACT_ADDRESS
+  );
   try {
     const result = await contract.methods.getThreshold().call();
     return web3.utils.fromWei(result, "ether");
@@ -115,6 +134,10 @@ export const getThreshold = async () => {
 };
 
 export const checkHasVoted = async (walletAddress) => {
+  const contract = new web3.eth.Contract(
+    projectVotingABI.abi,
+    process.env.GATSBY_PROJECT_VOTING_CONTRACT_ADDRESS
+  );
   try {
     const result = await contract.methods.checkHasVoted().call({
       from: walletAddress,
@@ -126,6 +149,10 @@ export const checkHasVoted = async (walletAddress) => {
 };
 
 export const getVoteCount = async (id) => {
+  const contract = new web3.eth.Contract(
+    projectVotingABI.abi,
+    process.env.GATSBY_PROJECT_VOTING_CONTRACT_ADDRESS
+  );
   try {
     const count = await contract.methods.getVoteCount(id).call();
     return count.toString();
@@ -135,6 +162,10 @@ export const getVoteCount = async (id) => {
 };
 
 export const vote = async (id, amountInEther, name) => {
+  const contract = new web3.eth.Contract(
+    projectVotingABI.abi,
+    process.env.GATSBY_PROJECT_VOTING_CONTRACT_ADDRESS
+  );
   const ethereum = window.ethereum;
   try {
     const minimumEther = 0.001;
@@ -179,6 +210,10 @@ export const vote = async (id, amountInEther, name) => {
 };
 
 export const getVote = async (walletAddress) => {
+  const contract = new web3.eth.Contract(
+    projectVotingABI.abi,
+    process.env.GATSBY_PROJECT_VOTING_CONTRACT_ADDRESS
+  );
   try {
     const result = await contract.methods.getVote().call({
       from: walletAddress,
@@ -191,6 +226,10 @@ export const getVote = async (walletAddress) => {
 };
 
 export const getActionCIDs = async (walletAddress) => {
+  const contract = new web3.eth.Contract(
+    projectVotingABI.abi,
+    process.env.GATSBY_PROJECT_VOTING_CONTRACT_ADDRESS
+  );
   try {
     const result = await contract.methods.getAddressAction().call({
       from: walletAddress,
@@ -203,6 +242,10 @@ export const getActionCIDs = async (walletAddress) => {
 };
 
 export const uploadAction = async (walletAddress, { task, projectId }) => {
+  const contract = new web3.eth.Contract(
+    projectVotingABI.abi,
+    process.env.GATSBY_PROJECT_VOTING_CONTRACT_ADDRESS
+  );
   if (window.ethereum) {
     try {
       const data = {
