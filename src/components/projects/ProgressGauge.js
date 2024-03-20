@@ -10,6 +10,7 @@ const ProgressGauge = ({ maxProgress = 100, currentProgress = 0 }) => {
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
+    console.log(currentProgress);
     if (currentProgress > 0) {
       const p = currentProgress / maxProgress;
       console.log("Current Progress Percentage:", p * 100);
