@@ -24,7 +24,8 @@ const BlogPage = () => {
           <Text variant="large">
             I'm on a lifelong journey of learning and I love to share what I
             learn with others. When I get the chance I like to write about what
-            I'm learning. This is an archive of my blog posts I have written.
+            I'm learning. This is an archive of my blog posts. Feel free to take
+            a gander!
           </Text>
         </Box>
         <Grid
@@ -35,14 +36,14 @@ const BlogPage = () => {
           columns={[1, 2]}
         >
           <PostCategoryCard
-            title="For Developers"
+            title="Programmming"
             content="A series of technical posts for web developers."
             link="/blog/programming_blog"
           />
           <PostCategoryCard
-            title="For Business"
-            content="Some reads to inform buisness owners of the advantages of owning a buisness website."
-            link="/blog/web_business_blog"
+            title="Miscellaneous"
+            content="All other topics that are not specific to development."
+            link="/blog/misc_blog"
           />
         </Grid>
       </Box>

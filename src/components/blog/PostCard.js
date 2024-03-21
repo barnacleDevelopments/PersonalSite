@@ -30,6 +30,8 @@ const PostCard = ({ post }) => {
       sx={{
         color: "white",
         height: "max-content",
+        borderRadius: "10px",
+        overflow: "hidden",
       }}
     >
       <Grid gap={0} columns={[1, 1, 1, "1fr 3fr", "1fr 5fr"]}>
