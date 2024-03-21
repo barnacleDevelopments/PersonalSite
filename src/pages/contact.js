@@ -86,10 +86,7 @@ const ContactPage = () => {
                 Let's Talk About You
               </Heading>
               <Paragraph sx={{ my: 3, display: "block" }} variant="large">
-                Learning about businesses and their owners is one of my favorite
-                things to do. Please reach out I'd love to get to know you and
-                your business. I'd like to play a part in empowering you to
-                reach your goals.
+                Please reach out. I'd love to help you reach your goals!
               </Paragraph>
             </Box>
             <Box
