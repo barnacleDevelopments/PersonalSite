@@ -48,11 +48,19 @@ const IndexPage = ({ data }) => {
               "center",
               "center",
               "center",
+              "center",
               "space-between",
             ],
             width: ["90%", "80%", "70%"],
             margin: "0 auto",
-            textAlign: ["center", "center", "center", "center", "left"],
+            textAlign: [
+              "center",
+              "center",
+              "center",
+              "center",
+              "center",
+              "left",
+            ],
             gap: "30px",
           }}
         >

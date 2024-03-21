@@ -194,7 +194,7 @@ const ProjectsPage = ({ data }) => {
               Projects
             </Heading>
             <Paragraph variant="large">
-              Discover a selection of my latest projects! If you're interested
+              Discover a selection of my latest projects. If you're interested
               in collaboration or want to learn more, feel free to{" "}
               <Link href="/contact">contact me</Link>. Plus, take a moment to
               vote for your favorite project and you might win a prize!
