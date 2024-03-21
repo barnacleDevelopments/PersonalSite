@@ -110,11 +110,13 @@ const IndexPage = ({ data }) => {
             py: [4],
           }}
         >
-          <Grid gap={3} columns={[1, 2, "1fr 2fr"]}>
+          <Grid gap={[1]} columns={[1, 1, 1, 1, "1fr 2fr", "1fr 2fr"]}>
             <Box
               sx={{
                 overflow: "hidden",
                 borderRadius: "10px",
+                height: "min-content",
+                width: ["100%", "50%", "50%", "50%", "100%"],
               }}
             >
               <StaticImage
@@ -125,7 +127,7 @@ const IndexPage = ({ data }) => {
             </Box>
             <Box
               sx={{
-                px: [2, 4],
+                px: [0, 0, 0, 0, 4],
                 py: 3,
               }}
             >
