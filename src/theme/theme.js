@@ -3,11 +3,11 @@ const { tailwind } = require("@theme-ui/presets");
 module.exports = {
   ...tailwind,
   colors: {
-    ...tailwind.colors,
     primary: "#30362F",
     secondary: "#eeeeee",
     orange: "#FFA630",
     lightOrange: "#FFA63050",
+    white: "#f5f5f5",
   },
   fonts: {
     body: "'Raleway', sans-serif",
