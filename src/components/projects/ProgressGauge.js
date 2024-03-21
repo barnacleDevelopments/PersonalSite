@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from "theme-ui";
+import { Heading, jsx } from "theme-ui";
 import React from "react";
 import { useEffect, useState } from "react";
 
@@ -10,11 +10,8 @@ const ProgressGauge = ({ maxProgress = 100, currentProgress = 0 }) => {
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    console.log(currentProgress);
     if (currentProgress > 0) {
       const p = currentProgress / maxProgress;
-      console.log("Current Progress Percentage:", p * 100);
-
       setProgress(p * 100);
     }
   }, [currentProgress]);
@@ -32,7 +29,9 @@ const ProgressGauge = ({ maxProgress = 100, currentProgress = 0 }) => {
         borderRadius: "10px",
       }}
     >
-      <h2 sx={{ textAlign: "center" }}>Current Prize Balance</h2>
+      <Heading as="h2" sx={{ textAlign: "center", mb: 1 }}>
+        Current Prize Balance
+      </Heading>
       <Flex sx={{ justifyContent: "center" }}>
         <Text variant="regular" sx={{ color: "white" }}>
           {currentProgress} ETH

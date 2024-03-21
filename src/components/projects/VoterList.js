@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui";
-import { Box } from "theme-ui";
+import { Box, Heading } from "theme-ui";
 
 const VoterList = ({ winners = {}, voters = [{ name: "" }] }) => {
   return (
@@ -16,7 +16,9 @@ const VoterList = ({ winners = {}, voters = [{ name: "" }] }) => {
       }}
     >
       <Box sx={{ textAlign: "center", mt: 3 }}>
-        <h2 sx={{ textAlign: "center" }}>Recent Voter List</h2>
+        <Heading as="h2" sx={{ textAlign: "center" }}>
+          Recent Voter List
+        </Heading>
         <table
           sx={{
             mt: 3,
@@ -32,7 +34,6 @@ const VoterList = ({ winners = {}, voters = [{ name: "" }] }) => {
               borderBottomColor: "white",
               px: 3,
               py: 2,
-              backgroundColor: "primary",
               color: "text",
               ":first-of-type": {
                 borderLeftStyle: "solid",
@@ -46,16 +47,8 @@ const VoterList = ({ winners = {}, voters = [{ name: "" }] }) => {
               },
             },
             th: {
-              backgroundColor: "primary",
               color: "background",
               fontWeight: "bold",
-            },
-            tbody: {
-              tr: {
-                "&:hover": {
-                  backgroundColor: "orange",
-                },
-              },
             },
           }}
         >
