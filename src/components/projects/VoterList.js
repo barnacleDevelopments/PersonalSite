@@ -5,6 +5,7 @@ import { Box, Heading } from "theme-ui";
 const VoterList = ({ winners = {}, voters = [{ name: "" }] }) => {
   return (
     <Box
+      as="section"
       sx={{
         backgroundColor: "primary",
         mt: 4,
@@ -16,9 +17,6 @@ const VoterList = ({ winners = {}, voters = [{ name: "" }] }) => {
       }}
     >
       <Box sx={{ textAlign: "center", mt: 3 }}>
-        <Heading as="h2" sx={{ textAlign: "center" }}>
-          Recent Voter List
-        </Heading>
         <table
           sx={{
             mt: 3,
@@ -52,6 +50,7 @@ const VoterList = ({ winners = {}, voters = [{ name: "" }] }) => {
             },
           }}
         >
+          <caption sx={{ mb: 3 }}>Voter List & Winners</caption>
           <thead>
             <tr>
               <th>#</th>

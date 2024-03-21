@@ -19,6 +19,7 @@ const WalletBanner = ({
 
   return (
     <Box
+      as="section"
       p={4}
       mt={4}
       sx={{

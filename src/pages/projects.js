@@ -189,29 +189,33 @@ const ProjectsPage = ({ data }) => {
         }}
       >
         <Box sx={{ mt: 6, mb: 4 }} textAlign="center">
-          <Heading as="h1" variant="hero">
-            Projects
-          </Heading>
-          <Paragraph variant="large">
-            Discover a selection of my latest projects! If you're interested in
-            collaboration or want to learn more, feel free to{" "}
-            <Link href="/contact">contact me</Link>. Plus, take a moment to vote
-            for your favorite project and you might win a prize!
-          </Paragraph>
-          <Heading as="h2" variant="subheading1" sx={{ mt: 4 }}>
-            Participate in Web3 Voting
-          </Heading>
-          <Paragraph variant="regular" sx={{ mt: 3 }}>
-            Embracing the new era of Web3, I've integrated a decentralized
-            voting system for my projects. You can help highlight the most
-            popular projects using the power of Ethereum. Your vote will be
-            securely recorded on the Ethereum blockchain. A random winner will
-            be chosen, using{" "}
-            <Link href="https://chain.link/vrf" target="_blank">
-              Chainlink's VRF random number generator
-            </Link>
-            , every time the prize pool reaches the threshold.
-          </Paragraph>{" "}
+          <Box as="section">
+            <Heading as="h1" variant="hero">
+              Projects
+            </Heading>
+            <Paragraph variant="large">
+              Discover a selection of my latest projects! If you're interested
+              in collaboration or want to learn more, feel free to{" "}
+              <Link href="/contact">contact me</Link>. Plus, take a moment to
+              vote for your favorite project and you might win a prize!
+            </Paragraph>
+            <Heading as="h2" variant="subheading1" sx={{ mt: 4 }}>
+              Participate in Web3 Voting
+            </Heading>
+            <Paragraph variant="regular" sx={{ mt: 3 }}>
+              Embracing the new era of Web3, I've integrated a decentralized
+              voting system for my projects. You can help highlight the most
+              popular projects using the power of Ethereum. Your vote will be
+              securely recorded on the Ethereum blockchain. A random winner will
+              be chosen, using{" "}
+              <dfn>
+                <Link href="https://chain.link/vrf" target="_blank">
+                  Chainlink's VRF random number generator
+                </Link>
+              </dfn>
+              , every time the prize pool reaches the threshold.
+            </Paragraph>{" "}
+          </Box>
           <WalletBanner
             walletAddress={walletContext?.walletAddress}
             project={getProject()}
@@ -236,6 +240,7 @@ const ProjectsPage = ({ data }) => {
           )}
         </Box>
         <Box
+          as="section"
           sx={{
             mb: 6,
           }}
