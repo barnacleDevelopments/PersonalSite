@@ -18,6 +18,7 @@ const ProgressGauge = ({ maxProgress = 100, currentProgress = 0 }) => {
 
   return (
     <Box
+      as="section"
       className="progress-container"
       sx={{
         backgroundColor: "primary",
@@ -46,10 +47,14 @@ const ProgressGauge = ({ maxProgress = 100, currentProgress = 0 }) => {
         }}
       >
         <Box
+          as="progress"
+          value={progress}
+          max="100"
           sx={{
-            width: `${progress}%`,
+            width: "100%",
             height: "100%",
-            backgroundColor: "orange",
+            background: "orange",
+            color: "orange",
             transition: "width 0.5s ease-out",
           }}
         ></Box>

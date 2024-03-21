@@ -102,7 +102,7 @@ const Navbar = () => {
   }, []);
 
   return (
-    <Box>
+    <Box as="nav">
       <Flex
         sx={navWrapper}
         style={{ backgroundColor: !isScrolledTop ? navScrollColor : null }}

@@ -98,7 +98,6 @@ const IndexPage = ({ data }) => {
           </Box>
         </Flex>
       </Box>
-
       <Box
         sx={{
           margin: "0 auto",
@@ -106,6 +105,7 @@ const IndexPage = ({ data }) => {
         }}
       >
         <Box
+          as="article"
           sx={{
             py: [4],
           }}
@@ -152,6 +152,7 @@ const IndexPage = ({ data }) => {
           </Grid>
         </Box>
         <Box
+          as="article"
           sx={{
             py: 2,
           }}
@@ -256,6 +257,7 @@ const IndexPage = ({ data }) => {
           </Grid>
         </Box>
         <Box
+          as="article"
           sx={{
             mt: 5,
             mb: 5,
@@ -280,6 +282,7 @@ const IndexPage = ({ data }) => {
             bg: "primary",
             color: "white",
             p: 4,
+            borderRadius: "10px",
           }}
         >
           <Heading as="h2" variant="subheading1" color="white">
