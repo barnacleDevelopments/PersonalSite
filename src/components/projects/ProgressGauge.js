@@ -53,7 +53,6 @@ const ProgressGauge = ({ maxProgress = 100, currentProgress = 0 }) => {
           sx={{
             width: "100%",
             height: "100%",
-            background: "orange",
             color: "orange",
             transition: "width 0.5s ease-out",
           }}
