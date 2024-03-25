@@ -24,6 +24,7 @@
     "@helia/json": "^3.0.0",
     "@hookform/resolvers": "^3.3.4",
     "@theme-ui/presets": "^0.16.1",
+    "arweave": "^1.15.0",
     "babel-plugin-prismjs": "^2.1.0",
     "babel-preset-gatsby": "^3.13.1",
     "crypto-browserify": "^3.12.0",

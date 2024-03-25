@@ -1,6 +1,7 @@
 import projectVotingABI from "../../smart-contracts/build/contracts/ProjectVoting.json";
 import web3 from "../web3-subscription";
 import { uploadJson } from "./ipfs";
+import Arweave from "arweave";
 
 export async function checkStatus(hash) {
   let receipt = null;
@@ -242,46 +243,25 @@ export const getActionCIDs = async (walletAddress) => {
 };
 
 export const uploadAction = async (walletAddress, { task, projectId }) => {
-  const contract = new web3.eth.Contract(
-    projectVotingABI.abi,
-    process.env.GATSBY_PROJECT_VOTING_CONTRACT_ADDRESS
-  );
   if (window.ethereum) {
     try {
-      const data = {
+      const data = JSON.stringify({
         task,
         projectId,
         walletAddress: walletAddress,
-      };
-
-      // const signature = await window.ethereum.request({
-      //   method: "personal_sign",
-      //   params: [data, walletAddress],
-      // });
-
-      const hash = await uploadJson(data);
-
-      const abi = contract.methods.addActions([hash]).encodeABI();
-
-      const estimatedGas = await web3.eth.estimateGas({
-        from: walletAddress,
-        to: process.env.GATSBY_PROJECT_VOTING_CONTRACT_ADDRESS,
-        data: abi,
       });
 
-      const transactionParameters = {
-        to: process.env.GATSBY_PROJECT_VOTING_CONTRACT_ADDRESS,
-        from: walletAddress,
-        data: abi,
-        gas: estimatedGas.toString(16),
-      };
+      const arweave = Arweave.init({});
 
-      const txHash = await window.ethereum.request({
-        method: "eth_sendTransaction",
-        params: [transactionParameters],
+      let transaction = await arweave.createTransaction({
+        data,
       });
 
-      console.log("Action Result: ", txHash);
+      transaction.addTag("Content-Type", "application/json");
+
+      const response = await arweave.transactions.post(transaction);
+
+      console.log(response.status);
     } catch (error) {
       console.error("Error signing data:", error);
     }
