@@ -58,7 +58,6 @@ export const landingPageQuery = graphql`
           }
           frontmatter {
             title
-            content
             date
             thumnail {
               childImageSharp {
@@ -66,6 +65,7 @@ export const landingPageQuery = graphql`
               }
             }
           }
+          html
         }
       }
     }
