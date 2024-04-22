@@ -72,7 +72,7 @@ const BlogPost = ({ data }) => {
           }}
           variant="small"
           dangerouslySetInnerHTML={{
-            __html: converter.makeHtml(node.frontmatter.content),
+            __html: converter.makeHtml(node.html),
           }}
         ></Text>
       </Box>
@@ -86,12 +86,12 @@ export const pageQuery = graphql`
       frontmatter {
         title
         date
-        content
         keywords
         thumnail {
           absolutePath
         }
       }
+      html
     }
   }
 `;
