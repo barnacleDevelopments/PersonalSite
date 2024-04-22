@@ -37,8 +37,11 @@ const ProgrammingPostsPage = ({ data }) => {
         >
           {pageData.map(({ node }, index) => {
             const post = node.frontmatter;
+            const postContent = node.html;
             post.slug = node.fields.slug;
-            return <PostCard key={index} post={post} />;
+            return (
+              <PostCard key={index} post={post} postContent={postContent} />
+            );
           })}
         </Grid>
       </Box>
