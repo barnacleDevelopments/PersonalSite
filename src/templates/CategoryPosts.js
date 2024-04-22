@@ -41,8 +41,11 @@ const CategoryPosts = ({ data }) => {
           {pageData.length > 0 ? (
             pageData.map(({ node }, index) => {
               const post = node.frontmatter;
+              const postContent = node.html;
               post.slug = node.fields.slug;
-              return <PostCard key={index} post={post} />;
+              return (
+                <PostCard key={index} post={post} postContent={postContent} />
+              );
             })
           ) : (
             <Box sx={{ height: "80vh" }}>
@@ -70,7 +73,6 @@ export const landingPageQuery = graphql`
           }
           frontmatter {
             title
-            content
             date
             thumnail {
               childImageSharp {
@@ -78,6 +80,7 @@ export const landingPageQuery = graphql`
               }
             }
           }
+          html
         }
       }
     }

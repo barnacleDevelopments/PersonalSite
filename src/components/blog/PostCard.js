@@ -8,7 +8,7 @@ import showdown from "showdown";
 import { Heading, Card, Text, Button, Box, Grid, Link } from "theme-ui";
 
 // markup
-const PostCard = ({ post }) => {
+const PostCard = ({ post, postContent }) => {
   const cardImage = getImage(post.thumnail);
   const converter = new showdown.Converter();
 
@@ -73,7 +73,7 @@ const PostCard = ({ post }) => {
             }}
             variant="small"
             dangerouslySetInnerHTML={{
-              __html: converter.makeHtml(truncateSentence(post.content)),
+              __html: converter.makeHtml(truncateSentence(postContent)),
             }}
           ></Text>
           <Box>
