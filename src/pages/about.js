@@ -2,11 +2,9 @@
 import { Paragraph, jsx } from "theme-ui";
 
 // COMPONENTS
-import { Box, Text, Grid, Heading, Button, Link } from "theme-ui";
+import { Box, Heading } from "theme-ui";
 import Seo from "../components/app/Seo";
-import ServiceCard from "../components/cards/ServiceCard";
 import { StaticImage } from "gatsby-plugin-image";
-import BubbleCanvas from "../components/BubbleCanvas";
 
 const ServicesPage = () => {
   const skills = [

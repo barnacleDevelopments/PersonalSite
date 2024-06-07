@@ -7,7 +7,6 @@ import { useEffect, useState, useContext } from "react";
 // Functions
 import { getActionCIDs } from "../../functions/project-voting";
 import { WalletContext } from "../../contexts/WalletContext";
-import { getRecords } from "../../functions/ipfs";
 
 export const JudgementGrid = ({
   projects = [],
