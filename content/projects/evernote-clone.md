@@ -26,8 +26,8 @@ challenges: >-
 
   Actions call mutations which are functions that change or "mutate" the store. Therefore, actions simply call mutations and should not do any mutating themselves. The store's contents represent the current state of the application. It's an advanced consept that I still don't completly understand on a technicle level but I managed to implement a simple solution.
 image3: /assets/expandedview.png
-link: ""
-overLink: /Evernote Clone
+liveLink: ""
+githubLink: "https://github.com/barnacleDevelopments/EvernoteClone"
 date: 2021-12-13T20:10:21.522Z
 completeTime: 20
 keywords: evernote, clone, project, demo, portfolio piece

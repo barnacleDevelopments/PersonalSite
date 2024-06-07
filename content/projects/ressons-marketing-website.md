@@ -14,8 +14,8 @@ challenges: G﻿atsby facilitates static site generation to create small footpri
   working with Gatsby is its use of plugins which take time to understand how
   they relate to each other.
 image3: /assets/screen_two.png
-link: https://resson.com/
-overLink: /Resson's Marketing Website
+liveLink: ""
+githubLink: ""
 date: 2022-12-29T20:58:39.301Z
 completeTime: 200
 keywords: Resson, Gatsby
