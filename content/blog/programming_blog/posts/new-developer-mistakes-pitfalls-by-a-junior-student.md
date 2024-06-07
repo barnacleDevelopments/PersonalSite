@@ -1,6 +1,6 @@
 ---
 title: New Developer Mistakes & Pitfalls (by a junior student)
-thumnail: /assets/1_d3-n9uj0avavo60ntufcfa.jpeg
+thumbnail: /assets/1_d3-n9uj0avavo60ntufcfa.jpeg
 date: 2019-09-18T15:53:57.216Z
 keywords: learn to code, how to code, learning pitfalls, learning to program,
   full stack developer

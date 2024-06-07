@@ -56,7 +56,7 @@ exports.createPages = async ({ actions, graphql }) => {
               githubLink
               liveLink
               description
-              thumnail {
+              thumbnail {
                 childImageSharp {
                   gatsbyImageData
                 }
@@ -89,7 +89,7 @@ exports.createPages = async ({ actions, graphql }) => {
               title
               content
               date
-              thumnail {
+              thumbnail {
                 childImageSharp {
                   gatsbyImageData
                 }

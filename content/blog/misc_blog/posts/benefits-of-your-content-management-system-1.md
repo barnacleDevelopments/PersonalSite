@@ -62,7 +62,7 @@ content: >-
 
 
   Bekaert, J. (n.d.). *How a good web content management system supports SEO*. Amplexor. Retrieved December 5, 2021, from https://blog.amplexor.com/how-a-good-web-content-management-system-supports-seo
-thumnail: /assets/hal-gatewood-werqau9ta-a-unsplash.jpg
+thumbnail: /assets/hal-gatewood-werqau9ta-a-unsplash.jpg
 date: 2021-12-07T22:23:03.034Z
 keywords: content management system, content strategy, cms, website content
 ---

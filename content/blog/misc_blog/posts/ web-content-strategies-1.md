@@ -78,7 +78,7 @@ content: >-
 
 
   Content strategies can be difficult because they are something consistent that needs to evolve over time to keep things relevant. One thing that should not be difficult is getting set up with a desirable website foundation. I encourage you to contact me if you want to bounce some ideas around. Of course, if you think you are ready to start your website, I can be of assistance with that too! Later when you are ready to implement your content strategy, I can take care of the technical details, so you do not have to 😊.
-thumnail: /assets/logo_2.png
+thumbnail: /assets/logo_2.png
 date: 2021-12-02T12:00:56.007Z
 keywords: content strategies, marketing consultant, video producer, organic search, seo
 ---

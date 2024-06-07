@@ -1,6 +1,6 @@
 ---
 title: Content Disposition Header
-thumnail: /assets/logo_2.png
+thumbnail: /assets/logo_2.png
 date: 2024-04-22T19:31:21.081Z
 keywords: content disposition header, pdf, stop download
 ---
@@ -46,7 +46,7 @@ function generateSASUri(name: string) {
 }
 ```
 
-I had small headach figuring out why [Chromium](https://www.chromium.org/Home/) browsers were prompting the user to save the PDF when I had explicitly set the [Content Disposition](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Disposition) header to _inline_. What was most troubeling was that I was not having this issue while using the Firefox browser.
+I had small headache figuring out why [Chromium](https://www.chromium.org/Home/) browsers were prompting the user to save the PDF when I had explicitly set the [Content Disposition](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Disposition) header to _inline_. What was most troubling was that I was not having this issue while using the Firefox browser.
 
 The solution has to also set the [_Content Type_](https://developer.mozilla.org/en-US/docs/Web/SVG/Content_type) header to application/pdf.
 

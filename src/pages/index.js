@@ -336,7 +336,7 @@ export const landingPageQuery = graphql`
           comment
           projectName
           projectLink
-          projectThumnail {
+          projectthumbnail {
             childImageSharp {
               gatsbyImageData
             }

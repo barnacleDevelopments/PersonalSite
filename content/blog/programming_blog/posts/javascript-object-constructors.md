@@ -1,6 +1,6 @@
 ---
 title: JavaScript Object Constructors
-thumnail: /assets/logo_2.png
+thumbnail: /assets/logo_2.png
 date: 2019-12-06T16:47:52.678Z
 keywords: object constructors, javascript, javascript object constructors
 ---
