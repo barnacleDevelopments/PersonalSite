@@ -24,7 +24,7 @@ const BlogPost = ({ data }) => {
       <Seo
         title={`Post - ${node.frontmatter.title}`}
         keywords={node.frontmatter?.keywords.split(",")}
-        image={node.frontmatter?.thumnail}
+        image={node.frontmatter?.thumbnail}
       />
       <Flex
         sx={{
@@ -87,7 +87,7 @@ export const pageQuery = graphql`
         title
         date
         keywords
-        thumnail {
+        thumbnail {
           absolutePath
         }
       }

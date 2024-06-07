@@ -29,44 +29,48 @@ collections:
               - { label: Comment, name: "comment", widget: string }
               - { label: Project Name, name: "projectName", widget: string }
               - { label: Project Link, name: "projectLink", widget: string }
-              - { label: Project Thumnail, name: "projectThumnail", widget: image }
+              - {
+                  label: Project thumbnail,
+                  name: "projectthumbnail",
+                  widget: image,
+                }
 
   - label: "Web Blog"
     name: "web_business_blog"
     folder: content/blog/web_business_blog/posts
     create: true
     fields:
-      - { label: Title, name: title  }
+      - { label: Title, name: title }
       - { label: Content, name: content, widget: markdown }
-      - { label: Image, name: thumnail, widget: image}
-      - { label: "Date", name: "date", widget: "date"}
-      - { label: "Keywords", name: "keywords", widget: "string"}
+      - { label: Image, name: thumbnail, widget: image }
+      - { label: "Date", name: "date", widget: "date" }
+      - { label: "Keywords", name: "keywords", widget: "string" }
 
   - label: "Programming Blog"
     name: "programming_blog"
     folder: content/blog/programming_blog/posts
     create: true
     fields:
-      - { label: Title, name: title  }
+      - { label: Title, name: title }
       - { label: Content, name: content, widget: markdown }
-      - { label: Image, name: thumnail, widget: image}
-      - { label: "Date", name: "date", widget: "date"}
-      - { label: "Keywords", name: "keywords", widget: "string"}
+      - { label: Image, name: thumbnail, widget: image }
+      - { label: "Date", name: "date", widget: "date" }
+      - { label: "Keywords", name: "keywords", widget: "string" }
 
   - label: Projects
     name: projects
     folder: content/projects
     create: true
     fields:
-      - { label: "Title", name: "title", widget: "string"}
-      - { label: "Description Text", name: "description", widget: "markdown"}
-      - { label: "Description Image", name: "image1", widget: "image"}
-      - { label: "Technologies Text", name: tech, widget: "markdown"}
-      - { label: "Technologies Image", name: "image2", widget: "image"}
-      - { label: "Challenges Text", name: "challenges", widget: "markdown"}
-      - { label: "Challenges Image", name: "image3", widget: "image"}
-      - { label: "Live Link", name: "link", required: false, widget: "string"}
-      - { label: "Overview Link", name: "overLink", widget: "string"}
-      - { label: "Date Completed", name: "date", widget: "date"}
-      - { label: "Time to Complete", name: "completeTime", widget: "number"}
-      - { label: "Keywords", name: "keywords", widget: "string"}
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Description Text", name: "description", widget: "markdown" }
+      - { label: "Description Image", name: "image1", widget: "image" }
+      - { label: "Technologies Text", name: tech, widget: "markdown" }
+      - { label: "Technologies Image", name: "image2", widget: "image" }
+      - { label: "Challenges Text", name: "challenges", widget: "markdown" }
+      - { label: "Challenges Image", name: "image3", widget: "image" }
+      - { label: "Live Link", name: "link", required: false, widget: "string" }
+      - { label: "Overview Link", name: "overLink", widget: "string" }
+      - { label: "Date Completed", name: "date", widget: "date" }
+      - { label: "Time to Complete", name: "completeTime", widget: "number" }
+      - { label: "Keywords", name: "keywords", widget: "string" }

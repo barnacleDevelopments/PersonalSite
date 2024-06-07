@@ -10,41 +10,41 @@ import { WalletContext } from "../../contexts/WalletContext";
 
 export const JudgementGrid = ({
   projects = [],
-  judgements = ["view", "read", "comment"],
+  judgments = ["view", "read", "comment"],
 }) => {
   const [projectActions, setProjectActions] = useState([]);
   const walletContext = useContext(WalletContext);
 
   useEffect(() => {
     const init = async () => {
-      await updateActions();
+      // await updateActions();
     };
     init();
   }, [projects.length]);
 
-  const updateActions = async () => {
-    if (walletContext?.walletAddress) {
-      const actionCIDs = await getActionCIDs(walletContext?.walletAddress);
-      const actions = await getRecords(actionCIDs);
-      console.log(actions);
-      if (actions.length > 0) {
-        const result = projects.map((project) => {
-          for (const action of actions) {
-            if (project.id === action.projectId) {
-              project.actionType = action.type;
-            }
-          }
-          return project;
-        });
-        setProjectActions(result);
-      }
-    }
-  };
+  // const updateActions = async () => {
+  //   if (walletContext?.walletAddress) {
+  //     const actionCIDs = await getActionCIDs(walletContext?.walletAddress);
+  //     const actions = await getRecords(actionCIDs);
+  //     console.log(actions);
+  //     if (actions.length > 0) {
+  //       const result = projects.map((project) => {
+  //         for (const action of actions) {
+  //           if (project.id === action.projectId) {
+  //             project.actionType = action.type;
+  //           }
+  //         }
+  //         return project;
+  //       });
+  //       setProjectActions(result);
+  //     }
+  //   }
+  // };
 
   const renderCircles = () => {
     const items = [];
     for (let y = 1; y <= projectActions.length; y++) {
-      for (let x = 1; x <= judgements.length; x++) {
+      for (let x = 1; x <= judgments.length; x++) {
         // console.log(judgements[x - 1]);
         // console.log(projectActions[y - 1]);
 
@@ -56,7 +56,7 @@ export const JudgementGrid = ({
               height: "25px",
               borderRadius: "9999px",
               bg:
-                judgements[x - 1] === projectActions[y - 1].actionType
+                judgments[x - 1] === projectActions[y - 1].actionType
                   ? "orange"
                   : "primary",
               display: "inline-block",
@@ -75,7 +75,7 @@ export const JudgementGrid = ({
 
   const renderXAxisHeadings = () => {
     const headings = [];
-    for (let x = 1; x <= judgements.length; x++) {
+    for (let x = 1; x <= judgments.length; x++) {
       headings.push(
         <Box
           key={`heading-x-${x}`}
@@ -89,7 +89,7 @@ export const JudgementGrid = ({
             gridRowStart: 1,
           }}
         >
-          {`${judgements[x - 1]}`}
+          {`${judgments[x - 1]}`}
         </Box>
       );
     }

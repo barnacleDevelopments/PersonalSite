@@ -9,7 +9,7 @@ import { Heading, Card, Text, Button, Box, Grid, Link } from "theme-ui";
 
 // markup
 const PostCard = ({ post, postContent }) => {
-  const cardImage = getImage(post.thumnail);
+  const cardImage = getImage(post.thumbnail);
   const converter = new showdown.Converter();
 
   function truncateSentence(str) {
@@ -35,7 +35,7 @@ const PostCard = ({ post, postContent }) => {
       }}
     >
       <Grid gap={0} columns={[1, 1, 1, "1fr 3fr", "1fr 5fr"]}>
-        {post.thumnail && (
+        {post.thumbnail && (
           <GatsbyImage
             style={{ height: "200px" }}
             imgStyle={{ objectFit: "cover" }}

@@ -74,7 +74,7 @@ export const landingPageQuery = graphql`
           frontmatter {
             title
             date
-            thumnail {
+            thumbnail {
               childImageSharp {
                 gatsbyImageData
               }

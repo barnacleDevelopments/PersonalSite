@@ -15,7 +15,7 @@ socials:
       **\- Nova Johnstone**
     photo: /assets/logo_2.png
 latestProject:
-  projectThumnail: /assets/logo_nova.png
+  projectthumbnail: /assets/logo_nova.png
   comment: Nova Johnstone is a local Halifax entrepreneur offering executive
     assistant services.
   projectName: N.Johnstone&Co

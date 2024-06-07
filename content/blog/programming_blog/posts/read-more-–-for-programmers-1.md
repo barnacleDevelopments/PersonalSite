@@ -1,6 +1,6 @@
 ---
 title: Read More – For Programmers
-thumnail: /assets/photo-1552862750-746b8f6f7f25.jpg
+thumbnail: /assets/photo-1552862750-746b8f6f7f25.jpg
 date: 2021-12-19T13:01:07.829Z
 keywords: learning, programming, gatsby, technology, career in programming,
   reading documentation

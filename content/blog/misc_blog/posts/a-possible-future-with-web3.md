@@ -27,7 +27,7 @@ content: >-
 
 
   If you would like to learn more about this technology, I encourage you to take a look at my [projects page](https://devdeveloper.ca/projects/). I have created a voting system that uses blockchain technology. If you'd like to learn more about how blockchain works, I highly recommend reading [Blockchain Revolution](https://blockchain-revolution.com/).
-thumnail: /assets/blockchain_1.jpg
+thumbnail: /assets/blockchain_1.jpg
 date: 2024-01-01T13:48:58.632Z
 keywords: blockchain, ethereum, consensus, voting, cryptocurrency, bitcoin
 ---
