@@ -53,7 +53,8 @@ exports.createPages = async ({ actions, graphql }) => {
             }
             frontmatter {
               title
-              link
+              githubLink
+              liveLink
               description
               thumnail {
                 childImageSharp {

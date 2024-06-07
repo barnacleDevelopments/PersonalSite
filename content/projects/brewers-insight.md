@@ -18,8 +18,8 @@ challenges: The greatest challenges I have faced while working on BI has been
   speeding up the user's packaging routine. These are later turned into Finished
   Goods that can be consumed out of BI as finished products.
 image3: /assets/inventory-shipments.png
-link: https://brewersinsight.com
-overLink: https://brewersinsight.com
+liveLink: ""
+githubLink: ""
 date: 2023-07-30T12:13:10.205Z
 completeTime: 400
 keywords: BrewersInsight, Brewer's Insight, Finished Goods, Packaging BOM, BOM,

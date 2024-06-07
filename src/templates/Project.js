@@ -49,15 +49,20 @@ function Project({ data }) {
         </Text>
         <Box>
           {" "}
-          {node.frontmatter.link ? (
-            <a href={node.frontmatter.link}>
+          {node.frontmatter.liveLink && (
+            <a target="_blanc" href={node.frontmatter.liveLink}>
               <Button mt={3} variant="primary" mr={2}>
                 View Live Site
               </Button>
             </a>
-          ) : (
-            ""
           )}{" "}
+          {node.frontmatter.githubLink && (
+            <a target="_blanc" href={node.frontmatter.githubLink}>
+              <Button mt={3} variant="primary">
+                View on GitHub
+              </Button>
+            </a>
+          )}
           {/* <Button onClick={() => uploadAction(walletContext?.walletAddress, { task: "view", projectId: node.frontmatter.id })}>
             Mark as Viewed
           </Button> */}
@@ -209,7 +214,8 @@ export const pageQuery = graphql`
         description
         tech
         challenges
-        link
+        liveLink
+        githubLink
         keywords
         image1 {
           childImageSharp {

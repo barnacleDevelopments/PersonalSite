@@ -25,7 +25,8 @@ challenges: >-
 
   The authentication/authorization mechanism also changed while I was developing. I originally developed it to authenticate with Azure Active Directory but that wasn't a great user experience because they would need a Microsoft account to authenticate so I switched it to [ASP.NET core custom Authentication](https://learn.microsoft.com/en-us/aspnet/core/security/authentication/?view=aspnetcore-7.0).
 image3: /assets/screenshot_2022-12-16-17-35-41-72_18ebc393c906127f3e74bc0d996301a3.jpg
-overLink: https://github.com/barnacleDevelopments/MyBoards
+liveLink: ""
+githubLink: https://github.com/barnacleDevelopments/MyBoards
 date: 2022-01-01T14:54:06.484Z
 completeTime: 400
 keywords: hangboards, app

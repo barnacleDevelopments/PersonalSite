@@ -294,7 +294,6 @@ export const landingPageQuery = graphql`
           frontmatter {
             id
             title
-            overLink
             image1 {
               childImageSharp {
                 gatsbyImageData
