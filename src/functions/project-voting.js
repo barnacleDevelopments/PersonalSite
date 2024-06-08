@@ -1,6 +1,5 @@
 import projectVotingABI from "../../smart-contracts/build/contracts/ProjectVoting.json";
 import web3 from "../web3-subscription";
-import Arweave from "arweave";
 
 export async function checkStatus(hash) {
   let receipt = null;
