@@ -30,10 +30,7 @@ const SideNav = ({ isOpen, setSideNavOpen, enableScrollFunc }) => {
           }}
         >
           <Link sx={{ color: "primary", width: "60px" }} href="/">
-            <StaticImage
-              src="../../images/logo_2.png"
-              alt="Dev's Webshop Logo"
-            />
+            <StaticImage src="../../images/logo_2.png" />
           </Link>
           <Box
             onClick={() => {
