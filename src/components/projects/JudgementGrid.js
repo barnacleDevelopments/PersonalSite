@@ -1,11 +1,9 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui";
-import { Link, Box, Text } from "theme-ui";
-import { Section } from "../app/Section";
+import { Box } from "theme-ui";
 import { useEffect, useState, useContext } from "react";
 
 // Functions
-import { getActionCIDs } from "../../functions/project-voting";
 import { WalletContext } from "../../contexts/WalletContext";
 
 export const JudgementGrid = ({
@@ -16,39 +14,15 @@ export const JudgementGrid = ({
   const walletContext = useContext(WalletContext);
 
   useEffect(() => {
-    const init = async () => {
-      // await updateActions();
-    };
+    const init = async () => {};
     init();
   }, [projects.length]);
-
-  // const updateActions = async () => {
-  //   if (walletContext?.walletAddress) {
-  //     const actionCIDs = await getActionCIDs(walletContext?.walletAddress);
-  //     const actions = await getRecords(actionCIDs);
-  //     console.log(actions);
-  //     if (actions.length > 0) {
-  //       const result = projects.map((project) => {
-  //         for (const action of actions) {
-  //           if (project.id === action.projectId) {
-  //             project.actionType = action.type;
-  //           }
-  //         }
-  //         return project;
-  //       });
-  //       setProjectActions(result);
-  //     }
-  //   }
-  // };
 
   const renderCircles = () => {
     const items = [];
     for (let y = 1; y <= projectActions.length; y++) {
       for (let x = 1; x <= judgments.length; x++) {
-        // console.log(judgements[x - 1]);
-        // console.log(projectActions[y - 1]);
-
-        items.push(
+        return (
           <Box
             key={`${y}-${x}`}
             sx={{
