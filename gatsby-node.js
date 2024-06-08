@@ -88,6 +88,7 @@ exports.createPages = async ({ actions, graphql }) => {
             frontmatter {
               title
               date
+              draft
               thumbnail {
                 childImageSharp {
                   gatsbyImageData
@@ -103,10 +104,12 @@ exports.createPages = async ({ actions, graphql }) => {
       Promise.reject(results.errors);
     }
     // generate individual pages for each post
-    result.data.allMarkdownRemark.edges.forEach(({ node }) => {
-      const post = node.frontmatter;
-      genPostPage(node, post);
-    });
+    result.data.allMarkdownRemark.edges
+      .filter(({ node }) => !node.frontmatter.draft)
+      .forEach(({ node }) => {
+        const post = node.frontmatter;
+        genPostPage(node, post);
+      });
   });
 
   return Promise.all([postsResult, projectsResult]);
