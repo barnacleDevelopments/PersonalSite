@@ -3,6 +3,7 @@ title: Normalized Immutable State in REDUX
 thumbnail: /assets/0_5klgzawxicimkg4h.jpg
 date: 2020-02-21T15:59:17.824Z
 keywords: "redux, immutable, normalization, react, javascript, json, npm, "
+draft: false
 ---
 
 On the surface, the concept of immutable state seems simple and easy to

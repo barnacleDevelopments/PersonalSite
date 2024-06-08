@@ -3,6 +3,7 @@ title: Content Disposition Header
 thumbnail: /assets/logo_2.png
 date: 2024-04-22T19:31:21.081Z
 keywords: content disposition header, pdf, stop download
+draft: false
 ---
 
 I have been working on a PDF download feature for BrewersInsight. We have created a PDF generation service that takes in data to generate a _Bill of Ladding_. The service first generates a PDF then stores it in a Azure Storage Account and create a URL to access it.
