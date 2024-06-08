@@ -5,7 +5,12 @@ public
 node_modules
 
 # Truffle
-smart-contracts/build
+# Ignore everything in the smart-contracts/build/contracts directory
+smart-contracts/build/contracts/*
+
+# Do not ignore the ProjectVoting.json file
+!smart-contracts/build/contracts/ProjectVoting.json
+
 
 # Local Netlify folder
 .netlify
