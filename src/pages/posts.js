@@ -51,9 +51,14 @@ const ProgrammingPostsPage = ({ data }) => {
 
 export default ProgrammingPostsPage;
 
-export const landingPageQuery = graphql`
+export const programmingPostsPageQuery = graphql`
   query ProgrammingPostsPageQuery {
-    allMarkdownRemark(filter: { fileAbsolutePath: { regex: "//blog//" } }) {
+    allMarkdownRemark(
+      filter: {
+        fileAbsolutePath: { regex: "//blog//" }
+        frontmatter: { draft: { eq: false } }
+      }
+    ) {
       edges {
         node {
           fields {

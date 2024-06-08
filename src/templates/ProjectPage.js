@@ -15,7 +15,7 @@ import Seo from "../components/app/Seo";
 // import { useContext } from "react";
 // import { WalletContext } from "../contexts/WalletContext";
 
-function Project({ data }) {
+function ProjectPage({ data }) {
   const { markdownRemark: node } = data;
   const converter = new showdown.Converter();
   // const walletContext = useContext(WalletContext);
@@ -237,4 +237,4 @@ export const pageQuery = graphql`
   }
 `;
 
-export default Project;
+export default ProjectPage;
