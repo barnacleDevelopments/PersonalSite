@@ -4,6 +4,7 @@ thumbnail: /assets/logo_2.png
 date: 2020-04-03T15:13:45.129Z
 keywords: javascript, prototypes, javascript prototypes, oop, object oriented
   programming, inheritance, augmentation
+draft: false
 ---
 
 Prototypes are a challenging JavaScript programming concept to understand. To
@@ -62,7 +63,7 @@ Prototypes allow for inheritance to occur in JavaScript. This is quite different
 
 ### Heirloom Example
 
-Prototypes are comparable to [heirlooms](https://www.merriam-webster.com/dictionary/heirloom) that are passed down through generations by families. Let’s imagine our heirloom is a small chest which is comparable to a constructor and it contains jewellery; Each piece of jewellery represents a property or method.
+Prototypes are comparable to [heirlooms](https://www.merriam-webster.com/dictionary/heirloom) that are passed down through generations by families. Let’s imagine our heirloom is a small chest which is comparable to a constructor and it contains jewelry; Each piece of jewelry represents a property or method.
 
 ### Code Example
 
@@ -82,7 +83,7 @@ newArray = newArray.concat(“apple”); // The concat method being used on the
 
 After looking over the Array constructor in above example and comparing it to our constructor named SmithFamilyMember, we can understand that it is no different from it. They are both constructors and they both have prototype objects that contain various methods like **concat()** or **getName()** and properties like **length** or **firstName**. Whenever we instantiate a new instance of either of them we empty its parent’s prototype’s properties and methods into it.
 
-There are many ways to take advantage of this prototype sharing behaviour. One of which is the action of augmenting existing prototypes.
+There are many ways to take advantage of this prototype sharing behavior. One of which is the action of augmenting existing prototypes.
 
 ## Augmentation
 
