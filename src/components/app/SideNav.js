@@ -12,7 +12,7 @@ const SideNav = ({ isOpen, setSideNavOpen, enableScrollFunc }) => {
         zIndex: "1000000",
         width: "100%",
         top: "0px",
-        bg: "white",
+        bg: "#ffffff",
         justifyContent: "flex-start",
         alignItems: "center",
         flexDirection: "column",
