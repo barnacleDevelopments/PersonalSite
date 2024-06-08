@@ -18,7 +18,6 @@ import {
   faStore,
   faTabletAlt,
 } from "@fortawesome/free-solid-svg-icons";
-import { faLightbulb } from "@fortawesome/free-regular-svg-icons";
 import Seo from "../components/app/Seo";
 import Loader from "../components/Loader";
 import { faGit } from "@fortawesome/free-brands-svg-icons";
@@ -152,7 +151,7 @@ const IndexPage = ({ data }) => {
                   My name is Dev. I'm a web developer located in Halifax Nova
                   Scotia. I specialize in building websites and web applications
                   for small to medium sized businesses. I work diligently to
-                  ensure that those I work with recieve a product they can be
+                  ensure that those I work with receive a product they can be
                   proud of. I'm always looking for new and exciting projects to
                   work on. If you're interested in working together, feel free
                   to reach out!
@@ -261,6 +260,14 @@ const IndexPage = ({ data }) => {
                 <Icon size="2x" icon={faGit} />
                 <Text variant="regular" sx={styles.skillText}>
                   Version Control/Git
+                </Text>
+              </Flex>
+            </Box>
+            <Box sx={styles.skillCard}>
+              <Flex alignItems="center">
+                <Icon size="2x" icon={faGit} />
+                <Text variant="regular" sx={styles.skillText}>
+                  Documenting
                 </Text>
               </Flex>
             </Box>

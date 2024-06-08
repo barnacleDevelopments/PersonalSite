@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui";
-import { Box } from "theme-ui";
+import { Box, Text, Link, Section } from "theme-ui";
 import { useEffect, useState, useContext } from "react";
 
 // Functions
