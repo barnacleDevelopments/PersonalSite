@@ -1,5 +1,5 @@
 ---
-title: Web Content Strategies
+title: "Web Content Strategies"
 thumbnail: /assets/logo_2.png
 date: 2021-12-02T12:00:56.007Z
 keywords: content strategies, marketing consultant, video producer, organic search, seo
@@ -47,7 +47,7 @@ Using Nike as an example, they have multiple pages that list each of their produ
 
 We all must start somewhere and overwhelming yourself with the details of your content strategy will result in you being discouraged. It’s better to start small and grow gradually. In that spirit getting up and running with a website is your first move. This often includes a page describing your business that is often referred to as your “about page”. Next, is a product or service listing followed by a solid landing page.
 
-I provide web services if you have yet to find a developer. I start with a solid website foundation which can be easily expanded, and I help you explore content strategy. I encourage you to [contact me directly](https://www.devswebshop.com/contact/) or use [my quote form](https://www.devswebshop.com/services/).
+I provide web services if you have yet to find a developer. I start with a solid website foundation which can be easily expanded, and I help you explore content strategy. I encourage you to [contact me directly](/contact).
 
 Once you have a basic website up and running you are prepared for the next step. Depending on the time and resources you have at your disposal you now need a good content strategy. Find out what kind of content you want to provide and decide if it is realistic for you to deliver it. It may be necessary to hire a third party to take care of your content strategy if you do not have the time to do it yourself.
 

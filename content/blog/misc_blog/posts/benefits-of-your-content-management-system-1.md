@@ -23,7 +23,7 @@ Another great case would be for a company that has regular announcements on thei
 
 Not every business needs a CMS. Some business just wants a simple landing page to give them an online presence and do not have product or service listings. However, there are less obvious and beneficial use cases for CMSs. The most advantageous part of having a CMS is to enable a content strategy.
 
-A content strategy is a vital part of any business website to increase its traffic. If you would like to learn more about them, I wrote an article on why you need a [Web Content Strategy](https://www.devswebshop.com/blog/web_business_blog/posts/%20web-content-strategies-1/). In short, they increase your website's utility to customers by giving them a reason to visit your website. Without a content strategy, visitors have little reason to visit or return to your website. Trust me, this will pay in dividends through increasing conversion rates to your website.
+A content strategy is a vital part of any business website to increase its traffic. If you would like to learn more about them, I wrote an article on why you need a [Web Content Strategy](/blog/misc_blog/posts/web-content-strategies). In short, they increase your website's utility to customers by giving them a reason to visit your website. Without a content strategy, visitors have little reason to visit or return to your website. Trust me, this will pay in dividends through increasing conversion rates to your website.
 
 ## When should you implement a CMS? 
 
@@ -37,13 +37,13 @@ Although, it's important to think ahead and pick your development platform wisel
 
 Depending on what route you choose to create your website (custom or cloud service) you'll encounter different ways of setting up a CMS. Some may result in increased development time and cost, while others are quick and cheap.
 
-> If you are looking to start a new website and aren't interested in the details of implementing a CMS, I can help! Get in touch with me through my [contact form](https://www.devswebshop.com/contact/).
+> If you are looking to start a new website and aren't interested in the details of implementing a CMS, I can help! Get in touch with me through my [contact form](/contact/).
 
 The quick and cheap route is a cloud-based service like [Wix](https://www.wix.com/html5bing/hiker-create-wix?utm_source=bing&utm_campaign=MS_Wix_NEW%5Ewix_English-x&experiment_id=wix%5Ebe%5E79783360752420%5Ewix&msclkid=54351382aa8f1907e3a4722fa1e5c727&utm_medium=cpc) or [Square Space](<https://www.squarespace.com/website-design/?channel=pbr&subchannel=bing&campaign=pbr-dr-bing-ca-en-squarespace-core-e&subcampaign=(brand-core_squarespace_e)&&utm_source=bing&utm_medium=pbr&utm_campaign=pbr-dr-bing-ca-en-squarespace-core-e&utm_term=squarespace&gclid=114e81f9afab165c8218e054a425a4bb&gclsrc=3p.ds&msclkid=114e81f9afab165c8218e054a425a4bb&utm_content=brand-core&gclid=114e81f9afab165c8218e054a425a4bb&gclsrc=3p.ds>). These are great if you aren't particular about how you want your web presence to appear. For those who want to stand out, a custom solution is best. Further, a custom solution also opens opportunities for more advanced features in the future.
 
 # Concluding Thoughts 
 
-Now that you have a general idea of the advantages of CMSs. I encourage you to read more about CMSs so you can make an informed choice about how you would like to proceed. Of course, I encourage you to [reach out](https://www.devswebshop.tech/contact/) if you need any information or help with setting up your website.
+Now that you have a general idea of the advantages of CMSs. I encourage you to read more about CMSs so you can make an informed choice about how you would like to proceed. Of course, I encourage you to [reach out](/contact/) if you need any information or help with setting up your website.
 
 ## References:
 
