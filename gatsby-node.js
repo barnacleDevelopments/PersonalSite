@@ -9,7 +9,7 @@ exports.createPages = async ({ actions, graphql }) => {
   function genPostPage(node, post) {
     createPage({
       path: `${node.fields.slug}`,
-      component: path.resolve(`src/templates/BlogPost.js`),
+      component: path.resolve(`src/templates/BlogPostPage.js`),
       context: {
         title: post.title,
         slug: node.fields.slug,
@@ -20,7 +20,7 @@ exports.createPages = async ({ actions, graphql }) => {
   function genProjectPage(node, project) {
     createPage({
       path: `${node.fields.slug}`,
-      component: path.resolve(`src/templates/Project.js`),
+      component: path.resolve(`src/templates/ProjectPage.js`),
       context: {
         title: project.title,
         slug: node.fields.slug,
@@ -31,7 +31,7 @@ exports.createPages = async ({ actions, graphql }) => {
   function genCategoryPage(category) {
     createPage({
       path: `/blog/${category}`,
-      component: path.resolve(`src/templates/CategoryPosts.js`),
+      component: path.resolve(`src/templates/CategoryPage.js`),
       context: {
         categoryRegex: `//blog/${category}//`,
       },
@@ -79,7 +79,12 @@ exports.createPages = async ({ actions, graphql }) => {
 
   const postsResult = graphql(`
     query BlogQuery {
-      allMarkdownRemark(filter: { fileAbsolutePath: { regex: "//blog//" } }) {
+      allMarkdownRemark(
+        filter: {
+          fileAbsolutePath: { regex: "//blog//" }
+          frontmatter: { draft: { eq: false } }
+        }
+      ) {
         edges {
           node {
             fields {

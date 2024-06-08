@@ -7,7 +7,7 @@ import PostCard from "../components/blog/PostCard";
 import { Box, Text, Grid, Link, Button } from "theme-ui";
 import Seo from "../components/app/Seo";
 
-const CategoryPosts = ({ data }) => {
+const CategoryPage = ({ data }) => {
   const pageData = data.allMarkdownRemark.edges;
   const postCategory = pageData[0]?.node.frontmatter.category;
   return (
@@ -61,11 +61,16 @@ const CategoryPosts = ({ data }) => {
   );
 };
 
-export default CategoryPosts;
+export default CategoryPage;
 
-export const landingPageQuery = graphql`
+export const pageQuery = graphql`
   query PostsByCategoryQuery($categoryRegex: String!) {
-    allMarkdownRemark(filter: { fileAbsolutePath: { regex: $categoryRegex } }) {
+    allMarkdownRemark(
+      filter: {
+        fileAbsolutePath: { regex: $categoryRegex }
+        frontmatter: { draft: { eq: false } }
+      }
+    ) {
       edges {
         node {
           fields {

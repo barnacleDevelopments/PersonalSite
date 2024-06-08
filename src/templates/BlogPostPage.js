@@ -11,7 +11,7 @@ import { useEffect } from "react";
 import Prism from "prismjs";
 
 // markup
-const BlogPost = ({ data }) => {
+const BlogPostPage = ({ data }) => {
   const { markdownRemark: node } = data;
   const converter = new showdown.Converter();
 
@@ -96,4 +96,4 @@ export const pageQuery = graphql`
   }
 `;
 
-export default BlogPost;
+export default BlogPostPage;
