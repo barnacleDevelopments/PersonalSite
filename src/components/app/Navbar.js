@@ -142,10 +142,7 @@ const Navbar = () => {
             <Link sx={{ width: "60px" }} href="/">
               <Box className="nav-triangle"></Box>
               <Box>
-                <StaticImage
-                  src="../../images/logo.png"
-                  alt="Dev's Webshop Logo"
-                />
+                <StaticImage src="../../images/logo.png" />
               </Box>
               <Box className="nav-triangle"></Box>
             </Link>
@@ -153,10 +150,7 @@ const Navbar = () => {
             <Link sx={{ width: "60px" }} href="/">
               <Box className="nav-triangle"></Box>
               <Box>
-                <StaticImage
-                  src="../../images/logo_2.png"
-                  alt="Dev's Webshop Logo"
-                />
+                <StaticImage src="../../images/logo_2.png" />
               </Box>
               <Box className="nav-triangle"></Box>
             </Link>
@@ -238,7 +232,6 @@ const navWrapper = {
   flexDirection: "column",
   justifyContent: "space-around",
   alignItems: "center",
-  minWidth: "375px",
   zIndex: "100",
   backgroundColor: "primary",
   boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.25)",
