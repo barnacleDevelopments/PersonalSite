@@ -188,7 +188,7 @@ const ProjectsPage = ({ data }) => {
           my: 5,
         }}
       >
-        <Box sx={{ mt: 6, mb: 4 }} textAlign="center">
+        <Box sx={{ mt: 6, mb: [3, 4] }} textAlign="center">
           <Box as="section">
             <Heading as="h1" variant="hero">
               Projects
@@ -242,7 +242,7 @@ const ProjectsPage = ({ data }) => {
         <Box
           as="section"
           sx={{
-            mb: 6,
+            mb: 3,
           }}
         >
           {projects.length > 0 ? (

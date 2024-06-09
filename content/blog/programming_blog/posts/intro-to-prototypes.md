@@ -4,7 +4,6 @@ thumbnail: /assets/logo_2.png
 date: 2020-04-03T15:13:45.129Z
 keywords: javascript, prototypes, javascript prototypes, oop, object oriented
   programming, inheritance, augmentation
-draft: false
 ---
 
 Prototypes are a challenging JavaScript programming concept to understand. To

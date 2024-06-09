@@ -8,11 +8,11 @@ const VoterList = ({ winners = {}, voters = [{ name: "" }] }) => {
       as="section"
       sx={{
         backgroundColor: "primary",
-        mt: 4,
+        mt: [3, 4],
         color: "white",
-        p: 5,
-        pt: 4,
-        pb: 5,
+        px: [4, 5],
+        pt: [3, 4],
+        pb: [4, 5],
         borderRadius: "10px",
       }}
     >

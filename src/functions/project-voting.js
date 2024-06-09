@@ -239,31 +239,3 @@ export const getActionCIDs = async (walletAddress) => {
     console.error("Error in getting address actions");
   }
 };
-
-export const uploadAction = async (walletAddress, { task, projectId }) => {
-  if (window.ethereum) {
-    try {
-      const data = JSON.stringify({
-        task,
-        projectId,
-        walletAddress: walletAddress,
-      });
-
-      const arweave = Arweave.init({});
-
-      let transaction = await arweave.createTransaction({
-        data,
-      });
-
-      transaction.addTag("Content-Type", "application/json");
-
-      const response = await arweave.transactions.post(transaction);
-
-      console.log(response.status);
-    } catch (error) {
-      console.error("Error signing data:", error);
-    }
-  } else {
-    console.log("MetaMask is not installed!");
-  }
-};
