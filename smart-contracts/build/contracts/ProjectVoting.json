@@ -28860,12 +28860,12 @@
     "5777": {
       "events": {},
       "links": {},
-      "address": "0xCc75d9Fe82696B527f6CB2e62aCEd51A23c1C8f2",
-      "transactionHash": "0x501651a83bcde277f3b52ce5d548e4c24a64645855a0a0b3df3b023b1aa6e357"
+      "address": "0x82d5EA1772Ed3C4F7571AA7F1Fd02357bcaFa648",
+      "transactionHash": "0x4d9bd772177b39b3d2613408417794b8ee6a24631231c3b75dc6ba4513651b2b"
     }
   },
   "schemaVersion": "3.4.16",
-  "updatedAt": "2024-06-08T21:30:22.584Z",
+  "updatedAt": "2024-06-09T02:54:49.437Z",
   "networkType": "ethereum",
   "devdoc": {
     "kind": "dev",
