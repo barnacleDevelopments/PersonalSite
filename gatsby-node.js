@@ -1,5 +1,6 @@
 const path = require("path");
 const { createFilePath } = require("gatsby-source-filesystem");
+const { assert } = require("console");
 
 // TODO: Update the source of projects to IPFS.
 
@@ -110,7 +111,9 @@ exports.createPages = async ({ actions, graphql }) => {
     }
     // generate individual pages for each post
     result.data.allMarkdownRemark.edges
-      .filter(({ node }) => !node.frontmatter.draft)
+      .filter(({ node }) => {
+        return !node.frontmatter.draft;
+      })
       .forEach(({ node }) => {
         const post = node.frontmatter;
         genPostPage(node, post);

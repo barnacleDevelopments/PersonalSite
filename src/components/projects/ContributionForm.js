@@ -27,11 +27,10 @@ const ContributionForm = ({ onContributionInput, onNameInput }) => {
     <Box
       sx={{
         backgroundColor: "primary",
-        mt: 4,
+        mt: [3],
         color: "white",
-        p: 5,
-        pt: 5,
-        pb: 5,
+        p: [4, 5],
+        py: [4, 5],
         borderRadius: "10px",
       }}
     >

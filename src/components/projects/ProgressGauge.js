@@ -22,7 +22,7 @@ const ProgressGauge = ({ maxProgress = 100, currentProgress = 0 }) => {
       className="progress-container"
       sx={{
         backgroundColor: "primary",
-        mt: 4,
+        mt: [3, 4],
         color: "white",
         p: 5,
         pt: 4,

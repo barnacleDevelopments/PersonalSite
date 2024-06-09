@@ -12,6 +12,8 @@ import {
   faBug,
   faChartLine,
   faDesktop,
+  faLaptopCode,
+  faPencil,
   faPeopleArrows,
   faRocket,
   faServer,
@@ -20,7 +22,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import Seo from "../components/app/Seo";
 import Loader from "../components/Loader";
-import { faGit } from "@fortawesome/free-brands-svg-icons";
+import { faGit, faProductHunt } from "@fortawesome/free-brands-svg-icons";
 
 const IndexPage = ({ data }) => {
   const landingPageData = data.markdownRemark.frontmatter;
@@ -204,7 +206,7 @@ const IndexPage = ({ data }) => {
             </Box>
             <Box sx={styles.skillCard}>
               <Flex alignItems="center">
-                <Icon size="2x" icon={faBrain} />
+                <Icon size="2x" icon={faLaptopCode} />
                 <Text variant="regular" sx={styles.skillText}>
                   Active Learner
                 </Text>
@@ -265,7 +267,7 @@ const IndexPage = ({ data }) => {
             </Box>
             <Box sx={styles.skillCard}>
               <Flex alignItems="center">
-                <Icon size="2x" icon={faGit} />
+                <Icon size="2x" icon={faPencil} />
                 <Text variant="regular" sx={styles.skillText}>
                   Documenting
                 </Text>
