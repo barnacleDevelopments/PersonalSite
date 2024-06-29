@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui";
-import { Box, Text, Link, Section } from "theme-ui";
+import { Box, Text, Link } from "theme-ui";
 import { useEffect, useState, useContext } from "react";
 
 // Functions
@@ -94,7 +94,7 @@ export const JudgementGrid = ({
   };
 
   return (
-    <Section>
+    <Box as="section">
       <Text variant="regular" color="white" mb={3}>
         Please take the chance to view, read and comment on each of the
         projects. Each action will prompt a signature from you to confirm you
@@ -125,6 +125,6 @@ export const JudgementGrid = ({
         {renderYAxisHeadings()}
         {renderCircles()}
       </Box>
-    </Section>
+    </Box>
   );
 };

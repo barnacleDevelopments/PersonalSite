@@ -7,6 +7,23 @@ tech: This feature was developed using the BI tech stack consisting of the Angul
 image2: /assets/planner_2.png
 challenges: The most challenging part of developing this feature was its integration with the current *brew run system*. Brew runs are composed from of a series of CosmosDB Documents. Namely, the core brew run details, turn details, fermentation details, conditioning details and packaging details. All together they represent the data of one full beer production. Normally, these details were created dynamically through the process of completing a brew run. With the integration of the planner, these details were pre-populated. This resulted in a series of cascading refactors because the original system was not originally designed with that in mind. This taught me a lot about the system but also a hard lesson in systems integration.
 image3: /assets/planner_3.png
+technologies:
+  - name: "Angular"
+    image: "/assets/tech_logos/angular.png"
+  - name: "Azure"
+    image: "/assets/tech_logos/azure.png"
+  - name: "Typescript"
+    image: "/assets/tech_logos/typescript.svg"
+  - name: "C#"
+    image: "/assets/tech_logos/csharp.svg"
+  - name: "Digital Ocean"
+    image: "/assets/tech_logos/digitalocean.svg"
+  - name: "MSSQL"
+    image: "/assets/tech_logos/mssql.png"
+  - name: "Azure Active Directory"
+    image: "/assets/tech_logos/azure-active-directory.svg"
+  - name: ".NET Core"
+    image: "/assets/tech_logos/dot-net.png"
 liveLink: ""
 githubLink: ""
 date: 2024-01-01T12:13:10.205Z
