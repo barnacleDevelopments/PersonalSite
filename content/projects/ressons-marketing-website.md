@@ -14,6 +14,11 @@ challenges: G﻿atsby facilitates static site generation to create small footpri
   working with Gatsby is its use of plugins which take time to understand how
   they relate to each other.
 image3: /assets/screen_two.png
+technologies:
+  - name: "Gatsby"
+    image: "/assets/tech_logos/gatsby.svg"
+  - name: "Netlify"
+    image: "/assets/tech_logos/netlify.svg"
 liveLink: ""
 githubLink: ""
 date: 2022-12-29T20:58:39.301Z

@@ -62,7 +62,7 @@ const ProjectsPage = ({ data }) => {
     const voteCounts = await getVoteCounts(projects);
     const formattedProjects = (await getProjects()).map((project) => {
       const data = pageData.find(
-        ({ node }) => node.frontmatter.id === project.id
+        ({ node }) => node.frontmatter.id === project.id,
       );
 
       return {
@@ -112,7 +112,7 @@ const ProjectsPage = ({ data }) => {
       throw new Error(`Contribution amount must be a number`);
     if (contributionAmount < 0.001 || contributionAmount > 0.05)
       throw new Error(
-        `Contribution amount must be greater than 0.001 and less than 0.05`
+        `Contribution amount must be greater than 0.001 and less than 0.05`,
       );
   };
 

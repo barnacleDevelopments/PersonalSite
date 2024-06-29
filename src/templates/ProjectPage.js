@@ -19,7 +19,6 @@ function ProjectPage({ data }) {
   const { markdownRemark: node } = data;
   const converter = new showdown.Converter();
   // const walletContext = useContext(WalletContext);
-
   return (
     <Box>
       <Seo
@@ -125,6 +124,20 @@ function ProjectPage({ data }) {
                 __html: converter.makeHtml(node.frontmatter.tech),
               }}
             ></Text>
+            <Flex sx={{ flexWrap: "wrap", gap: "10px" }}>
+              {node.frontmatter.technologies.map((x) => (
+                <Box>
+                  <Flex sx={{ alignItems: "center" }}>
+                    <img
+                      sx={techImageStyle}
+                      src={x.image.publicURL}
+                      alt={x.name}
+                    />
+                    {x.name}
+                  </Flex>
+                </Box>
+              ))}
+            </Flex>
           </Box>
         </Grid>
       </Box>
@@ -180,6 +193,12 @@ const paragraphStyles = {
   fontSize: 2,
 };
 
+const techImageStyle = {
+  width: "30px",
+  mr: 1,
+  mb: 2,
+};
+
 const imgWrapStyle = {
   display: "flex",
   justifyContent: "center",
@@ -217,6 +236,12 @@ export const pageQuery = graphql`
         liveLink
         githubLink
         keywords
+        technologies {
+          name
+          image {
+            publicURL
+          }
+        }
         image1 {
           childImageSharp {
             gatsbyImageData

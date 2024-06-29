@@ -22,10 +22,13 @@ challenges: >-
   notably, a store, mutations, and actions. The store contains the current state
   of the application. For instance the create note button can be disabled or
   enabled depending on a certain state value. 
-
-
   Actions call mutations which are functions that change or "mutate" the store. Therefore, actions simply call mutations and should not do any mutating themselves. The store's contents represent the current state of the application. It's an advanced consept that I still don't completly understand on a technicle level but I managed to implement a simple solution.
 image3: /assets/expandedview.png
+technologies:
+  - name: "Electron"
+    image: "/assets/tech_logos/electron.svg"
+  - name: "SQLite"
+    image: "/assets/tech_logos/sqlite.svg"
 liveLink: ""
 githubLink: "https://github.com/barnacleDevelopments/EvernoteClone"
 date: 2021-12-13T20:10:21.522Z

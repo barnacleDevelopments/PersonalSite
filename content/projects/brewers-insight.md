@@ -18,6 +18,23 @@ challenges: The greatest challenges I have faced while working on BI has been
   speeding up the user's packaging routine. These are later turned into Finished
   Goods that can be consumed out of BI as finished products.
 image3: /assets/inventory-shipments.png
+technologies:
+  - name: "Angular"
+    image: "/assets/tech_logos/angular.png"
+  - name: "Azure"
+    image: "/assets/tech_logos/azure.png"
+  - name: "Typescript"
+    image: "/assets/tech_logos/typescript.svg"
+  - name: "C#"
+    image: "/assets/tech_logos/csharp.svg"
+  - name: "Digital Ocean"
+    image: "/assets/tech_logos/digitalocean.svg"
+  - name: "MSSQL"
+    image: "/assets/tech_logos/mssql.png"
+  - name: "Azure Active Directory"
+    image: "/assets/tech_logos/azure-active-directory.svg"
+  - name: ".NET Core"
+    image: "/assets/tech_logos/dot-net.png"
 liveLink: ""
 githubLink: ""
 date: 2023-07-30T12:13:10.205Z
