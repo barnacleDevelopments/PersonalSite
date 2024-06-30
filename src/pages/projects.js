@@ -179,104 +179,112 @@ const ProjectsPage = ({ data }) => {
 
   return (
     <Box>
-      <Seo title="Projects" />
-      <Box
-        sx={{
-          margin: "0 auto",
-          width: ["90%", "80%", "70%"],
-          mt: "60px",
-          my: 5,
-        }}
-      >
-        <Box sx={{ mt: 6, mb: [3, 4] }} textAlign="center">
-          <Box as="section">
-            <Heading as="h1" variant="hero">
-              Projects
-            </Heading>
-            <Paragraph variant="large">
-              Discover a selection of my latest projects. If you're interested
-              in collaboration or want to learn more, feel free to{" "}
-              <Link href="/contact">contact me</Link>. Plus, take a moment to
-              vote for your favorite project and you might win a prize!
-            </Paragraph>
-            <Heading as="h2" variant="subheading1" sx={{ mt: 4 }}>
-              Participate in Web3 Voting
-            </Heading>
-            <Paragraph variant="regular" sx={{ mt: 3 }}>
-              Embracing the new era of Web3, I've integrated a decentralized
-              voting system for my projects. You can help highlight the most
-              popular projects using the power of Ethereum. Your vote will be
-              securely recorded on the Ethereum blockchain. A random winner will
-              be chosen, using{" "}
-              <dfn>
-                <Link href="https://chain.link/vrf" target="_blank">
-                  Chainlink's VRF random number generator
-                </Link>
-              </dfn>
-              , every time the prize pool reaches the threshold.
-            </Paragraph>{" "}
-          </Box>
-          <WalletBanner
-            walletAddress={walletContext?.walletAddress}
-            project={getProject()}
-            isWalletConnected={walletContext?.isWalletConnected}
-            hasVoted={hasVoted}
-            threshold={threshold}
-            onConnectClick={walletContext?.connectWallet}
-          ></WalletBanner>
-          <ProgressGauge
-            currentProgress={balance}
-            maxProgress={threshold}
-          ></ProgressGauge>
-          {/** <JudgementGrid projects={projects}></JudgementGrid>  */}
-          {voters?.length > 0 && (
-            <VoterList winners={winners} voters={voters}></VoterList>
-          )}
-          {!hasVoted && walletContext?.walletAddress && (
-            <ContributionForm
-              onContributionInput={(value) => setContribution(value)}
-              onNameInput={(value) => setName(value)}
-            ></ContributionForm>
-          )}
-        </Box>
-        <Box
-          as="section"
-          sx={{
-            mb: 3,
-          }}
-        >
-          {projects.length > 0 ? (
-            projects.map((project, index) => {
-              return (
-                <Box id={"id" + project.id} key={project.id} mb={3}>
-                  <ProjectCard
-                    id={project.id}
-                    image={project.image1}
-                    title={project.title}
-                    siteLink={project.link}
-                    key={index}
-                    buttonText={"View"}
-                    vote={voteForProject}
-                    hasVoted={hasVoted}
-                    voteCount={project.votes}
-                    isVote={addressVote === project.id}
-                  />
-                </Box>
-              );
-            })
-          ) : (
-            <Box
-              sx={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <Spinner />
-            </Box>
-          )}
-        </Box>
+      <Box sx={{
+        margin: "0 auto",
+        width: ["90%", "80%", "70%"],
+        mt: "60px",
+        my: 5
+      }}>
+        Sorry this page is currently being updaded. Come back soon!
       </Box>
+      {/* <Seo title="Projects" /> */}
+      {/* <Box */}
+      {/*   sx={{ */}
+      {/*     margin: "0 auto", */}
+      {/*     width: ["90%", "80%", "70%"], */}
+      {/*     mt: "60px", */}
+      {/*     my: 5, */}
+      {/*   }} */}
+      {/* > */}
+      {/*   <Box sx={{ mt: 6, mb: [3, 4] }} textAlign="center"> */}
+      {/*     <Box as="section"> */}
+      {/*       <Heading as="h1" variant="hero"> */}
+      {/*         Projects */}
+      {/*       </Heading> */}
+      {/*       <Paragraph variant="large"> */}
+      {/*         Discover a selection of my latest projects. If you're interested */}
+      {/*         in collaboration or want to learn more, feel free to{" "} */}
+      {/*         <Link href="/contact">contact me</Link>. Plus, take a moment to */}
+      {/*         vote for your favorite project and you might win a prize! */}
+      {/*       </Paragraph> */}
+      {/*       <Heading as="h2" variant="subheading1" sx={{ mt: 4 }}> */}
+      {/*         Participate in Web3 Voting */}
+      {/*       </Heading> */}
+      {/*       <Paragraph variant="regular" sx={{ mt: 3 }}> */}
+      {/*         Embracing the new era of Web3, I've integrated a decentralized */}
+      {/*         voting system for my projects. You can help highlight the most */}
+      {/*         popular projects using the power of Ethereum. Your vote will be */}
+      {/*         securely recorded on the Ethereum blockchain. A random winner will */}
+      {/*         be chosen, using{" "} */}
+      {/*         <dfn> */}
+      {/*           <Link href="https://chain.link/vrf" target="_blank"> */}
+      {/*             Chainlink's VRF random number generator */}
+      {/*           </Link> */}
+      {/*         </dfn> */}
+      {/*         , every time the prize pool reaches the threshold. */}
+      {/*       </Paragraph>{" "} */}
+      {/*     </Box> */}
+      {/*     <WalletBanner */}
+      {/*       walletAddress={walletContext?.walletAddress} */}
+      {/*       project={getProject()} */}
+      {/*       isWalletConnected={walletContext?.isWalletConnected} */}
+      {/*       hasVoted={hasVoted} */}
+      {/*       threshold={threshold} */}
+      {/*       onConnectClick={walletContext?.connectWallet} */}
+      {/*     ></WalletBanner> */}
+      {/*     <ProgressGauge */}
+      {/*       currentProgress={balance} */}
+      {/*       maxProgress={threshold} */}
+      {/*     ></ProgressGauge> */}
+      {/*     {/\** <JudgementGrid projects={projects}></JudgementGrid>  *\/} */}
+      {/*     {voters?.length > 0 && ( */}
+      {/*       <VoterList winners={winners} voters={voters}></VoterList> */}
+      {/*     )} */}
+      {/*     {!hasVoted && walletContext?.walletAddress && ( */}
+      {/*       <ContributionForm */}
+      {/*         onContributionInput={(value) => setContribution(value)} */}
+      {/*         onNameInput={(value) => setName(value)} */}
+      {/*       ></ContributionForm> */}
+      {/*     )} */}
+      {/*   </Box> */}
+      {/*   <Box */}
+      {/*     as="section" */}
+      {/*     sx={{ */}
+      {/*       mb: 3, */}
+      {/*     }} */}
+      {/*   > */}
+      {/*     {projects.length > 0 ? ( */}
+      {/*       projects.map((project, index) => { */}
+      {/*         return ( */}
+      {/*           <Box id={"id" + project.id} key={project.id} mb={3}> */}
+      {/*             <ProjectCard */}
+      {/*               id={project.id} */}
+      {/*               image={project.image1} */}
+      {/*               title={project.title} */}
+      {/*               siteLink={project.link} */}
+      {/*               key={index} */}
+      {/*               buttonText={"View"} */}
+      {/*               vote={voteForProject} */}
+      {/*               hasVoted={hasVoted} */}
+      {/*               voteCount={project.votes} */}
+      {/*               isVote={addressVote === project.id} */}
+      {/*             /> */}
+      {/*           </Box> */}
+      {/*         ); */}
+      {/*       }) */}
+      {/*     ) : ( */}
+      {/*       <Box */}
+      {/*         sx={{ */}
+      {/*           display: "flex", */}
+      {/*           justifyContent: "center", */}
+      {/*           alignItems: "center", */}
+      {/*         }} */}
+      {/*       > */}
+      {/*         <Spinner /> */}
+      {/*       </Box> */}
+      {/*     )} */}
+      {/*   </Box> */}
+      {/* </Box> */}
     </Box>
   );
 };
