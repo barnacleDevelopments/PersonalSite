@@ -150,14 +150,17 @@ const IndexPage = ({ data }) => {
                   Hey there!
                 </Heading>
                 <Text variant="regular">
-                  My name is Dev. I'm a web developer located in Halifax Nova
-                  Scotia. I specialize in building websites and web applications
-                  for small to medium sized businesses. I work diligently to
-                  ensure that those I work with receive a product they can be
-                  proud of. I'm always looking for new and exciting projects to
-                  work on. If you're interested in working together, feel free
-                  to reach out!
+                  My name is Dev. I'm a web developer located in Montreal. I
+                  specialize in building websites and web applications for small
+                  to medium sized businesses. I work diligently to ensure that
+                  those I work with receive a product they can be proud of. I'm
+                  always looking for new and exciting projects to work on. If
+                  you're interested in working together, feel free to{" "}
+                  <Link href="/contact">reach out</Link>!
                 </Text>
+                <Link href="/projects" sx={{ display: "block", mt: 3 }}>
+                  <Button variant="primary">View Projects</Button>
+                </Link>
               </Box>
             </Box>
           </Grid>
