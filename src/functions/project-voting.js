@@ -138,7 +138,7 @@ export const checkHasVoted = async (walletAddress) => {
     process.env.GATSBY_PROJECT_VOTING_CONTRACT_ADDRESS,
   );
   try {
-    const result = await contract.methods.checkHasVoted().call({
+    const result = await contract.methods.checkHasVotedForCycle().call({
       from: walletAddress,
     });
     return result;
@@ -153,7 +153,7 @@ export const getVoteCount = async (id) => {
     process.env.GATSBY_PROJECT_VOTING_CONTRACT_ADDRESS,
   );
   try {
-    const count = await contract.methods.getVoteCount(id).call();
+    const count = await contract.methods.getCycleVoteCount(id).call();
     return count.toString();
   } catch (error) {
     console.error("Error in getting vote count:", error);
@@ -214,7 +214,7 @@ export const getVote = async (walletAddress) => {
     process.env.GATSBY_PROJECT_VOTING_CONTRACT_ADDRESS,
   );
   try {
-    const result = await contract.methods.getVote().call({
+    const result = await contract.methods.getVoteCycleChoice().call({
       from: walletAddress,
     });
 

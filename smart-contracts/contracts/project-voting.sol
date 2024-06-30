@@ -20,7 +20,7 @@ contract ProjectVoting is VRFConsumerBaseV2{
     string[] public projectIds;
     address private owner;
     uint private threshold = 0.1 ether;
-    uint public currentCycle = 0;
+    uint public currentCycle = 1;
 
     // Chainlink VRF Variables
     VRFCoordinatorV2Interface COORDINATOR;
