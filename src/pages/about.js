@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { Paragraph, jsx } from "theme-ui";
+import { Link, Paragraph, jsx } from "theme-ui";
 
 // COMPONENTS
 import { Box, Heading } from "theme-ui";
@@ -46,13 +46,20 @@ const ServicesPage = () => {
           />
         </Box>
         <Paragraph variant="regular">
-          I'm a full stack web developer with a passion for helping businesses
-          build awesome solutions by using the latest web technologies. I like
-          to focus on building simple solutions using the minimal tech stack
-          required. My interests currently are in Blockchain technologies and a
-          new front-end library called <a href="https://htmx.org/">HTMX</a>.{" "}
-          Outside of the office, I'm an avid boulderer who currently lives in
-          the beautiful city of Montreal.
+          The thing that separates the software field from others is the
+          incredible people I have met and the amazing teams they have built.
+          Our field encompasses many disciplines, and it is inspiring how we can
+          successfully collaborate to achieve extraordinary outcomes. I have a
+          passion for helping businesses realize their software solutions using
+          the latest web technologies. The challenge of technology and its
+          potential to enable new possibilities draws me into this
+          ever-expanding field. Whether building a solution, gaining deep
+          knowledge on a subject, or increasing my proficiency, I am constantly
+          learning. Outside of the office, I am an avid boulderer (a type of
+          climbing) who currently lives in the beautiful city of Montreal. I
+          love talking to new people about technology and learning about their
+          projects. Please <Link href="/contact">reach out</Link>; I'm always up
+          for a chat!
         </Paragraph>
       </Box>
     </Box>
