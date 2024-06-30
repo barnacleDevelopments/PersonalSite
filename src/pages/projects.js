@@ -179,14 +179,6 @@ const ProjectsPage = ({ data }) => {
 
   return (
     <Box>
-      <Box sx={{
-        margin: "0 auto",
-        width: ["90%", "80%", "70%"],
-        mt: "60px",
-        my: 5
-      }}>
-        Sorry this page is currently being updaded. Come back soon!
-      </Box>
       <Seo title="Projects" />
       <Box
         sx={{
