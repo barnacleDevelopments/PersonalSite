@@ -7,18 +7,20 @@ import "@chainlink/contracts/src/v0.8/interfaces/VRFCoordinatorV2Interface.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
 contract ProjectVoting is VRFConsumerBaseV2{
-    
-    // Voting Variables 
-    mapping(string => uint) public projectVotes;
-    mapping(address => bool) public hasVoted;
-    mapping(string => string) public projects;
-    mapping(address => string) public addressVotes;
+    // Voting mappings
+    mapping(uint => mapping(string => uint)) public cycleProjectVotes;
+    mapping(uint => mapping(address => uint)) public cycleAddressVotes;
+    mapping(uint => mapping(address => bool)) public hasVoted;
+    mapping(uint => mapping(address => string)) public addressCycleChoice;
+    mapping(uint => address[]) public cycleVoters;
     mapping(address => string) public addressNames;
     mapping(address => string[]) public addressActions;
+    mapping(string => string) public projects;
+
     string[] public projectIds;
     address private owner;
-    address[] private voters;
     uint private threshold = 0.1 ether;
+    uint public currentCycle = 1;
 
     // Chainlink VRF Variables
     VRFCoordinatorV2Interface COORDINATOR;
@@ -68,12 +70,12 @@ contract ProjectVoting is VRFConsumerBaseV2{
     function vote(string memory projectId, string memory voterName) payable public {
         require(msg.value >= 0.001 ether, "Minimum 0.001 ether");
         require(msg.value <= 0.05 ether, "Maximum 0.05 ether");
-        require(!hasVoted[msg.sender], "Already voted");
+        require(!hasVoted[currentCycle][msg.sender], "Already voted");
         require(bytes(projects[projectId]).length > 0, "Project does not exist"); 
-        addressVotes[msg.sender] = projectId;
-        projectVotes[projectId]++;
-        hasVoted[msg.sender] = true;
-        voters.push(msg.sender);
+        addressCycleChoice[currentCycle][msg.sender] = projectId;
+        cycleProjectVotes[currentCycle][projectId]++;
+        hasVoted[currentCycle][msg.sender] = true;
+        cycleVoters[currentCycle].push(msg.sender);
         checkAndTransfer();  
         emit Voted(msg.sender, voterName, projectId);
     }
@@ -82,20 +84,20 @@ contract ProjectVoting is VRFConsumerBaseV2{
         return msg.value;
     }
 
-    function getVoteCount(string memory projectId) public view returns (uint) {
-        return projectVotes[projectId];
+    function getCycleVoteCount(string memory projectId) public view returns (uint) {
+        return cycleProjectVotes[currentCycle][projectId];
     }
 
     function getAll() public view returns (string[] memory) {
         return projectIds;
     }
 
-    function checkHasVoted() public view returns (bool) {
-        return hasVoted[msg.sender];
+    function checkHasVotedForCycle() public view returns (bool) {
+        return hasVoted[currentCycle][msg.sender];
     }
 
-    function getVote() public view returns (string memory) {
-        return addressVotes[msg.sender]; 
+    function getVoteCycleChoice() public view returns (string memory) {
+        return addressCycleChoice[currentCycle][msg.sender];
     }
 
     function getBalance() public view returns (uint256) {
@@ -117,7 +119,7 @@ contract ProjectVoting is VRFConsumerBaseV2{
 
     function checkAndTransfer() internal {
         if (address(this).balance >= threshold) {
-            require(voters.length > 0, "No voters to reward");
+            require(cycleVoters[currentCycle].length > 0, "No voters to reward");
             uint256 requestId = COORDINATOR.requestRandomWords(
                 keyHash,
                 subscriptionId,
@@ -132,11 +134,12 @@ contract ProjectVoting is VRFConsumerBaseV2{
     function fulfillRandomWords(uint256 /* requestId */, uint256[] memory randomWords) internal override {
         uint256 randomResult = randomWords[0];
         emit RandomNumberReceived(randomWords[0]);
-        uint randomIndex = randomResult % voters.length;
-        address payable luckyVoter = payable(voters[randomIndex]);
+        uint randomIndex = randomResult % cycleVoters[currentCycle].length;
+        address payable luckyVoter = payable(cycleVoters[currentCycle][randomIndex]);
         uint256 amountToSend = address(this).balance;
         emit WinnerAnnounced(luckyVoter, amountToSend);
         luckyVoter.transfer(amountToSend);
+        currentCycle++;
     }
 
     function addActions(string[] memory actionCIDs) public {

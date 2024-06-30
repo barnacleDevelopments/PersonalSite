@@ -57,9 +57,9 @@ const ServicesPage = () => {
           knowledge on a subject, or increasing my proficiency, I am constantly
           learning. If you couldn't tell, I like to climb just about anything I
           can get my hands on. Naturally, if you don't see me at the office, I'm
-          probably at the local bouldering gym. I love talking to new people
-          about technology and learning about their projects. Please{" "}
-          <Link href="/contact">reach out</Link>; I'm always up for a chat!
+          probably at the local bouldering gym. Hearing people talk about their
+          passions fires me up. Please <Link href="/contact">reach out</Link>;
+          I'm always up for a chat!
         </Paragraph>
       </Box>
     </Box>
