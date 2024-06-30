@@ -40,8 +40,8 @@ const ServicesPage = () => {
           }}
         >
           <StaticImage
-            style={{ height: "300px" }}
-            src="../images/devin_climbing.jpg"
+            style={{ height: "500px" }}
+            src="../images/dev-on-tree.jpeg"
             alt="dev portrait"
           />
         </Box>
@@ -49,17 +49,17 @@ const ServicesPage = () => {
           The thing that separates the software field from others is the
           incredible people I have met and the amazing teams they have built.
           Our field encompasses many disciplines, and it is inspiring how we can
-          successfully collaborate to achieve extraordinary outcomes. I have a
+          successfully co-operate to achieve extraordinary outcomes. I have a
           passion for helping businesses realize their software solutions using
           the latest web technologies. The challenge of technology and its
           potential to enable new possibilities draws me into this
           ever-expanding field. Whether building a solution, gaining deep
           knowledge on a subject, or increasing my proficiency, I am constantly
-          learning. Outside of the office, I am an avid boulderer (a type of
-          climbing) who currently lives in the beautiful city of Montreal. I
-          love talking to new people about technology and learning about their
-          projects. Please <Link href="/contact">reach out</Link>; I'm always up
-          for a chat!
+          learning. If you couldn't tell, I like to climb just about anything I
+          can get my hands on. Naturally, if you don't see me at the office, I'm
+          probably at the local bouldering gym. I love talking to new people
+          about technology and learning about their projects. Please{" "}
+          <Link href="/contact">reach out</Link>; I'm always up for a chat!
         </Paragraph>
       </Box>
     </Box>
