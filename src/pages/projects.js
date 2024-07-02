@@ -228,7 +228,7 @@ const ProjectsPage = ({ data }) => {
             currentProgress={balance}
             maxProgress={threshold}
           ></ProgressGauge>
-          {/** <JudgementGrid projects={projects}></JudgementGrid>  */}
+          {/* <JudgementGrid projects={projects}></JudgementGrid> */}
           {voters?.length > 0 && (
             <VoterList winners={winners} voters={voters}></VoterList>
           )}

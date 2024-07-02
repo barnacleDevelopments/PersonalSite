@@ -64,7 +64,7 @@ export const JudgementGrid = ({
           }}
         >
           {`${judgments[x - 1]}`}
-        </Box>
+        </Box>,
       );
     }
     return headings;
@@ -87,28 +87,28 @@ export const JudgementGrid = ({
           }}
         >
           {`${projects[y - 1].title}`}
-        </Box>
+        </Box>,
       );
     }
     return headings;
   };
 
   return (
-    <Box as="section">
+    <Box
+      as="section"
+      sx={{
+        backgroundColor: "primary",
+        mt: [3],
+        color: "white",
+        p: [4, 5],
+        py: [4, 5],
+        borderRadius: "10px",
+      }}
+    >
       <Text variant="regular" color="white" mb={3}>
         Please take the chance to view, read and comment on each of the
-        projects. Each action will prompt a signature from you to confirm you
-        completed it. These signatures will be stored on the{" "}
-        <Link
-          href="https://docs.ipfs.tech/concepts/what-is-ipfs/"
-          target="_blanc"
-        >
-          Interplanetary File System (IPFS)
-        </Link>
-        . They will be later referenced by the{" "}
-        <Link href="">Project Voting</Link> smart contract to increase your
-        winning probability. Each action will increase your chance of winning by
-        0.5%.
+        projects. Doing so will increase your winning probability. Each action
+        will increase your chance of winning by 0.5%.
       </Text>
       <Box
         sx={{

@@ -10,13 +10,13 @@ module.exports = async function (callback) {
 
     // Example of calling a contract function
     await myContractInstance.add(
-      "Resson's Marketing Website",
-      "5e95c5f3-51b5-4d7b-8b4c-39f01dc12598"
+     "Resson's Marketing Website",
+     "5e95c5f3-51b5-4d7b-8b4c-39f01dc12598"
     );
 
     await myContractInstance.add(
       "NovaJohnstone&Co",
-      "98198c87-45e8-4651-8393-0f6893ck6ab5e"
+     "98198c87-45e8-4651-8393-0f6893ck6ab5e"
     );
 
     await myContractInstance.add(
