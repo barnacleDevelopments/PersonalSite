@@ -4,6 +4,7 @@ thumbnail: /assets/photo-1521192520982-5d6ca468a30f.jpg
 date: 2024-06-08T00:00:00.000Z
 keywords: inventory management, race conditions, azure event grid, azure service bus, azure functions, troubleshooting
 draft: true
+category: programming
 ---
 
 I recently have been troubleshooting a bug with an inventory management system, designed using a few different Azure services, and wanted to share my experience. It's primary function is to manage raw and packaging material quantities. Raw materials being bio material and packaging is self explanatory. The system also performs a few different other actions like calculating average costs etc but that is beyond the scope of this article.

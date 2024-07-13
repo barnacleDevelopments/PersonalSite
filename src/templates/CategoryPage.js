@@ -4,7 +4,7 @@ import { graphql } from "gatsby";
 
 // Components
 import PostCard from "../components/blog/PostCard";
-import { Box, Text, Grid, Link, Button } from "theme-ui";
+import { Heading, Box, Text, Grid, Link, Button } from "theme-ui";
 import Seo from "../components/app/Seo";
 
 const CategoryPage = ({ data }) => {
@@ -12,7 +12,7 @@ const CategoryPage = ({ data }) => {
   const postCategory = pageData[0]?.node.frontmatter.category;
   return (
     <Box>
-      <Seo title="Blog" />
+      <Seo title="{{postCategory.toUpperCase()}}Blog" />
       <Box
         sx={{
           margin: "0 auto",
@@ -21,14 +21,9 @@ const CategoryPage = ({ data }) => {
         }}
       >
         <Box sx={{ mt: 6, mb: 5 }} textAlign="center">
-          <h1
-            sx={{
-              mb: 3,
-              color: "primary",
-            }}
-          >
-            {postCategory}
-          </h1>
+          <Heading as="h1" variant="hero">
+            {postCategory.toUpperCase()} Posts
+          </Heading>
           <Text variant="large" sx={{ textAlign: "center" }}></Text>
         </Box>
         <Grid
@@ -64,30 +59,28 @@ const CategoryPage = ({ data }) => {
 export default CategoryPage;
 
 export const pageQuery = graphql`
-  query PostsByCategoryQuery($categoryRegex: String!) {
-    allMarkdownRemark(
-      filter: {
-        fileAbsolutePath: { regex: $categoryRegex }
-        frontmatter: { draft: { eq: false } }
-      }
-    ) {
-      edges {
-        node {
-          fields {
-            slug
-          }
-          frontmatter {
-            title
-            date
-            thumbnail {
-              childImageSharp {
-                gatsbyImageData
-              }
+  query PostsByCategoryQuery($category: String!) {
+  allMarkdownRemark(
+    filter: {frontmatter: {draft: {eq: false}, category: {eq: $category}}}
+  ) {
+    edges {
+      node {
+        fields {
+          slug
+        }
+        frontmatter {
+          title
+          date
+          category
+          thumbnail {
+            childImageSharp {
+              gatsbyImageData
             }
           }
-          html
         }
+        html
       }
     }
   }
+}
 `;

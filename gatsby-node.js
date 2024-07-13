@@ -34,13 +34,13 @@ exports.createPages = async ({ actions, graphql }) => {
       path: `/blog/${category}`,
       component: path.resolve(`src/templates/CategoryPage.js`),
       context: {
-        categoryRegex: `//blog/${category}//`,
+        category: category,
       },
     });
   }
 
-  genCategoryPage("programming_blog");
-  genCategoryPage("misc_blog");
+  genCategoryPage("programming");
+  genCategoryPage("misc");
 
   const projectsResult = graphql(`
     query ProjectsQuery {
