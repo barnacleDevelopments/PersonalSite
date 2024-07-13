@@ -5,6 +5,7 @@ date: 2021-12-19T13:01:07.829Z
 keywords: learning, programming, gatsby, technology, career in programming,
   reading documentation
 draft: false
+category: programming
 ---
 
 When I first started my career in programming, I did not realize the

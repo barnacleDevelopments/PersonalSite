@@ -36,19 +36,21 @@ const BlogPage = () => {
           columns={[1, 2]}
         >
           <PostCategoryCard
-            title="Programmming"
+            title="Programming"
             content="A series of technical posts for web developers."
-            link="/blog/programming_blog"
+            link="/blog/programming"
           />
           <PostCategoryCard
             title="Miscellaneous"
             content="All other topics that are not specific to development."
-            link="/blog/misc_blog"
+            link="/blog/misc"
           />
         </Grid>
       </Box>
     </Box>
   );
 };
+
+
 
 export default BlogPage;

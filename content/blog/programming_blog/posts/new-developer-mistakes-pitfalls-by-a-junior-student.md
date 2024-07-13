@@ -5,6 +5,7 @@ date: 2019-09-18T15:53:57.216Z
 keywords: learn to code, how to code, learning pitfalls, learning to program,
   full stack developer
 draft: false
+category: programming
 ---
 
 I just picked up learning web development about two months ago. It’s been a
