@@ -150,6 +150,14 @@ module.exports = {
       },
     },
   },
+  cards: {
+    project: {
+      bg: "primary",
+      color: "white",
+      padding: 3,
+      borderRadius: 3,
+    },
+  },
   buttons: {
     primary: {
       fontFamily: "body",

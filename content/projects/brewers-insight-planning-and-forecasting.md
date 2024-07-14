@@ -28,5 +28,6 @@ liveLink: ""
 githubLink: ""
 date: 2024-01-01T12:13:10.205Z
 completeTime: 400
+status: complete
 keywords: BrewersInsight, Brewer's Insight, Planner and Forecasting, Planner, Forecasting
 ---

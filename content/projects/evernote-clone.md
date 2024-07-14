@@ -33,5 +33,6 @@ liveLink: ""
 githubLink: "https://github.com/barnacleDevelopments/EvernoteClone"
 date: 2021-12-13T20:10:21.522Z
 completeTime: 20
+status: complete
 keywords: evernote, clone, project, demo, portfolio piece
 ---
