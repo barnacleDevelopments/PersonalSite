@@ -177,20 +177,26 @@ const IndexPage = ({ data }) => {
                   <Heading>{project.title}</Heading>
                   <div
                     sx={{
-                      fontSize: 10,
                       fontWeight: 800,
                       textHeight: "font-size",
                       borderRadius: 3,
                       padding: 2,
-                      backgroundColor:
-                        project.status === "complete" ? "green" : "yellow",
                     }}
                   >
                     {project.status.toUpperCase()}
                   </div>
                 </Flex>
                 <Link href={project.slug}>
-                  <Button sx={{ mt: 3 }} variant="secondary">
+                  <Button
+                    title={
+                      project.status !== "complete"
+                        ? "Check back later to view this project."
+                        : "View more about this project."
+                    }
+                    disabled={project.status !== "complete"}
+                    sx={{ mt: 3 }}
+                    variant="secondary"
+                  >
                     View
                   </Button>
                 </Link>
@@ -199,7 +205,9 @@ const IndexPage = ({ data }) => {
           })}
 
           <Link href="/projects" sx={{ display: "block", mt: 3 }}>
-            <Button variant="primary">View More Projects</Button>
+            <Button title="View a list of all my projects." variant="primary">
+              View More Projects
+            </Button>
           </Link>
         </Box>
         <Box

@@ -39,8 +39,21 @@ exports.createPages = async ({ actions, graphql }) => {
     });
   }
 
-  genCategoryPage("programming");
-  genCategoryPage("misc");
+  const categoryResult = graphql(`
+    query ProjectsPageQuery {
+      allMarkdownRemark(filter: { frontmatter: { draft: { eq: false } } }) {
+        distinct(field: { frontmatter: { category: SELECT } })
+      }
+    }
+  `).then((result) => {
+    if (result.errors) {
+      Promise.reject(result.errors);
+    }
+
+    result.data.allMarkdownRemark.distinct.forEach((category) => {
+      genCategoryPage(category);
+    });
+  });
 
   const projectsResult = graphql(`
     query ProjectsQuery {
@@ -74,7 +87,9 @@ exports.createPages = async ({ actions, graphql }) => {
 
     result.data.allMarkdownRemark.edges.forEach(({ node }) => {
       const project = node.frontmatter;
-      genProjectPage(node, project);
+      if (project.status === "complete") {
+        genProjectPage(node, project);
+      }
     });
   });
 
