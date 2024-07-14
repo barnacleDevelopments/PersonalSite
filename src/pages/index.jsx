@@ -3,9 +3,8 @@ import { jsx } from "theme-ui";
 import { graphql } from "gatsby";
 
 // Components
-import ReviewCard from "../components/cards/ReviewCard";
 import { StaticImage } from "gatsby-plugin-image";
-import { Text, Button, Flex, Box, Grid, Link, Heading } from "theme-ui";
+import { Card, Text, Button, Flex, Box, Grid, Link, Heading } from "theme-ui";
 import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
 import {
   faBrain,
@@ -22,11 +21,16 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import Seo from "../components/app/Seo";
 import Loader from "../components/Loader";
-import { faGit, faProductHunt } from "@fortawesome/free-brands-svg-icons";
+import { faGit } from "@fortawesome/free-brands-svg-icons";
 
 const IndexPage = ({ data }) => {
   const landingPageData = data.markdownRemark.frontmatter;
-
+  const projects = data.allMarkdownRemark.edges.map(({ node }) => ({
+    ...node.frontmatter,
+    ...node.fields,
+  }));
+  console.log(data);
+  console.log(projects);
   return (
     <Box>
       <Seo />
@@ -158,12 +162,44 @@ const IndexPage = ({ data }) => {
                   you're interested in working together, feel free to{" "}
                   <Link href="/contact">reach out</Link>!
                 </Text>
-                <Link href="/projects" sx={{ display: "block", mt: 3 }}>
-                  <Button variant="primary">View Projects</Button>
-                </Link>
               </Box>
             </Box>
           </Grid>
+        </Box>
+        <Box sx={{ mb: 3 }}>
+          <Heading as="h3" variant="subheading1">
+            Latest Projects
+          </Heading>
+          {projects.map((project) => {
+            return (
+              <Card variant="project" sx={{ mb: 3 }}>
+                <Flex sx={{ alignItems: "center" }}>
+                  <div
+                    sx={{
+                      borderRadius: "50%",
+                      width: "10px",
+                      height: "10px",
+                      backgroundColor:
+                        project.status === "complete" ? "green" : "yellow",
+                      mr: 2,
+                    }}
+                  ></div>
+                  <Heading>
+                    <strong>Complete</strong> - {project.title}
+                  </Heading>
+                </Flex>
+                <Link href={project.slug}>
+                  <Button sx={{ mt: 3 }} variant="secondary">
+                    View
+                  </Button>
+                </Link>
+              </Card>
+            );
+          })}
+
+          <Link href="/projects" sx={{ display: "block", mt: 3 }}>
+            <Button variant="primary">View More Projects</Button>
+          </Link>
         </Box>
         <Box
           as="article"
@@ -325,21 +361,26 @@ export const landingPageQuery = graphql`
   query LandingPageQuery {
     markdownRemark(fileAbsolutePath: { regex: "/landing.md/" }) {
       frontmatter {
-        socials {
-          content
-        }
-        latestProject {
-          comment
-          projectName
-          projectLink
-          projectthumbnail {
-            childImageSharp {
-              gatsbyImageData
-            }
-          }
-        }
         indexContent
         indexHeader
+      }
+    }
+    allMarkdownRemark(
+      filter: { fileAbsolutePath: { regex: "//projects//" } }
+      sort: { frontmatter: { date: DESC } }
+      limit: 3
+    ) {
+      edges {
+        node {
+          fields {
+            slug
+          }
+          frontmatter {
+            title
+            date
+            status
+          }
+        }
       }
     }
   }

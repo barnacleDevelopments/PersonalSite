@@ -46,5 +46,6 @@ technologies:
 githubLink: https://github.com/barnacleDevelopments/MyBoards
 date: 2022-01-01T14:54:06.484Z
 completeTime: 400
+status: complete
 keywords: hangboards, app
 ---

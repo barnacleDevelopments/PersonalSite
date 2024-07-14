@@ -23,5 +23,6 @@ liveLink: ""
 githubLink: ""
 date: 2022-12-29T20:58:39.301Z
 completeTime: 200
+status: complete
 keywords: Resson, Gatsby
 ---
