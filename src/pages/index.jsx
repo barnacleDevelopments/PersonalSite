@@ -173,20 +173,21 @@ const IndexPage = ({ data }) => {
           {projects.map((project) => {
             return (
               <Card variant="project" sx={{ mb: 3 }}>
-                <Flex sx={{ alignItems: "center" }}>
+                <Flex sx={{ justifyContent: "space-between", width: "100%" }}>
+                  <Heading>{project.title}</Heading>
                   <div
                     sx={{
-                      borderRadius: "50%",
-                      width: "10px",
-                      height: "10px",
+                      fontSize: 10,
+                      fontWeight: 800,
+                      textHeight: "font-size",
+                      borderRadius: 3,
+                      padding: 2,
                       backgroundColor:
                         project.status === "complete" ? "green" : "yellow",
-                      mr: 2,
                     }}
-                  ></div>
-                  <Heading>
-                    <strong>Complete</strong> - {project.title}
-                  </Heading>
+                  >
+                    {project.status.toUpperCase()}
+                  </div>
                 </Flex>
                 <Link href={project.slug}>
                   <Button sx={{ mt: 3 }} variant="secondary">
