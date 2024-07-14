@@ -4,7 +4,7 @@ thumbnail: /assets/logo_2.png
 date: 2024-07-2T19:31:21.081Z
 keywords: azure, file access, storage account, blob storage, build.sourcedirectory
 draft: false
-category: programming
+category: cloud
 ---
 
 Here is another hair pulling issue I had while working with Azure Pipelines. We have this API project where I have been writing public documentation for. We are using [Rapidoc](https://rapidocweb.com/): a quick solution to wip up API documentation that follows the OpenAPI specification. To use it you simply create a html document and plug in the CDN and a html code snnipet and you are off to the races. The documentation is for a Azure function app I have been building. What I wanted is to be able to write the YAML spec and the HTML template within the same repositiory as the function app and when it get's deployed through azure, I can automatically upload the html to a [blob storage account](https://azure.microsoft.com/en-us/products/storage/blobs) to serve it. As you may have guessed I ran into a snag...

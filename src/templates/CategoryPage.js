@@ -12,7 +12,7 @@ const CategoryPage = ({ data }) => {
   const postCategory = pageData[0]?.node.frontmatter.category;
   return (
     <Box>
-      <Seo title="{{postCategory.toUpperCase()}}Blog" />
+      <Seo title={postCategory} />
       <Box
         sx={{
           margin: "0 auto",
@@ -22,7 +22,13 @@ const CategoryPage = ({ data }) => {
       >
         <Box sx={{ mt: 6, mb: 5 }} textAlign="center">
           <Heading as="h1" variant="hero">
-            {postCategory.toUpperCase()} Posts
+            {postCategory
+              .split("-")
+              .map(
+                (w) =>
+                  w.charAt(0).toUpperCase() + w.slice(1).toLowerCase() + " ",
+              )}
+            Posts
           </Heading>
           <Text variant="large" sx={{ textAlign: "center" }}></Text>
         </Box>
@@ -60,27 +66,29 @@ export default CategoryPage;
 
 export const pageQuery = graphql`
   query PostsByCategoryQuery($category: String!) {
-  allMarkdownRemark(
-    filter: {frontmatter: {draft: {eq: false}, category: {eq: $category}}}
-  ) {
-    edges {
-      node {
-        fields {
-          slug
-        }
-        frontmatter {
-          title
-          date
-          category
-          thumbnail {
-            childImageSharp {
-              gatsbyImageData
+    allMarkdownRemark(
+      filter: {
+        frontmatter: { draft: { eq: false }, category: { eq: $category } }
+      }
+    ) {
+      edges {
+        node {
+          fields {
+            slug
+          }
+          frontmatter {
+            title
+            date
+            category
+            thumbnail {
+              childImageSharp {
+                gatsbyImageData
+              }
             }
           }
+          html
         }
-        html
       }
     }
   }
-}
 `;
