@@ -40,6 +40,5 @@ githubLink: ""
 date: 2023-07-30T12:13:10.205Z
 completeTime: 400
 status: complete
-keywords: BrewersInsight, Brewer's Insight, Finished Goods, Packaging BOM, BOM,
-  Bill of Materials
+keywords: BrewersInsight, Brewer's Insight, Finished Goods, Packaging BOM, BOM, Bill of Materials
 ---
