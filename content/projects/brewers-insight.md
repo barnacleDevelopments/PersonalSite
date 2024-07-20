@@ -37,7 +37,8 @@ technologies:
     image: "/assets/tech_logos/dot-net.png"
 liveLink: ""
 githubLink: ""
-date: 2023-07-30T12:13:10.205Z
+startDate: 2023-07-30T12:13:10.205Z
+endDate: 2023-07-30T12:13:10.205Z
 completeTime: 400
 status: complete
 keywords: BrewersInsight, Brewer's Insight, Finished Goods, Packaging BOM, BOM, Bill of Materials

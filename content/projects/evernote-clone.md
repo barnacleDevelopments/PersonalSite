@@ -31,7 +31,8 @@ technologies:
     image: "/assets/tech_logos/sqlite.svg"
 liveLink: ""
 githubLink: "https://github.com/barnacleDevelopments/EvernoteClone"
-date: 2021-12-13T20:10:21.522Z
+startDate: 2021-12-13T20:10:21.522Z
+endDate: 2021-12-13T20:10:21.522Z
 completeTime: 20
 status: complete
 keywords: evernote, clone, project, demo, portfolio piece

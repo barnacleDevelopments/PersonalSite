@@ -50,6 +50,7 @@
     "gatsby-transformer-remark": "^6.13.1",
     "gatsby-transformer-sharp": "^5.13.1",
     "helia": "^4.0.1",
+    "luxon": "^3.4.4",
     "moment": "^2.30.1",
     "mongoose": "^8.1.1",
     "multiformats": "^13.1.0",
