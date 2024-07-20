@@ -36,7 +36,7 @@ function ProjectPage({ data }) {
             fontSize: 3,
           }}
         >
-          {moment(node.frontmatter.date).format("MMM Do, YYYY")}
+          {moment(node.frontmatter.startDate).format("MMM Do, YYYY")}
         </Text>
         <Text
           sx={{
@@ -228,7 +228,8 @@ export const pageQuery = graphql`
       frontmatter {
         id
         title
-        date
+        startDate
+        endDate
         completeTime
         description
         tech
