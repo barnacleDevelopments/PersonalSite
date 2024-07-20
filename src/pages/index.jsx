@@ -22,6 +22,7 @@ import {
 import Seo from "../components/app/Seo";
 import Loader from "../components/Loader";
 import { faGit } from "@fortawesome/free-brands-svg-icons";
+import { DateTime } from "luxon";
 
 const IndexPage = ({ data }) => {
   const landingPageData = data.markdownRemark.frontmatter;
@@ -171,10 +172,18 @@ const IndexPage = ({ data }) => {
             Latest Projects
           </Heading>
           {projects.map((project) => {
+            console.log(project.startDate);
+            const formatedDate = DateTime.fromISO(project.startDate).toFormat(
+              "MM-dd-yyyy",
+            );
+
             return (
               <Card variant="project" sx={{ mb: 3 }}>
                 <Flex sx={{ justifyContent: "space-between", width: "100%" }}>
-                  <Heading>{project.title}</Heading>
+                  <Box>
+                    <Heading>{project.title}</Heading>
+                    <Text>{formatedDate}</Text>
+                  </Box>
                   <div
                     sx={{
                       fontWeight: 800,
@@ -376,7 +385,7 @@ export const landingPageQuery = graphql`
     }
     allMarkdownRemark(
       filter: { fileAbsolutePath: { regex: "//projects//" } }
-      sort: { frontmatter: { date: DESC } }
+      sort: { frontmatter: { endDate: DESC } }
       limit: 3
     ) {
       edges {
@@ -386,7 +395,8 @@ export const landingPageQuery = graphql`
           }
           frontmatter {
             title
-            date
+            startDate
+            endDate
             status
           }
         }

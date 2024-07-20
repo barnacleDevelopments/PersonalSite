@@ -19,7 +19,8 @@ technologies:
     image: "/assets/tech_logos/netlify.svg"
 liveLink: ""
 githubLink: "https://github.com/barnacleDevelopments/NovaJohnstoneAndCo"
-date: 2021-12-13T20:10:36.919Z
+startDate: 2021-12-13T20:10:36.919Z
+endDate: 2021-12-13T20:10:36.919Z
 completeTime: 20
 status: "complete"
 keywords: nova johnstone, novajohnstone&co, execuative assistant, marketing, NovaJohnstone, graduate of psychology, C-Suite Support, Operations, Project Coordination,Temp Services
