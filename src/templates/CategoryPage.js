@@ -20,7 +20,7 @@ const CategoryPage = ({ data }) => {
           my: 6,
         }}
       >
-        <Box sx={{ mt: 6, mb: 5 }} textAlign="center">
+        <Box sx={{ mt: 6, mb: 5 }}>
           <Heading as="h1" variant="hero">
             {postCategory
               .split("-")

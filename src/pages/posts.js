@@ -19,11 +19,11 @@ const ProgrammingPostsPage = ({ data }) => {
           my: 6,
         }}
       >
-        <Box sx={{ mt: 6, mb: 5 }} textAlign="center">
+        <Box sx={{ mt: 6, mb: 5 }}>
           <Heading as="h1" variant="hero">
             Blog Posts
           </Heading>
-          <Text variant="large" sx={{ textAlign: "center" }}>
+          <Text variant="large">
             Looking to learn more about web development? Here I post content
             about various web related topics.
           </Text>
