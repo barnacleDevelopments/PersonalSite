@@ -142,7 +142,7 @@ const Navbar = () => {
             <Link sx={{ width: "60px" }} href="/">
               <Box className="nav-triangle"></Box>
               <Box>
-                <StaticImage src="../../images/logo.png" />
+                <StaticImage alt="logo" src="../../images/logo.png" />
               </Box>
               <Box className="nav-triangle"></Box>
             </Link>
@@ -150,7 +150,7 @@ const Navbar = () => {
             <Link sx={{ width: "60px" }} href="/">
               <Box className="nav-triangle"></Box>
               <Box>
-                <StaticImage src="../../images/logo_2.png" />
+                <StaticImage alt="logo" src="../../images/logo_2.png" />
               </Box>
               <Box className="nav-triangle"></Box>
             </Link>
