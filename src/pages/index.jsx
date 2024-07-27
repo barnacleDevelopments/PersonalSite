@@ -30,8 +30,6 @@ const IndexPage = ({ data }) => {
     ...node.frontmatter,
     ...node.fields,
   }));
-  console.log(data);
-  console.log(projects);
   return (
     <Box>
       <Seo />
