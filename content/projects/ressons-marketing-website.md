@@ -21,7 +21,9 @@ technologies:
     image: "/assets/tech_logos/netlify.svg"
 liveLink: ""
 githubLink: ""
-date: 2022-12-29T20:58:39.301Z
+startDate: 2022-12-29T20:58:39.301Z
+endDate: 2022-12-29T20:58:39.301Z
 completeTime: 200
+status: complete
 keywords: Resson, Gatsby
 ---

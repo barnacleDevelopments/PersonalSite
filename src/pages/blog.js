@@ -1,12 +1,13 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui";
-
+import { graphql } from "gatsby";
 // Components
 import { Box, Text, Grid, Heading } from "theme-ui";
 import Seo from "../components/app/Seo";
 import PostCategoryCard from "../components/blog/PostCategoryCard";
 
-const BlogPage = () => {
+const BlogPage = ({ data }) => {
+  const categories = data.allMarkdownRemark.distinct;
   return (
     <Box>
       <Seo title="Blog" />
@@ -17,7 +18,7 @@ const BlogPage = () => {
           my: 6,
         }}
       >
-        <Box sx={{ mt: 6, mb: 5 }} textAlign="center">
+        <Box sx={{ mt: 6, mb: 5 }}>
           <Heading as="h1" variant="hero">
             Blog
           </Heading>
@@ -35,20 +36,27 @@ const BlogPage = () => {
           gap={3}
           columns={[1, 2]}
         >
-          <PostCategoryCard
-            title="Programmming"
-            content="A series of technical posts for web developers."
-            link="/blog/programming_blog"
-          />
-          <PostCategoryCard
-            title="Miscellaneous"
-            content="All other topics that are not specific to development."
-            link="/blog/misc_blog"
-          />
+          {categories.map((category) => (
+            <PostCategoryCard
+              key={category}
+              title={category.split("-").map((w) => {
+                return w.charAt(0).toUpperCase() + w.slice(1) + " ";
+              })}
+              link={category}
+            />
+          ))}
         </Grid>
       </Box>
     </Box>
   );
 };
+
+export const pageQuery = graphql`
+  query ProjectsPageQuery {
+    allMarkdownRemark(filter: { frontmatter: { draft: { eq: false } } }) {
+      distinct(field: { frontmatter: { category: SELECT } })
+    }
+  }
+`;
 
 export default BlogPage;

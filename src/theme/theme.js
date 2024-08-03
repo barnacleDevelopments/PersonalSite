@@ -150,6 +150,14 @@ module.exports = {
       },
     },
   },
+  cards: {
+    project: {
+      bg: "primary",
+      color: "white",
+      padding: 3,
+      borderRadius: 3,
+    },
+  },
   buttons: {
     primary: {
       fontFamily: "body",
@@ -158,6 +166,12 @@ module.exports = {
       cursor: "pointer",
       bg: "orange",
       transition: "all 0.3s ease-in-out",
+      "&:disabled": {
+        color: "gray",
+        cursor: "not-allowed",
+        backgroundColor: "lightgray",
+        boxShadow: "none",
+      },
       "&:hover": {
         backgroundColor: "white",
         color: "orange",
@@ -172,12 +186,14 @@ module.exports = {
       bg: "secondary",
       border: "2px solid transparent",
       transition: "all 0.3s ease-in-out",
-      "&:hover": {
-        color: "white",
-        backgroundColor: "orange",
-        borderColor: "orange",
+      "&:disabled": {
+        color: "gray",
+        cursor: "not-allowed",
+        backgroundColor: "lightgray",
+        boxShadow: "none",
       },
     },
+    disabled: {},
   },
 
   // Define other theme scales such as space, sizes, zIndices, etc., as needed

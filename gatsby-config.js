@@ -13,7 +13,7 @@ module.exports = {
     },
     titleTemplate: "devdeveloper portfolio",
     defaultTitle: "devdeveloper portfolio",
-    description:"my personal porfolio site",
+    description: "my personal porfolio site",
     lang: "en",
     keywords: [
       "webdev",
@@ -73,28 +73,20 @@ module.exports = {
         theme_color: `#30362F`,
         display: `standalone`,
         icon: "src/images/logo.png",
-        description: "personal engineer portfolio for Devin Davis"
+        description: "personal engineer portfolio for Devin Davis",
       },
     },
     {
       resolve: `gatsby-plugin-csp`,
       options: {
-        disableOnDev: true,
-        reportOnly: false, // Changes header to Content-Security-Policy-Report-Only for csp testing purposes
         mergeScriptHashes: false,
         mergeStyleHashes: false,
         directives: {
-          "script-src":
-            "'self' 'unsafe-inline' 'unsafe-eval' google-analytics.com pagead2.googlesyndication.com adservice.google.ca adservice.google.com partner.googleadservices.com tpc.googlesyndication.com",
-          "style-src":
-            "'self' 'unsafe-inline' fonts.googleapis.com fonts.gstatic.com",
-          "font-src": "fonts.gstatic.com",
-          "connect-src":
-            "'self' pagead2.googlesyndication.com https://eth-sepolia.g.alchemy.com",
-          "frame-src":
-            "googleads.g.doubleclick.net www.google.com tpc.googlesyndication.com",
-          "img-src": "'self' data: pagead2.googlesyndication.com",
-          // you can add your directives or override defaults
+          "script-src": `'self' 'unsafe-inline' data: www.google-analytics.com`,
+          "style-src": `'self' 'unsafe-inline' fonts.googleapis.com fonts.gstatic.com`,
+          "img-src": `'self' data: www.google-analytics.com`,
+          "font-src": `'self' data: fonts.gstatic.com`,
+          "connect-src": "'self' https://eth-sepolia.g.alchemy.com",
         },
       },
     },

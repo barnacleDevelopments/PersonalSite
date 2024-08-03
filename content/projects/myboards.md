@@ -44,7 +44,9 @@ technologies:
   - name: "Entity Framework Core"
     image: "/assets/tech_logos/efcore.png"
 githubLink: https://github.com/barnacleDevelopments/MyBoards
-date: 2022-01-01T14:54:06.484Z
+startDate: 2022-01-01T14:54:06.484Z
+endDate: 2022-01-01T14:54:06.484Z
 completeTime: 400
+status: complete
 keywords: hangboards, app
 ---

@@ -16,6 +16,7 @@ const BlogPostPage = ({ data }) => {
   const converter = new showdown.Converter();
 
   useEffect(() => {
+    console.log("");
     Prism.highlightAll();
   }, []);
 
@@ -31,7 +32,7 @@ const BlogPostPage = ({ data }) => {
           width: ["100%"],
           m: "0 auto !important",
           pt: 5,
-          height: "300px",
+          minHeight: "300px",
           flexDirection: "column",
           bg: "primary",
           justifyContent: "center",
@@ -39,6 +40,7 @@ const BlogPostPage = ({ data }) => {
           color: "white",
           textAlign: "center",
           px: 2,
+          pb: 3,
         }}
       >
         <Heading

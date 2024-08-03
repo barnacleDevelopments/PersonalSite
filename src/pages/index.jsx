@@ -3,9 +3,8 @@ import { jsx } from "theme-ui";
 import { graphql } from "gatsby";
 
 // Components
-import ReviewCard from "../components/cards/ReviewCard";
 import { StaticImage } from "gatsby-plugin-image";
-import { Text, Button, Flex, Box, Grid, Link, Heading } from "theme-ui";
+import { Card, Text, Button, Flex, Box, Grid, Link, Heading } from "theme-ui";
 import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
 import {
   faBrain,
@@ -22,11 +21,15 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import Seo from "../components/app/Seo";
 import Loader from "../components/Loader";
-import { faGit, faProductHunt } from "@fortawesome/free-brands-svg-icons";
+import { faGit } from "@fortawesome/free-brands-svg-icons";
+import { DateTime } from "luxon";
 
 const IndexPage = ({ data }) => {
   const landingPageData = data.markdownRemark.frontmatter;
-
+  const projects = data.allMarkdownRemark.edges.map(({ node }) => ({
+    ...node.frontmatter,
+    ...node.fields,
+  }));
   return (
     <Box>
       <Seo />
@@ -131,7 +134,7 @@ const IndexPage = ({ data }) => {
               <StaticImage
                 style={{ height: "300px" }}
                 src="../images/devin_portrait.jpg"
-                alt="dev portrait"
+                alt="devin portrait"
               />
             </Box>
             <Box
@@ -158,12 +161,60 @@ const IndexPage = ({ data }) => {
                   you're interested in working together, feel free to{" "}
                   <Link href="/contact">reach out</Link>!
                 </Text>
-                <Link href="/projects" sx={{ display: "block", mt: 3 }}>
-                  <Button variant="primary">View Projects</Button>
-                </Link>
               </Box>
             </Box>
           </Grid>
+        </Box>
+        <Box sx={{ mb: 3 }}>
+          <Heading as="h3" variant="subheading1">
+            Latest Projects
+          </Heading>
+          {projects.map((project) => {
+            const formatedDate = DateTime.fromISO(project.startDate).toFormat(
+              "MM-dd-yyyy",
+            );
+
+            return (
+              <Card key={project.slug} variant="project" sx={{ mb: 3 }}>
+                <Flex sx={{ justifyContent: "space-between", width: "100%" }}>
+                  <Box>
+                    <Heading>{project.title}</Heading>
+                    <Text>{formatedDate}</Text>
+                  </Box>
+                  <div
+                    sx={{
+                      fontWeight: 800,
+                      textHeight: "font-size",
+                      borderRadius: 3,
+                      padding: 2,
+                    }}
+                  >
+                    {project.status.toUpperCase()}
+                  </div>
+                </Flex>
+                <Link href={project.slug}>
+                  <Button
+                    title={
+                      project.status !== "complete"
+                        ? "Check back later to view this project."
+                        : "View more about this project."
+                    }
+                    disabled={project.status !== "complete"}
+                    sx={{ mt: 3 }}
+                    variant="secondary"
+                  >
+                    View
+                  </Button>
+                </Link>
+              </Card>
+            );
+          })}
+
+          <Link href="/projects" sx={{ display: "block", mt: 3 }}>
+            <Button title="View a list of all my projects." variant="primary">
+              View More Projects
+            </Button>
+          </Link>
         </Box>
         <Box
           as="article"
@@ -176,7 +227,7 @@ const IndexPage = ({ data }) => {
           </Heading>
           <Grid gap={3} columns={[1, null, 2]}>
             <Box sx={styles.skillCard}>
-              <Flex alignItems="center">
+              <Flex>
                 <Icon size="2x" icon={faBrain} />
                 <Text variant="regular" sx={styles.skillText}>
                   Analytical Thinker
@@ -184,7 +235,7 @@ const IndexPage = ({ data }) => {
               </Flex>
             </Box>
             <Box sx={styles.skillCard}>
-              <Flex alignItems="center">
+              <Flex>
                 <Icon size="2x" icon={faPeopleArrows} />
                 <Text variant="regular" sx={styles.skillText}>
                   Client Focused
@@ -192,7 +243,7 @@ const IndexPage = ({ data }) => {
               </Flex>
             </Box>
             <Box sx={styles.skillCard}>
-              <Flex alignItems="center">
+              <Flex>
                 <Icon size="2x" icon={faChartLine} />
                 <Text variant="regular" sx={styles.skillText}>
                   Adaptable
@@ -200,7 +251,7 @@ const IndexPage = ({ data }) => {
               </Flex>
             </Box>
             <Box sx={styles.skillCard}>
-              <Flex alignItems="center">
+              <Flex>
                 <Icon size="2x" icon={faStore} />
                 <Text variant="regular" sx={styles.skillText}>
                   Detail Oriented
@@ -208,7 +259,7 @@ const IndexPage = ({ data }) => {
               </Flex>
             </Box>
             <Box sx={styles.skillCard}>
-              <Flex alignItems="center">
+              <Flex>
                 <Icon size="2x" icon={faLaptopCode} />
                 <Text variant="regular" sx={styles.skillText}>
                   Active Learner
@@ -221,7 +272,7 @@ const IndexPage = ({ data }) => {
           </Heading>
           <Grid gap={3} columns={[1, null, 2]}>
             <Box sx={styles.skillCard}>
-              <Flex alignItems="center">
+              <Flex>
                 <Icon size="2x" icon={faServer} />
                 <Text variant="regular" sx={styles.skillText}>
                   Back-End Development
@@ -229,7 +280,7 @@ const IndexPage = ({ data }) => {
               </Flex>
             </Box>
             <Box sx={styles.skillCard}>
-              <Flex alignItems="center">
+              <Flex>
                 <Icon size="2x" icon={faTabletAlt} />
                 <Text variant="regular" sx={styles.skillText}>
                   Front-End Development
@@ -237,7 +288,7 @@ const IndexPage = ({ data }) => {
               </Flex>
             </Box>
             <Box sx={styles.skillCard}>
-              <Flex alignItems="center">
+              <Flex>
                 <Icon size="2x" icon={faDesktop} />
                 <Text variant="regular" sx={styles.skillText}>
                   Responsive Design
@@ -245,7 +296,7 @@ const IndexPage = ({ data }) => {
               </Flex>
             </Box>
             <Box sx={styles.skillCard}>
-              <Flex alignItems="center">
+              <Flex>
                 <Icon size="2x" icon={faBug} />
                 <Text variant="regular" sx={styles.skillText}>
                   Testing/Debugging
@@ -253,7 +304,7 @@ const IndexPage = ({ data }) => {
               </Flex>
             </Box>
             <Box sx={styles.skillCard}>
-              <Flex alignItems="center">
+              <Flex>
                 <Icon size="2x" icon={faRocket} />
                 <Text variant="regular" sx={styles.skillText}>
                   Web Performance
@@ -261,7 +312,7 @@ const IndexPage = ({ data }) => {
               </Flex>
             </Box>
             <Box sx={styles.skillCard}>
-              <Flex alignItems="center">
+              <Flex>
                 <Icon size="2x" icon={faGit} />
                 <Text variant="regular" sx={styles.skillText}>
                   Version Control/Git
@@ -269,7 +320,7 @@ const IndexPage = ({ data }) => {
               </Flex>
             </Box>
             <Box sx={styles.skillCard}>
-              <Flex alignItems="center">
+              <Flex>
                 <Icon size="2x" icon={faPencil} />
                 <Text variant="regular" sx={styles.skillText}>
                   Documenting
@@ -325,21 +376,27 @@ export const landingPageQuery = graphql`
   query LandingPageQuery {
     markdownRemark(fileAbsolutePath: { regex: "/landing.md/" }) {
       frontmatter {
-        socials {
-          content
-        }
-        latestProject {
-          comment
-          projectName
-          projectLink
-          projectthumbnail {
-            childImageSharp {
-              gatsbyImageData
-            }
-          }
-        }
         indexContent
         indexHeader
+      }
+    }
+    allMarkdownRemark(
+      filter: { fileAbsolutePath: { regex: "//projects//" } }
+      sort: { frontmatter: { endDate: DESC } }
+      limit: 3
+    ) {
+      edges {
+        node {
+          fields {
+            slug
+          }
+          frontmatter {
+            title
+            startDate
+            endDate
+            status
+          }
+        }
       }
     }
   }

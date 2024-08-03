@@ -5,6 +5,7 @@ date: 2019-11-09T16:24:53.076Z
 keywords: javascript, filter, array, arrays, javascript arrays, methods,
   javascript methods
 draft: false
+category: programming
 ---
 
 Filtering is a powerful tool that can be used in many different contexts. One

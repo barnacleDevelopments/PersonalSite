@@ -4,7 +4,7 @@ import { graphql } from "gatsby";
 
 // Components
 import PostCard from "../components/blog/PostCard";
-import { Box, Text, Grid, Link, Button } from "theme-ui";
+import { Heading, Box, Text, Grid, Link, Button } from "theme-ui";
 import Seo from "../components/app/Seo";
 
 const CategoryPage = ({ data }) => {
@@ -12,7 +12,7 @@ const CategoryPage = ({ data }) => {
   const postCategory = pageData[0]?.node.frontmatter.category;
   return (
     <Box>
-      <Seo title="Blog" />
+      <Seo title={postCategory} />
       <Box
         sx={{
           margin: "0 auto",
@@ -20,15 +20,16 @@ const CategoryPage = ({ data }) => {
           my: 6,
         }}
       >
-        <Box sx={{ mt: 6, mb: 5 }} textAlign="center">
-          <h1
-            sx={{
-              mb: 3,
-              color: "primary",
-            }}
-          >
-            {postCategory}
-          </h1>
+        <Box sx={{ mt: 6, mb: 5 }}>
+          <Heading as="h1" variant="hero">
+            {postCategory
+              .split("-")
+              .map(
+                (w) =>
+                  w.charAt(0).toUpperCase() + w.slice(1).toLowerCase() + " ",
+              )}
+            Posts
+          </Heading>
           <Text variant="large" sx={{ textAlign: "center" }}></Text>
         </Box>
         <Grid
@@ -64,11 +65,10 @@ const CategoryPage = ({ data }) => {
 export default CategoryPage;
 
 export const pageQuery = graphql`
-  query PostsByCategoryQuery($categoryRegex: String!) {
+  query PostsByCategoryQuery($category: String!) {
     allMarkdownRemark(
       filter: {
-        fileAbsolutePath: { regex: $categoryRegex }
-        frontmatter: { draft: { eq: false } }
+        frontmatter: { draft: { eq: false }, category: { eq: $category } }
       }
     ) {
       edges {
@@ -79,6 +79,7 @@ export const pageQuery = graphql`
           frontmatter {
             title
             date
+            category
             thumbnail {
               childImageSharp {
                 gatsbyImageData

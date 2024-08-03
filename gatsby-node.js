@@ -34,13 +34,26 @@ exports.createPages = async ({ actions, graphql }) => {
       path: `/blog/${category}`,
       component: path.resolve(`src/templates/CategoryPage.js`),
       context: {
-        categoryRegex: `//blog/${category}//`,
+        category: category,
       },
     });
   }
 
-  genCategoryPage("programming_blog");
-  genCategoryPage("misc_blog");
+  const categoryResult = graphql(`
+    query ProjectsPageQuery {
+      allMarkdownRemark(filter: { frontmatter: { draft: { eq: false } } }) {
+        distinct(field: { frontmatter: { category: SELECT } })
+      }
+    }
+  `).then((result) => {
+    if (result.errors) {
+      Promise.reject(result.errors);
+    }
+
+    result.data.allMarkdownRemark.distinct.forEach((category) => {
+      genCategoryPage(category);
+    });
+  });
 
   const projectsResult = graphql(`
     query ProjectsQuery {
@@ -54,6 +67,7 @@ exports.createPages = async ({ actions, graphql }) => {
             }
             frontmatter {
               title
+              status
               githubLink
               liveLink
               description
@@ -74,7 +88,10 @@ exports.createPages = async ({ actions, graphql }) => {
 
     result.data.allMarkdownRemark.edges.forEach(({ node }) => {
       const project = node.frontmatter;
-      genProjectPage(node, project);
+      console.log("DEBUG: ", project);
+      if (project.status === "complete") {
+        genProjectPage(node, project);
+      }
     });
   });
 
@@ -93,7 +110,8 @@ exports.createPages = async ({ actions, graphql }) => {
             }
             frontmatter {
               title
-              date
+              startDate
+              endDate
               draft
               thumbnail {
                 childImageSharp {

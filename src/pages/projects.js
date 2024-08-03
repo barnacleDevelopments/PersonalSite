@@ -46,7 +46,7 @@ const ProjectsPage = ({ data }) => {
   const walletContext = useContext(WalletContext);
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
+    if (typeof window !== "undefined" && pageData.length > 0) {
       const init = async () => {
         await updateVoteStates();
         await updateThreshold();
@@ -59,22 +59,24 @@ const ProjectsPage = ({ data }) => {
 
   const getProjectWithContent = async () => {
     const projects = await getProjects();
-    const voteCounts = await getVoteCounts(projects);
-    const formattedProjects = (await getProjects()).map((project) => {
-      const data = pageData.find(
-        ({ node }) => node.frontmatter.id === project.id,
-      );
+    if (projects && projects.length > 0) {
+      const voteCounts = await getVoteCounts(projects);
+      const formattedProjects = projects.map((project) => {
+        const data = pageData.find(
+          ({ node }) => node.frontmatter.id === project.id,
+        );
 
-      return {
-        id: project.id,
-        title: project.title,
-        votes: voteCounts[project.id],
-        image: data?.node?.frontmatter?.image1,
-        link: data?.node?.fields?.slug,
-      };
-    });
-    formattedProjects.sort((a, b) => a.votes < b.votes);
-    setProjects(formattedProjects);
+        return {
+          id: project.id,
+          title: project.title,
+          votes: voteCounts[project.id],
+          image: data?.node?.frontmatter?.image1,
+          link: data?.node?.fields?.slug,
+        };
+      });
+      formattedProjects.sort((a, b) => a.votes < b.votes);
+      setProjects(formattedProjects);
+    }
   };
 
   const voteForProject = async (id) => {
@@ -188,7 +190,7 @@ const ProjectsPage = ({ data }) => {
           my: 5,
         }}
       >
-        <Box sx={{ mt: 6, mb: [3, 4] }} textAlign="center">
+        <Box sx={{ mt: 6, mb: [3, 4] }}>
           <Box as="section">
             <Heading as="h1" variant="hero">
               Projects

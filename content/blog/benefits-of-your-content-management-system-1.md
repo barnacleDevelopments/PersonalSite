@@ -4,6 +4,7 @@ thumbnail: /assets/hal-gatewood-werqau9ta-a-unsplash.jpg
 date: 2021-12-07T22:23:03.034Z
 keywords: content management system, content strategy, cms, website content
 draft: false
+category: "content-management"
 ---
 
 Content management systems (CMS) are a great addition to any website. In

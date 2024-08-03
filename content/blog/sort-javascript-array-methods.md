@@ -4,6 +4,7 @@ thumbnail: /assets/photo-1521192520982-5d6ca468a30f.jpg
 date: 2019-11-11T16:36:11.369Z
 keywords: javascript sort, javascript, sort, javascript sort array method, method
 draft: false
+category: programming
 ---
 
 The .sort() method is one of the many methods that iterate over an array. This
