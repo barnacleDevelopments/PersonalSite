@@ -2,8 +2,7 @@
 title: " Filter - JavaScript Array Methods"
 thumbnail: /assets/photo-1514927298007-a2b56e5270e1.jpg
 date: 2019-11-09T16:24:53.076Z
-keywords: javascript, filter, array, arrays, javascript arrays, methods,
-  javascript methods
+keywords: javascript, filter, array, arrays, javascript arrays, methods, javascript methods
 draft: false
 category: programming
 ---

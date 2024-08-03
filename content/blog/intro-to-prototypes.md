@@ -2,15 +2,9 @@
 title: Intro to Prototypes
 thumbnail: /assets/logo_2.png
 date: 2020-04-03T15:13:45.129Z
-<<<<<<< HEAD:content/blog/programming_blog/posts/intro-to-prototypes.md
 keywords: javascript, prototypes, javascript prototypes, oop, object oriented, programming, inheritance, augmentation
 category: programming
 draft: true
-=======
-keywords: javascript, prototypes, javascript prototypes, oop, object oriented
-  programming, inheritance, augmentation
-category: programming
->>>>>>> CSP:content/blog/intro-to-prototypes.md
 ---
 
 Prototypes are a challenging JavaScript programming concept to understand. To

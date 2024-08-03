@@ -2,8 +2,7 @@
 title: Map - JavaScript Array Methods
 thumbnail: /assets/logo_2.png
 date: 2019-11-10T16:40:51.117Z
-keywords: javascript, javascript map method, javascript map array method, array
-  method, map array method
+keywords: javascript, javascript map method, javascript map array method, array  method, map array method
 draft: false
 category: programming
 ---
