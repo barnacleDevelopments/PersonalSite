@@ -8,19 +8,16 @@ import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
 contract ProjectVoting is VRFConsumerBaseV2{
     // Voting mappings
-    mapping(uint => mapping(string => uint)) public cycleProjectVotes;
-    mapping(uint => mapping(address => uint)) public cycleAddressVotes;
-    mapping(uint => mapping(address => bool)) public hasVoted;
-    mapping(uint => mapping(address => string)) public addressCycleChoice;
-    mapping(uint => address[]) public cycleVoters;
-    mapping(address => string) public addressNames;
-    mapping(address => string[]) public addressActions;
+    mapping(uint => mapping(string => uint)) public cycleVotes; // total project votes within the current cycle
+    mapping(uint => mapping(address => string)) public addressCycleChoice; // address project choice for the currrent cycle
+    mapping(uint => mapping(address => bool)) public hasVotedForCycle; // has the address voted for a project in the current cycle
+    mapping(uint => address[]) public cycleVoters; // list of voters of the current cycle
+    mapping(address => string) public addressNames; // address display names
     mapping(string => string) public projects;
 
-    string[] public projectIds;
     address private owner;
     uint private threshold = 0.1 ether;
-    uint public currentCycle = 1;
+    uint public currentCycle = 1; // <= current cycle
 
     // Chainlink VRF Variables
     VRFCoordinatorV2Interface COORDINATOR;
@@ -63,37 +60,29 @@ contract ProjectVoting is VRFConsumerBaseV2{
         require(bytes(projectName).length > 0, "Project name is required");
         require(bytes(projectId).length > 0, "Project ID is required"); 
         projects[projectId] = projectName;
-        projectIds.push(projectId);
-        emit ProjectAdded(projectId, projectName); 
+        emit ProjectAdded(projectId, projectName);
     }
 
     function vote(string memory projectId, string memory voterName) payable public {
         require(msg.value >= 0.001 ether, "Minimum 0.001 ether");
         require(msg.value <= 0.05 ether, "Maximum 0.05 ether");
-        require(!hasVoted[currentCycle][msg.sender], "Already voted");
+        bool hasVoted = hasVotedForCycle[currentCycle][msg.sender];
+        require(!hasVoted, "Already voted");
         require(bytes(projects[projectId]).length > 0, "Project does not exist"); 
         addressCycleChoice[currentCycle][msg.sender] = projectId;
-        cycleProjectVotes[currentCycle][projectId]++;
-        hasVoted[currentCycle][msg.sender] = true;
+        cycleVotes[currentCycle][projectId]++;
+        hasVotedForCycle[currentCycle][msg.sender] = true;
         cycleVoters[currentCycle].push(msg.sender);
-        checkAndTransfer();  
+        // checkAndTransfer();
         emit Voted(msg.sender, voterName, projectId);
     }
 
-    function voteTest() public payable returns (uint) {
-        return msg.value;
-    }
-
     function getCycleVoteCount(string memory projectId) public view returns (uint) {
-        return cycleProjectVotes[currentCycle][projectId];
-    }
-
-    function getAll() public view returns (string[] memory) {
-        return projectIds;
+        return cycleVotes[currentCycle][projectId];
     }
 
     function checkHasVotedForCycle() public view returns (bool) {
-        return hasVoted[currentCycle][msg.sender];
+        return hasVotedForCycle[currentCycle][msg.sender];
     }
 
     function getVoteCycleChoice() public view returns (string memory) {
@@ -106,15 +95,6 @@ contract ProjectVoting is VRFConsumerBaseV2{
 
     function getThreshold() public view returns (uint256) {
         return threshold;
-    }
-
-    function getAddressAction() public view returns (string[] memory) {
-        return addressActions[msg.sender];
-    }
-
-    function transferOwnership(address newOwner) public onlyOwner {
-        require(newOwner != address(0), "New owner cannot be the zero address");
-        owner = newOwner;
     }
 
     function checkAndTransfer() internal {
@@ -142,11 +122,9 @@ contract ProjectVoting is VRFConsumerBaseV2{
         currentCycle++;
     }
 
-    function addActions(string[] memory actionCIDs) public {
-        for(uint i = 0; i < actionCIDs.length; i++) {
-            addressActions[msg.sender].push(actionCIDs[i]); 
-        }
-        emit ActionPerformed(msg.sender, actionCIDs);
+    function transferOwnership(address newOwner) public onlyOwner {
+        require(newOwner != address(0), "New owner cannot be the zero address");
+        owner = newOwner;
     }
 
     function withdraw() public onlyOwner {
