@@ -23,7 +23,6 @@ import {
   checkHasVoted,
   getVote,
   getBalance,
-  checkStatus,
   getWinners,
   getProjects,
   getVoters,
@@ -82,12 +81,9 @@ const ProjectsPage = ({ data }) => {
   const voteForProject = async (id) => {
     try {
       validateContributionInput(name, parseFloat(contribution));
-      const hash = await vote(id, contribution, name);
-      const succeeded = await checkStatus(hash);
-      if (succeeded) {
-        await updateVoteStates();
-        await updateProjectVoteCount(id);
-      }
+      await vote(id, contribution, name);
+      // await updateVoteStates();
+      // await updateProjectVoteCount(id);
     } catch (error) {
       alert(error.message);
     }
@@ -140,7 +136,6 @@ const ProjectsPage = ({ data }) => {
 
   const updateBalance = async () => {
     const balance = await getBalance();
-    console.log(balance);
     setBalance(balance);
   };
 

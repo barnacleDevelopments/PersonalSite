@@ -68,6 +68,7 @@ module.exports = {
       host: "127.0.0.1", // Localhost (default: none)
       port: 9545, // Standard Ethereum port (default: none)
       network_id: "*", // Any network (default: none)
+      websockets: true,
     },
     sepolia: {
       provider: () =>
@@ -83,6 +84,7 @@ module.exports = {
       confirmations: 2, // Set the number of confirmations needed for a transaction
       timeoutBlocks: 200, // Set the timeout for transactions
       skipDryRun: true, // Skip the dry run option
+      websockets: true,
     },
     //
     // An additional network, but with some advanced options…

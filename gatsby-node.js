@@ -88,7 +88,6 @@ exports.createPages = async ({ actions, graphql }) => {
 
     result.data.allMarkdownRemark.edges.forEach(({ node }) => {
       const project = node.frontmatter;
-      console.log("DEBUG: ", project);
       if (project.status === "complete") {
         genProjectPage(node, project);
       }

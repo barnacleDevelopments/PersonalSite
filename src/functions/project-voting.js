@@ -1,31 +1,6 @@
 import projectVotingABI from "../../smart-contracts/build/contracts/ProjectVoting.json";
 import web3 from "../web3-subscription";
 
-export async function checkStatus(hash) {
-  let receipt = null;
-
-  while (true) {
-    try {
-      receipt = await web3.eth.getTransactionReceipt(hash);
-      if (receipt !== null) {
-        if (receipt.status === 1n) {
-          console.log("Transaction succeeded");
-          return true;
-        } else if (receipt.status === 0n) {
-          return false;
-        }
-      } else {
-        console.log("Receipt not found, waiting...");
-      }
-
-      await new Promise((resolve) => setTimeout(resolve, 2000));
-    } catch (error) {
-      console.error("Error fetching transaction receipt", error);
-      break;
-    }
-  }
-}
-
 export const getVoters = async () => {
   const contract = new web3.eth.Contract(
     projectVotingABI.abi,
@@ -161,6 +136,10 @@ export const getVoteCount = async (id) => {
 };
 
 export const vote = async (id, amountInEther, name) => {
+  const contractAddress = process.env.GATSBY_PROJECT_VOTING_CONTRACT_ADDRESS;
+
+  console.log("STARTED VOTE ON CONTRACT: ", contractAddress);
+
   const contract = new web3.eth.Contract(
     projectVotingABI.abi,
     process.env.GATSBY_PROJECT_VOTING_CONTRACT_ADDRESS,
@@ -188,20 +167,33 @@ export const vote = async (id, amountInEther, name) => {
       value: value,
     });
 
-    const transactionParameters = {
-      to: process.env.GATSBY_PROJECT_VOTING_CONTRACT_ADDRESS,
-      from: ethereum.selectedAddress,
-      value: value.toString(16),
-      data: data,
-      gas: estimatedGas.toString(16),
-    };
+    const topic = web3.utils.keccak256("Voted(address,string,string)");
 
-    const txHash = await ethereum.request({
-      method: "eth_sendTransaction",
-      params: [transactionParameters],
-    });
+    var subscription = web3.eth.subscribe(
+      "logs",
+      {
+        address: process.env.GATSBY_PROJECT_VOTING_CONTRACT_ADDRESS,
+        topics: [topic],
+      },
+      (error, result) => {
+        console.log("Vote Event");
+        if (!error) console.log("log", result);
+      },
+    );
 
-    return txHash;
+    contract.methods
+      .vote(id, name)
+      .send({
+        from: ethereum.selectedAddress,
+        value: "0x" + value.toString(16),
+        gas: "0x" + estimatedGas.toString(16),
+      })
+      .on("confirmation", (event) => {
+        console.log("TRANSACTION CONFIRMED: ", event);
+      })
+      .on("error", (error) => {
+        console.log("ERROR OCCURED: ", error);
+      });
   } catch (error) {
     console.error("Error in voting for project:", error);
     throw error;
