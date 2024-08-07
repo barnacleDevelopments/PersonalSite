@@ -181,19 +181,23 @@ export const vote = async (id, amountInEther, name) => {
       },
     );
 
-    contract.methods
-      .vote(id, name)
-      .send({
-        from: ethereum.selectedAddress,
-        value: "0x" + value.toString(16),
-        gas: "0x" + estimatedGas.toString(16),
-      })
-      .on("confirmation", (event) => {
-        console.log("TRANSACTION CONFIRMED: ", event);
-      })
-      .on("error", (error) => {
-        console.log("ERROR OCCURED: ", error);
-      });
+    return new Promise((resolve, reject) => {
+      contract.methods
+        .vote(id, name)
+        .send({
+          from: ethereum.selectedAddress,
+          value: "0x" + value.toString(16),
+          gas: "0x" + estimatedGas.toString(16),
+        })
+        .on("confirmation", async (event) => {
+          resolve();
+          console.log("TRANSACTION CONFIRMED: ", event);
+        })
+        .on("error", (error) => {
+          reject();
+          console.log("ERROR OCCURED: ", error);
+        });
+    });
   } catch (error) {
     console.error("Error in voting for project:", error);
     throw error;

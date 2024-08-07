@@ -1,10 +1,10 @@
 /** @jsx jsx */
-import { Link, Paragraph, jsx } from "theme-ui";
+import { Link, Paragraph, Progress, jsx } from "theme-ui";
 import { graphql } from "gatsby";
 
 // Components
 import ProjectCard from "../components/projects/ProjectCard";
-import { Box, Spinner, Heading } from "theme-ui";
+import { Box, Spinner, Heading, Button, Flex, Text } from "theme-ui";
 import Seo from "../components/app/Seo";
 import { useContext, useEffect, useState } from "react";
 import WalletBanner from "../components/projects/WalletBanner";
@@ -12,6 +12,8 @@ import ProgressGauge from "../components/projects/ProgressGauge";
 import ContributionForm from "../components/projects/ContributionForm";
 import VoterList from "../components/projects/VoterList";
 import { JudgementGrid } from "../components/projects/JudgementGrid";
+import Dialog from "../components/dialog";
+import Loader from "../components/Loader";
 
 // Contexts
 import { WalletContext } from "../contexts/WalletContext";
@@ -41,6 +43,8 @@ const ProjectsPage = ({ data }) => {
   const [winners, setWinners] = useState({});
   const [voters, setVoters] = useState([]);
   const [threshold, setThreshold] = useState(0);
+  const [voteStarted, setVoteStarted] = useState(false);
+  const [voteConfirmed, setVoteConfirmed] = useState(false);
 
   const walletContext = useContext(WalletContext);
 
@@ -51,7 +55,6 @@ const ProjectsPage = ({ data }) => {
         await updateThreshold();
         await getProjectWithContent();
       };
-
       init();
     }
   }, [walletContext?.walletAddress, walletContext?.isWalletConnected]);
@@ -78,17 +81,6 @@ const ProjectsPage = ({ data }) => {
     }
   };
 
-  const voteForProject = async (id) => {
-    try {
-      validateContributionInput(name, parseFloat(contribution));
-      await vote(id, contribution, name);
-      // await updateVoteStates();
-      // await updateProjectVoteCount(id);
-    } catch (error) {
-      alert(error.message);
-    }
-  };
-
   const updateVoteStates = async () => {
     if (walletContext?.walletAddress) {
       await updateHasVoted();
@@ -99,6 +91,19 @@ const ProjectsPage = ({ data }) => {
     await updateBalance();
     await updateWinners();
     await updateVoters();
+  };
+
+  const voteForProject = async (id) => {
+    try {
+      validateContributionInput(name, parseFloat(contribution));
+      setVoteStarted(true);
+      await vote(id, contribution, name);
+      await updateVoteStates();
+      await updateProjectVoteCount(id);
+      setVoteConfirmed(true);
+    } catch (error) {
+      alert(error.message);
+    }
   };
 
   const validateContributionInput = (name, contributionAmount) => {
@@ -176,6 +181,35 @@ const ProjectsPage = ({ data }) => {
 
   return (
     <Box>
+      <Dialog isOpen={voteStarted}>
+        {!voteConfirmed ? (
+          <Box sx={{ textAlign: "center", mb: 3 }}>
+            <Heading sx={{ mb: 2 }} as="h2" variant="large">
+              Transaction Started
+            </Heading>
+            <Text>please wait...</Text>
+          </Box>
+        ) : (
+          <Box>
+            <Heading
+              as="h2"
+              variant="large"
+              sx={{ textAlign: "center", mb: 3 }}
+            >
+              Transaction Confirmed
+            </Heading>
+          </Box>
+        )}
+        <Progress max={1} value={!voteConfirmed ? 1 / 2 : 1} />
+        <Flex sx={{ justifyContent: "center", mt: 3 }}>
+          <Button
+            disabled={!voteConfirmed}
+            onClick={() => setVoteStarted(false)}
+          >
+            Close
+          </Button>
+        </Flex>
+      </Dialog>
       <Seo title="Projects" />
       <Box
         sx={{
