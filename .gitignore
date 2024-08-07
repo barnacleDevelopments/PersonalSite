@@ -7,6 +7,7 @@ node_modules
 # Truffle
 # Ignore everything in the smart-contracts/build/contracts directory
 smart-contracts/build/contracts/*
+smart-contracts/.env
 
 # Do not ignore the ProjectVoting.json file
 !smart-contracts/build/contracts/ProjectVoting.json
