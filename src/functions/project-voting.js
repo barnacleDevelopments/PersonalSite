@@ -123,14 +123,26 @@ export const checkHasVoted = async (walletAddress) => {
   }
 };
 
-export const getVoteCount = async (id) => {
+export const getProjectVoteCounts = async () => {
   const contract = new provider.eth.Contract(
     projectVotingABI.abi,
     process.env.GATSBY_PROJECT_VOTING_CONTRACT_ADDRESS,
   );
+
   try {
-    const count = await contract.methods.getCycleVoteCount(id).call();
-    return count.toString();
+    const results = await contract.getPastEvents("Voted", {
+      fromBlock: 0,
+      toBlock: "latest",
+    });
+
+    return results.reduce((acc, { returnValues }) => {
+      if (!acc[returnValues.projectId]) {
+        acc[returnValues.projectId] = 1;
+      } else {
+        acc[returnValues.projectId]++;
+      }
+      return acc;
+    }, {});
   } catch (error) {
     console.error("Error in getting vote count:", error);
   }
@@ -175,33 +187,42 @@ export const vote = async (id, amountInEther, name) => {
     );
 
     return new Promise(async (resolve, reject) => {
-      const voteMethod = contract.methods.vote(id, name).encodeABI();
+      try {
+        const voteMethod = contract.methods.vote(id, name).encodeABI();
 
-      const estimatedGas = await provider.eth.estimateGas({
-        from: ethereum.selectedAddress,
-        to: process.env.GATSBY_PROJECT_VOTING_CONTRACT_ADDRESS,
-        data: voteMethod,
-        value: value,
-      });
-
-      const options = {
-        to: process.env.GATSBY_PROJECT_VOTING_CONTRACT_ADDRESS,
-        from: ethereum.selectedAddress,
-        value: "0x" + value.toString(16),
-        data: voteMethod,
-        gas: "0x" + estimatedGas.toString(16),
-      };
-
-      provider.eth
-        .sendTransaction(options)
-        .on("confirmation", async (event) => {
-          resolve();
-          console.log("TRANSACTION CONFIRMED: ", event);
-        })
-        .on("error", (error) => {
-          reject();
-          console.log("ERROR OCCURED: ", error);
+        const estimatedGas = await provider.eth.estimateGas({
+          from: ethereum.selectedAddress,
+          to: process.env.GATSBY_PROJECT_VOTING_CONTRACT_ADDRESS,
+          data: voteMethod,
+          value: value,
         });
+
+        const options = {
+          to: process.env.GATSBY_PROJECT_VOTING_CONTRACT_ADDRESS,
+          from: ethereum.selectedAddress,
+          value: "0x" + value.toString(16),
+          data: voteMethod,
+          gas: "0x" + estimatedGas.toString(16),
+        };
+
+        provider.eth
+          .sendTransaction(options)
+          .on("confirmation", async (event) => {
+            resolve();
+            console.log("TRANSACTION CONFIRMED: ", event);
+          })
+          .on("error", (error) => {
+            reject();
+            console.log("ERROR OCCURED: ", error);
+          })
+          .catch((error) => {
+            reject(error);
+            console.log("ERROR OCCURED: ", error);
+          });
+      } catch (error) {
+        console.log("Error", error);
+        reject(error);
+      }
     });
   } catch (error) {
     console.error("Error in voting for project:", error);

@@ -30,6 +30,7 @@ import {
   getVoters,
   getActionCIDs,
   getThreshold,
+  getProjectVoteCounts,
 } from "../functions/project-voting";
 
 const ProjectsPage = ({ data }) => {
@@ -51,9 +52,9 @@ const ProjectsPage = ({ data }) => {
   useEffect(() => {
     if (typeof window !== "undefined" && pageData.length > 0) {
       const init = async () => {
-        await updateVoteStates();
         await updateThreshold();
         await getProjectWithContent();
+        await updateVoteStates();
       };
       init();
     }
@@ -62,16 +63,14 @@ const ProjectsPage = ({ data }) => {
   const getProjectWithContent = async () => {
     const projects = await getProjects();
     if (projects && projects.length > 0) {
-      const voteCounts = await getVoteCounts(projects);
       const formattedProjects = projects.map((project) => {
         const data = pageData.find(
           ({ node }) => node.frontmatter.id === project.id,
         );
-
         return {
           id: project.id,
           title: project.title,
-          votes: voteCounts[project.id],
+          votes: 0,
           image: data?.node?.frontmatter?.image1,
           link: data?.node?.fields?.slug,
         };
@@ -85,6 +84,7 @@ const ProjectsPage = ({ data }) => {
     if (walletContext?.walletAddress) {
       await updateHasVoted();
       await updateAddressVote();
+      await updateProjectVoteCounts();
     }
 
     await updateThreshold();
@@ -99,10 +99,11 @@ const ProjectsPage = ({ data }) => {
       setVoteStarted(true);
       await vote(id, contribution, name);
       await updateVoteStates();
-      await updateProjectVoteCount(id);
+      await updateProjectVoteCounts();
       setVoteConfirmed(true);
     } catch (error) {
       alert(error.message);
+      setVoteStarted(false);
     }
   };
 
@@ -126,6 +127,7 @@ const ProjectsPage = ({ data }) => {
 
   const updateWinners = async () => {
     const winners = await getWinners();
+    console.log(winners);
     setWinners(winners);
   };
 
@@ -155,23 +157,14 @@ const ProjectsPage = ({ data }) => {
     return project;
   };
 
-  const getVoteCounts = async (projects) => {
-    const counts = {};
-    for (const project of projects) {
-      const count = await getVoteCount(project.id);
-      counts[project.id] = count;
-    }
-    return counts;
-  };
-
-  const updateProjectVoteCount = async (projectId) => {
-    const voteCount = await getVoteCount(projectId);
+  const updateProjectVoteCounts = async () => {
+    const voteCounts = await getProjectVoteCounts();
     setProjects((projects) => {
       return projects.map((project) => {
-        if (project.id === projectId) {
+        if (voteCounts[project.id]) {
           return {
             ...project,
-            votes: Number.parseFloat(voteCount),
+            votes: Number.parseFloat(voteCounts[project.id]),
           };
         }
         return project;
@@ -204,7 +197,10 @@ const ProjectsPage = ({ data }) => {
         <Flex sx={{ justifyContent: "center", mt: 3 }}>
           <Button
             disabled={!voteConfirmed}
-            onClick={() => setVoteStarted(false)}
+            onClick={() => {
+              setVoteStarted(false);
+              setVoteConfirmed(false);
+            }}
           >
             Close
           </Button>
