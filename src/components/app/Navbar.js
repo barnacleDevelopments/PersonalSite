@@ -7,13 +7,13 @@ import { Box, Flex, NavLink, Link } from "theme-ui";
 import { WalletContext } from "../../contexts/WalletContext";
 
 const Navbar = () => {
+  const [pageStatus, setPageStatus] = useState("");
   const [navTextColor, setNavTextColor] = useState("");
   const [navTextColorScrolled, setNavTextColorScrolled] = useState("");
   const [navScrollColor, setNavScrollColor] = useState("");
   const [isScrolledTop, setIsScrolledTop] = useState(true);
   const [sideNavOpen, setSideNavOpen] = useState(false);
 
-  // setup wallet context
   const { hasVoted, isWalletConnected } = useContext(WalletContext);
 
   const styleNavBar = () => {
@@ -86,6 +86,12 @@ const Navbar = () => {
 
   useEffect(() => {
     const path = getPath();
+    setPageStatus(
+      path.includes("contact")
+        ? "This Page is under contruction. Some functionality may be limited."
+        : "",
+    );
+
     const scrollColor = getScrollColor(path);
     const textColor = getTextColor(path);
     const textColorScrolled = getTextScrolled(path);
@@ -102,7 +108,7 @@ const Navbar = () => {
   }, []);
 
   return (
-    <Box as="nav">
+    <Box as="nav" sx={nav}>
       <Flex
         sx={navWrapper}
         style={{ backgroundColor: !isScrolledTop ? navScrollColor : null }}
@@ -219,14 +225,32 @@ const Navbar = () => {
           </Box>
         ) : null}
       </Flex>
+      {pageStatus && (
+        <Box
+          sx={{
+            width: "100%",
+            left: 0,
+            backgroundColor: "orange",
+            fontWeight: "bold",
+            textAlign: "center",
+            p: 2,
+          }}
+        >
+          {pageStatus}
+        </Box>
+      )}
     </Box>
   );
 };
 
-const navWrapper = {
+const nav = {
   top: "0px",
   left: "0px",
   position: "fixed",
+  width: "100%",
+};
+
+const navWrapper = {
   width: "100%",
   display: "flex",
   flexDirection: "column",

@@ -4,12 +4,13 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 // Hooks
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 
 // Components
 import {
   Box,
+  Grid,
   Flex,
   Button,
   Heading,
@@ -35,16 +36,21 @@ const ContactPage = () => {
   const {
     register,
     handleSubmit,
+    setFocus,
     formState: { errors, isSubmitting, isSubmitted, isValid },
   } = useForm({
     resolver: yupResolver(schema),
     mode: "onBlur",
   });
 
+  useEffect(() => {
+    setFocus("email");
+  }, []);
+
   function encode(data) {
     return Object.keys(data)
       .map(
-        (key) => encodeURIComponent(key) + "=" + encodeURIComponent(data[key])
+        (key) => encodeURIComponent(key) + "=" + encodeURIComponent(data[key]),
       )
       .join("&");
   }
@@ -74,21 +80,21 @@ const ContactPage = () => {
           my: 6,
         }}
       >
+        <Box
+          sx={{
+            margin: "0 auto",
+            mt: 6,
+          }}
+        >
+          <Heading as="h1" variant="hero">
+            Let's Talk About You
+          </Heading>
+          <Paragraph sx={{ my: 3, display: "block" }} variant="large">
+            Please reach out. I'd love to help you reach your goals!
+          </Paragraph>
+        </Box>
         {(!isSubmitted || !isValid) && (
-          <Box
-            sx={{
-              margin: "0 auto",
-              mt: 6,
-            }}
-          >
-            <Box sx={{ mt: 6, mb: 5 }}>
-              <Heading as="h1" variant="hero">
-                Let's Talk About You
-              </Heading>
-              <Paragraph sx={{ my: 3, display: "block" }} variant="large">
-                Please reach out. I'd love to help you reach your goals!
-              </Paragraph>
-            </Box>
+          <Grid gap={3} columns={["1fr", "1fr 1fr", "1.5fr 2fr"]}>
             <Box
               as="form"
               action="/contact"
@@ -97,6 +103,7 @@ const ContactPage = () => {
               data-netlify="true"
             >
               <Input
+                variant="primary"
                 sx={{ mb: 3, bg: "secondary" }}
                 type="hidden"
                 name="form-name"
@@ -174,7 +181,26 @@ const ContactPage = () => {
                 send
               </Button>
             </Box>
-          </Box>
+            <Box>
+              <Box sx={{ mb: 3 }}>
+                <Heading as="h2" variant="secondary">
+                  Info
+                </Heading>
+                <Box sx={{ mb: 3 }}>
+                  <strong>Web3 Jobs Profile: </strong>
+                  <a href="https://web3.career/@devdeveloper">
+                    https://web3.career/@devdeveloper
+                  </a>
+                </Box>
+                <Box>
+                  <strong>Linkdin Profile: </strong>
+                  <a href="https://www.linkedin.com/in/devin-dev-d-63008412b">
+                    https://www.linkedin.com/in/devin-dev-d-63008412b
+                  </a>
+                </Box>
+              </Box>
+            </Box>
+          </Grid>
         )}
 
         {isSubmitting && !isPostSuccessful && (
