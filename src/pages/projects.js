@@ -14,6 +14,7 @@ import VoterList from "../components/projects/VoterList";
 import { JudgementGrid } from "../components/projects/JudgementGrid";
 import Dialog from "../components/dialog";
 import Loader from "../components/Loader";
+import provider from "../web3-provider";
 
 // Contexts
 import { WalletContext } from "../contexts/WalletContext";
@@ -95,6 +96,7 @@ const ProjectsPage = ({ data }) => {
 
   const voteForProject = async (id) => {
     try {
+      await walletContext?.checkNetwork();
       validateContributionInput(name, parseFloat(contribution));
       setVoteStarted(true);
       await vote(id, contribution, name);
@@ -187,10 +189,13 @@ const ProjectsPage = ({ data }) => {
             <Heading
               as="h2"
               variant="large"
-              sx={{ textAlign: "center", mb: 3 }}
+              sx={{ textAlign: "center", mb: 2 }}
             >
               Transaction Confirmed
             </Heading>
+            <Text sx={{ mb: 3, display: "block", textAlign: "center" }}>
+              Thank You! ❤️
+            </Text>
           </Box>
         )}
         <Progress max={1} value={!voteConfirmed ? 1 / 2 : 1} />
@@ -249,7 +254,9 @@ const ProjectsPage = ({ data }) => {
             isWalletConnected={walletContext?.isWalletConnected}
             hasVoted={hasVoted}
             threshold={threshold}
-            onConnectClick={walletContext?.connectWallet}
+            onConnectClick={() => {
+              walletContext?.connectWallet();
+            }}
           ></WalletBanner>
           <ProgressGauge
             currentProgress={balance}

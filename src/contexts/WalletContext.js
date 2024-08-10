@@ -1,5 +1,5 @@
 import React, { createContext, useState, useContext, useEffect } from "react";
-
+import provider from "../web3-provider";
 export const WalletContext = createContext();
 
 export const WalletProvider = ({ children }) => {
@@ -21,8 +21,10 @@ export const WalletProvider = ({ children }) => {
 
   useEffect(() => {
     const init = async () => {
-      if (typeof window !== "undefined") {
-        if (window.ethereum) {
+      try {
+        const hasWallet = await checkWallet();
+        if (hasWallet) {
+          await checkNetwork();
           const accounts = await window.ethereum.request({
             method: "eth_accounts",
           });
@@ -31,82 +33,111 @@ export const WalletProvider = ({ children }) => {
         } else {
           console.log("MetaMask is not installed!");
         }
-
-        return () => {
-          if (window.ethereum) {
-            window.ethereum.removeListener(
-              "accountsChanged",
-              handleAccountsChanged
-            );
-          }
-        };
+      } catch (error) {
+        alert("User rejected to switch networks");
       }
     };
 
     init();
+
+    return () => {
+      if (window.ethereum) {
+        window.ethereum.removeListener(
+          "accountsChanged",
+          handleAccountsChanged,
+        );
+      }
+    };
   }, []);
 
   const connectWallet = async () => {
-    if (window.ethereum) {
-      try {
-        console.log("Connecting to MetaMask");
-        const accounts = await window.ethereum.request({
-          method: "eth_requestAccounts",
-        });
-        if (accounts.length > 0) {
-          // checkNetwork();
-          setWalletAddress(accounts[0]);
-          setIsWalletConnected(true);
-          handleAccountsChanged(accounts);
+    return new Promise(async (resolve, reject) => {
+      const hasWallet = await checkWallet();
+      if (hasWallet) {
+        try {
+          console.log("Connecting to MetaMask");
+          const accounts = await window.ethereum.request({
+            method: "eth_requestAccounts",
+          });
+          if (accounts.length > 0) {
+            const success = await checkNetwork();
+            setWalletAddress(accounts[0]);
+            setIsWalletConnected(true);
+            handleAccountsChanged(accounts);
+            resolve();
+          } else {
+            reject();
+          }
+        } catch (error) {
+          console.error("Error connecting to MetaMask:", error);
+          reject();
+          alert(
+            "You rejected to connect to MetaMask. A valid wallet address must be provided and connected to the Sepolia network.",
+          );
         }
-      } catch (error) {
-        alert(
-          "You rejected to connect to MetaMask. A valid wallet address must be provided and connected to the Sepolia network."
-        );
-        console.error("Error connecting to MetaMask:", error);
+      } else {
+        alert("Please install MetaMask to use this feature.");
       }
-    } else {
-      alert("Please install MetaMask to use this feature.");
-    }
+    });
   };
 
-  function checkNetwork() {
-    if (process.env.GATSBY_WEB3_NETWORK === "Sepolia") {
-      const chainId = getCurrentNetwork();
-      if (chainId !== "0x53") {
-        switchToSepolia();
-      }
+  async function checkWallet() {
+    if (typeof window.ethereum !== undefined) {
+      provider.eth.setProvider(window.ethereum);
+      return true;
+    } else {
+      return false;
     }
+  }
+
+  async function checkNetwork() {
+    return new Promise(async (resolve, reject) => {
+      const chainId = await getCurrentNetwork();
+      try {
+        if (process.env.GATSBY_WEB3_NETWORK === "Sepolia") {
+          if (chainId !== "0xaa36a7") {
+            await switchNetwork("0xaa36a7");
+          }
+        } else {
+          await switchNetwork("0x539");
+        }
+        resolve();
+      } catch (error) {
+        console.log("Reject to switch networks");
+        provider.setProvider(process.env.GATSBY_WEB3_WS_URL);
+        reject();
+      }
+    });
   }
 
   async function getCurrentNetwork() {
-    if (window.ethereum) {
-      try {
-        return await window.ethereum.request({ method: "eth_chainId" });
-      } catch (error) {
-        console.error("Failed to get network Chain ID:", error);
-      }
-    } else {
-      console.log("Ethereum provider is not available.");
+    try {
+      return await window.ethereum.request({ method: "eth_chainId" });
+    } catch (error) {
+      console.error("Failed to get network Chain ID:", error);
     }
   }
 
-  async function switchToSepolia() {
-    try {
-      await window.ethereum.request({
-        method: "wallet_switchEthereumChain",
-        params: [{ chainId: "0x53" }], // Chain ID for Sepolia
-      });
-      console.log("Switched to Sepolia Network");
-    } catch (error) {
-      // If the chain has not been added to the user's wallet, handle the error
-      if (error.code === 4902) {
-        console.log("Sepolia Network not found. Adding network...");
-        addSepoliaNetwork();
-      } else {
-        console.error("Error switching to Sepolia Network:", error);
+  function switchNetwork(chainId) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        await window.ethereum.request({
+          method: "wallet_switchEthereumChain",
+          params: [{ chainId }], // Chain ID for Sepolia
+        });
+        console.log("Switched to " + chainId);
+        resolve();
+      } catch (error) {
+        reject();
+        // // If the chain has not been added to the user's wallet, handle the error
+        // if (error.code === 4902) {
+        //   console.log("Sepolia Network not found. Adding network...");
+        //   addSepoliaNetwork();
+        // } else {
+        //   console.error("Error switching to Sepolia Network:", error);
+        // }
       }
-    }
+    });
   }
 
   async function addSepoliaNetwork() {
@@ -136,7 +167,7 @@ export const WalletProvider = ({ children }) => {
 
   return (
     <WalletContext.Provider
-      value={{ isWalletConnected, walletAddress, connectWallet }}
+      value={{ isWalletConnected, walletAddress, connectWallet, checkNetwork }}
     >
       {children}
     </WalletContext.Provider>
