@@ -33,7 +33,9 @@ export const getWinners = async () => {
       fromBlock: 0,
       toBlock: "latest",
     });
+    console.log("DEBUG LOG FOR WINNER: ", result);
     return result.reduce((acc, winner) => {
+      console.log(winner);
       acc[winner.returnValues.winner] = {
         id: winner.returnValues.winner,
         amount: provider.utils.fromWei(
