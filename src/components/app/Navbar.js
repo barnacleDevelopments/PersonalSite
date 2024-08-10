@@ -88,8 +88,10 @@ const Navbar = () => {
     const path = getPath();
     setPageStatus(
       path.includes("contact")
-        ? "This Page is under contruction. Some functionality may be limited."
-        : "",
+        ? "🚧 This page is under contruction. Some functionality may be limited. 🚧"
+        : path.includes("projects")
+          ? "🚧 This page is under construction. Please mannualy change to the Sepolia network through Metamask to make a vote. 🚧 "
+          : "",
     );
 
     const scrollColor = getScrollColor(path);
@@ -225,7 +227,7 @@ const Navbar = () => {
           </Box>
         ) : null}
       </Flex>
-      {pageStatus && (
+      {pageStatus && isScrolledTop && (
         <Box
           sx={{
             width: "100%",
@@ -248,6 +250,7 @@ const nav = {
   left: "0px",
   position: "fixed",
   width: "100%",
+  zIndex: "100",
 };
 
 const navWrapper = {
@@ -256,7 +259,6 @@ const navWrapper = {
   flexDirection: "column",
   justifyContent: "space-around",
   alignItems: "center",
-  zIndex: "100",
   backgroundColor: "primary",
   boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.25)",
   transition: "background-color .3s",
