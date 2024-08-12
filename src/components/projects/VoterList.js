@@ -3,6 +3,7 @@ import { jsx } from "theme-ui";
 import { Box, Heading } from "theme-ui";
 
 const VoterList = ({ winners = {}, voters = [{ name: "" }] }) => {
+  console.log("VOTERS: ", voters);
   return (
     <Box
       as="section"
@@ -63,7 +64,7 @@ const VoterList = ({ winners = {}, voters = [{ name: "" }] }) => {
               <tr
                 key={voter?.id}
                 sx={{
-                  color: winners[voter.id]?.amount ? "orange" : "white",
+                  color: winners[voter.id]?.amount > 0 ? "orange" : "white",
                 }}
               >
                 <td>{index + 1}</td>
