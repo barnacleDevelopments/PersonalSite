@@ -79,7 +79,7 @@ contract ProjectVoting is VRFConsumerBaseV2Plus {
         cycleVotes[currentCycle][projectId]++;
         hasVotedForCycle[currentCycle][msg.sender] = true;
         cycleVoters[currentCycle].push(msg.sender);
-        checkAndTransfer();
+        //checkAndTransfer();
         emit Voted(msg.sender, voterName, projectId, currentCycle);
     }
 
@@ -95,6 +95,10 @@ contract ProjectVoting is VRFConsumerBaseV2Plus {
         return addressCycleChoice[currentCycle][msg.sender];
     }
 
+    function getCycle() public view returns (uint) {
+        return currentCycle;
+    }
+
     function getBalance() public view returns (uint256) {
         return address(this).balance;
     }
@@ -105,7 +109,7 @@ contract ProjectVoting is VRFConsumerBaseV2Plus {
 
     function requestRandomWords(
         bool enableNativePayment
-    ) internal onlyOwner returns (uint256 requestId) {
+    ) internal returns (uint256 requestId) {
         requestId = s_vrfCoordinator.requestRandomWords(
             VRFV2PlusClient.RandomWordsRequest({
                 keyHash: keyHash,

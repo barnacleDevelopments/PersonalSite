@@ -7,13 +7,14 @@ module.exports = function (deployer, network) {
   console.log(process.env.VRF_KEY_HASH);
   console.log(process.env.VRF_SUBSCRIPTION_ID);
   console.log(process.env.VRF_COORDINATOR_ADDRESS_SEPOLIA);
+
   deployer
     .then(() => {
       return deployer.deploy(
         ProjectVoting,
         coordinator,
         subscriptionId,
-        keyHash
+        keyHash,
       );
     })
     .catch((e) => {
@@ -29,7 +30,7 @@ function getCoordinator(network) {
     coordinator = process.env.COORDINATOR_ADDRESS_MAINNET;
   } else {
     throw new Error(
-      `File: 1_project-voting.migration.js / Line: 23 / ERROR: Unsupported network: ${network}`
+      `File: 1_project-voting.migration.js / Line: 23 / ERROR: Unsupported network: ${network}`,
     );
   }
   return coordinator;

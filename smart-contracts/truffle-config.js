@@ -84,7 +84,6 @@ module.exports = {
       confirmations: 2, // Set the number of confirmations needed for a transaction
       timeoutBlocks: 200, // Set the timeout for transactions
       skipDryRun: true, // Skip the dry run option
-      websockets: true,
     },
     //
     // An additional network, but with some advanced options…
