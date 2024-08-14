@@ -1,46 +1,73 @@
 const ProjectVoting = artifacts.require("ProjectVoting");
 require("dotenv").config();
+const fs = require("fs");
+const crypto = require("crypto");
+const path = require("path");
 
-// TODO: Upload each projects markdown to IPFS (make sure to pin) and create the reference to content on blockchain.
+const getHash = (path) =>
+  new Promise((resolve, reject) => {
+    const hash = crypto.createHash("sha256");
+    const rs = fs.createReadStream(path);
+    rs.on("error", reject);
+    rs.on("data", (chunk) => hash.update(chunk));
+    rs.on("end", () => resolve(hash.digest("hex")));
+  });
 
 module.exports = async function (callback) {
   try {
-    // Get the deployed contract instance
     const myContractInstance = await ProjectVoting.deployed();
 
-    // Example of calling a contract function
     await myContractInstance.add(
-     "Resson's Marketing Website",
-     "5e95c5f3-51b5-4d7b-8b4c-39f01dc12598"
+      "Resson's Marketing Website",
+      await getHash(
+        path.join(
+          __dirname + "../../../content/projects/ressons-marketing-website.md",
+        ),
+      ),
     );
 
     await myContractInstance.add(
       "NovaJohnstone&Co",
-     "98198c87-45e8-4651-8393-0f6893ck6ab5e"
+      await getHash(
+        path.join(__dirname + "../../../content/projects/novajonstone-co.md"),
+      ),
     );
 
     await myContractInstance.add(
       "MyBoards",
-      "3d9daa52-deed-43ad-8cad-cde6e608db20"
+      await getHash(
+        path.join(__dirname + "../../../content/projects/myboards.md"),
+      ),
     );
 
     await myContractInstance.add(
       "Evernote Clone",
-      "f134b43b-acac-47fa-93eb-301c8ce37dc5"
+      await getHash(
+        path.join(__dirname + "../../../content/projects/evernote-clone.md"),
+      ),
     );
 
     await myContractInstance.add(
       "Brewers Insight - Packaging BOM",
-      "ca7d73d1-1c78-42b7-956e-ec580994c232"
+      await getHash(
+        path.join(
+          __dirname +
+            "../../../content/projects/brewers-insight-packaging-bom.md",
+        ),
+      ),
     );
 
     await myContractInstance.add(
       "BrewersInsight - Planning and Forecasting",
-      "fe925bea-43f4-423e-84f9-a4c452f59f5a"
+      await getHash(
+        path.join(
+          __dirname +
+            "../../../content/projects/brewers-insight-planning-and-forecasting.md",
+        ),
+      ),
     );
 
-    const projects = await myContractInstance.getAll();
-    console.log(projects);
+    console.log("Completed creating projects ");
   } catch (error) {
     console.error("Error in script execution", error);
   }

@@ -2,7 +2,20 @@ import projectVotingABI from "../../smart-contracts/build/contracts/ProjectVotin
 import Web3 from "web3";
 import provider from "../web3-provider";
 
-export const getVoters = async () => {
+export const getCurrentCycle = async () => {
+  const contract = new provider.eth.Contract(
+    projectVotingABI.abi,
+    process.env.GATSBY_PROJECT_VOTING_CONTRACT_ADDRESS,
+  );
+  try {
+    const result = await contract.methods.getCurrentCycle().call();
+    return result;
+  } catch (error) {
+    console.error("Error in getCurrentCycle", error);
+  }
+};
+
+export const getVoters = async (cycle) => {
   const contract = new provider.eth.Contract(
     projectVotingABI.abi,
     process.env.GATSBY_PROJECT_VOTING_CONTRACT_ADDRESS,
@@ -13,17 +26,20 @@ export const getVoters = async () => {
       toBlock: "latest",
     });
 
-    return result.map((event) => ({
-      id: event.returnValues.voter,
-      name: event.returnValues.name,
-      project: event.returnValues.projectId,
-    }));
+    return result
+      .filter((x) => x.returnValues.cycle !== cycle)
+      .map((event) => ({
+        id: event.returnValues.voter,
+        name: event.returnValues.name,
+        project: event.returnValues.projectId,
+        cycle: event.returnValues.cycle,
+      }));
   } catch (error) {
     console.error("Error in getting voters:", error);
   }
 };
 
-export const getWinners = async () => {
+export const getWinners = async (cycle) => {
   const contract = new provider.eth.Contract(
     projectVotingABI.abi,
     process.env.GATSBY_PROJECT_VOTING_CONTRACT_ADDRESS,
@@ -34,18 +50,19 @@ export const getWinners = async () => {
       toBlock: "latest",
     });
     console.log("DEBUG LOG FOR WINNER: ", result);
-    return result.reduce((acc, winner) => {
-      console.log(winner);
-      acc[winner.returnValues.winner] = {
-        id: winner.returnValues.winner,
-        amount: provider.utils.fromWei(
-          winner.returnValues.amount.toString(),
-          "ether",
-        ),
-      };
+    return result
+      .filter((x) => x.returnValues.cycle !== cycle)
+      .reduce((acc, winner) => {
+        acc[winner.returnValues.winner] = {
+          id: winner.returnValues.winner,
+          amount: provider.utils.fromWei(
+            winner.returnValues.amount.toString(),
+            "ether",
+          ),
+        };
 
-      return acc;
-    }, {});
+        return acc;
+      }, {});
   } catch (error) {
     console.error("Error in getting winners:", error);
   }
@@ -116,7 +133,7 @@ export const checkHasVoted = async (walletAddress) => {
     process.env.GATSBY_PROJECT_VOTING_CONTRACT_ADDRESS,
   );
   try {
-    const result = await contract.methods.checkHasVotedForCycle().call({
+    const result = await contract.methods.checkHasVoted().call({
       from: walletAddress,
     });
     return result;
@@ -210,20 +227,20 @@ export const vote = async (id, amountInEther, name) => {
         provider.eth
           .sendTransaction(options)
           .on("confirmation", async (event) => {
-            resolve();
             console.log("TRANSACTION CONFIRMED: ", event);
+            resolve();
           })
           .on("error", (error) => {
-            reject();
             console.log("ERROR OCCURED: ", error);
+            reject();
           })
           .catch((error) => {
-            reject(error);
             console.log("ERROR OCCURED: ", error);
+            reject(error);
           });
       } catch (error) {
-        console.log("Error", error);
-        reject(error);
+        console.log("Error", error.data.data.reason);
+        reject({ message: error.data.data.reason });
       }
     });
   } catch (error) {
@@ -238,28 +255,12 @@ export const getVote = async (walletAddress) => {
     process.env.GATSBY_PROJECT_VOTING_CONTRACT_ADDRESS,
   );
   try {
-    const result = await contract.methods.getVoteCycleChoice().call({
+    const result = await contract.methods.getVote().call({
       from: walletAddress,
     });
 
     return result;
   } catch (error) {
     console.error("Error in getting vote:", error);
-  }
-};
-
-export const getActionCIDs = async (walletAddress) => {
-  const contract = new provider.eth.Contract(
-    projectVotingABI.abi,
-    process.env.GATSBY_PROJECT_VOTING_CONTRACT_ADDRESS,
-  );
-  try {
-    const result = await contract.methods.getAddressAction().call({
-      from: walletAddress,
-    });
-
-    return result;
-  } catch (error) {
-    console.error("Error in getting address actions");
   }
 };

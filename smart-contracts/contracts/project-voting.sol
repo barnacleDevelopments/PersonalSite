@@ -12,49 +12,41 @@ import {VRFV2PlusClient} from "@chainlink/contracts/src/v0.8/vrf/dev/libraries/V
 import {VRFConsumerBaseV2Plus} from "@chainlink/contracts/src/v0.8/vrf/dev/VRFConsumerBaseV2Plus.sol";
 
 contract ProjectVoting is VRFConsumerBaseV2Plus {
-    // Voting mappings
+    // Voting properties
     mapping(uint => mapping(string => uint)) public cycleVotes; // total project votes within the current cycle
-    mapping(uint => mapping(address => string)) public addressCycleChoice; // address project choice for the currrent cycle
-    mapping(uint => mapping(address => bool)) public hasVotedForCycle; // has the address voted for a project in the current cycle
+    mapping(string => address) public nameToAddress;
+    mapping(address => string) public addressToName;
+    mapping(address => string) public addressChoice;
     mapping(uint => address[]) public cycleVoters; // list of voters of the current cycle
-    mapping(address => string) public addressNames; // address display names
     mapping(string => string) public projects;
-
+    mapping(address => bool) public hasVoted;
     uint private threshold = 0.1 ether;
     uint public currentCycle = 1;
-
-    // Chainlink VRF Variables
-    uint256 s_subscriptionId;
-    bytes32 private keyHash;
-    uint32 private callbackGasLimit = 100000; // Adjust the gas limit based on the requirement
-    uint16 private requestConfirmations = 3; // Minimum number of confirmations
-    uint32 private numWords =  1; // Number of random values to request
 
     // Voting Events
     event ProjectAdded(string projectId, string projectName);
     event Voted(address voter, string name, string projectId, uint cycle);
     event WinnerAnnounced(address winner, uint256 amount, uint cycle);
 
-    // User Action Events
-    event ActionPerformed(address voter, string[] actionCIDs);
-
-    // Chainlink VRF Events
-    event RequestSent(uint256 requestId, uint32 numWords);
-    event RequestFulfilled(uint256 requestId, uint256[] randomWords);
-
-    // Chainlink VRF Past Request IDs.
+    // Chainlink VRF properties
+    uint256 s_subscriptionId;
+    bytes32 private keyHash;
+    uint32 private callbackGasLimit = 100000; // Adjust the gas limit based on the requirement
+    uint16 private requestConfirmations = 3; // Minimum number of confirmations
+    uint32 private numWords =  1; // Number of random values to request
     uint256[] public requestIds;
     uint256 public lastRequestId;
-
     struct RequestStatus {
         bool fulfilled; // whether the request has been successfully fulfilled
         bool exists; // whether a requestId exists
         uint256[] randomWords;
     }
-
     mapping(uint256 => RequestStatus)
-
     public s_requests;
+
+    // Chainlink VRF Events
+    event RequestSent(uint256 requestId, uint32 numWords);
+    event RequestFulfilled(uint256 requestId, uint256[] randomWords);
 
     constructor(address _vrfCoordinator, uint256 _subscriptionId, bytes32 _keyHash) VRFConsumerBaseV2Plus(_vrfCoordinator) {
         s_subscriptionId = _subscriptionId;
@@ -69,30 +61,36 @@ contract ProjectVoting is VRFConsumerBaseV2Plus {
         emit ProjectAdded(projectId, projectName);
     }
 
-    function vote(string memory projectId, string memory voterName) payable public {
+    function registerVoter(string memory displayName) public {
+        address voterAddress = nameToAddress[displayName];
+        require(voterAddress == address(0), "Display name is already taken");
+        require(!hasVoted[msg.sender], "Voter has already voted");
+        nameToAddress[displayName] = msg.sender;
+    }
+
+    function vote(string memory projectId, string memory displayName) payable public {
+        registerVoter(displayName);
         require(msg.value >= 0.001 ether, "Minimum 0.001 ether");
         require(msg.value <= 0.05 ether, "Maximum 0.05 ether");
-        bool hasVoted = hasVotedForCycle[currentCycle][msg.sender];
-        require(!hasVoted, "Already voted");
-        require(bytes(projects[projectId]).length > 0, "Project does not exist"); 
-        addressCycleChoice[currentCycle][msg.sender] = projectId;
+        require(bytes(projects[projectId]).length > 0, "Project does not exist");
+        hasVoted[msg.sender] = true;
+        addressChoice[msg.sender] = projectId;
         cycleVotes[currentCycle][projectId]++;
-        hasVotedForCycle[currentCycle][msg.sender] = true;
         cycleVoters[currentCycle].push(msg.sender);
-        //checkAndTransfer();
-        emit Voted(msg.sender, voterName, projectId, currentCycle);
+        // checkAndTransfer();
+        emit Voted(msg.sender, displayName, projectId, currentCycle);
     }
 
     function getCycleVoteCount(string memory projectId) public view returns (uint) {
         return cycleVotes[currentCycle][projectId];
     }
 
-    function checkHasVotedForCycle() public view returns (bool) {
-        return hasVotedForCycle[currentCycle][msg.sender];
+    function checkHasVoted() public view returns (bool) {
+        return hasVoted[msg.sender];
     }
 
-    function getVoteCycleChoice() public view returns (string memory) {
-        return addressCycleChoice[currentCycle][msg.sender];
+    function getVote() public view returns (string memory) {
+        return addressChoice[msg.sender];
     }
 
     function getCycle() public view returns (uint) {
