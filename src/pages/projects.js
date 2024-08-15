@@ -241,7 +241,8 @@ const ProjectsPage = ({ data }) => {
                   Chainlink's VRF random number generator
                 </Link>
               </dfn>
-              , every time the prize pool reaches the threshold.
+              , every time the prize pool reaches the threshold. The top
+              projects will appear on my front page!
             </Paragraph>{" "}
           </Box>
           <WalletBanner

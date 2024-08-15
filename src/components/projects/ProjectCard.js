@@ -68,20 +68,23 @@ const ProjectCard = ({
           flexDirection: "column",
         }}
       >
-        <Heading
-          as="h2"
-          variant="subheading1"
-          color="white"
-          sx={{
-            whiteSpace: "nowrap",
-            maxWidth: "100%",
-            overflow: "hidden",
-            textOverflow: "ellipsis",
-            mb: 3,
-          }}
-        >
-          {title}
-        </Heading>
+        <Flex sx={{ justifyContent: "space-between", width: "100%" }}>
+          <Heading
+            as="h2"
+            variant="subheading1"
+            color="white"
+            sx={{
+              whiteSpace: "nowrap",
+              maxWidth: "100%",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+              mb: 3,
+            }}
+          >
+            {title}
+          </Heading>
+          <Text sx={{ fontSize: 3, fontWeight: "bold" }}>?</Text>
+        </Flex>
         <Text variant="regular" sx={{ color: "white" }}>
           {voteCount} Vote{voteCount > 1 && "s"}
         </Text>

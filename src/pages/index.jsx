@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from "theme-ui";
+import { Paragraph, jsx } from "theme-ui";
 import { graphql } from "gatsby";
 
 // Components
@@ -22,14 +22,57 @@ import {
 import Seo from "../components/app/Seo";
 import Loader from "../components/Loader";
 import { faGit } from "@fortawesome/free-brands-svg-icons";
-import { DateTime } from "luxon";
+import { getProjects, getProjectVoteCounts } from "../functions/project-voting";
+import { useEffect, useState } from "react";
 
 const IndexPage = ({ data }) => {
+  const [projects, setProjects] = useState([]);
   const landingPageData = data.markdownRemark.frontmatter;
-  const projects = data.allMarkdownRemark.edges.map(({ node }) => ({
-    ...node.frontmatter,
-    ...node.fields,
-  }));
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const init = async () => {
+        await getProjectWithContent();
+        await updateProjectVoteCounts();
+      };
+      init();
+    }
+  }, []);
+
+  const updateProjectVoteCounts = async () => {
+    const voteCounts = await getProjectVoteCounts();
+    console.log(voteCounts);
+    setProjects((projects) => {
+      return projects
+        .map((project) => {
+          if (voteCounts[project.id]) {
+            return {
+              ...project,
+              votes: Number.parseFloat(voteCounts[project.id]),
+            };
+          }
+          return project;
+        })
+        .sort((a, b) => a.votes < b.votes);
+    });
+  };
+
+  const getProjectWithContent = async () => {
+    const projects = await getProjects();
+    if (projects && projects.length > 0) {
+      const formattedProjects = projects.map((project) => {
+        return {
+          id: project.id,
+          title: project.title,
+          votes: 0,
+          link: `/projects/${project.id}`,
+        };
+      });
+      formattedProjects.sort((a, b) => a.votes < b.votes);
+      setProjects(formattedProjects.filter((x, index) => index < 3));
+    }
+  };
+
   return (
     <Box>
       <Seo />
@@ -167,39 +210,25 @@ const IndexPage = ({ data }) => {
         </Box>
         <Box sx={{ mb: 3 }}>
           <Heading as="h3" variant="subheading1">
-            Latest Projects
+            Top Projects
           </Heading>
+          <Paragraph variant="small" sx={{ mb: 3 }}>
+            Checkout my{" "}
+            <Link href="/projects">web3 educational project voting</Link>{" "}
+            feature to grade my projects using blockchain technology.
+          </Paragraph>
           {projects.map((project) => {
-            const formatedDate = DateTime.fromISO(project.startDate).toFormat(
-              "MM-dd-yyyy",
-            );
-
             return (
               <Card key={project.slug} variant="project" sx={{ mb: 3 }}>
                 <Flex sx={{ justifyContent: "space-between", width: "100%" }}>
                   <Box>
-                    <Heading>{project.title}</Heading>
-                    <Text>{formatedDate}</Text>
+                    <Heading mb={2}>{project.title}</Heading>
+                    <Text>{project.votes} Votes</Text>
                   </Box>
-                  <div
-                    sx={{
-                      fontWeight: 800,
-                      textHeight: "font-size",
-                      borderRadius: 3,
-                      padding: 2,
-                    }}
-                  >
-                    {project.status.toUpperCase()}
-                  </div>
                 </Flex>
-                <Link href={project.slug}>
+                <Link href={project.link}>
                   <Button
-                    title={
-                      project.status !== "complete"
-                        ? "Check back later to view this project."
-                        : "View more about this project."
-                    }
-                    disabled={project.status !== "complete"}
+                    title={"View more about this project."}
                     sx={{ mt: 3 }}
                     variant="secondary"
                   >
