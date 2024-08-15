@@ -323,7 +323,6 @@ export const landingPageQuery = graphql`
             slug
           }
           frontmatter {
-            id
             title
             image1 {
               childImageSharp {

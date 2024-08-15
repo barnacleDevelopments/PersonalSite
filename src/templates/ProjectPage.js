@@ -226,7 +226,6 @@ export const pageQuery = graphql`
   query ProjectBySlug($slug: String!) {
     markdownRemark(fields: { slug: { eq: $slug } }) {
       frontmatter {
-        id
         title
         startDate
         endDate
