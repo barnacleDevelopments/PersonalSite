@@ -77,7 +77,7 @@ contract ProjectVoting is VRFConsumerBaseV2Plus {
         addressChoice[msg.sender] = projectId;
         cycleVotes[currentCycle][projectId]++;
         cycleVoters[currentCycle].push(msg.sender);
-        // checkAndTransfer();
+        checkAndTransfer();
         emit Voted(msg.sender, displayName, projectId, currentCycle);
     }
 

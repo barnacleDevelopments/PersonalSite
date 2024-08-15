@@ -16,7 +16,6 @@ const getHash = (path) =>
 module.exports = async function (callback) {
   try {
     const myContractInstance = await ProjectVoting.deployed();
-
     await myContractInstance.add(
       "Resson's Marketing Website",
       await getHash(

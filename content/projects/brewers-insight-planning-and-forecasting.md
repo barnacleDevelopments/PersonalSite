@@ -1,5 +1,4 @@
 ---
-id: fe925bea-43f4-423e-84f9-a4c452f59f5a
 title: BrewersInsight - Planning and Forecasting
 description: Brewer manage large amounts of different materials to produce beer which can become a burdensome task to manage. For instance, a brewer could order too much or too little materials during their production phase resulting in wasted time and resources. Planning & Forecasting is a software feature I developed, while working with WarrierTech, to help brewers manage these materials according to a production plan. The solution is facilitated through two views including a gantt chart for planning brews and a forecasting table to see upcoming materials shortages.
 image1: /assets/planner_1.png

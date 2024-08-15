@@ -1,8 +1,8 @@
 const path = require("path");
 const { createFilePath } = require("gatsby-source-filesystem");
 const { assert } = require("console");
-
-// TODO: Update the source of projects to IPFS.
+const fs = require("fs");
+const crypto = require("crypto");
 
 exports.createPages = async ({ actions, graphql }) => {
   const { createPage } = actions;
@@ -18,13 +18,27 @@ exports.createPages = async ({ actions, graphql }) => {
     });
   }
 
-  function genProjectPage(node, project) {
+  const getHash = (path) =>
+    new Promise((resolve, reject) => {
+      const hash = crypto.createHash("sha256");
+      const rs = fs.createReadStream(path);
+      rs.on("error", reject);
+      rs.on("data", (chunk) => hash.update(chunk));
+      rs.on("end", () => resolve(hash.digest("hex")));
+    });
+
+  async function genProjectPage(node, project) {
+    const projectHash = await getHash(
+      __dirname +
+        `/content${node.fields.slug.slice(0, node.fields.slug.length - 1)}.md`,
+    );
     createPage({
-      path: `${node.fields.slug}`,
+      path: `/projects/${projectHash}`,
       component: path.resolve(`src/templates/ProjectPage.js`),
       context: {
         title: project.title,
         slug: node.fields.slug,
+        hash: projectHash,
       },
     });
   }

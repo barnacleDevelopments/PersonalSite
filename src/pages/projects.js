@@ -65,15 +65,11 @@ const ProjectsPage = ({ data }) => {
     const projects = await getProjects();
     if (projects && projects.length > 0) {
       const formattedProjects = projects.map((project) => {
-        const data = pageData.find(
-          ({ node }) => node.frontmatter.id === project.id,
-        );
         return {
           id: project.id,
           title: project.title,
           votes: 0,
-          image: data?.node?.frontmatter?.image1,
-          link: data?.node?.fields?.slug,
+          link: `/projects/${project.id}`,
         };
       });
       formattedProjects.sort((a, b) => a.votes < b.votes);

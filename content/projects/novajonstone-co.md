@@ -1,5 +1,4 @@
 ---
-id: 98198c87-45e8-4651-8393-0f6893ck6ab5e
 title: NovaJohnstoneAndCo
 description: Nova operates an excuative assistant consulting business and I set
   her up with a welcoming web presence.

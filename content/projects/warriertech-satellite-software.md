@@ -1,5 +1,4 @@
 ---
-id: fe925bea-43f4-423e-84f9-a4c452f59f5a
 title: Satellite Software
 description: ""
 image1: /assets/planner_1.png

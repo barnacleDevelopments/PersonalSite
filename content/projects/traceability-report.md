@@ -1,5 +1,4 @@
 ---
-id: ca7d73d1-1c78-42b7-956e-ec580994c232
 title: Brewers Insight - Traceability Report
 description: "The traceability report is one of the reports on offer on the BrewerInsight platform. It provides visibility for brewer's to track the location of ressources within their brewery. Think of all the materials that brewer's manage on a daily basis from malt, hops and everything in between. Tracking the path these resources take from the supplier, through the brewery, and in the customers hand is critical for the production of beer."
 image1: /assets/dashboard.png

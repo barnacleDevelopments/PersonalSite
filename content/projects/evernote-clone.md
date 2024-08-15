@@ -1,5 +1,4 @@
 ---
-id: f134b43b-acac-47fa-93eb-301c8ce37dc5
 thumbnail: /assets/logo_2.png
 title: Evernote Clone
 description: I started this desktop application while attending the [Nova Scotia
