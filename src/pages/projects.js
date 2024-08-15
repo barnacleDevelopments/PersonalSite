@@ -35,7 +35,6 @@ import {
 } from "../functions/project-voting";
 
 const ProjectsPage = ({ data }) => {
-  const pageData = data.allMarkdownRemark.edges;
   const [projects, setProjects] = useState([]);
   const [hasVoted, setHasVoted] = useState(false);
   const [balance, setBalance] = useState(0);
@@ -51,7 +50,7 @@ const ProjectsPage = ({ data }) => {
   const walletContext = useContext(WalletContext);
 
   useEffect(() => {
-    if (typeof window !== "undefined" && pageData.length > 0) {
+    if (typeof window !== "undefined") {
       const init = async () => {
         await updateThreshold();
         await getProjectWithContent();
@@ -313,26 +312,3 @@ const ProjectsPage = ({ data }) => {
 };
 
 export default ProjectsPage;
-
-export const landingPageQuery = graphql`
-  query ProjectsPageQuery {
-    allMarkdownRemark(filter: { fileAbsolutePath: { regex: "//projects//" } }) {
-      edges {
-        node {
-          fields {
-            slug
-          }
-          frontmatter {
-            title
-            image1 {
-              childImageSharp {
-                gatsbyImageData
-              }
-            }
-            description
-          }
-        }
-      }
-    }
-  }
-`;
