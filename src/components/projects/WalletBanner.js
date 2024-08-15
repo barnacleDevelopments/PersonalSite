@@ -17,6 +17,17 @@ const WalletBanner = ({
     return address.slice(0, 6) + "..." + address.slice(-4);
   };
 
+  function ContractLink() {
+    return (
+      <a
+        href={`https://sepolia.etherscan.io/address/${process.env.GATSBY_PROJECT_VOTING_CONTRACT_ADDRESS}`}
+        target="_blank"
+      >
+        smart contract
+      </a>
+    );
+  }
+
   return (
     <Box
       as="section"
@@ -69,15 +80,16 @@ const WalletBanner = ({
             </Text>
           ) : (
             <Paragraph variant="regular" sx={{ mt: 3, color: "white" }}>
-              Ready to vote? Select your favorite project and confirm the
-              transaction via MetaMask. Please be patient as processing may take
-              a few minutes. Once the threshold has been reached, a winner will
-              randomly be selected and the balance of the contract will be sent
-              to their wallet.
-              {/* There are a few activites you can perform that
-              will help increase your chance of winning. Be sure to check those
-              out! Your vote will be recorded on the Ethereum blockchain via the
-              Sepolia Test Network. */}
+              Your have now connected your wallet to my site! This gives you the
+              ability interact with the project voting <ContractLink /> deployed
+              on the Sepolia test network. To participate in the voting process,
+              first enter a display name, then enter the amount you'd like to
+              add to the prize pool, then press "vote" on your favorite project.
+              You will be prompted to confirm the transaction via MetaMask.
+              Please be patient as processing may take a few minutes. Once the
+              threshold has been reached, a winner will randomly be selected and
+              the prize balance will be sent to their wallet (the balance of the
+              contract after threshold has been reached or exceeded).
             </Paragraph>
           )}
           <Box mt={3} sx={{ color: "white" }}>
