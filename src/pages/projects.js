@@ -251,9 +251,7 @@ const ProjectsPage = ({ data }) => {
             isWalletConnected={walletContext?.isWalletConnected}
             hasVoted={hasVoted}
             threshold={threshold}
-            onConnectClick={() => {
-              walletContext?.connectWallet();
-            }}
+            onConnectClick={walletContext?.connectWallet}
           ></WalletBanner>
           <ProgressGauge
             currentProgress={balance}

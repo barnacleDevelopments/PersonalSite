@@ -55,10 +55,10 @@ export const WalletProvider = ({ children }) => {
       const hasWallet = await checkWallet();
       if (hasWallet) {
         try {
-          console.log("Connecting to MetaMask");
           const accounts = await window.ethereum.request({
             method: "eth_requestAccounts",
           });
+
           if (accounts.length > 0) {
             const success = await checkNetwork();
             setWalletAddress(accounts[0]);
@@ -71,9 +71,6 @@ export const WalletProvider = ({ children }) => {
         } catch (error) {
           console.error("Error connecting to MetaMask:", error);
           reject();
-          alert(
-            "You rejected to connect to MetaMask. A valid wallet address must be provided and connected to the Sepolia network.",
-          );
         }
       } else {
         alert("Please install MetaMask to use this feature.");
