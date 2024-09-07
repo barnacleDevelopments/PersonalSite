@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.19;
+pragma solidity ^0.8.20;
 
 import "@openzeppelin/contracts/utils/Address.sol";
 import "@chainlink/contracts/src/v0.8/vrf/dev/libraries/VRFV2PlusClient.sol";
@@ -56,7 +56,7 @@ contract ProjectVoting is VRFConsumerBaseV2Plus {
     function add(string memory projectName, string memory projectId) public onlyOwner {
         require(bytes(projects[projectId]).length == 0, "Project already exists");
         require(bytes(projectName).length > 0, "Project name is required");
-        require(bytes(projectId).length > 0, "Project ID is required"); 
+        require(bytes(projectId).length > 0, "Project ID is required");
         projects[projectId] = projectName;
         emit ProjectAdded(projectId, projectName);
     }
