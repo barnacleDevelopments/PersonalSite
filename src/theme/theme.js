@@ -195,6 +195,12 @@ module.exports = {
     },
     disabled: {},
   },
-
+  inputs: {
+    primary: {
+      "&:focus": {
+        border: "1px solid orange",
+      },
+    },
+  },
   // Define other theme scales such as space, sizes, zIndices, etc., as needed
 };
