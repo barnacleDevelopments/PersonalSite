@@ -1,4 +1,4 @@
-import projectVotingABI from "../../smart-contracts/build/contracts/ProjectVoting.json";
+import projectVotingABI from "../../smart-contracts-hardhat/ignition/deployments/chain-31337/artifacts/ProjectVotingModule#ProjectVoting.json";
 import Web3 from "web3";
 import provider from "../web3-provider";
 

@@ -15,7 +15,6 @@
     "clean": "gatsby clean"
   },
   "dependencies": {
-    "@4everland/upload-pin": "^1.1.1",
     "@chainlink/contracts": "^1.2.0",
     "@fleek-platform/sdk": "^2.1.5",
     "@fortawesome/fontawesome-svg-core": "^6.5.1",
