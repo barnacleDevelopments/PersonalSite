@@ -1,4 +1,4 @@
-import projectVotingABI from "../../smart-contracts-hardhat/ignition/deployments/chain-31337/artifacts/ProjectVotingModule#ProjectVoting.json";
+import projectVotingABI from "../../smart-contracts-hardhat/artifacts/contracts/project-voting.sol/ProjectVoting.json";
 import Web3 from "web3";
 import provider from "../web3-provider";
 
@@ -20,6 +20,7 @@ export const getVoters = async (cycle) => {
     projectVotingABI.abi,
     process.env.GATSBY_PROJECT_VOTING_CONTRACT_ADDRESS,
   );
+
   try {
     const result = await contract.getPastEvents("Voted", {
       fromBlock: 0,
@@ -73,11 +74,14 @@ export const getProjects = async () => {
     projectVotingABI.abi,
     process.env.GATSBY_PROJECT_VOTING_CONTRACT_ADDRESS,
   );
+
+  console.log("METHODS: ", contract.getPastEvents);
   try {
     const result = await contract.getPastEvents("ProjectAdded", {
-      fromBlock: 0,
+      fromBlock: "earliest",
       toBlock: "latest",
     });
+    console.log(result);
     return result.map((project) => ({
       id: project.returnValues.projectId,
       title: project.returnValues.projectName,

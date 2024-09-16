@@ -62,6 +62,7 @@ const ProjectsPage = ({ data }) => {
 
   const getProjectWithContent = async () => {
     const projects = await getProjects();
+    console.log("PROJECTS: ", projects);
     if (projects && projects.length > 0) {
       const formattedProjects = projects.map((project) => {
         return {
