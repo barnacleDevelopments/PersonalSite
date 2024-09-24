@@ -30,6 +30,7 @@ contract ProjectVoting is VRFConsumerBaseV2Plus {
 
     // Chainlink VRF properties
     uint256 s_subscriptionId;
+    address vrfCoordinator;
     bytes32 private keyHash;
     uint32 private callbackGasLimit = 100000; // Adjust the gas limit based on the requirement
     uint16 private requestConfirmations = 3; // Minimum number of confirmations
@@ -62,11 +63,24 @@ contract ProjectVoting is VRFConsumerBaseV2Plus {
         emit ProjectAdded(projectId, projectName);
     }
 
+    function subscriptionSet() public view returns (bool) {
+        uint256 length = 0;
+        return s_subscriptionId != length;
+    }
+
+    function vrfCoordinatorSet() public view returns (address) {
+        return vrfCoordinator;
+    }
+
+    function keyHashSet() public view returns (bytes32) {
+        return keyHash;
+    }
+
     function getProjects() public view returns (string[] memory) {
         return projectNames;
     }
 
-    function registerVoter(string memory displayName) public {
+    function registerVoter(string memory displayName) private {
         address voterAddress = nameToAddress[displayName];
         require(voterAddress == address(0), "Display name is already taken");
         require(!hasVoted[msg.sender], "Voter has already voted");
