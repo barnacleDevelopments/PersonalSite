@@ -53,7 +53,7 @@ const IndexPage = ({ data }) => {
           }
           return project;
         })
-        .sort((a, b) => a.votes < b.votes);
+        .sort((a, b) => b.votes - a.votes);
     });
   };
 
@@ -68,7 +68,6 @@ const IndexPage = ({ data }) => {
           link: `/projects/${project.id}`,
         };
       });
-      formattedProjects.sort((a, b) => a.votes < b.votes);
       setProjects(formattedProjects.filter((x, index) => index < 3));
     }
   };
@@ -219,7 +218,7 @@ const IndexPage = ({ data }) => {
           </Paragraph>
           {projects.map((project) => {
             return (
-              <Card key={project.slug} variant="project" sx={{ mb: 3 }}>
+              <Card key={project.id} variant="project" sx={{ mb: 3 }}>
                 <Flex sx={{ justifyContent: "space-between", width: "100%" }}>
                   <Box>
                     <Heading mb={2}>{project.title}</Heading>
