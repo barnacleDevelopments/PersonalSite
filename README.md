@@ -11,7 +11,7 @@ The smart contract project is what runs the `/projects` page of my site.
 
 The smart contract project uses Hardhat for development. Follow these steps to set up a local blockchain environment. For detailed setup instructions, refer to the [Hardhat documentation](https://hardhat.org/docs).
 
-All commands below should be run inside the `smart-contracts-hardhat directory`.
+All commands below should be run inside the `smart-contracts-hardhat` directory.
 
 ### Install Dependencies
 
@@ -51,7 +51,6 @@ The CCIP local simular allows us to run Chainlink services locally for developme
 
 ```bash
 npx hardhat ignition deploy ./ignition/modules/ProjectVoting.ts --network localhost --reset
-Example Output:
 ```
 
 **Output:**
