@@ -24,6 +24,17 @@ npm install
 
 GatsbyJs is a powerful static site generator. To start the Gatsby project in development mode:
 
+### Create `.env` file for development
+
+The following variables are used to comunicate for with the project voting smart contract. On the `/projects` page.
+
+- GATSBY_PROJECT_VOTING_CONTRACT_ADDRESS
+- GATSBY_WEB3_HTTPS_URL="http://localhost:8545"
+- GATSBY_WEB3_WS_URL="ws://localhost:8545"
+- GATSBY_WEB3_NETWORK="Local"
+
+## Start the Project
+
 ```bash
 npm run develop
 ```
