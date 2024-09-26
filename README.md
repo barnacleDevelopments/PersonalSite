@@ -65,6 +65,7 @@ Create `.env` file inside the smart-contracts-hardhat directory.
 - SEPOLIA_URL
 
 **Verifiable Randomness Function (VRF) Variables**
+
 You can readmore about VRF on their [official documentation](https://docs.chain.link/vrf).
 
 - VRF_KEY_HASH
