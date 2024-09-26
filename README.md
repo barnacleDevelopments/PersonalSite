@@ -1,3 +1,15 @@
+# Introduction
+
+This repository is my personal portfolio site! I'm publicaly documenting the development process so that others can have a example project to build their own decentralized portfolio websites.
+
+# Live Deployment
+
+You can view the live deployed website at [devdeveloper.ca](https://devdeveloper.ca/). It is also hosted on [Fleek](https://app.fleek.xyz/) and can be accessed via the Ethereum Name Service (ENS) at [devdeveloper.eth](devdeveloper.eth).
+
+Please note that while ENS is operational, it is still in the early stages of adoption, so accessibility may vary. For the best experience when using ENS, consider using a browser like Brave, which supports blockchain technologies and ENS natively. This means it can resolve ENS names directly without needing additional extensions or configurations.
+
+Alternatively, you can access the site through a `.limo` extension, which provides a straightforward way to reach Ethereum-based domains by resolving them through a specific service designed for this purpose. This can be particularly useful if you're using a browser that doesn’t natively support ENS.
+
 # Setup
 
 This repository contains two projects:
@@ -86,9 +98,13 @@ Run the initialization script to add new projects to the local blockchain. You c
 npx hardhat --network localhost run scripts/create-projects.js
 ```
 
-#### TODO: The Graph Subgraph Setup
+#### TODO: The Graph Subgraph Integration
 
 I plan on updating this project to utilize the [The Graph](https://thegraph.com/) which is a blockchain indexer for efficient data querying. This project currently interacts directly with the RPC layer through the injected `ethereum provider` of the browser.
+
+#### TODO: Arweave Integration
+
+I plan on changing the content source of my project from local files stored on the repository to files stored on [Arweave](https://arweave.org/build) to futher decentralize my project.
 
 ## GatsbyJS Project
 
@@ -114,3 +130,7 @@ npm install
 ```bash
 npm run develop
 ```
+
+# Additional Resources:
+
+- [Areweave Cost Qualculator](https://ar-fees.arweave.dev/)
