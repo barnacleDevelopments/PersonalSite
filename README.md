@@ -88,7 +88,7 @@ npx hardhat --network localhost run scripts/create-projects.js
 
 #### TODO: The Graph Subgraph Setup
 
-I plan on updating this project to utilize the `The Graph` which is a blockchain indexer for efficient data querying. This project currently interacts directly with the RPC layer through the injected `ethereum provider` of the browser.
+I plan on updating this project to utilize the [The Graph](https://thegraph.com/) which is a blockchain indexer for efficient data querying. This project currently interacts directly with the RPC layer through the injected `ethereum provider` of the browser.
 
 ## GatsbyJS Project
 
