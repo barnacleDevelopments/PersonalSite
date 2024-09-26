@@ -77,7 +77,7 @@ ProjectVotingModule#ProjectVoting - 0x68B1D87F95878fE05B998F19b66F4baba5De1aed
 
 Take note of the smart contract address `0x68B1D87F95878fE05B998F19b66F4baba5De1aed`.
 
-## Initialize and Apply Projects to the Blockchain:
+#### Initialize and Apply Projects to the Blockchain:
 
 Run the initialization script to add new projects to the local blockchain. You can then see these projects on the `/projects` page.
 
@@ -85,6 +85,10 @@ Run the initialization script to add new projects to the local blockchain. You c
 
 npx hardhat --network localhost run scripts/create-projects.js
 ```
+
+#### TODO: The Graph Subgraph Setup
+
+I plan on updating this project to utilize the `The Graph` which is a blockchain indexer for efficient data querying. This project currently interacts directly with the RPC layer through the injected `ethereum provider` of the browser.
 
 ## GatsbyJS Project
 
