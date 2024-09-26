@@ -13,10 +13,14 @@ const getHash = (filePath) =>
     rs.on("end", () => resolve(hash.digest("hex")));
   });
 
+const function uploadProjectFiles() {
+  // upload files to arweave network.
+  // return files hashes to be stored on the project voting smart contract
+}
+
 async function createProjects() {
   try {
     const signers = await ethers.getSigners();
-    console.log("DEBUG: ", signers);
     const contractFactory = await ethers.getContractFactory("ProjectVoting");
     const contractInstance = contractFactory.attach(
       "0x68B1D87F95878fE05B998F19b66F4baba5De1aed"
@@ -42,33 +46,13 @@ async function createProjects() {
 
     for (const [name, filePath] of projects) {
       const hash = await getHash(path.join(__dirname, filePath));
-      console.log("HASH: ", hash);
       const tx = await contractInstance.add(name, hash);
-      const receipt = await tx.wait(); // Ensure transaction is mined
+      const receipt = await tx.wait();
       console.log(`Transaction confirmed in block ${receipt.blockNumber}`);
     }
 
-    console.log("Completed creating projects");
-
-    // const filter = contractInstance.filters.ProjectAdded();
-    // const events = await contractInstance.queryFilter(filter, 0, "latest");
-
-    // events.forEach((event) => {
-    //   console.log(
-    //     `ProjectAdded event! Project ID: ${event.args.projectId}, Project Name: ${event.args.projectName}`
-    //   );
-    // });
-
-    // contractInstance.on("ProjectAdded", (projectId, projectName, event) => {
-    //   console.log(
-    //     `Real-time event detected! Project ID: ${projectId}, Project Name: ${projectName}`
-    //   );
-    // });
-    console.log(contractInstance);
-    const tx2 = await contractInstance.getProjects();
-    console.log("DEBUG: ", tx2);
-
-    console.log("PROJECTS: ", reseipt2);
+    const projects = await contractInstance.getProjects();
+    console.log("Projects created! ", projects);
   } catch (error) {
     console.error("Error in script execution", error);
   }
