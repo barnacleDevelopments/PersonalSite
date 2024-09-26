@@ -52,7 +52,7 @@ const BlogPage = ({ data }) => {
 };
 
 export const pageQuery = graphql`
-  query ProjectsPageQuery {
+  query BlogPageQuery {
     allMarkdownRemark(filter: { frontmatter: { draft: { eq: false } } }) {
       distinct(field: { frontmatter: { category: SELECT } })
     }

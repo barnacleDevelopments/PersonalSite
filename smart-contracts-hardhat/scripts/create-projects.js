@@ -19,7 +19,7 @@ async function createProjects() {
     console.log("DEBUG: ", signers);
     const contractFactory = await ethers.getContractFactory("ProjectVoting");
     const contractInstance = contractFactory.attach(
-      "0x0DCd1Bf9A1b36cE34237eEaFef220932846BCD82"
+      "0x68B1D87F95878fE05B998F19b66F4baba5De1aed"
     );
 
     const projects = [

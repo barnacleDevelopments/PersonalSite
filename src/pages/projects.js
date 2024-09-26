@@ -62,7 +62,7 @@ const ProjectsPage = ({ data }) => {
 
   const getProjectWithContent = async () => {
     const projects = await getProjects();
-    console.log("PROJECTS: ", projects);
+    console.log("DEBUG: ", data);
     if (projects && projects.length > 0) {
       const formattedProjects = projects.map((project) => {
         return {
@@ -72,7 +72,6 @@ const ProjectsPage = ({ data }) => {
           link: `/projects/${project.id}`,
         };
       });
-      formattedProjects.sort((a, b) => a.votes < b.votes);
       setProjects(formattedProjects);
     }
   };
@@ -310,5 +309,28 @@ const ProjectsPage = ({ data }) => {
     </Box>
   );
 };
+
+export const projectsQuery = graphql`
+  query ProjectsPageQuery {
+    allMarkdownRemark(filter: { fileAbsolutePath: { regex: "//projects//" } }) {
+      edges {
+        node {
+          fields {
+            slug
+          }
+          frontmatter {
+            title
+            image1 {
+              childImageSharp {
+                gatsbyImageData
+              }
+            }
+            description
+          }
+        }
+      }
+    }
+  }
+`;
 
 export default ProjectsPage;
