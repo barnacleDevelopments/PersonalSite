@@ -22,7 +22,7 @@ npm install
 
 ## Run Gatsby Project
 
-GatsbyJs is a powerful static site generator. To start the Gatsby project in development mode:
+GatsbyJs is a powerful static site generator. You can read more about it on their [offical documentation](https://www.gatsbyjs.com/docs).
 
 ### Create `.env` file for development
 
