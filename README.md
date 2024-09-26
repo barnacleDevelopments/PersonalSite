@@ -5,55 +5,26 @@ This repository contains two projects:
 - Main GatsbyJs Project
 - Smart Contract Project (developed with Hardhat)
 
-## Install Project Dependencies
+## Smart Contract Project
 
-Install Gatsby Project Dependencies:
+The smart contract project is what runs the `/projects` page of my site.
 
-```bash
-npm install
-```
+The smart contract project uses Hardhat for development. Follow these steps to set up a local blockchain environment. For detailed setup instructions, refer to the Hardhat documentation.
 
-## Install Smart Contract Dependencies:
+All commands below should be run inside the smart-contracts-hardhat directory.
+
+### Install Dependencies
 
 ```bash
 cd smart-contracts-hardhat
 npm install
 ```
 
-## Run Gatsby Project
-
-GatsbyJs is a powerful static site generator. You can read more about it on their [offical documentation](https://www.gatsbyjs.com/docs).
-
-### Create `.env` file for development
-
-The following variables are used to comunicate for with the project voting smart contract. On the `/projects` page.
-
-- GATSBY_PROJECT_VOTING_CONTRACT_ADDRESS
-- GATSBY_WEB3_HTTPS_URL="http://localhost:8545"
-- GATSBY_WEB3_WS_URL="ws://localhost:8545"
-- GATSBY_WEB3_NETWORK="Local"
-
-## Start the Project
-
-```bash
-npm run develop
-```
-
-## Run Smart Contract Project
-
-The smart contract project uses Hardhat for development. Follow these steps to set up a local blockchain environment. For detailed setup instructions, refer to the Hardhat documentation.
-
-All commands below should be run inside the smart-contracts-hardhat directory.
-
 ### Start the Local Blockchain:
 
 ```bash
 npx hardhat node
 ```
-
-### Deploy the Smart Contract:
-
-Their are several steps to get the local development environment setup for smart contract development. Hardhat makes the process much easier.
 
 #### Create Environment Variable File
 
@@ -105,11 +76,38 @@ Deployed Addresses:
 ProjectVotingModule#ProjectVoting - 0x68B1D87F95878fE05B998F19b66F4baba5De1aed
 ```
 
+Take note of the smart contract address `0x68B1D87F95878fE05B998F19b66F4baba5De1aed`.
+
 ## Initialize and Apply Projects to the Blockchain:
 
-Run the initialization script to add new projects to the local blockchain:
+Run the initialization script to add new projects to the local blockchain. You can then see these projects on the `/projects` page.
 
 ```bash
 
 npx hardhat --network localhost run scripts/create-projects.js
+```
+
+## GatsbyJS Project
+
+GatsbyJs is a powerful static site generator. You can read more about it on their [offical documentation](https://www.gatsbyjs.com/docs).
+
+### Create `.env` file for development
+
+The following variables are used to comunicate for with the project voting smart contract. On the `/projects` page. For the `GATSBY_PROJECT_VOTING_CONTRACT_ADDRESS` variable use the contract address from the smart contract deployment.
+
+- GATSBY_PROJECT_VOTING_CONTRACT_ADDRESS=0x68B1D87F95878fE05B998F19b66F4baba5De1aed
+- GATSBY_WEB3_HTTPS_URL="http://localhost:8545"
+- GATSBY_WEB3_WS_URL="ws://localhost:8545"
+- GATSBY_WEB3_NETWORK="Local"
+
+### Install Gatsby Project Dependencies
+
+```bash
+npm install
+```
+
+### Run Gatsby Project
+
+```bash
+npm run develop
 ```
