@@ -3,6 +3,31 @@ const { createFilePath } = require("gatsby-source-filesystem");
 const { assert } = require("console");
 const fs = require("fs");
 const crypto = require("crypto");
+const Arweave = require("arweave");
+
+async function fetchMultipleTransactions(txIds) {
+  try {
+    const arweave = Arweave.init({
+      host: "arweave.net", // Hostname or IP address for a Arweave host
+      port: 443, // Port
+      protocol: "https", // Network protocol http or https
+      timeout: 20000, // Network request timeouts in milliseconds
+      logging: false, // Enable network request logging
+    });
+    return await Promise.all(
+      txIds.map(async (txId) => {
+        const data = await arweave.transactions.getData(txId, {
+          decode: true,
+          string: true,
+        });
+        return { txId, data };
+      }),
+    );
+    console.log("Transaction Data:", results);
+  } catch (error) {
+    console.error("Error fetching transaction data:", error);
+  }
+}
 
 exports.createPages = async ({ actions, graphql }) => {
   const { createPage } = actions;
@@ -18,56 +43,16 @@ exports.createPages = async ({ actions, graphql }) => {
     });
   }
 
-  const getHash = (path) =>
-    new Promise((resolve, reject) => {
-      const hash = crypto.createHash("sha256");
-      const rs = fs.createReadStream(path);
-      rs.on("error", reject);
-      rs.on("data", (chunk) => hash.update(chunk));
-      rs.on("end", () => resolve(hash.digest("hex")));
-    });
-
   async function genProjectPage(node, project) {
-    const projectHash = await getHash(
-      __dirname +
-        `/content${node.fields.slug.slice(0, node.fields.slug.length - 1)}.md`,
-    );
     createPage({
-      path: `/projects/${projectHash}`,
+      path: node.fields.slug,
       component: path.resolve(`src/templates/ProjectPage.js`),
       context: {
         title: project.title,
         slug: node.fields.slug,
-        hash: projectHash,
       },
     });
   }
-
-  function genCategoryPage(category) {
-    createPage({
-      path: `/blog/${category}`,
-      component: path.resolve(`src/templates/CategoryPage.js`),
-      context: {
-        category: category,
-      },
-    });
-  }
-
-  const categoryResult = graphql(`
-    query ProjectsPageQuery {
-      allMarkdownRemark(filter: { frontmatter: { draft: { eq: false } } }) {
-        distinct(field: { frontmatter: { category: SELECT } })
-      }
-    }
-  `).then((result) => {
-    if (result.errors) {
-      Promise.reject(result.errors);
-    }
-
-    result.data.allMarkdownRemark.distinct.forEach((category) => {
-      genCategoryPage(category);
-    });
-  });
 
   const projectsResult = graphql(`
     query ProjectsQuery {
@@ -151,7 +136,7 @@ exports.createPages = async ({ actions, graphql }) => {
       });
   });
 
-  return Promise.all([postsResult, projectsResult]);
+  return Promise.allSettled([postsResult, projectsResult]);
 };
 
 exports.onCreateNode = ({ node, actions, getNode }) => {
@@ -179,4 +164,27 @@ exports.onCreateWebpackConfig = ({ actions, getConfig }) => {
     config.externals[0]["node:crypto"] = require.resolve("crypto-browserify");
   }
   actions.replaceWebpackConfig(config);
+};
+
+exports.onPreInit = () => {
+  const projectsData = fetchMultipleTransactions([
+    "YrSKX2_fKeUVHwrLWEZng_Sq5SF3DO-3Y2StiO88GJI",
+  ]).then((projects) => {
+    if (!fs.existsSync(path.resolve(__dirname, "content", "projects"))) {
+      fs.mkdirSync(path.resolve(__dirname, "content", "projects"), {
+        recursive: true,
+      });
+    }
+    for (let project of projects) {
+      const markdownString = `${project.data.slice(0, 3)}
+txId: ${project.txId}${project.data.slice(3)}`;
+      const filePath = path.resolve(
+        __dirname,
+        "content",
+        "projects",
+        project.txId + ".md",
+      );
+      fs.writeFileSync(filePath, markdownString);
+    }
+  });
 };

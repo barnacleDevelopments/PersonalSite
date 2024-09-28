@@ -61,15 +61,20 @@ const ProjectsPage = ({ data }) => {
   }, [walletContext?.walletAddress, walletContext?.isWalletConnected]);
 
   const getProjectWithContent = async () => {
-    const projects = await getProjects();
-    console.log("DEBUG: ", data);
+    const contractProjects = await getProjects();
+    const projects = data.allMarkdownRemark.edges.map(
+      ({ node: { fields, frontmatter } }) => ({
+        ...fields,
+        ...frontmatter,
+      }),
+    );
     if (projects && projects.length > 0) {
       const formattedProjects = projects.map((project) => {
         return {
-          id: project.id,
+          id: project.txId,
           title: project.title,
           votes: 0,
-          link: `/projects/${project.id}`,
+          link: `/projects/${project.slug}`,
         };
       });
       setProjects(formattedProjects);
@@ -320,6 +325,7 @@ export const projectsQuery = graphql`
           }
           frontmatter {
             title
+            txId
             image1 {
               childImageSharp {
                 gatsbyImageData

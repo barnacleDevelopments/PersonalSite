@@ -85,6 +85,7 @@ const ProjectCard = ({
           </Heading>
           <Text sx={{ fontSize: 3, fontWeight: "bold" }}>?</Text>
         </Flex>
+        <a href={"https://viewblock.io/arweave/tx/" + id}>{id}</a>
         <Text variant="regular" sx={{ color: "white" }}>
           {voteCount} Vote{voteCount > 1 && "s"}
         </Text>

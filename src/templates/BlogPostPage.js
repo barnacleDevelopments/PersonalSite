@@ -16,7 +16,6 @@ const BlogPostPage = ({ data }) => {
   const converter = new showdown.Converter();
 
   useEffect(() => {
-    console.log("");
     Prism.highlightAll();
   }, []);
 
