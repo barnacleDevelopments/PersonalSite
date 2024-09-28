@@ -106,6 +106,10 @@ I plan on updating this project to utilize the [The Graph](https://thegraph.com/
 
 I plan on changing the content source of my project from local files stored on the repository to files stored on [Arweave](https://arweave.org/build) to futher decentralize my project.
 
+##### Steps:
+
+- Create a gatsby-source-arweave project
+
 ## GatsbyJS Project
 
 GatsbyJs is a powerful static site generator. You can read more about it on their [offical documentation](https://www.gatsbyjs.com/docs).
@@ -134,3 +138,7 @@ npm run develop
 # Additional Resources:
 
 - [Areweave Cost Qualculator](https://ar-fees.arweave.dev/)
+- [Arweave Documentation](https://arweave.org/build)
+- [Arweave File Upload Documentation](https://cookbook.arweave.dev/concepts/post-transactions.html)
+- [Arweave GraphQL Guide](https://gql-guide.arweave.dev/)
+- [Create a Gatsby Source Plugin](https://www.gatsbyjs.com/docs/tutorial/creating-a-source-plugin/part-0/)
