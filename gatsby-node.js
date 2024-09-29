@@ -5,30 +5,6 @@ const fs = require("fs");
 const crypto = require("crypto");
 const Arweave = require("arweave");
 
-async function fetchMultipleTransactions(txIds) {
-  try {
-    const arweave = Arweave.init({
-      host: "arweave.net", // Hostname or IP address for a Arweave host
-      port: 443, // Port
-      protocol: "https", // Network protocol http or https
-      timeout: 20000, // Network request timeouts in milliseconds
-      logging: false, // Enable network request logging
-    });
-    return await Promise.all(
-      txIds.map(async (txId) => {
-        const data = await arweave.transactions.getData(txId, {
-          decode: true,
-          string: true,
-        });
-        return { txId, data };
-      }),
-    );
-    console.log("Transaction Data:", results);
-  } catch (error) {
-    console.error("Error fetching transaction data:", error);
-  }
-}
-
 exports.createPages = async ({ actions, graphql }) => {
   const { createPage } = actions;
 
@@ -65,6 +41,7 @@ exports.createPages = async ({ actions, graphql }) => {
               slug
             }
             frontmatter {
+              txId
               title
               status
               githubLink
@@ -84,7 +61,6 @@ exports.createPages = async ({ actions, graphql }) => {
     if (result.errors) {
       Promise.reject(result.errors);
     }
-
     result.data.allMarkdownRemark.edges.forEach(({ node }) => {
       const project = node.frontmatter;
       if (project.status === "complete") {
@@ -125,7 +101,6 @@ exports.createPages = async ({ actions, graphql }) => {
     if (result.errors) {
       Promise.reject(results.errors);
     }
-    // generate individual pages for each post
     result.data.allMarkdownRemark.edges
       .filter(({ node }) => {
         return !node.frontmatter.draft;
@@ -166,8 +141,38 @@ exports.onCreateWebpackConfig = ({ actions, getConfig }) => {
   actions.replaceWebpackConfig(config);
 };
 
+async function fetchProjectContent(txIds) {
+  try {
+    const arweave = Arweave.init({
+      host: "arweave.net", // Hostname or IP address for a Arweave host
+      port: 443, // Port
+      protocol: "https", // Network protocol http or https
+      timeout: 20000, // Network request timeouts in milliseconds
+      logging: false, // Enable network request logging
+    });
+    return await Promise.all(
+      txIds.map(async (txId) => {
+        const data = await arweave.transactions.getData(txId, {
+          decode: true,
+          string: true,
+        });
+        return { txId, data };
+      }),
+    );
+    console.log("Transaction Data:", results);
+  } catch (error) {
+    console.error("Error fetching transaction data:", error);
+  }
+}
+
+async function fetchContractProjectHashes() {
+  try {
+  } catch (error) {}
+}
+
 exports.onPreInit = () => {
-  const projectsData = fetchMultipleTransactions([
+  const projectIds = await fetch;
+  const projectsData = fetchProjectContent([
     "YrSKX2_fKeUVHwrLWEZng_Sq5SF3DO-3Y2StiO88GJI",
   ]).then((projects) => {
     if (!fs.existsSync(path.resolve(__dirname, "content", "projects"))) {

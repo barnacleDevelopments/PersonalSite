@@ -61,8 +61,8 @@ const ProjectsPage = ({ data }) => {
   }, [walletContext?.walletAddress, walletContext?.isWalletConnected]);
 
   const getProjectWithContent = async () => {
-    const contractProjects = await getProjects();
-    const projects = data.allMarkdownRemark.edges.map(
+    const projects = await getProjects();
+    const projectData = data.allMarkdownRemark.edges.map(
       ({ node: { fields, frontmatter } }) => ({
         ...fields,
         ...frontmatter,
@@ -70,11 +70,12 @@ const ProjectsPage = ({ data }) => {
     );
     if (projects && projects.length > 0) {
       const formattedProjects = projects.map((project) => {
+        console.log(project);
         return {
-          id: project.txId,
+          id: project.id,
           title: project.title,
           votes: 0,
-          link: `/projects/${project.slug}`,
+          link: project.slug,
         };
       });
       setProjects(formattedProjects);

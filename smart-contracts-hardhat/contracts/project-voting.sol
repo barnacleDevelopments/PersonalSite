@@ -22,7 +22,7 @@ contract ProjectVoting is VRFConsumerBaseV2Plus {
     mapping(address => bool) public hasVoted;
     uint private threshold = 0.1 ether;
     uint public currentCycle = 1;
-    string[] projectNames;
+
     // Voting Events
     event ProjectAdded(string projectId, string projectName);
     event Voted(address voter, string name, string projectId, uint cycle);
@@ -54,12 +54,11 @@ contract ProjectVoting is VRFConsumerBaseV2Plus {
         keyHash = _keyHash;
     }
 
-    function add(string memory projectName, string memory projectId) public onlyOwner {
+    function addProject(string memory projectName, string memory projectId) public onlyOwner {
         require(bytes(projects[projectId]).length == 0, "Project already exists");
         require(bytes(projectName).length > 0, "Project name is required");
         require(bytes(projectId).length > 0, "Project ID is required");
         projects[projectId] = projectName;
-        projectNames.push(projectName);
         emit ProjectAdded(projectId, projectName);
     }
 
@@ -76,8 +75,8 @@ contract ProjectVoting is VRFConsumerBaseV2Plus {
         return keyHash;
     }
 
-    function getProjects() public view returns (string[] memory) {
-        return projectNames;
+    function getProjectName(string memory id) public view returns (string memory) {
+       return projects[id];
     }
 
     function registerVoter(string memory displayName) private {
