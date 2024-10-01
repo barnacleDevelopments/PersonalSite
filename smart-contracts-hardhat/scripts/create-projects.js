@@ -31,10 +31,13 @@ async function createProjects() {
     ];
 
     for (const [name, hash] of projects) {
-      const tx = await contractInstance.add(name, hash);
+      const tx = await contractInstance.addProject(name, hash);
       const receipt = await tx.wait();
       console.log(`Transaction confirmed in block ${receipt.blockNumber}`);
     }
+
+    const result = await contractInstance.getProjectIds();
+    console.log("Projects Created!", result);
   } catch (error) {
     console.error("Error in script execution", error);
   }

@@ -20,6 +20,7 @@ contract ProjectVoting is VRFConsumerBaseV2Plus {
     mapping(uint => address[]) public cycleVoters; // list of voters of the current cycle
     mapping(string => string) public projects;
     mapping(address => bool) public hasVoted;
+    string[] public projectIds;
     uint private threshold = 0.1 ether;
     uint public currentCycle = 1;
 
@@ -59,6 +60,7 @@ contract ProjectVoting is VRFConsumerBaseV2Plus {
         require(bytes(projectName).length > 0, "Project name is required");
         require(bytes(projectId).length > 0, "Project ID is required");
         projects[projectId] = projectName;
+        projectIds.push(projectId);
         emit ProjectAdded(projectId, projectName);
     }
 
@@ -77,6 +79,10 @@ contract ProjectVoting is VRFConsumerBaseV2Plus {
 
     function getProjectName(string memory id) public view returns (string memory) {
        return projects[id];
+    }
+
+    function getProjectIds() public view returns (string[] memory) {
+       return projectIds;
     }
 
     function registerVoter(string memory displayName) private {

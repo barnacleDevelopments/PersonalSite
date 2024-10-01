@@ -1,9 +1,12 @@
-const path = require("path");
 const { createFilePath } = require("gatsby-source-filesystem");
 const { assert } = require("console");
+const Arweave = require("arweave");
+require("dotenv").config();
 const fs = require("fs");
 const crypto = require("crypto");
-const Arweave = require("arweave");
+const path = require("path");
+const projectVotingABI = require("./smart-contracts-hardhat/artifacts/contracts/project-voting.sol/ProjectVoting.json");
+const { Web3 } = require("web3");
 
 exports.createPages = async ({ actions, graphql }) => {
   const { createPage } = actions;
@@ -167,14 +170,35 @@ async function fetchProjectContent(txIds) {
 
 async function fetchContractProjectHashes() {
   try {
+    try {
+      const signers = await ethers.getSigners();
+      const contractFactory = await ethers.getContractFactory("ProjectVoting");
+      const contractInstance = contractFactory.attach(
+        process.env.GATSBY_PROJECT_VOTING_CONTRACT_ADDRESS,
+      );
+
+      return await contractInstance.getProjectIds();
+    } catch (error) {}
   } catch (error) {}
 }
 
-exports.onPreInit = () => {
-  const projectIds = await fetch;
-  const projectsData = fetchProjectContent([
-    "YrSKX2_fKeUVHwrLWEZng_Sq5SF3DO-3Y2StiO88GJI",
-  ]).then((projects) => {
+async function fetchContractProjectHashes() {
+  const provider = new Web3(process.env.GATSBY_WEB3_WS_URL);
+  const contract = new provider.eth.Contract(
+    projectVotingABI.abi,
+    process.env.GATSBY_PROJECT_VOTING_CONTRACT_ADDRESS,
+  );
+  try {
+    const result = await contract.methods.getProjectIds().call();
+    return result;
+  } catch (error) {
+    console.error("Error in getProjectById", error);
+  }
+}
+
+exports.onPreInit = async () => {
+  const projectIds = await fetchContractProjectHashes();
+  const projectsData = fetchProjectContent(projectIds).then((projects) => {
     if (!fs.existsSync(path.resolve(__dirname, "content", "projects"))) {
       fs.mkdirSync(path.resolve(__dirname, "content", "projects"), {
         recursive: true,

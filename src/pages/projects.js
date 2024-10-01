@@ -68,14 +68,16 @@ const ProjectsPage = ({ data }) => {
         ...frontmatter,
       }),
     );
-    if (projects && projects.length > 0) {
+    if (projects && projects.length > 0 && projectData.length > 0) {
       const formattedProjects = projects.map((project) => {
-        console.log(project);
+        const data = projectData.find((x) => {
+          return x.txId?.trim() === project.id?.trim();
+        });
         return {
           id: project.id,
           title: project.title,
           votes: 0,
-          link: project.slug,
+          link: data?.slug,
         };
       });
       setProjects(formattedProjects);
