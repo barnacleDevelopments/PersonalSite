@@ -3,23 +3,21 @@ import { expect } from "chai";
 import hre, { ethers } from "hardhat";
 require("dotenv").config({ path: __dirname + "/../.env" });
 
-      const projects = [
-        [
-          "Resson's Marketing Website",
-          "xw8cyKXN1eck6aPVlRmajo984tvqGrKZTesseXa3p3I",
-        ],
-        ["NovaJohnstone&Co", "tTb85KM3Jdgdj7OwD3ecqoZf7OgXTEvint06SkyI7yo"],
-        ["MyBoards", "yJjCczdIFA02NAWeR6iaaic1NQR0It9E_ljUxGOaSn8"],
-        ["Evernote Clone", "kzUya5V0duWlP_3pORYAqwd8KmUYTnCEiKmEiDblPf0"],
-        [
-          "BrewersInsight - Planning and Forecasting",
-          "Zr_LtcqYA6YcIHOkiiKAF14s9Z9MjyWk36lPgEue_-w",
-        ],
-        [
-          "Brewers Insight - Packaging BOM",
-          "YrSKX2_fKeUVHwrLWEZng_Sq5SF3DO-3Y2StiO88GJI",
-        ],
-      ];
+const projects = [
+  ["Resson's Marketing Website", "xw8cyKXN1eck6aPVlRmajo984tvqGrKZTesseXa3p3I"],
+  ["NovaJohnstone&Co", "tTb85KM3Jdgdj7OwD3ecqoZf7OgXTEvint06SkyI7yo"],
+  ["MyBoards", "yJjCczdIFA02NAWeR6iaaic1NQR0It9E_ljUxGOaSn8"],
+  ["Evernote Clone", "kzUya5V0duWlP_3pORYAqwd8KmUYTnCEiKmEiDblPf0"],
+  [
+    "BrewersInsight - Planning and Forecasting",
+    "Zr_LtcqYA6YcIHOkiiKAF14s9Z9MjyWk36lPgEue_-w",
+  ],
+  [
+    "Brewers Insight - Packaging BOM",
+    "YrSKX2_fKeUVHwrLWEZng_Sq5SF3DO-3Y2StiO88GJI",
+  ],
+];
+
 describe("Project Voting Contract", () => {
   async function deployProjectVotingFixture() {
     const [owner] = await hre.ethers.getSigners();
@@ -88,7 +86,6 @@ describe("Project Voting Contract", () => {
     });
 
     it("Should create a project", async () => {
-
       for (let [name, id] of projects) {
         const transaction = await projectVoting.add(name, id);
         const receipt = await transaction.wait();
@@ -100,19 +97,13 @@ describe("Project Voting Contract", () => {
     it("Should allow voting on a project", async () => {
       const [name, id] = projects[0];
       await projectVoting.add(name, id);
-      const transaction = await projectVoting
-        .connect(signer)
-        .vote(id, "joe", {
-          value: ethers.parseEther("0.001"),
-          gasLimit: 1000000,
-        });
+      const transaction = await projectVoting.connect(signer).vote(id, "joe", {
+        value: ethers.parseEther("0.001"),
+        gasLimit: 1000000,
+      });
 
       const receipt = await transaction.wait();
       expect(receipt.status).to.equal(1);
     });
-
-    it("Should declare winner", async()=> {
-      await projectVoting.
-    })
   });
 });
