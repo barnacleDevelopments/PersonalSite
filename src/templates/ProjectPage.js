@@ -19,6 +19,7 @@ function ProjectPage({ data }) {
   const { markdownRemark: node } = data;
   const converter = new showdown.Converter();
   // const walletContext = useContext(WalletContext);
+  console.log(node);
   return (
     <Box>
       <Seo
@@ -88,12 +89,14 @@ function ProjectPage({ data }) {
             ></Text>
           </Box>
           <Box sx={{ order: [1, 2], mb: [5, 0], mt: [0, 3] }}>
-            <GatsbyImage
-              placeholder="blurred"
-              imgStyle={imgStyle}
-              image={getImage(node.frontmatter.image1)}
-              alt={"image 1"}
-            />
+            {/* <GatsbyImage */}
+            {/*   placeholder="blurred" */}
+            {/*   imgStyle={imgStyle} */}
+            {/*   image={getImage(node.frontmatter.image1)} */}
+            {/*   alt={"image 1"} */}
+            {/* /> */}
+
+            <img sx={imgStyle} src={node.frontmatter.image1} />
           </Box>
         </Grid>
       </Box>
@@ -107,12 +110,14 @@ function ProjectPage({ data }) {
           sx={{ ...sectionFlexStyle, alignItems: "center" }}
         >
           <Box sx={{ mb: [5, 0], mt: [0, 3], order: [2, 2, 1] }}>
-            <GatsbyImage
-              style={imgWrapStyle}
-              imgStyle={imgStyle}
-              image={getImage(node.frontmatter.image2)}
-              alt={"image 2"}
-            />
+            {/* <GatsbyImage */}
+            {/*   style={imgWrapStyle} */}
+            {/*   imgStyle={imgStyle} */}
+            {/*   image={getImage(node.frontmatter.image2)} */}
+            {/*   alt={"image 2"} */}
+            {/* /> */}
+
+            <img sx={imgStyle} src={node.frontmatter.image2} />
           </Box>
           <Box sx={{ py: [4, 6], pl: [0, 5], order: [1, 1, 2] }}>
             <Heading as="h2" variant="subheading1" color="white">
@@ -128,11 +133,7 @@ function ProjectPage({ data }) {
               {node.frontmatter.technologies.map((x) => (
                 <Box>
                   <Flex sx={{ alignItems: "center" }}>
-                    <img
-                      sx={techImageStyle}
-                      src={x.image.publicURL}
-                      alt={x.name}
-                    />
+                    <img sx={techImageStyle} src={x.image} alt={x.name} />
                     {x.name}
                   </Flex>
                 </Box>
@@ -151,11 +152,12 @@ function ProjectPage({ data }) {
           sx={{ ...sectionFlexStyle, alignItems: "center" }}
         >
           <Box sx={{ mb: [5, 0], mt: [0, 3], order: [2, 2, 2] }}>
-            <GatsbyImage
-              image={getImage(node.frontmatter.image3)}
-              imgStyle={imgStyle}
-              alt={"image 3"}
-            />
+            {/* <GatsbyImage */}
+            {/*   image={getImage(node.frontmatter.image3)} */}
+            {/*   imgStyle={imgStyle} */}
+            {/*   alt={"image 3"} */}
+            {/* /> */}
+            <img sx={imgStyle} src={node.frontmatter.image3} />
           </Box>
           <Box sx={{ py: [4, 6], pr: [0, 5], order: [1, 1, 1] }}>
             <Heading as="h2" variant="subheading1">
@@ -238,25 +240,11 @@ export const pageQuery = graphql`
         keywords
         technologies {
           name
-          image {
-            publicURL
-          }
+          image
         }
-        image1 {
-          childImageSharp {
-            gatsbyImageData
-          }
-        }
-        image2 {
-          childImageSharp {
-            gatsbyImageData
-          }
-        }
-        image3 {
-          childImageSharp {
-            gatsbyImageData
-          }
-        }
+        image1
+        image2
+        image3
       }
     }
   }

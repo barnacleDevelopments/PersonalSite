@@ -15,17 +15,19 @@ contract ProjectVoting is VRFConsumerBaseV2Plus {
     // Voting properties
     mapping(uint => mapping(string => uint)) public cycleVotes; // total project votes within the current cycle
     mapping(string => address) public nameToAddress;
-    mapping(address => string) public addressToName;
     mapping(address => string) public addressChoice;
     mapping(uint => address[]) public cycleVoters; // list of voters of the current cycle
-    mapping(string => string) public projects;
+    mapping(string => string) public projectToName;
+    mapping(string => string) public nameToProject;
     mapping(address => bool) public hasVoted;
+    mapping(string => bool) public retiredProjects;
     string[] public projectIds;
     uint private threshold = 0.1 ether;
     uint public currentCycle = 1;
 
     // Voting Events
     event ProjectAdded(string projectId, string projectName);
+    event ProjectRetired(string projectId, string projectName);
     event Voted(address voter, string name, string projectId, uint cycle);
     event WinnerAnnounced(address winner, uint256 amount, uint cycle);
 
@@ -56,10 +58,11 @@ contract ProjectVoting is VRFConsumerBaseV2Plus {
     }
 
     function addProject(string memory projectName, string memory projectId) public onlyOwner {
-        require(bytes(projects[projectId]).length == 0, "Project already exists");
+        require(bytes(projectToName[projectId]).length == 0, "Project already exists");
+        require(bytes(nameToProject[projectName]).length == 0, "Project with that name already exists");
         require(bytes(projectName).length > 0, "Project name is required");
         require(bytes(projectId).length > 0, "Project ID is required");
-        projects[projectId] = projectName;
+        projectToName[projectId] = projectName;
         projectIds.push(projectId);
         emit ProjectAdded(projectId, projectName);
     }
@@ -78,7 +81,7 @@ contract ProjectVoting is VRFConsumerBaseV2Plus {
     }
 
     function getProjectName(string memory id) public view returns (string memory) {
-       return projects[id];
+       return projectToName[id];
     }
 
     function getProjectIds() public view returns (string[] memory) {
@@ -92,11 +95,16 @@ contract ProjectVoting is VRFConsumerBaseV2Plus {
         nameToAddress[displayName] = msg.sender;
     }
 
+    function retireProject(string memory projectId, string memory projectName) public onlyOwner  {
+        emit ProjectRetired(projectId, projectName);
+    }
+
     function vote(string memory projectId, string memory displayName) payable public {
         registerVoter(displayName);
+        require(!retiredProjects[projectId], "Cannot vote for retired projects");
         require(msg.value >= 0.001 ether, "Minimum 0.001 ether");
         require(msg.value <= 0.05 ether, "Maximum 0.05 ether");
-        require(bytes(projects[projectId]).length > 0, "Project does not exist");
+        require(bytes(projectToName[projectId]).length > 0, "Project does not exist");
         hasVoted[msg.sender] = true;
         addressChoice[msg.sender] = projectId;
         cycleVotes[currentCycle][projectId]++;

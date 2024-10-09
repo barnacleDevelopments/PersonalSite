@@ -1,6 +1,7 @@
 import { loadFixture } from "@nomicfoundation/hardhat-toolbox/network-helpers";
 import { expect } from "chai";
 import hre, { ethers } from "hardhat";
+import { expectRevert } from "@openzeppelin/test-helpers";
 require("dotenv").config({ path: __dirname + "/../.env" });
 
 const projects = [
@@ -70,7 +71,7 @@ describe("Project Voting Contract", () => {
   });
 
   describe("Project Vote", () => {
-    let projectVoting, owner, signer;
+    let projectVoting: any, owner: any, signer: any;
 
     beforeEach(async () => {
       // Load fixture and impersonate the owner account before each test
@@ -85,18 +86,42 @@ describe("Project Voting Contract", () => {
       await stopImpersonatingAccount(owner.address);
     });
 
-    it("Should create a project", async () => {
-      for (let [name, id] of projects) {
-        const transaction = await projectVoting.add(name, id);
-        const receipt = await transaction.wait();
-        const result = await projectVoting.getProjectName(id);
-        expect(result).to.equal(name);
-      }
+    describe("Should create a project", async () => {
+      it("Should create projects", async () => {
+        for (let [name, id] of projects) {
+          const transaction = await projectVoting.addProject(name, id);
+          await transaction.wait();
+          const result = await projectVoting.getProjectName(id);
+          expect(result).to.equal(name);
+        }
+      });
+
+      it("Should prevent creating projects with duplicate IDs", async () => {
+        const [name, id] = projects[0];
+        const transaction = await projectVoting.addProject(name, id);
+        await transaction.wait();
+        await expectRevert(
+          projectVoting.addProject(name, id),
+          "Project already exists"
+        );
+      });
+
+      it("Should prevent creating projects with duplicate names", async () => {
+        const [name, id] = projects[0];
+        const transaction = await projectVoting.addProject(name, id);
+        await transaction.wait();
+        const [_, id2] = projects[1];
+        await expectRevert(
+          projectVoting.addProject(name, id2),
+          "Project with that name already exists"
+        );
+      });
     });
 
+    // TODO: fix this
     it("Should allow voting on a project", async () => {
       const [name, id] = projects[0];
-      await projectVoting.add(name, id);
+      await projectVoting.addProject(name, id);
       const transaction = await projectVoting.connect(signer).vote(id, "joe", {
         value: ethers.parseEther("0.001"),
         gasLimit: 1000000,
@@ -105,5 +130,24 @@ describe("Project Voting Contract", () => {
       const receipt = await transaction.wait();
       expect(receipt.status).to.equal(1);
     });
+
+    // TODO: finish this
+    it("Should not allow voting on retired project", async () => {
+      // add project
+      const [name, id] = projects[0];
+      await projectVoting.addProject(name, id);
+      // retire project
+
+      // vote on retired project
+      const transaction = await projectVoting.connect(signer).vote(id, "joe", {
+        value: ethers.parseEther("0.001"),
+        gasLimit: 1000000,
+      });
+
+      const receipt = await transaction.wait();
+      expect(receipt.status).to.equal(1);
+    });
+    it("Vote transaction should have a minimum contribution", async () => {});
+    it("Vote transaction should have a maximum contribution", async () => {});
   });
 });

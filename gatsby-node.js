@@ -23,12 +23,23 @@ exports.createPages = async ({ actions, graphql }) => {
   }
 
   async function genProjectPage(node, project) {
+    console.log("DEBUG: ", project);
     createPage({
       path: node.fields.slug,
       component: path.resolve(`src/templates/ProjectPage.js`),
       context: {
         title: project.title,
         slug: node.fields.slug,
+      },
+    });
+  }
+
+  function genCategoryPage(category) {
+    createPage({
+      path: `/blog/${category}`,
+      component: path.resolve(`src/templates/CategoryPage.js`),
+      context: {
+        category: category,
       },
     });
   }
@@ -44,33 +55,44 @@ exports.createPages = async ({ actions, graphql }) => {
               slug
             }
             frontmatter {
-              txId
               title
-              status
-              githubLink
-              liveLink
-              description
-              thumbnail {
-                childImageSharp {
-                  gatsbyImageData
-                }
-              }
             }
           }
         }
+      }
+    }
+  `)
+    .then((result) => {
+      if (result.errors) {
+        Promise.reject(result.errors);
+      }
+      result.data.allMarkdownRemark.edges.forEach(({ node }) => {
+        const project = node.frontmatter;
+        genProjectPage(node, project);
+      });
+    })
+    .catch((error) =>
+      console.log("Error occured while generating project pages", error),
+    );
+
+  const categoryResult = graphql(`
+    query ProjectsPageQuery {
+      allMarkdownRemark(filter: { frontmatter: { draft: { eq: false } } }) {
+        distinct(field: { frontmatter: { category: SELECT } })
       }
     }
   `).then((result) => {
     if (result.errors) {
       Promise.reject(result.errors);
     }
-    result.data.allMarkdownRemark.edges.forEach(({ node }) => {
-      const project = node.frontmatter;
-      if (project.status === "complete") {
-        genProjectPage(node, project);
-      }
+
+    result.data.allMarkdownRemark.distinct.forEach((category) => {
+      genCategoryPage(category);
     });
   });
+
+  // TODO: create image node from URL source: https://mcro.tech/blog/gatsby-image-sharp/
+  // create markdown nodes from arweave content
 
   const postsResult = graphql(`
     query BlogQuery {
@@ -87,14 +109,6 @@ exports.createPages = async ({ actions, graphql }) => {
             }
             frontmatter {
               title
-              startDate
-              endDate
-              draft
-              thumbnail {
-                childImageSharp {
-                  gatsbyImageData
-                }
-              }
             }
           }
         }
@@ -114,7 +128,7 @@ exports.createPages = async ({ actions, graphql }) => {
       });
   });
 
-  return Promise.allSettled([postsResult, projectsResult]);
+  return Promise.allSettled([postsResult, projectsResult, categoryResult]);
 };
 
 exports.onCreateNode = ({ node, actions, getNode }) => {
@@ -144,14 +158,14 @@ exports.onCreateWebpackConfig = ({ actions, getConfig }) => {
   actions.replaceWebpackConfig(config);
 };
 
-async function fetchProjectContent(txIds) {
+async function fetchArweaveContent(txIds) {
   try {
     const arweave = Arweave.init({
-      host: "arweave.net", // Hostname or IP address for a Arweave host
-      port: 443, // Port
-      protocol: "https", // Network protocol http or https
-      timeout: 20000, // Network request timeouts in milliseconds
-      logging: false, // Enable network request logging
+      host: "arweave.net",
+      port: 443,
+      protocol: "https",
+      timeout: 20000,
+      logging: false,
     });
     return await Promise.all(
       txIds.map(async (txId) => {
@@ -169,42 +183,24 @@ async function fetchProjectContent(txIds) {
 }
 
 async function fetchContractProjectHashes() {
-  try {
-    try {
-      const signers = await ethers.getSigners();
-      const contractFactory = await ethers.getContractFactory("ProjectVoting");
-      const contractInstance = contractFactory.attach(
-        process.env.GATSBY_PROJECT_VOTING_CONTRACT_ADDRESS,
-      );
-
-      return await contractInstance.getProjectIds();
-    } catch (error) {}
-  } catch (error) {}
-}
-
-async function fetchContractProjectHashes() {
   const provider = new Web3(process.env.GATSBY_WEB3_WS_URL);
   const contract = new provider.eth.Contract(
     projectVotingABI.abi,
     process.env.GATSBY_PROJECT_VOTING_CONTRACT_ADDRESS,
   );
-  try {
-    const result = await contract.methods.getProjectIds().call();
-    return result;
-  } catch (error) {
-    console.error("Error in getProjectById", error);
-  }
+  return await contract.methods.getProjectIds().call();
 }
 
-exports.onPreInit = async () => {
-  const projectIds = await fetchContractProjectHashes();
-  const projectsData = fetchProjectContent(projectIds).then((projects) => {
+async function writeProjectFiles() {
+  try {
+    const projectIds = await fetchContractProjectHashes();
+    const projectContent = await fetchArweaveContent(projectIds);
     if (!fs.existsSync(path.resolve(__dirname, "content", "projects"))) {
       fs.mkdirSync(path.resolve(__dirname, "content", "projects"), {
         recursive: true,
       });
     }
-    for (let project of projects) {
+    for (let project of projectContent) {
       const markdownString = `${project.data.slice(0, 3)}
 txId: ${project.txId}${project.data.slice(3)}`;
       const filePath = path.resolve(
@@ -215,5 +211,13 @@ txId: ${project.txId}${project.data.slice(3)}`;
       );
       fs.writeFileSync(filePath, markdownString);
     }
-  });
+  } catch (error) {
+    console.error(
+      "DEBUG: There was an error while writing project files to filesystem.",
+    );
+  }
+}
+
+exports.onPreInit = async () => {
+  //await writeProjectFiles();
 };

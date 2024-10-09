@@ -157,7 +157,6 @@ export const getProjectVoteCounts = async () => {
       fromBlock: 0,
       toBlock: "latest",
     });
-
     return results.reduce((acc, { returnValues }) => {
       if (!acc[returnValues.projectId]) {
         acc[returnValues.projectId] = 1;

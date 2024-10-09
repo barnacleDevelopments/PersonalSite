@@ -98,6 +98,14 @@ Run the initialization script to add new projects to the local blockchain. You c
 npx hardhat --network localhost run scripts/create-projects.js
 ```
 
+#### TODO: Test Scripts
+
+There is a test script for the project voting smart contract and all should pass before proceeding.
+
+```bash
+npx hardhat test
+```
+
 #### TODO: The Graph Subgraph Integration
 
 I plan on updating this project to utilize the [The Graph](https://thegraph.com/) which is a blockchain indexer for efficient data querying. This project currently interacts directly with the RPC layer through the injected `ethereum provider` of the browser.

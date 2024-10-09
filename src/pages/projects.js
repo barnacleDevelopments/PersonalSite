@@ -35,7 +35,7 @@ import {
 } from "../functions/project-voting";
 
 const ProjectsPage = ({ data }) => {
-  const [projects, setProjects] = useState([]);
+  const [voteCounts, setVoteCounts] = useState([]);
   const [hasVoted, setHasVoted] = useState(false);
   const [balance, setBalance] = useState(0);
   const [contribution, setContribution] = useState(0);
@@ -53,44 +53,41 @@ const ProjectsPage = ({ data }) => {
     if (typeof window !== "undefined") {
       const init = async () => {
         await updateThreshold();
-        await getProjectWithContent();
         await updateVoteStates();
       };
       init();
     }
   }, [walletContext?.walletAddress, walletContext?.isWalletConnected]);
 
-  const getProjectWithContent = async () => {
-    const projects = await getProjects();
+  const getProjectWithContent = () => {
     const projectData = data.allMarkdownRemark.edges.map(
       ({ node: { fields, frontmatter } }) => ({
         ...fields,
         ...frontmatter,
       }),
     );
-    if (projects && projects.length > 0 && projectData.length > 0) {
-      const formattedProjects = projects.map((project) => {
-        const data = projectData.find((x) => {
-          return x.txId?.trim() === project.id?.trim();
-        });
+    console.log(projectData);
+    if (projectData.length > 0) {
+      return projectData.map((project) => {
         return {
-          id: project.id,
+          id: project.txId,
           title: project.title,
           votes: 0,
-          link: data?.slug,
+          link: project.slug,
         };
       });
-      setProjects(formattedProjects);
     }
   };
+
+  const projects = getProjectWithContent();
 
   const updateVoteStates = async () => {
     if (walletContext?.walletAddress) {
       await updateHasVoted();
       await updateAddressVote();
-      await updateProjectVoteCounts();
     }
 
+    await updateVotes();
     await updateThreshold();
     await updateBalance();
     await updateWinners();
@@ -104,7 +101,7 @@ const ProjectsPage = ({ data }) => {
       setVoteStarted(true);
       await vote(id, contribution, name);
       await updateVoteStates();
-      await updateProjectVoteCounts();
+      await updateVotes();
       setVoteConfirmed(true);
     } catch (error) {
       alert(error.message);
@@ -132,7 +129,6 @@ const ProjectsPage = ({ data }) => {
 
   const updateWinners = async () => {
     const winners = await getWinners();
-    console.log(winners);
     setWinners(winners);
   };
 
@@ -156,25 +152,19 @@ const ProjectsPage = ({ data }) => {
     setThreshold(threshold);
   };
 
-  const getProject = () => {
+  const getVoterProject = () => {
     const project = projects.find((project) => project.id === addressVote);
     if (!project) return "";
     return project;
   };
 
-  const updateProjectVoteCounts = async () => {
+  const updateVotes = async () => {
     const voteCounts = await getProjectVoteCounts();
-    setProjects((projects) => {
-      return projects.map((project) => {
-        if (voteCounts[project.id]) {
-          return {
-            ...project,
-            votes: Number.parseFloat(voteCounts[project.id]),
-          };
-        }
-        return project;
-      });
-    });
+    setVoteCounts(voteCounts);
+  };
+
+  const getProjectVotes = (id) => {
+    return voteCounts[id] ? voteCounts[id] : 0;
   };
 
   return (
@@ -255,7 +245,6 @@ const ProjectsPage = ({ data }) => {
           </Box>
           <WalletBanner
             walletAddress={walletContext?.walletAddress}
-            project={getProject()}
             isWalletConnected={walletContext?.isWalletConnected}
             hasVoted={hasVoted}
             threshold={threshold}
@@ -282,36 +271,26 @@ const ProjectsPage = ({ data }) => {
             mb: 3,
           }}
         >
-          {projects.length > 0 ? (
-            projects.map((project, index) => {
-              return (
-                <Box id={"id" + project.id} key={project.id} mb={3}>
-                  <ProjectCard
-                    id={project.id}
-                    image={project.image1}
-                    title={project.title}
-                    siteLink={project.link}
-                    key={index}
-                    buttonText={"View"}
-                    vote={voteForProject}
-                    hasVoted={hasVoted}
-                    voteCount={project.votes}
-                    isVote={addressVote === project.id}
-                  />
-                </Box>
-              );
-            })
-          ) : (
-            <Box
-              sx={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <Spinner />
-            </Box>
-          )}
+          {projects.map((project, index) => {
+            return (
+              <Box key={project.id} id={"id" + project.id} mb={3}>
+                <ProjectCard
+                  id={project.id}
+                  image={project.image1}
+                  title={project.title}
+                  siteLink={project.link}
+                  key={index}
+                  buttonText={"View"}
+                  vote={voteForProject}
+                  hasVoted={hasVoted}
+                  voteCount={
+                    window !== undefined ? getProjectVotes(project.id) : 0
+                  }
+                  isVote={addressVote === project.id}
+                />
+              </Box>
+            );
+          })}
         </Box>
       </Box>
     </Box>
@@ -329,11 +308,7 @@ export const projectsQuery = graphql`
           frontmatter {
             title
             txId
-            image1 {
-              childImageSharp {
-                gatsbyImageData
-              }
-            }
+            image1
             description
           }
         }

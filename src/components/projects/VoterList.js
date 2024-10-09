@@ -3,7 +3,6 @@ import { jsx } from "theme-ui";
 import { Box, Heading } from "theme-ui";
 
 const VoterList = ({ winners = {}, voters = [{ name: "" }] }) => {
-  console.log("VOTERS: ", voters);
   return (
     <Box
       as="section"
