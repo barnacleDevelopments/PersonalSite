@@ -10,16 +10,9 @@ import moment from "moment";
 import { Box, Flex, Button, Heading, Text, Grid } from "theme-ui";
 import Seo from "../components/app/Seo";
 
-// Functions
-// import { uploadAction } from "../functions/project-voting";
-// import { useContext } from "react";
-// import { WalletContext } from "../contexts/WalletContext";
-
 function ProjectPage({ data }) {
   const { markdownRemark: node } = data;
   const converter = new showdown.Converter();
-  // const walletContext = useContext(WalletContext);
-  console.log(node);
   return (
     <Box>
       <Seo
@@ -39,14 +32,6 @@ function ProjectPage({ data }) {
         >
           {moment(node.frontmatter.startDate).format("MMM Do, YYYY")}
         </Text>
-        <Text
-          sx={{
-            mb: 2,
-            fontSize: 2,
-          }}
-        >
-          {node.frontmatter.completeTime} Hours
-        </Text>
         <Box>
           {" "}
           {node.frontmatter.liveLink && (
@@ -63,9 +48,6 @@ function ProjectPage({ data }) {
               </Button>
             </a>
           )}
-          {/* <Button onClick={() => uploadAction(walletContext?.walletAddress, { task: "view", projectId: node.frontmatter.id })}>
-            Mark as Viewed
-          </Button> */}
         </Box>
       </Flex>
       {/* Section 1 */}
@@ -231,7 +213,6 @@ export const pageQuery = graphql`
         title
         startDate
         endDate
-        completeTime
         description
         tech
         challenges
