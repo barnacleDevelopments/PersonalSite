@@ -112,7 +112,9 @@ I plan on updating this project to utilize the [The Graph](https://thegraph.com/
 
 #### TODO: Arweave Integration
 
-I plan on changing the content source of my project from local files stored on the repository to files stored on [Arweave](https://arweave.org/build) to futher decentralize my project.
+I plan on changing the content source of my project from local files stored on the repository to files stored on [Arweave](https://arweave.org/build) to futher decentralize my project. These assets will be pulled from arweave at build time to staticaly generate pages. This will make page load times fast and prevent needing to access arweave for every page load. A link to the original file will be provided on the static page for cross-reference.
+
+_The point of storing the projects on Arweave is to have a permanent reference to their existence (immutibility). Each file stored on Arweave is writen in markdown and all images referenced within are links to image files also stored on Arweave. This is crutial to insure that there is always a reference to the file in a specific state to insure transparency in the voting process. This is a demonstration of how democratic voting would work on the blockchain using smart contracts and decentralized storage solutions._
 
 ##### Steps:
 
