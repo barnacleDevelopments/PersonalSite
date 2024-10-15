@@ -1,9 +1,7 @@
 const { createFilePath } = require("gatsby-source-filesystem");
-const { assert } = require("console");
 const Arweave = require("arweave");
 require("dotenv").config();
 const fs = require("fs");
-const crypto = require("crypto");
 const path = require("path");
 const projectVotingABI = require("./smart-contracts-hardhat/artifacts/contracts/project-voting.sol/ProjectVoting.json");
 const { Web3 } = require("web3");
@@ -23,7 +21,6 @@ exports.createPages = async ({ actions, graphql }) => {
   }
 
   async function genProjectPage(node, project) {
-    console.log("DEBUG: ", project);
     createPage({
       path: node.fields.slug,
       component: path.resolve(`src/templates/ProjectPage.js`),
@@ -176,7 +173,6 @@ async function fetchArweaveContent(txIds) {
         return { txId, data };
       }),
     );
-    console.log("Transaction Data:", results);
   } catch (error) {
     console.error("Error fetching transaction data:", error);
   }

@@ -34,15 +34,15 @@ function ProjectPage({ data }) {
         </Text>
         <Box>
           {" "}
-          {node.frontmatter.liveLink && (
-            <a target="_blanc" href={node.frontmatter.liveLink}>
+          {node.frontmatter.URL && (
+            <a target="_blanc" href={node.frontmatter.URL}>
               <Button mt={3} variant="primary" mr={2}>
                 View Live Site
               </Button>
             </a>
           )}{" "}
-          {node.frontmatter.githubLink && (
-            <a target="_blanc" href={node.frontmatter.githubLink}>
+          {node.frontmatter.githubURL && (
+            <a target="_blanc" href={node.frontmatter.githubURL}>
               <Button mt={3} variant="primary">
                 View on GitHub
               </Button>
@@ -216,8 +216,8 @@ export const pageQuery = graphql`
         description
         tech
         challenges
-        liveLink
-        githubLink
+        URL
+        githubURL
         keywords
         technologies {
           name

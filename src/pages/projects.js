@@ -11,25 +11,19 @@ import WalletBanner from "../components/projects/WalletBanner";
 import ProgressGauge from "../components/projects/ProgressGauge";
 import ContributionForm from "../components/projects/ContributionForm";
 import VoterList from "../components/projects/VoterList";
-import { JudgementGrid } from "../components/projects/JudgementGrid";
 import Dialog from "../components/dialog";
-import Loader from "../components/Loader";
-import provider from "../web3-provider";
 
 // Contexts
 import { WalletContext } from "../contexts/WalletContext";
 
 // Functions
 import {
-  getVoteCount,
   vote,
   checkHasVoted,
   getVote,
   getBalance,
   getWinners,
-  getProjects,
   getVoters,
-  getActionCIDs,
   getThreshold,
   getProjectVoteCounts,
 } from "../functions/project-voting";
@@ -150,12 +144,6 @@ const ProjectsPage = ({ data }) => {
   const updateThreshold = async () => {
     const threshold = await getThreshold();
     setThreshold(threshold);
-  };
-
-  const getVoterProject = () => {
-    const project = projects.find((project) => project.id === addressVote);
-    if (!project) return "";
-    return project;
   };
 
   const updateVotes = async () => {

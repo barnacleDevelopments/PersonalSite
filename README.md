@@ -43,11 +43,16 @@ npx hardhat node
 Create `.env` file inside the smart-contracts-hardhat directory.
 
 **Production Deployment Network Variables**
+These variables are used to deploy the project voting smart contract to the blockchain. Both these variables are only required for production deploy. You should keep these private, especially the private key.
 
-- MNEMONIC
-- SEPOLIA_URL
+- `PRIVATE_KEY` Wallet private key for deploy
+- `SEPOLIA_URL` RPC test node url for deploy
+- `ETHERIUM_URL` RPC production node url for deploy
+- `ARWEAVE_WALLET_ADDRESS` Arweave wallet address to retrieve project markdown files.
+- `ARWEAVE_TAG_PROJECT_FILE_VERSION` Arweave tag to retrieve project files by version.
 
 **Verifiable Randomness Function (VRF) Variables**
+These variables are public ids that are used to reference a VRF instance. These are required for choosing the winner when the prize pool reaches the threshold in the project voting smart contract.
 
 You can readmore about VRF on their [official documentation](https://docs.chain.link/vrf).
 
@@ -59,7 +64,13 @@ You can readmore about VRF on their [official documentation](https://docs.chain.
 
 The CCIP local simular allows us to run Chainlink services locally for development purposes. This project utilizes Chainlink VRF to create verifiable randomness on the blockchain.
 
-#### Deploy the Project Voting Smart Contract Locally Using Hardhat Ignition
+#### Deploy the Project Voting Smart Contract Localy Using Hardhat Ignition
+
+This command will use the hardhat ignition script to deploy a local version of the smart contract on the hardhat node. The script does the following tasks:
+
+1. Deploys the smart contract.
+2. Retrieves project transaction ids and data from Arweave. The script uses the Arweave wallet address environment variable to find the project files. Also, a project version tag is used to retrieve the correct file type (this is nessisary because I'm iterating on the markdown format to eventually move to using MDX).
+3. Create a project on the smart contract for each Arweave project.
 
 ```bash
 npx hardhat ignition deploy ./ignition/modules/ProjectVoting.ts --network localhost --reset
