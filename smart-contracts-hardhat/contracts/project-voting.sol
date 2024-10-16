@@ -73,13 +73,13 @@ contract Feedback is VRFConsumerBaseV2Plus {
         emit Voted(msg.sender, receiverAddress, itemId);
     }
 
-    function registerReward(uint prize, address receiverAddress, string[] memory itemIds) public payable {
+    // function registerReward(uint prize, address receiverAddress, string[] memory itemIds) public payable {
 
-    }
+    // }
 
-    function distributeReward() public {
-        require(msg.sender
-    }
+    // function distributeReward() public {
+    //     require(msg.sender
+    // }
 
     // TODO: maybe this could implemented where the proviers send a link
     // function comment() public {
