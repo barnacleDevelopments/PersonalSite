@@ -1,10 +1,10 @@
-import projectVotingABI from "../../smart-contracts-hardhat/artifacts/contracts/project-voting.sol/ProjectVoting.json";
+import feedbackABI from "../../smart-contracts-hardhat/artifacts/contracts/project-voting.sol/Feedback.json";
 import Web3 from "web3";
 import provider from "../web3-provider";
 
 export const getCurrentCycle = async () => {
   const contract = new provider.eth.Contract(
-    projectVotingABI.abi,
+    feedbackABI.abi,
     process.env.GATSBY_PROJECT_VOTING_CONTRACT_ADDRESS,
   );
   try {
@@ -17,7 +17,7 @@ export const getCurrentCycle = async () => {
 
 export const getVoters = async (cycle) => {
   const contract = new provider.eth.Contract(
-    projectVotingABI.abi,
+    feedbackABI.abi,
     process.env.GATSBY_PROJECT_VOTING_CONTRACT_ADDRESS,
   );
 
@@ -42,7 +42,7 @@ export const getVoters = async (cycle) => {
 
 export const getWinners = async (cycle) => {
   const contract = new provider.eth.Contract(
-    projectVotingABI.abi,
+    feedbackABI.abi,
     process.env.GATSBY_PROJECT_VOTING_CONTRACT_ADDRESS,
   );
   try {
@@ -71,7 +71,7 @@ export const getWinners = async (cycle) => {
 
 export const getProjects = async () => {
   const contract = new provider.eth.Contract(
-    projectVotingABI.abi,
+    feedbackABI.abi,
     process.env.GATSBY_PROJECT_VOTING_CONTRACT_ADDRESS,
   );
 
@@ -94,7 +94,7 @@ export const getProjects = async () => {
 // TODO: get project content from IPFS
 export const getProjectById = async (id) => {
   const contract = new provider.eth.Contract(
-    projectVotingABI.abi,
+    feedbackABI.abi,
     process.env.GATSBY_PROJECT_VOTING_CONTRACT_ADDRESS,
   );
   try {
@@ -107,7 +107,7 @@ export const getProjectById = async (id) => {
 
 export const getBalance = async () => {
   const contract = new provider.eth.Contract(
-    projectVotingABI.abi,
+    feedbackABI.abi,
     process.env.GATSBY_PROJECT_VOTING_CONTRACT_ADDRESS,
   );
   try {
@@ -120,7 +120,7 @@ export const getBalance = async () => {
 
 export const getThreshold = async () => {
   const contract = new provider.eth.Contract(
-    projectVotingABI.abi,
+    feedbackABI.abi,
     process.env.GATSBY_PROJECT_VOTING_CONTRACT_ADDRESS,
   );
   try {
@@ -133,7 +133,7 @@ export const getThreshold = async () => {
 
 export const checkHasVoted = async (walletAddress) => {
   const contract = new provider.eth.Contract(
-    projectVotingABI.abi,
+    feedbackABI.abi,
     process.env.GATSBY_PROJECT_VOTING_CONTRACT_ADDRESS,
   );
   try {
@@ -148,7 +148,7 @@ export const checkHasVoted = async (walletAddress) => {
 
 export const getProjectVoteCounts = async () => {
   const contract = new provider.eth.Contract(
-    projectVotingABI.abi,
+    feedbackABI.abi,
     process.env.GATSBY_PROJECT_VOTING_CONTRACT_ADDRESS,
   );
 
@@ -176,7 +176,7 @@ export const vote = async (id, amountInEther, name) => {
   console.log("STARTED VOTE ON CONTRACT: ", contractAddress);
 
   const contract = new provider.eth.Contract(
-    projectVotingABI.abi,
+    feedbackABI.abi,
     process.env.GATSBY_PROJECT_VOTING_CONTRACT_ADDRESS,
   );
   const ethereum = window.ethereum;
@@ -254,7 +254,7 @@ export const vote = async (id, amountInEther, name) => {
 
 export const getVote = async (walletAddress) => {
   const contract = new provider.eth.Contract(
-    projectVotingABI.abi,
+    feedbackABI.abi,
     process.env.GATSBY_PROJECT_VOTING_CONTRACT_ADDRESS,
   );
   try {

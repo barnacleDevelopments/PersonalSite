@@ -5,15 +5,15 @@ import { expectRevert } from "@openzeppelin/test-helpers";
 require("dotenv").config({ path: __dirname + "/../.env" });
 
 describe("Project Voting Contract", () => {
-  async function deployProjectVotingFixture() {
+  async function deployFeedbackFixture() {
     const [owner] = await hre.ethers.getSigners();
-    const ProjectVoting = await hre.ethers.getContractFactory("ProjectVoting");
-    const projectVoting = await ProjectVoting.deploy(
+    const Feedback = await hre.ethers.getContractFactory("Feedback");
+    const feedback = await Feedback.deploy(
       process.env.VRF_COORDINATOR_ADDRESS_SEPOLIA,
       process.env.VRF_SUBSCRIPTION_ID,
       process.env.VRF_KEY_HASH
     );
-    return { projectVoting, owner };
+    return { feedback, owner };
   }
 
   async function impersonateAccount(address: string) {
@@ -34,35 +34,33 @@ describe("Project Voting Contract", () => {
   // TODO: this can be improved
   describe("Deployment", () => {
     it("Should set subscription address", async () => {
-      const { projectVoting } = await loadFixture(deployProjectVotingFixture);
-      const result = await projectVoting.subscriptionSet();
+      const { feedback } = await loadFixture(deployFeedbackFixture);
+      const result = await feedback.subscriptionSet();
       expect(result).to.equal(true);
       console.log("SUBSCRIPTION ADDRESS: ", result);
     });
 
     it("Should set coordinator", async () => {
-      const { projectVoting } = await loadFixture(deployProjectVotingFixture);
-      const result = await projectVoting.vrfCoordinatorSet(); // Assuming this is the function you meant
+      const { feedback } = await loadFixture(deployFeedbackFixture);
+      const result = await feedback.vrfCoordinatorSet(); // Assuming this is the function you meant
       expect(typeof result).to.equal("string");
       console.log("COORDINATOR: ", result);
     });
 
     it("Should set key hash", async () => {
-      const { projectVoting } = await loadFixture(deployProjectVotingFixture);
-      const result = await projectVoting.keyHashSet(); // Assuming this is the function you meant
+      const { feedback } = await loadFixture(deployFeedbackFixture);
+      const result = await feedback.keyHashSet(); // Assuming this is the function you meant
       expect(typeof result).to.equal("string");
       console.log("HASH: ", result);
     });
   });
 
-  describe("Project Vote", () => {
-    let projectVoting: any, owner: any, signer: any;
+  describe("Item Vote", () => {
+    let feedback: any, owner: any, signer: any;
 
     beforeEach(async () => {
       // Load fixture and impersonate the owner account before each test
-      ({ projectVoting, owner } = await loadFixture(
-        deployProjectVotingFixture
-      ));
+      ({ feedback, owner } = await loadFixture(deployFeedbackFixture));
       signer = await impersonateAccount(owner.address);
     });
 
@@ -72,17 +70,16 @@ describe("Project Voting Contract", () => {
     });
 
     // TODO: fix this
-    it("Should allow voting on a project", async () => {
-      const projectId = "";
-      const voterDisplayName = "";
-      const transaction = await projectVoting
+    it("Should allow voting on a item", async () => {
+      const [owner] = await hre.ethers.getSigners();
+      const itemId = "example_id_1";
+      const voterDisplayName = "Example Name 1";
+      const receiverAddress = owner.address;
+      const transaction = await feedback
         .connect(signer)
-        .vote(projectId, voterDisplayName, {
-          value: ethers.parseEther("0.001"),
-          gasLimit: 1000000,
-        });
-
+        .vote(itemId, voterDisplayName, receiverAddress);
       const receipt = await transaction.wait();
+
       expect(receipt.status).to.equal(1);
     });
 

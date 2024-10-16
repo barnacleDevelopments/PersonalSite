@@ -54,17 +54,16 @@ const ProjectsPage = ({ data }) => {
   }, [walletContext?.walletAddress, walletContext?.isWalletConnected]);
 
   const getProjectWithContent = () => {
-    const projectData = data.allMarkdownRemark.edges.map(
-      ({ node: { fields, frontmatter } }) => ({
-        ...fields,
-        ...frontmatter,
-      }),
-    );
-    console.log(projectData);
+    const projectData = data.allMarkdownRemark.edges.map(({ node }) => {
+      console.log(node);
+      return {
+        ...node.fields,
+        ...node.frontmatter,
+      };
+    });
     if (projectData.length > 0) {
       return projectData.map((project) => {
         return {
-          id: project.txId,
           title: project.title,
           votes: 0,
           link: project.slug,
@@ -274,7 +273,7 @@ const ProjectsPage = ({ data }) => {
                   voteCount={
                     window !== undefined ? getProjectVotes(project.id) : 0
                   }
-                  isVote={addressVote === project.id}
+                  isVote={false}
                 />
               </Box>
             );
@@ -295,7 +294,6 @@ export const projectsQuery = graphql`
           }
           frontmatter {
             title
-            txId
             image1
             description
           }

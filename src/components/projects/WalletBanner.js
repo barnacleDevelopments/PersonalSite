@@ -99,6 +99,10 @@ const WalletBanner = ({
               </Text>
             ) : (
               <Button
+                disabled={true}
+                title={
+                  "Wallet is currently disabled due to project update. Come back later!"
+                }
                 sx={{ display: "flex", alignItems: "center" }}
                 onClick={() => onConnectClick()}
               >

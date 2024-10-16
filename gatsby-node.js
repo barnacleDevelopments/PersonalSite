@@ -126,9 +126,12 @@ exports.createPages = async ({ actions, graphql }) => {
   return Promise.allSettled([postsResult, projectsResult, categoryResult]);
 };
 
-exports.onCreateNode = ({ node, actions, getNode }) => {
-  const { createNodeField } = actions;
-
+exports.onCreateNode = async ({
+  node,
+  actions: { createNode, createNodeField },
+  createNodeId,
+  getNode,
+}) => {
   if (node.internal.type === `MarkdownRemark`) {
     let path;
     if (node.frontmatter.path) {
@@ -143,6 +146,25 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
       value: path,
     });
   }
+  // TODO: fix this so that I can use gatsby to render images
+  // For all MarkdownRemark nodes that have a featured image url, call createRemoteFileNode
+  if (
+    node.internal.type === "MarkdownRemark" &&
+    node.frontmatter.image1 !== null
+  ) {
+    const fileNode = await createRemoteFileNode({
+      url: node.frontmatter.image1, // string that points to the URL of the image
+      parentNodeId: node.id, // id of the parent node of the fileNode you are going to create
+      createNode, // helper function in gatsby-node to generate the node
+      createNodeId, // helper function in gatsby-node to generate the node id
+      getCache,
+    });
+
+    // if the file was created, extend the node with "localFile"
+    if (fileNode) {
+      createNodeField({ node, name: "localFile", value: fileNode.id });
+    }
+  }
 };
 
 exports.onCreateWebpackConfig = ({ actions, getConfig }) => {
@@ -153,7 +175,6 @@ exports.onCreateWebpackConfig = ({ actions, getConfig }) => {
   actions.replaceWebpackConfig(config);
 };
 
-// TODO: need to retrieve projects based on my Akord id and project ids
 async function fetchArweaveContentByCreatorAndTags(
   creatorAddress,
   tagName,
@@ -161,7 +182,6 @@ async function fetchArweaveContentByCreatorAndTags(
 ) {
   // GraphQL reference
   // https://gql-guide.arweave.dev/#sorting
-
   try {
     const arweave = Arweave.init({
       host: "arweave.net",
@@ -205,7 +225,7 @@ async function fetchArweaveContentByCreatorAndTags(
           decode: true,
           string: true,
         });
-        return { txId, data };
+        return { txId, data: data };
       }),
     );
   } catch (error) {
@@ -218,7 +238,14 @@ async function fetchArweaveContentByCreatorAndTags(
 
 async function writeProjectFiles() {
   try {
-    const fileNames = ["brewers-insight-packaging-bom.md"];
+    const fileNames = [
+      "evernote-clone.md",
+      "brewers-insight-packaging-bom.md",
+      "brewers-insight-planning-and-forecasting.md",
+      "myboards.md",
+      "novajonstone-co.md",
+      "ressons-marketing-website.md",
+    ];
 
     const projectDataQueries = fileNames.map((x) =>
       fetchArweaveContentByCreatorAndTags(
@@ -230,26 +257,20 @@ async function writeProjectFiles() {
 
     const projectData = await Promise.all(projectDataQueries);
 
-    console.log("BEBUG: ", projectData);
-
-    // TODO: sort projects by version and get the latest version of each
-
-    //     if (!fs.existsSync(path.resolve(__dirname, "content", "projects"))) {
-    //       fs.mkdirSync(path.resolve(__dirname, "content", "projects"), {
-    //         recursive: true,
-    //       });
-    //     }
-    //     for (let project of projectContent) {
-    //       const markdownString = `${project.data.slice(0, 3)}
-    // txId: ${project.txId}${project.data.slice(3)}`;
-    //       const filePath = path.resolve(
-    //         __dirname,
-    //         "content",
-    //         "projects",
-    //         project.txId + ".md",
-    //       );
-    //       fs.writeFileSync(filePath, markdownString);
-    //     }
+    if (!fs.existsSync(path.resolve(__dirname, "content", "projects"))) {
+      fs.mkdirSync(path.resolve(__dirname, "content", "projects"), {
+        recursive: true,
+      });
+    }
+    for (let project of projectData) {
+      const filePath = path.resolve(
+        __dirname,
+        "content",
+        "projects",
+        project[0].txId + ".md",
+      );
+      fs.writeFileSync(filePath, project[0].data);
+    }
   } catch (error) {
     console.error(
       "DEBUG: There was an error while writing project files to filesystem.",

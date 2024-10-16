@@ -11,7 +11,7 @@ import {LinkTokenInterface} from "@chainlink/contracts/src/v0.8/shared/interface
 import {VRFV2PlusClient} from "@chainlink/contracts/src/v0.8/vrf/dev/libraries/VRFV2PlusClient.sol";
 import {VRFConsumerBaseV2Plus} from "@chainlink/contracts/src/v0.8/vrf/dev/VRFConsumerBaseV2Plus.sol";
 
-contract ProjectVoting is VRFConsumerBaseV2Plus {
+contract Feedback is VRFConsumerBaseV2Plus {
     // Voting properties
     mapping(address => mapping(string => uint)) public itemVotes; // total project votes within the current cycle
     mapping(address => mapping(address => mapping(string => bool))) public hasVotedOnItem;
@@ -67,10 +67,18 @@ contract ProjectVoting is VRFConsumerBaseV2Plus {
     // }
 
     function vote(string memory itemId, string memory displayName, address receiverAddress) public {
-        require(hasVotedOnItem[msg.sender][receiverAddress][itemId], "address already voted on item");
+        require(!hasVotedOnItem[msg.sender][receiverAddress][itemId], "address already voted on item");
         hasVotedOnItem[msg.sender][receiverAddress][itemId] = true;
         itemVotes[receiverAddress][itemId]++;
         emit Voted(msg.sender, receiverAddress, itemId);
+    }
+
+    function registerReward(uint prize, address receiverAddress, string[] memory itemIds) public payable {
+
+    }
+
+    function distributeReward() public {
+        require(msg.sender
     }
 
     // TODO: maybe this could implemented where the proviers send a link
@@ -132,17 +140,11 @@ contract ProjectVoting is VRFConsumerBaseV2Plus {
     }
 
     // pick random winner once threshold is met for the current vote cycle
-    // function fulfillRandomWords(uint256 _requestId, uint256[] calldata _randomWords) internal override {
-    //     require(s_requests[_requestId].exists, "request not found");
-    //     s_requests[_requestId].fulfilled = true;
-    //     s_requests[_requestId].randomWords = _randomWords;
-    //     emit RequestFulfilled(_requestId, _randomWords);
-    //     uint256 randomResult = _randomWords[0];
-    //     uint randomIndex = randomResult % cycleVoters[currentCycle].length;
-    //     address payable luckyVoter = payable(cycleVoters[currentCycle][randomIndex]);
-    //     uint256 amountToSend = address(this).balance;
-    //     emit WinnerAnnounced(luckyVoter, amountToSend, currentCycle);
-    //     luckyVoter.transfer(amountToSend);
-    //     currentCycle++;
-    // }
+    function fulfillRandomWords(uint256 _requestId, uint256[] calldata _randomWords) internal override {
+        require(s_requests[_requestId].exists, "request not found");
+        s_requests[_requestId].fulfilled = true;
+        s_requests[_requestId].randomWords = _randomWords;
+        emit RequestFulfilled(_requestId, _randomWords);
+        uint256 randomResult = _randomWords[0];
+    }
 }
