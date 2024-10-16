@@ -216,18 +216,12 @@ const ProjectsPage = ({ data }) => {
             </Heading>
             <Paragraph variant="regular" sx={{ mt: 3 }}>
               Embracing the new era of Web3 and to educate newcomers on
-              blockchain technology, I've integrated a decentralized voting
-              system for my projects. You can help highlight the most popular
-              projects using the power of Ethereum. Your vote will be securely
-              recorded on the Ethereum blockchain. A random winner will be
-              chosen, using{" "}
-              <dfn>
-                <Link href="https:chain.link/vrf" target="_blank">
-                  Chainlink's VRF random number generator
-                </Link>
-              </dfn>
-              , every time the prize pool reaches the threshold. The top
-              projects will appear on my front page!
+              blockchain technology, I've integrated a incentive based
+              decentralized feedback system for my projects. You can help
+              highlight the most popular projects using the power of Ethereum.
+              Your vote will be securely recorded on the Ethereum blockchain. A
+              winner will be chosen by yours truly. The top projects will appear
+              on my front page! Comment tied votes are coming soon!
             </Paragraph>{" "}
           </Box>
           <WalletBanner
