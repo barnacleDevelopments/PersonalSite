@@ -270,9 +270,7 @@ const ProjectsPage = ({ data }) => {
                   buttonText={"View"}
                   vote={voteForProject}
                   hasVoted={hasVoted}
-                  voteCount={
-                    window !== undefined ? getProjectVotes(project.id) : 0
-                  }
+                  voteCount={0}
                   isVote={false}
                 />
               </Box>

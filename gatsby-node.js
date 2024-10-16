@@ -148,23 +148,23 @@ exports.onCreateNode = async ({
   }
   // TODO: fix this so that I can use gatsby to render images
   // For all MarkdownRemark nodes that have a featured image url, call createRemoteFileNode
-  if (
-    node.internal.type === "MarkdownRemark" &&
-    node.frontmatter.image1 !== null
-  ) {
-    const fileNode = await createRemoteFileNode({
-      url: node.frontmatter.image1, // string that points to the URL of the image
-      parentNodeId: node.id, // id of the parent node of the fileNode you are going to create
-      createNode, // helper function in gatsby-node to generate the node
-      createNodeId, // helper function in gatsby-node to generate the node id
-      getCache,
-    });
+  // if (
+  //   node.internal.type === "MarkdownRemark" &&
+  //   node.frontmatter.image1 !== null
+  // ) {
+  //   const fileNode = await createRemoteFileNode({
+  //     url: node.frontmatter.image1, // string that points to the URL of the image
+  //     parentNodeId: node.id, // id of the parent node of the fileNode you are going to create
+  //     createNode, // helper function in gatsby-node to generate the node
+  //     createNodeId, // helper function in gatsby-node to generate the node id
+  //     getCache,
+  //   });
 
-    // if the file was created, extend the node with "localFile"
-    if (fileNode) {
-      createNodeField({ node, name: "localFile", value: fileNode.id });
-    }
-  }
+  //   // if the file was created, extend the node with "localFile"
+  //   if (fileNode) {
+  //     createNodeField({ node, name: "localFile", value: fileNode.id });
+  //   }
+  // }
 };
 
 exports.onCreateWebpackConfig = ({ actions, getConfig }) => {
