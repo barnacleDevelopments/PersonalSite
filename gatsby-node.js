@@ -3,8 +3,6 @@ const Arweave = require("arweave");
 require("dotenv").config();
 const fs = require("fs");
 const path = require("path");
-const projectVotingABI = require("./smart-contracts-hardhat/artifacts/contracts/project-voting.sol/ProjectVoting.json");
-const { Web3 } = require("web3");
 
 exports.createPages = async ({ actions, graphql }) => {
   const { createPage } = actions;
@@ -155,7 +153,15 @@ exports.onCreateWebpackConfig = ({ actions, getConfig }) => {
   actions.replaceWebpackConfig(config);
 };
 
-async function fetchArweaveContent(txIds) {
+// TODO: need to retrieve projects based on my Akord id and project ids
+async function fetchArweaveContentByCreatorAndTags(
+  creatorAddress,
+  tagName,
+  tagValues,
+) {
+  // GraphQL reference
+  // https://gql-guide.arweave.dev/#sorting
+
   try {
     const arweave = Arweave.init({
       host: "arweave.net",
@@ -164,6 +170,35 @@ async function fetchArweaveContent(txIds) {
       timeout: 20000,
       logging: false,
     });
+
+    const queryObject = {
+      query: `{
+        transactions (
+          owners:["${creatorAddress}"],
+          tags: [
+            {
+              name: "${tagName}",
+              values: [${tagValues.map((x) => `"${x}"`).join(",")}]
+            }
+          ],
+          first: 1,
+          sort: HEIGHT_DESC
+        ) {
+          edges {
+            node {
+              id
+            }
+          }
+        }
+      }`,
+    };
+
+    const results = await arweave.api.post("/graphql", queryObject);
+
+    const txIds = results.data.data.transactions.edges.map(
+      ({ node }) => node.id,
+    );
+
     return await Promise.all(
       txIds.map(async (txId) => {
         const data = await arweave.transactions.getData(txId, {
@@ -174,46 +209,55 @@ async function fetchArweaveContent(txIds) {
       }),
     );
   } catch (error) {
-    console.error("Error fetching transaction data:", error);
-  }
-}
-
-async function fetchContractProjectHashes() {
-  const provider = new Web3(process.env.GATSBY_WEB3_WS_URL);
-  const contract = new provider.eth.Contract(
-    projectVotingABI.abi,
-    process.env.GATSBY_PROJECT_VOTING_CONTRACT_ADDRESS,
-  );
-  return await contract.methods.getProjectIds().call();
-}
-
-async function writeProjectFiles() {
-  try {
-    const projectIds = await fetchContractProjectHashes();
-    const projectContent = await fetchArweaveContent(projectIds);
-    if (!fs.existsSync(path.resolve(__dirname, "content", "projects"))) {
-      fs.mkdirSync(path.resolve(__dirname, "content", "projects"), {
-        recursive: true,
-      });
-    }
-    for (let project of projectContent) {
-      const markdownString = `${project.data.slice(0, 3)}
-txId: ${project.txId}${project.data.slice(3)}`;
-      const filePath = path.resolve(
-        __dirname,
-        "content",
-        "projects",
-        project.txId + ".md",
-      );
-      fs.writeFileSync(filePath, markdownString);
-    }
-  } catch (error) {
     console.error(
-      "DEBUG: There was an error while writing project files to filesystem.",
+      "Error fetching content by creator and file name tag:",
+      error,
     );
   }
 }
 
+async function writeProjectFiles() {
+  try {
+    const fileNames = ["brewers-insight-packaging-bom.md"];
+
+    const projectDataQueries = fileNames.map((x) =>
+      fetchArweaveContentByCreatorAndTags(
+        "m_k57NPohHi0S3g7lAr0IoOKmfC_3S9676FaF9refWE",
+        "File-Name",
+        [x],
+      ),
+    );
+
+    const projectData = await Promise.all(projectDataQueries);
+
+    console.log("BEBUG: ", projectData);
+
+    // TODO: sort projects by version and get the latest version of each
+
+    //     if (!fs.existsSync(path.resolve(__dirname, "content", "projects"))) {
+    //       fs.mkdirSync(path.resolve(__dirname, "content", "projects"), {
+    //         recursive: true,
+    //       });
+    //     }
+    //     for (let project of projectContent) {
+    //       const markdownString = `${project.data.slice(0, 3)}
+    // txId: ${project.txId}${project.data.slice(3)}`;
+    //       const filePath = path.resolve(
+    //         __dirname,
+    //         "content",
+    //         "projects",
+    //         project.txId + ".md",
+    //       );
+    //       fs.writeFileSync(filePath, markdownString);
+    //     }
+  } catch (error) {
+    console.error(
+      "DEBUG: There was an error while writing project files to filesystem.",
+    );
+    console.log(error);
+  }
+}
+
 exports.onPreInit = async () => {
-  //await writeProjectFiles();
+  await writeProjectFiles();
 };

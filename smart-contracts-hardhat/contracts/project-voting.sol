@@ -13,22 +13,13 @@ import {VRFConsumerBaseV2Plus} from "@chainlink/contracts/src/v0.8/vrf/dev/VRFCo
 
 contract ProjectVoting is VRFConsumerBaseV2Plus {
     // Voting properties
-    mapping(uint => mapping(string => uint)) public cycleVotes; // total project votes within the current cycle
-    mapping(string => address) public nameToAddress;
-    mapping(address => string) public addressChoice;
-    mapping(uint => address[]) public cycleVoters; // list of voters of the current cycle
-    mapping(string => string) public projectToName;
-    mapping(string => string) public nameToProject;
-    mapping(address => bool) public hasVoted;
-    mapping(string => bool) public retiredProjects;
-    string[] public projectIds;
-    uint private threshold = 0.1 ether;
-    uint public currentCycle = 1;
+    mapping(address => mapping(string => uint)) public itemVotes; // total project votes within the current cycle
+    mapping(address => mapping(address => mapping(string => bool))) public hasVotedOnItem;
 
     // Voting Events
-    event ProjectAdded(string projectId, string projectName);
-    event ProjectRetired(string projectId, string projectName);
-    event Voted(address voter, string name, string projectId, uint cycle);
+    event Voted(address voterAddress, address receiverAddress, string itemId);
+    // event Commented(address voter, string itemId, string commentLink, uint receiverAddress);
+    // event Reviewed(address voter, string itemId, string reviewLink, uint receiverAddress);
     event WinnerAnnounced(address winner, uint256 amount, uint cycle);
 
     // Chainlink VRF properties
@@ -57,16 +48,6 @@ contract ProjectVoting is VRFConsumerBaseV2Plus {
         keyHash = _keyHash;
     }
 
-    function addProject(string memory projectName, string memory projectId) public onlyOwner {
-        require(bytes(projectToName[projectId]).length == 0, "Project already exists");
-        require(bytes(nameToProject[projectName]).length == 0, "Project with that name already exists");
-        require(bytes(projectName).length > 0, "Project name is required");
-        require(bytes(projectId).length > 0, "Project ID is required");
-        projectToName[projectId] = projectName;
-        projectIds.push(projectId);
-        emit ProjectAdded(projectId, projectName);
-    }
-
     function subscriptionSet() public view returns (bool) {
         uint256 length = 0;
         return s_subscriptionId != length;
@@ -80,61 +61,38 @@ contract ProjectVoting is VRFConsumerBaseV2Plus {
         return keyHash;
     }
 
-    function getProjectName(string memory id) public view returns (string memory) {
-       return projectToName[id];
+    // function rewardProviders(address[] winners) public {
+    //     require(bytes(winners).length < 3, "There must be at least 3 winners.")
+    //     // TODO: distribute rewards
+    // }
+
+    function vote(string memory itemId, string memory displayName, address receiverAddress) public {
+        require(hasVotedOnItem[msg.sender][receiverAddress][itemId], "address already voted on item");
+        hasVotedOnItem[msg.sender][receiverAddress][itemId] = true;
+        itemVotes[receiverAddress][itemId]++;
+        emit Voted(msg.sender, receiverAddress, itemId);
     }
 
-    function getProjectIds() public view returns (string[] memory) {
-       return projectIds;
+    // TODO: maybe this could implemented where the proviers send a link
+    // function comment() public {
+
+    // }
+
+    // TODO: maybe this could be implemented where the provider sends a link
+    // function review() public {
+
+    // }
+
+    function getItemVoteCount(string memory itemId, address receiverAddress) public view returns (uint) {
+        return itemVotes[receiverAddress][itemId];
     }
 
-    function registerVoter(string memory displayName) private {
-        address voterAddress = nameToAddress[displayName];
-        require(voterAddress == address(0), "Display name is already taken");
-        require(!hasVoted[msg.sender], "Voter has already voted");
-        nameToAddress[displayName] = msg.sender;
-    }
-
-    function retireProject(string memory projectId, string memory projectName) public onlyOwner  {
-        emit ProjectRetired(projectId, projectName);
-    }
-
-    function vote(string memory projectId, string memory displayName) payable public {
-        registerVoter(displayName);
-        require(!retiredProjects[projectId], "Cannot vote for retired projects");
-        require(msg.value >= 0.001 ether, "Minimum 0.001 ether");
-        require(msg.value <= 0.05 ether, "Maximum 0.05 ether");
-        require(bytes(projectToName[projectId]).length > 0, "Project does not exist");
-        hasVoted[msg.sender] = true;
-        addressChoice[msg.sender] = projectId;
-        cycleVotes[currentCycle][projectId]++;
-        cycleVoters[currentCycle].push(msg.sender);
-        checkAndTransfer();
-        emit Voted(msg.sender, displayName, projectId, currentCycle);
-    }
-
-    function getCycleVoteCount(string memory projectId) public view returns (uint) {
-        return cycleVotes[currentCycle][projectId];
-    }
-
-    function checkHasVoted() public view returns (bool) {
-        return hasVoted[msg.sender];
-    }
-
-    function getVote() public view returns (string memory) {
-        return addressChoice[msg.sender];
-    }
-
-    function getCycle() public view returns (uint) {
-        return currentCycle;
+    function checkHasVoted(string memory itemId, address receiverAddress) public view returns (bool) {
+        return hasVotedOnItem[msg.sender][receiverAddress][itemId];
     }
 
     function getBalance() public view returns (uint256) {
         return address(this).balance;
-    }
-
-    function getThreshold() public view returns (uint256) {
-        return threshold;
     }
 
     function requestRandomWords(
@@ -165,13 +123,6 @@ contract ProjectVoting is VRFConsumerBaseV2Plus {
         return requestId;
     }
 
-    function checkAndTransfer() internal {
-        if (address(this).balance >= threshold) {
-            require(cycleVoters[currentCycle].length > 0, "No voters to reward");
-            requestRandomWords(false);
-        }
-    }
-
     function getRequestStatus(
         uint256 _requestId
     ) external view returns (bool fulfilled, uint256[] memory randomWords) {
@@ -181,17 +132,17 @@ contract ProjectVoting is VRFConsumerBaseV2Plus {
     }
 
     // pick random winner once threshold is met for the current vote cycle
-    function fulfillRandomWords(uint256 _requestId, uint256[] calldata _randomWords) internal override {
-        require(s_requests[_requestId].exists, "request not found");
-        s_requests[_requestId].fulfilled = true;
-        s_requests[_requestId].randomWords = _randomWords;
-        emit RequestFulfilled(_requestId, _randomWords);
-        uint256 randomResult = _randomWords[0];
-        uint randomIndex = randomResult % cycleVoters[currentCycle].length;
-        address payable luckyVoter = payable(cycleVoters[currentCycle][randomIndex]);
-        uint256 amountToSend = address(this).balance;
-        emit WinnerAnnounced(luckyVoter, amountToSend, currentCycle);
-        luckyVoter.transfer(amountToSend);
-        currentCycle++;
-    }
+    // function fulfillRandomWords(uint256 _requestId, uint256[] calldata _randomWords) internal override {
+    //     require(s_requests[_requestId].exists, "request not found");
+    //     s_requests[_requestId].fulfilled = true;
+    //     s_requests[_requestId].randomWords = _randomWords;
+    //     emit RequestFulfilled(_requestId, _randomWords);
+    //     uint256 randomResult = _randomWords[0];
+    //     uint randomIndex = randomResult % cycleVoters[currentCycle].length;
+    //     address payable luckyVoter = payable(cycleVoters[currentCycle][randomIndex]);
+    //     uint256 amountToSend = address(this).balance;
+    //     emit WinnerAnnounced(luckyVoter, amountToSend, currentCycle);
+    //     luckyVoter.transfer(amountToSend);
+    //     currentCycle++;
+    // }
 }
