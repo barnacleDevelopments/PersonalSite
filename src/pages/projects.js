@@ -215,13 +215,18 @@ const ProjectsPage = ({ data }) => {
               Participate in Web3 Voting
             </Heading>
             <Paragraph variant="regular" sx={{ mt: 3 }}>
-              Embracing the new era of Web3 and to educate newcomers on
-              blockchain technology, I've integrated a incentive based
-              decentralized feedback system for my projects. You can help
-              highlight the most popular projects using the power of Ethereum.
-              Your vote will be securely recorded on the Ethereum blockchain. A
-              winner will be chosen by yours truly. The top projects will appear
-              on my front page! Comment tied votes are coming soon!
+              Embracing the new era of Web3 and aiming to educate newcomers on
+              blockchain technology, I've integrated an incentive-based
+              decentralized feedback system for my projects. This gives you the
+              opportunity to provide feedback and earn rewards. Your feedback
+              will be securely recorded on the Ethereum blockchain, and I will
+              personally choose the winner based on the quality of the feedback.
+              The top projects and associated comments will appear on my front
+              page! To learn more about this open feedback system,{" "}
+              <a href="https://github.com/barnacleDevelopments/PersonalSite">
+                visit the project on GitHub
+              </a>
+              .
             </Paragraph>{" "}
           </Box>
           <WalletBanner
