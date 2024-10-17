@@ -62,8 +62,9 @@ const WalletBanner = ({
               <Link target="_blank" href="https://metamask.io">
                 MetaMask
               </Link>{" "}
-              and connect to the Sepolia test network to begin voting. Your vote
-              will be secure and tamper-proof, thanks to blockchain technology.
+              and connect to the Sepolia test network to begin providing
+              feedback. Your feedback will be secure and tamper-proof, thanks to
+              blockchain technology.
             </Text>
           ) : hasVoted ? (
             <Text
@@ -72,7 +73,7 @@ const WalletBanner = ({
                 color: "white",
               }}
             >
-              You've already cast your vote for{" "}
+              You've already cast your feedback for{" "}
               <a onClick={() => scrollTo(`#id${project?.id}`)}>
                 {project?.title}
               </a>
@@ -80,16 +81,14 @@ const WalletBanner = ({
             </Text>
           ) : (
             <Paragraph variant="regular" sx={{ mt: 3, color: "white" }}>
-              Your have now connected your wallet to my site! This gives you the
-              ability interact with the project voting <ContractLink /> deployed
-              on the Sepolia test network. To participate in the voting process,
-              first enter a display name, then enter the amount you'd like to
-              add to the prize pool, then press "vote" on your favorite project.
-              You will be prompted to confirm the transaction via MetaMask.
-              Please be patient as processing may take a few minutes. Once the
-              threshold has been reached, a winner will randomly be selected and
-              the prize balance will be sent to their wallet (the balance of the
-              contract after threshold has been reached or exceeded).
+              You've successfully connected your wallet! This gives you the
+              ability to provide feedback on my projects through a decentralized
+              feedback system, using <ContractLink /> deployed on the Sepolia
+              test network. To participate, first enter a display name, then
+              provide the feedback you'd like to submit. Once you're ready,
+              press "Submit Feedback," and you'll be prompted to confirm the
+              transaction via MetaMask. Pay your gas fees and I'll soon receive
+              your feedback!
             </Paragraph>
           )}
           <Box mt={3} sx={{ color: "white" }}>
