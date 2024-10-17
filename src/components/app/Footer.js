@@ -49,7 +49,7 @@ const Footer = () => {
             <Link sx={{ mb: 2, width: "max-content" }} href="/projects">
               Projects
             </Link>
-            <Link sx={{ mb: 2, width: "max-content" }} href="/services">
+            <Link sx={{ mb: 2, width: "max-content" }} href="/about">
               About
             </Link>
           </Flex>
