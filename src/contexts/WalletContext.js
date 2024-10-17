@@ -34,7 +34,7 @@ export const WalletProvider = ({ children }) => {
           console.log("MetaMask is not installed!");
         }
       } catch (error) {
-        alert("User rejected to switch networks");
+        console.log("User rejected to switch networks.");
       }
     };
 
