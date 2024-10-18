@@ -299,7 +299,7 @@ export const projectsQuery = graphql`
             title
             image1
             description
-            startDate(formatString: "MMMM Do, YYYY")
+            startDate(formatString: "MMMM, YYYY")
           }
         }
       }
