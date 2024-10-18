@@ -70,6 +70,7 @@ export const pageQuery = graphql`
       filter: {
         frontmatter: { draft: { eq: false }, category: { eq: $category } }
       }
+      sort: { frontmatter: { date: DESC } }
     ) {
       edges {
         node {
