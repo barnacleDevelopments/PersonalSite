@@ -67,6 +67,7 @@ const ProjectsPage = ({ data }) => {
           title: project.title,
           votes: 0,
           link: project.slug,
+          startDate: project.startDate,
         };
       });
     }
@@ -265,6 +266,7 @@ const ProjectsPage = ({ data }) => {
                   id={project.id}
                   image={project.image1}
                   title={project.title}
+                  startDate={project.startDate}
                   siteLink={project.link}
                   key={index}
                   buttonText={"View"}
@@ -284,7 +286,10 @@ const ProjectsPage = ({ data }) => {
 
 export const projectsQuery = graphql`
   query ProjectsPageQuery {
-    allMarkdownRemark(filter: { fileAbsolutePath: { regex: "//projects//" } }) {
+    allMarkdownRemark(
+      filter: { fileAbsolutePath: { regex: "//projects//" } }
+      sort: { frontmatter: { startDate: DESC } }
+    ) {
       edges {
         node {
           fields {
@@ -294,6 +299,7 @@ export const projectsQuery = graphql`
             title
             image1
             description
+            startDate(formatString: "MMMM Do, YYYY")
           }
         }
       }

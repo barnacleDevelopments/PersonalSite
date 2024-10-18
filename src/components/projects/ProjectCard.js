@@ -17,6 +17,7 @@ const ProjectCard = ({
   hasVoted,
   voteCount,
   isVote,
+  startDate,
 }) => {
   const walletContext = useContext(WalletContext);
 
@@ -78,14 +79,17 @@ const ProjectCard = ({
               maxWidth: "100%",
               overflow: "hidden",
               textOverflow: "ellipsis",
-              mb: 3,
+              mb: 1.5,
             }}
           >
             {title}
           </Heading>
-          <Text sx={{ fontSize: 3, fontWeight: "bold" }}>?</Text>
+          <Text sx={{ fontSize: 3, fontWeight: "bold" }}></Text>
         </Flex>
         <a href={"https://viewblock.io/arweave/tx/" + id}>{id}</a>
+        <Text variant="regular" sx={{ color: "white" }}>
+          {startDate}
+        </Text>
         <Text variant="regular" sx={{ color: "white" }}>
           {voteCount} Vote{voteCount > 1 && "s"}
         </Text>
@@ -94,6 +98,7 @@ const ProjectCard = ({
             {content}
           </Text>
         )}
+
         <Box>
           <Link href={siteLink}>
             <Button

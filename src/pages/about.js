@@ -6,19 +6,7 @@ import { Box, Heading } from "theme-ui";
 import Seo from "../components/app/Seo";
 import { StaticImage } from "gatsby-plugin-image";
 
-const ServicesPage = () => {
-  const skills = [
-    "/assets/angular_icon.png",
-    "/assets/react_icon.png",
-    "/assets/javascript_logo.png",
-    "/assets/net_logo.png",
-    "/assets/vue_logo.png",
-    "/assets/azure_logo.png",
-    "/assets/chat_logo.png",
-    "/assets/mssql_logo.png",
-    "/assets/git_logo.png",
-  ];
-
+const AboutPage = () => {
   return (
     <Box>
       <Seo title="About" />
@@ -66,4 +54,4 @@ const ServicesPage = () => {
   );
 };
 
-export default ServicesPage;
+export default AboutPage;
