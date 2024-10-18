@@ -37,7 +37,6 @@ const PostCard = ({ post, postContent }) => {
       <Grid gap={0} columns={[1, 1, 1, "1fr 3fr", "1fr 5fr"]}>
         {post.thumbnail && (
           <GatsbyImage
-            style={{ height: "200px" }}
             imgStyle={{ objectFit: "cover" }}
             placeholder="blurred"
             crossOrigin="anonymous"

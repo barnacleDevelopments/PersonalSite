@@ -37,8 +37,35 @@ const WalletBanner = ({
         backgroundColor: !isWalletConnected ? "primary" : "orange",
         borderRadius: "10px",
         overflow: "hidden",
+        position: "relative",
       }}
     >
+      <Flex
+        sx={{
+          width: "100%",
+          height: "100%",
+          position: "absolute",
+          top: 0,
+          left: 0,
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <Box
+          sx={{
+            width: "100%",
+            height: "100%",
+            position: "absolute",
+            top: 0,
+            left: 0,
+            backgroundColor: "grey",
+            opacity: 0.7,
+          }}
+        />
+        <Text variant="large" sx={{ position: "absolute", color: "orange" }}>
+          Web3 Integration Update in Progress
+        </Text>
+      </Flex>
       <Flex
         sx={{
           justifyContent: "space-between",
