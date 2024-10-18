@@ -207,43 +207,43 @@ const IndexPage = ({ data }) => {
             </Box>
           </Grid>
         </Box>
-        <Box sx={{ mb: 3 }}>
-          <Heading as="h3" variant="subheading1">
-            Top Projects
-          </Heading>
-          <Paragraph variant="small" sx={{ mb: 3 }}>
-            Checkout my{" "}
-            <Link href="/projects">web3 educational project voting</Link>{" "}
-            feature to grade my projects using blockchain technology.
-          </Paragraph>
-          {projects.map((project) => {
-            return (
-              <Card key={project.id} variant="project" sx={{ mb: 3 }}>
-                <Flex sx={{ justifyContent: "space-between", width: "100%" }}>
-                  <Box>
-                    <Heading mb={2}>{project.title}</Heading>
-                    <Text>{project.votes} Votes</Text>
-                  </Box>
-                </Flex>
-                <Link href={project.link}>
-                  <Button
-                    title={"View more about this project."}
-                    sx={{ mt: 3 }}
-                    variant="secondary"
-                  >
-                    View
-                  </Button>
-                </Link>
-              </Card>
-            );
-          })}
+        {/* <Box sx={{ mb: 3 }}> */}
+        {/*   <Heading as="h3" variant="subheading1"> */}
+        {/*     Top Projects */}
+        {/*   </Heading> */}
+        {/*   <Paragraph variant="small" sx={{ mb: 3 }}> */}
+        {/*     Checkout my{" "} */}
+        {/*     <Link href="/projects">web3 educational project voting</Link>{" "} */}
+        {/*     feature to grade my projects using blockchain technology. */}
+        {/*   </Paragraph> */}
+        {/*   {projects.map((project) => { */}
+        {/*     return ( */}
+        {/*       <Card key={project.id} variant="project" sx={{ mb: 3 }}> */}
+        {/*         <Flex sx={{ justifyContent: "space-between", width: "100%" }}> */}
+        {/*           <Box> */}
+        {/*             <Heading mb={2}>{project.title}</Heading> */}
+        {/*             <Text>{project.votes} Votes</Text> */}
+        {/*           </Box> */}
+        {/*         </Flex> */}
+        {/*         <Link href={project.link}> */}
+        {/*           <Button */}
+        {/*             title={"View more about this project."} */}
+        {/*             sx={{ mt: 3 }} */}
+        {/*             variant="secondary" */}
+        {/*           > */}
+        {/*             View */}
+        {/*           </Button> */}
+        {/*         </Link> */}
+        {/*       </Card> */}
+        {/*     ); */}
+        {/*   })} */}
 
-          <Link href="/projects" sx={{ display: "block", mt: 3 }}>
-            <Button title="View a list of all my projects." variant="primary">
-              View More Projects
-            </Button>
-          </Link>
-        </Box>
+        {/*   <Link href="/projects" sx={{ display: "block", mt: 3 }}> */}
+        {/*     <Button title="View a list of all my projects." variant="primary"> */}
+        {/*       View More Projects */}
+        {/*     </Button> */}
+        {/*   </Link> */}
+        {/* </Box> */}
         <Box
           as="article"
           sx={{
