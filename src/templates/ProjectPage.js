@@ -191,6 +191,7 @@ const imgWrapStyle = {
 const imgStyle = {
   objectFit: "contain",
   maxWidth: "500px",
+  width: "100%",
 };
 
 const sectionWrapperStyle = {
