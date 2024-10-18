@@ -66,6 +66,9 @@ const PostCard = ({ post, postContent }) => {
           >
             {post.title}
           </Heading>
+          <Text variant="regular" sx={{ color: "white" }}>
+            {post.date}
+          </Text>
           <Text
             sx={{
               a: { color: "orange" },
