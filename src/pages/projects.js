@@ -68,6 +68,7 @@ const ProjectsPage = ({ data }) => {
           votes: 0,
           link: project.slug,
           startDate: project.startDate,
+          image: project.image1,
         };
       });
     }
@@ -264,7 +265,7 @@ const ProjectsPage = ({ data }) => {
               <Box key={project.id} id={"id" + project.id} mb={3}>
                 <ProjectCard
                   id={project.id}
-                  image={project.image1}
+                  image={project.image}
                   title={project.title}
                   startDate={project.startDate}
                   siteLink={project.link}

@@ -18,6 +18,7 @@ const ProjectCard = ({
   voteCount,
   isVote,
   startDate,
+  image,
 }) => {
   const walletContext = useContext(WalletContext);
 
@@ -66,60 +67,80 @@ const ProjectCard = ({
           bg: "primary",
           width: "100%",
           p: 3,
-          flexDirection: "column",
+          justifyContent: "space-between",
+          alignItems: "center",
+          flexDirection: [
+            "column-reverse",
+            "column-reverse",
+            "column-reverse",
+            "row",
+          ],
         }}
       >
-        <Flex sx={{ justifyContent: "space-between", width: "100%" }}>
+        <Box
+          sx={{
+            height: "100%",
+            padding: [1, 2, 3],
+            width: "100%",
+          }}
+        >
           <Heading
             as="h2"
             variant="subheading1"
             color="white"
             sx={{
-              whiteSpace: "nowrap",
-              maxWidth: "100%",
-              overflow: "hidden",
-              textOverflow: "ellipsis",
-              mb: 1.5,
+              overflowWrap: "anywhere",
+              mt: [3, 3, 3, 1.5],
+              mb: [1.5],
             }}
           >
             {title}
           </Heading>
           <Text sx={{ fontSize: 3, fontWeight: "bold" }}></Text>
-        </Flex>
-        <a href={"https://viewblock.io/arweave/tx/" + id}>{id}</a>
-        <Text variant="regular" sx={{ color: "white" }}>
-          {startDate}
-        </Text>
-        <Text variant="regular" sx={{ color: "white" }}>
-          {voteCount} Vote{voteCount > 1 && "s"}
-        </Text>
-        {content && (
+          <a href={"https://viewblock.io/arweave/tx/" + id}>{id}</a>
           <Text variant="regular" sx={{ color: "white" }}>
-            {content}
+            {startDate}
           </Text>
-        )}
-
-        <Box>
-          <Link href={siteLink}>
-            <Button
-              variant="secondary"
-              sx={{ mt: 3 }}
-              className="secondary-btn"
-            >
-              {buttonText}
-            </Button>
-          </Link>
-          {!isDisabled() && (
-            <Button
-              disabled={isDisabled()}
-              variant={isDisabled() ? "disabled" : "secondary"}
-              sx={{ mt: 3, ml: 3 }}
-              className="secondary-btn"
-              onClick={() => vote(id)}
-            >
-              Vote
-            </Button>
+          <Text variant="regular" sx={{ color: "white" }}>
+            {voteCount} Vote{voteCount > 1 && "s"}
+          </Text>
+          {content && (
+            <Text variant="regular" sx={{ color: "white" }}>
+              {content}
+            </Text>
           )}
+          <Box>
+            <Link href={siteLink}>
+              <Button
+                variant="secondary"
+                sx={{ mt: 3 }}
+                className="secondary-btn"
+              >
+                {buttonText}
+              </Button>
+            </Link>
+            {!isDisabled() && (
+              <Button
+                disabled={isDisabled()}
+                variant={isDisabled() ? "disabled" : "secondary"}
+                sx={{ mt: 3, ml: 3 }}
+                className="secondary-btn"
+                onClick={() => vote(id)}
+              >
+                Vote
+              </Button>
+            )}
+          </Box>
+        </Box>
+        <Box
+          sx={{
+            maxWidth: "400px",
+            maxHeight: "200px",
+            borderRadius: 10,
+            overflow: "hidden",
+          }}
+        >
+          <img sx={{ width: "100%", display: "block" }} src={image} />
         </Box>
       </Flex>
     </Card>
