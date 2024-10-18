@@ -58,6 +58,7 @@ export const programmingPostsPageQuery = graphql`
         fileAbsolutePath: { regex: "//blog//" }
         frontmatter: { draft: { eq: false } }
       }
+      sort: { frontmatter: { date: DESC } }
     ) {
       edges {
         node {
