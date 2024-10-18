@@ -52,6 +52,9 @@ const BlogPostPage = ({ data }) => {
         <Text variant="regular" sx={{ color: "white" }}>
           {moment(node.frontmatter.date).format("MMM Do, YYYY")}
         </Text>
+        <Text variant="regular" sx={{ color: "white" }}>
+          {node.timeToRead} minutes
+        </Text>
       </Flex>
       <Box
         sx={{
@@ -93,6 +96,7 @@ export const pageQuery = graphql`
         }
       }
       html
+      timeToRead
     }
   }
 `;
