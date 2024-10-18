@@ -96,13 +96,11 @@ const ProjectCard = ({
           >
             {title}
           </Heading>
-          <Text sx={{ fontSize: 3, fontWeight: "bold" }}></Text>
-          <a href={"https://viewblock.io/arweave/tx/" + id}>{id}</a>
           <Text variant="regular" sx={{ color: "white" }}>
             {startDate}
           </Text>
-          <Text variant="regular" sx={{ color: "white" }}>
-            {voteCount} Vote{voteCount > 1 && "s"}
+          <Text variant="regular" sx={{ color: "white", display: "block" }}>
+            {voteCount} Vote
           </Text>
           {content && (
             <Text variant="regular" sx={{ color: "white" }}>
