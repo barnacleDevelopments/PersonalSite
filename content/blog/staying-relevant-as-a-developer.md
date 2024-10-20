@@ -55,6 +55,10 @@ A good example of this is sticking to Front-End developement and not exploring B
 
 Another thing that all developers should eventually do is find their Niche. This mean finding a way for you to standout from other developers. If you have a skillset that is different from the magority you become even more valueable.
 
+## Have a Positive Attitude and Don't be Afraid to not Know something
+
+Having a positve attitude is so important. If you have met anyone with a positve attiude they gleem with light. Those types of people are easy hires because they show motivation and exitement. If you are too serious or trying to br perfect you won't come accross as being genuine.
+
 # Conclusion
 
 The job market is evolving, but there's no need for panic. Staying relevant as a developer involves a growth mindset, a focus on problem-solving, and developing the right skills. By doing this, you'll be well-positioned for the opportunities that lie ahead./
