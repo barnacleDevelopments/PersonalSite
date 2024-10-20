@@ -5,11 +5,9 @@ import { graphql } from "gatsby";
 import { Box, Text, Grid, Heading } from "theme-ui";
 import Seo from "../components/app/Seo";
 import PostCategoryCard from "../components/blog/PostCategoryCard";
-import PostCard from "../components/blog/PostCard";
 
 const BlogPage = ({ data }) => {
-  const categories = data.allMarkdownRemark.distinct;
-  const posts = data.allMarkdownRemark.edges
+  const categories = data.allMarkdownRemark.distinct
     .filter((_, index) => index < 4)
     .map(({ node }) => ({
       ...node.frontmatter,
@@ -54,21 +52,6 @@ const BlogPage = ({ data }) => {
             />
           ))}
         </Grid>
-        <Heading as="h2" variant="hero">
-          Recent Posts
-        </Heading>
-        <Grid
-          sx={{
-            mb: 6,
-            width: "100%",
-          }}
-          gap={3}
-          columns={[1]}
-        >
-          {posts.map((post) => (
-            <PostCard key={post.slug} post={post} postContent={post.html} />
-          ))}
-        </Grid>
       </Box>
     </Box>
   );
@@ -76,28 +59,8 @@ const BlogPage = ({ data }) => {
 
 export const pageQuery = graphql`
   query BlogPageQuery {
-    allMarkdownRemark(
-      filter: { frontmatter: { draft: { eq: false } } }
-      sort: { frontmatter: { date: DESC } }
-    ) {
+    allMarkdownRemark(filter: { frontmatter: { draft: { eq: false } } }) {
       distinct(field: { frontmatter: { category: SELECT } })
-      edges {
-        node {
-          html
-          fields {
-            slug
-          }
-          frontmatter {
-            title
-            thumbnail {
-              childImageSharp {
-                gatsbyImageData
-              }
-            }
-            date(formatString: "MMMM do, YYYY")
-          }
-        }
-      }
     }
   }
 `;
