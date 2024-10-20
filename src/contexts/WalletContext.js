@@ -24,12 +24,13 @@ export const WalletProvider = ({ children }) => {
       try {
         const hasWallet = await checkWallet();
         if (hasWallet) {
-          await checkNetwork();
+          /*  await checkNetwork();
           const accounts = await window.ethereum.request({
             method: "eth_accounts",
           });
           handleAccountsChanged(accounts);
           window.ethereum.on("accountsChanged", handleAccountsChanged);
+*/
         } else {
           console.log("MetaMask is not installed!");
         }

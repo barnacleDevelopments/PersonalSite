@@ -1,11 +1,10 @@
 /** @jsx jsx */
-import { jsx } from "theme-ui";
+import { jsx, Link } from "theme-ui";
 import { graphql } from "gatsby";
 import { GatsbyImage } from "gatsby-plugin-image";
 import showdown from "showdown";
 import { getImage } from "gatsby-plugin-image";
 import moment from "moment";
-
 // Components
 import { Box, Flex, Button, Heading, Text, Grid } from "theme-ui";
 import Seo from "../components/app/Seo";
@@ -151,6 +150,9 @@ function ProjectPage({ data }) {
                 __html: converter.makeHtml(node.frontmatter.challenges),
               }}
             ></Text>
+            <Link href="/projects">
+              <Button variant="primary">Back to Projects</Button>
+            </Link>
           </Box>
         </Grid>
       </Box>

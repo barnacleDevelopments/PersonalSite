@@ -24,11 +24,22 @@ import Loader from "../components/Loader";
 import { faGit } from "@fortawesome/free-brands-svg-icons";
 import { getProjects, getProjectVoteCounts } from "../functions/project-voting";
 import { useEffect, useState } from "react";
+import PostCard from "../components/blog/PostCard";
+import CallToAction from "../components/CallToAction";
 
 const IndexPage = ({ data }) => {
   const [projects, setProjects] = useState([]);
-  const landingPageData = data.markdownRemark.frontmatter;
 
+  console.log(data);
+  const landingPageData = data.markdownRemark.frontmatter;
+  console.log(data);
+  const posts = data.blogPosts.edges
+    .filter((_, index) => index < 4)
+    .map(({ node }) => ({
+      ...node.frontmatter,
+      ...node.fields,
+      html: node.html,
+    }));
   useEffect(() => {
     if (typeof window !== "undefined") {
       const init = async () => {
@@ -357,32 +368,29 @@ const IndexPage = ({ data }) => {
             </Box>
           </Grid>
         </Box>
-        <Flex
+        <CallToAction
+          title={"Let's Work Together"}
+          content={
+            "I'm an pasionate developer who is always trying to master new skills and be of service to those I work with."
+          }
+          buttonText={"Learn how I can help"}
+          pageLink={"/about"}
+        />
+        <Heading as="h3" variant="subheading1">
+          Recent Posts
+        </Heading>
+        <Grid
           sx={{
-            textAlign: "center",
-            flexDirection: "column",
-            justifyContent: "center",
-            my: [5],
-            px: [0, 3],
-            bg: "primary",
-            color: "white",
-            p: 4,
-            borderRadius: "10px",
+            mb: 6,
+            width: "100%",
           }}
+          gap={3}
+          columns={[1]}
         >
-          <Heading as="h2" variant="subheading1" color="white">
-            Let's Work Together
-          </Heading>
-          <Text variant="regular" sx={{ color: "white" }}>
-            I'm an pasionate developer who is always trying to master new skills
-            and be of service to those I work with.
-          </Text>
-          <Box sx={{ mt: 4 }}>
-            <Link href="/about">
-              <Button variant="primary">Learn how I can help</Button>
-            </Link>
-          </Box>
-        </Flex>
+          {posts.map((post) => (
+            <PostCard key={post.slug} post={post} postContent={post.html} />
+          ))}
+        </Grid>
       </Box>
     </Box>
   );
@@ -408,7 +416,7 @@ export const landingPageQuery = graphql`
         indexHeader
       }
     }
-    allMarkdownRemark(
+    projects: allMarkdownRemark(
       filter: { fileAbsolutePath: { regex: "//projects//" } }
       sort: { frontmatter: { endDate: DESC } }
       limit: 3
@@ -423,7 +431,33 @@ export const landingPageQuery = graphql`
             startDate
             endDate
             status
+            date
           }
+          html
+        }
+      }
+    }
+    blogPosts: allMarkdownRemark(
+      filter: { fileAbsolutePath: { regex: "//blog//" } }
+      sort: { frontmatter: { date: DESC } }
+      limit: 3
+    ) {
+      edges {
+        node {
+          fields {
+            slug
+          }
+          frontmatter {
+            title
+            date(formatString: "MMMM do, YYYY")
+            thumbnail {
+              childImageSharp {
+                gatsbyImageData
+              }
+            }
+            category
+          }
+          html
         }
       }
     }

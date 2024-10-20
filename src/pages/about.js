@@ -5,6 +5,7 @@ import { Link, Paragraph, jsx } from "theme-ui";
 import { Box, Heading } from "theme-ui";
 import Seo from "../components/app/Seo";
 import { StaticImage } from "gatsby-plugin-image";
+import CallToAction from "../components/CallToAction";
 
 const AboutPage = () => {
   return (
@@ -49,6 +50,12 @@ const AboutPage = () => {
           passions fires me up. Please <Link href="/contact">reach out</Link>;
           I'm always up for a chat!
         </Paragraph>
+        <CallToAction
+          title={"Checkout Some of my Projects"}
+          content={"Every project I take on take ownership of."}
+          buttonText={"Let's Go!"}
+          pageLink={"/projects"}
+        />
       </Box>
     </Box>
   );

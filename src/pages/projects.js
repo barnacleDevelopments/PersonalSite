@@ -10,6 +10,7 @@ import { useContext, useEffect, useState } from "react";
 import WalletBanner from "../components/projects/WalletBanner";
 import ProgressGauge from "../components/projects/ProgressGauge";
 import ContributionForm from "../components/projects/ContributionForm";
+import CallToAction from "../components/CallToAction";
 import VoterList from "../components/projects/VoterList";
 import Dialog from "../components/dialog";
 
@@ -54,13 +55,10 @@ const ProjectsPage = ({ data }) => {
   }, [walletContext?.walletAddress, walletContext?.isWalletConnected]);
 
   const getProjectWithContent = () => {
-    const projectData = data.allMarkdownRemark.edges.map(({ node }) => {
-      console.log(node);
-      return {
-        ...node.fields,
-        ...node.frontmatter,
-      };
-    });
+    const projectData = data.allMarkdownRemark.edges.map(({ node }) => ({
+      ...node.fields,
+      ...node.frontmatter,
+    }));
     if (projectData.length > 0) {
       return projectData.map((project) => {
         return {
@@ -280,6 +278,14 @@ const ProjectsPage = ({ data }) => {
             );
           })}
         </Box>
+        <CallToAction
+          title={"Interested in collaborating?"}
+          content={
+            "I'd love to hear from you and explore how we can work together."
+          }
+          buttonText={"Get in Touch"}
+          pageLink={"/contact"}
+        />
       </Box>
     </Box>
   );
