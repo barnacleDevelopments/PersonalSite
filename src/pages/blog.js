@@ -7,13 +7,7 @@ import Seo from "../components/app/Seo";
 import PostCategoryCard from "../components/blog/PostCategoryCard";
 
 const BlogPage = ({ data }) => {
-  const categories = data.allMarkdownRemark.distinct
-    .filter((_, index) => index < 4)
-    .map(({ node }) => ({
-      ...node.frontmatter,
-      ...node.fields,
-      html: node.html,
-    }));
+  const categories = data.allMarkdownRemark.distinct;
   return (
     <Box>
       <Seo title="Blog" />
