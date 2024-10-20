@@ -80,19 +80,22 @@ const ContactPage = () => {
           my: 6,
         }}
       >
-        <Box
-          sx={{
-            margin: "0 auto",
-            mt: 6,
-          }}
-        >
-          <Heading as="h1" variant="hero">
-            Let's Talk About You
-          </Heading>
-          <Paragraph sx={{ my: 3, display: "block" }} variant="large">
-            Please reach out. I'd love to help you reach your goals!
-          </Paragraph>
-        </Box>
+        {!isSubmitted && (
+          <Box
+            sx={{
+              margin: "0 auto",
+              mt: 6,
+            }}
+          >
+            <Heading as="h1" variant="hero">
+              Let's Talk About You
+            </Heading>
+            <Paragraph sx={{ my: 3, display: "block" }} variant="large">
+              Please reach out. I'd love to help you reach your goals!
+            </Paragraph>
+          </Box>
+        )}
+
         {(!isSubmitted || !isValid) && (
           <Grid gap={3} columns={["1fr", "1fr 1fr", "1.5fr 2fr"]}>
             <Box
@@ -202,7 +205,6 @@ const ContactPage = () => {
             </Box>
           </Grid>
         )}
-
         {isSubmitting && !isPostSuccessful && (
           <Flex
             sx={{
@@ -215,7 +217,6 @@ const ContactPage = () => {
             <Loader />
           </Flex>
         )}
-
         {isPostSuccessful && (
           <Flex
             sx={{
@@ -237,7 +238,6 @@ const ContactPage = () => {
             </Box>
           </Flex>
         )}
-
         {!isPostSuccessful && isSubmitted && (
           <Flex
             sx={{
