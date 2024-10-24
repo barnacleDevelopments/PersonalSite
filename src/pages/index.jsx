@@ -438,7 +438,10 @@ export const landingPageQuery = graphql`
       }
     }
     blogPosts: allMarkdownRemark(
-      filter: { fileAbsolutePath: { regex: "//blog//" } }
+      filter: {
+        frontmatter: { draft: { eq: false } }
+        fileAbsolutePath: { regex: "//blog//" }
+      }
       sort: { frontmatter: { date: DESC } }
       limit: 3
     ) {
