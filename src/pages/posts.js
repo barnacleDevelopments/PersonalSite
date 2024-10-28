@@ -67,7 +67,7 @@ export const programmingPostsPageQuery = graphql`
           }
           frontmatter {
             title
-            date
+            date(formatString: "MMMM, YYYY")
             thumbnail {
               childImageSharp {
                 gatsbyImageData
