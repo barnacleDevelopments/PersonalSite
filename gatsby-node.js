@@ -246,6 +246,7 @@ async function writeProjectFiles() {
       "novajonstone-co.md",
       "ressons-marketing-website.md",
       "traceability-report.md",
+      "warriertech-api.md",
     ];
 
     const projectDataQueries = fileNames.map((x) =>
