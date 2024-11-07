@@ -4,9 +4,9 @@ This repository is my personal portfolio site! I'm publicaly documenting the dev
 
 ## Decentralized Feedback Framework: Gated Rewards for Feedback (WIP)
 
-This website includes a decentralized element where users can utilize a smart contract designed to insentivice feedback. This smart contract is designed to help people recieve geniune feedback on "things" through offering tangible rewards for genuine interactions. Geniune feedback is a hard thing to incentivise because it's subjective and rewards can easily be abused. The solution to this is putting the feedback receiver in control. Everyone knows what it feels like to receive genuine feedback. When we know we have received genuine feedback we are much more likely to reward those who have given it. Paying people directly for feedback is not enough because this only results in the bare minimum for the reward. Rewards should be gated so that the receiver determines when they are satified with the feedback they have received. This is precicely what my smart contract aims to solve. The planned incentivised behaviors are the following.
+This website includes a decentralized element where users can utilize a smart contract designed to insentivice feedback. This smart contract is designed to help people recieve geniune feedback on "things" through offering tangible rewards for genuine interactions. Geniune feedback is a hard thing to incentivise because it's subjective and rewards can easily be abused. The solution to this is putting the feedback receiver in control. Everyone knows what it feels like to receive genuine feedback. When we know we have received genuine feedback we are much more likely to reward those who have given it. Paying people directly for feedback is not enough because this only results in the bare minimum for the reward. Rewards should be gated so that the receiver determines when they are satified with the feedback they have received. Further, feedback providers should have the opportunity to gain credibility to no only signal thier worth but to increase their chances of compensation. This is precicely what my smart contract aims to solve. The planned incentivised behaviors are the following.
 
-1. `COMMENTING` is short form piece of feedback that provides a deeper level of interest.
+1. `COMMENTING` is short form piece of feedback that provides a deeper level of interest (MVP).
 2. `REVIEW` is a long form pieve of feedback that provides a deep level of interest.
 3. `SPONSOR` is a long term investment from an individual and shows a exeptional level of interest. (Still thinking about this)
 
@@ -15,21 +15,29 @@ There are two roles that the contract users can participate in:
 1. `Feedback Receivers` Those recieving feedback
 2. `Feedback Providers` Those providing feedback
 
-## Registering Feedback Items
+## Registering Feedback Items (MVP)
 
-`Feedback Items` are references to things `Feedback Providers` can provide feedback on. The `Feedback Recievers` add `Feedback Items` to the smart contract utilizing the `addFeedbackBundle` function of the smart contract. Each `Feedback Bundle` contains a prize balance, a hash identifier for a feedback item stored on a decentralized platform like Arweave, and a prize release date. 30% of the prize balance is given back to the feedback reciever for choosing a winner.
+`Feedback Items` are references to things `Feedback Providers` can provide feedback on. The `Feedback Recievers` add `Feedback Items` to the smart contract utilizing the `addFeedbackBundle` function of the smart contract. Each `Feedback Bundle` contains a `rewardBalance`, a `itemId`, and a `prizeReleaseDate`. 30% of the prize balance is given back to the feedback reciever for choosing a winner. The `Feedback Receiver` can perform a withdraw of their prize balance with a 30% penalty only if they have already received feedback. This penalty is distributed to all `Feedback Provider` who have provided feedback on the `Feedback Item` in question.
 
-## Providing Feedback on Items
+## Providing Feedback on Items (MVP)
 
-To provide feedback on items users use the `sendFeedback` function. It takes 3 arguments including the item hash identifier, receiver address, and feedback hash identifier. The hash identifier needs to be signed by the `Feedback Provider` to be considered valid.
+To provide feedback on items users use the `provideFeedback` function. It takes 3 arguments including the `receiverAddress`, `itemId`, and `feedbackId`. The `feedbackId` needs to be signed by the `Feedback Provider` to be considered valid.
 
-## Recieving Feedback on Items
+### Ideas
 
-If `Feedback Providers` manage to provide feedback that is useful to the `Feedback Reciever` they may receive this reward. When the `Feedback Feciever` receives a piece of feedback they are satified with, they choose a `Feedback Provider` using the `chooseWinner` function to recieve a reward. If the `Feedback Reciever` decides not to fufill their side of the bargon, by not choosing a winner, this will initiate a random winner selection. This ensures that feedback providers are rewarded for their behavior regardless of the behavior of the `Feedback Reciever`. The `Feedback Receiver` can perform a withdraw of their prize balance with a 30% penalty if they have already received feedback which is distributed amoungst those who have provided feedback. The `Feedback Receiver` can decide to provide `sponsored gas` which allows the first few `Feedback Providers` to provide feedback without paying gas fees. This kick starts the feedback process.
+- Eventually have mutliple `feedbackIds`?
 
-## Reward Settelment
+## Recieving Feedback on Items (MVP)
 
-Prizes are distributed in two ways. The first is trigered when the `Feedback Provider` choses the winner. This can only happen once at least one piece of feedback is provided to an item. A percentage of the feedback prize is given back to the feedback reciever as a reward for choosing a winner. Choosing a winner has a side effect of giving the feedback provider `Feedback Tokens`.
+If `Feedback Providers` manage to provide feedback that is useful to the `Feedback Reciever` they may receive the `Feedback Bundle` reward. When the `Feedback Reciever` receives a piece of feedback they are satified with, they choose a `Feedback Provider` using the `sendReward` function to recieve the `Feedback Bundle` reward.
+
+### Ideas
+
+- The `Feedback Receiver` can decide to provide `sponsored gas` which allows the first few `Feedback Providers` to provide feedback without paying gas fees. This kick starts the feedback process.
+
+## Reward Settelment (MVP)
+
+Prizes are distributed in two ways. The first is triggered when the `Feedback Provider` choses the winner. This can only happen once at least one piece of feedback is provided to an item. A percentage of the feedback prize is given back to the feedback reciever as a reward for choosing a winner. Choosing a winner has a side effect of giving the feedback provider `Feedback Tokens`.
 
 _Feedback tokens are used in the future to signal the quality of `Feedback Provider's` feedback to prospective `Feedback Recievers`._
 
