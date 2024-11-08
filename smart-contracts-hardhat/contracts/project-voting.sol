@@ -22,6 +22,7 @@ contract Feedback is VRFConsumerBaseV2Plus {
     // Voting properties
     mapping(address => mapping(address => mapping(string => string))) public itemFeedback;
     mapping(address => mapping(address => mapping(string => bool))) public hasProvidedFeedback;
+    mapping(string => address[]) public itemFeedbackProviders;
     mapping(string => FeedbackBundle) public feedbackBundles;
 
     // Voting Events
@@ -74,6 +75,7 @@ contract Feedback is VRFConsumerBaseV2Plus {
         require(!hasProvidedFeedback[msg.sender][recieverAddress][itemId], "address has already provided feedback on item");
         hasProvidedFeedback[msg.sender][recieverAddress][itemId] = true;
         itemFeedback[msg.sender][recieverAddress][itemId] = feedbackId;
+        itemFeedbackProviders[itemId].push(msg.sender);
         emit FeedbackProvided(msg.sender, recieverAddress, itemId);
     }
 
@@ -89,7 +91,7 @@ contract Feedback is VRFConsumerBaseV2Plus {
         providerAddress.transfer(rewardAmount);
     }
 
-    function settleRewardRandomly(address recieverAddress, string memory itemId) public {
+    function settleRewardRandomly(string memory itemId) public {
         FeedbackBundle memory bundle = feedbackBundles[itemId];
         require(!bundle.isSettled, "item id does not exist or owner is invalid.");
         require(bundle.settleDeadline > block.timestamp);
@@ -139,14 +141,15 @@ contract Feedback is VRFConsumerBaseV2Plus {
         return (request.fulfilled, request.randomWords);
     }
 
-    // pick random winner once threshold is met for the current vote cycle
     function fulfillRandomWords(uint256 _requestId, uint256[] calldata _randomWords) internal override {
         require(s_requests[_requestId].exists, "request not found");
         s_requests[_requestId].fulfilled = true;
         s_requests[_requestId].randomWords = _randomWords;
         emit RequestFulfilled(_requestId, _randomWords);
-        uint256 randomResult = _randomWords[0];
         string memory itemId = s_randomBundleSettlements[_requestId];
-
+        uint256 randomIndex = _randomWords[0] % itemFeedbackProviders[itemId].length;
+        address payable winner = payable(itemFeedbackProviders[itemId][randomIndex]);
+        uint256 rewardAmount = feedbackBundles[itemId].rewardBalance;
+        winner.transfer(rewardAmount);
     }
 }
