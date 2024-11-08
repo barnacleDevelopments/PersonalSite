@@ -4,7 +4,9 @@ This repository is my personal portfolio site! I'm publicaly documenting the dev
 
 ## Decentralized Feedback Framework: Gated Rewards for Feedback (WIP)
 
-This website includes a decentralized element where users can utilize a smart contract designed to insentivice feedback. This smart contract is designed to help people recieve geniune feedback on "things" through offering tangible rewards for genuine interactions. Geniune feedback is a hard thing to incentivise because it's subjective and rewards can easily be abused. The solution to this is putting the feedback receiver in control. Everyone knows what it feels like to receive genuine feedback. When we know we have received genuine feedback we are much more likely to reward those who have given it. Paying people directly for feedback is not enough because this only results in the bare minimum for the reward. Rewards should be gated so that the receiver determines when they are satified with the feedback they have received. Further, feedback providers should have the opportunity to gain credibility to no only signal thier worth but to increase their chances of compensation. This is precicely what my smart contract aims to solve. The planned incentivised behaviors are the following.
+This website includes a decentralized element where users can utilize a smart contract designed to insentivice feedback. This smart contract is designed to help people recieve geniune feedback on "things" through offering tangible rewards for genuine interactions. Geniune feedback is a hard thing to crowd source because credibility is hard to ensure.
+
+The solution to this is putting the feedback receiver in control. Everyone knows what it feels like to receive genuine feedback. When we know we have received genuine feedback we are much more likely to reward those who have given it. Paying people directly for feedback is not enough because this only results in the bare minimum for the reward. Rewards should be gated so that the receiver determines when they are satified with the feedback they have received. Further, feedback providers should have the opportunity to gain credibility to no only signal their worth but to increase their chances of compensation. The planned incentivised behaviors are the following.
 
 1. `COMMENTING` is short form piece of feedback that provides a deeper level of interest (MVP).
 2. `REVIEW` is a long form pieve of feedback that provides a deep level of interest.
@@ -12,7 +14,7 @@ This website includes a decentralized element where users can utilize a smart co
 
 There are two roles that the contract users can participate in:
 
-1. `Feedback Receivers` Those recieving feedback
+1. `Feedback Recievers` Those recieving feedback
 2. `Feedback Providers` Those providing feedback
 
 ## Registering Feedback Items (MVP)
