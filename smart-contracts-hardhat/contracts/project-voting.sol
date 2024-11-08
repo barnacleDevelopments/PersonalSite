@@ -11,16 +11,22 @@ import {LinkTokenInterface} from "@chainlink/contracts/src/v0.8/shared/interface
 import {VRFV2PlusClient} from "@chainlink/contracts/src/v0.8/vrf/dev/libraries/VRFV2PlusClient.sol";
 import {VRFConsumerBaseV2Plus} from "@chainlink/contracts/src/v0.8/vrf/dev/VRFConsumerBaseV2Plus.sol";
 
+struct FeedbackBundle {
+    address owner;
+    uint256 rewardBalance;
+    uint settleDeadline;
+    bool isSettled;
+}
+
 contract Feedback is VRFConsumerBaseV2Plus {
     // Voting properties
-    mapping(address => mapping(string => uint)) public itemVotes; // total project votes within the current cycle
-    mapping(address => mapping(address => mapping(string => bool))) public hasVotedOnItem;
+    mapping(address => mapping(address => mapping(string => string))) public itemFeedback;
+    mapping(address => mapping(address => mapping(string => bool))) public hasProvidedFeedback;
+    mapping(string => FeedbackBundle) public feedbackBundles;
 
     // Voting Events
-    event Voted(address voterAddress, address receiverAddress, string itemId);
-    // event Commented(address voter, string itemId, string commentLink, uint receiverAddress);
-    // event Reviewed(address voter, string itemId, string reviewLink, uint receiverAddress);
-    event WinnerAnnounced(address winner, uint256 amount, uint cycle);
+    event FeedbackProvided(address providerAddress, address receiverAddress, string itemId);
+    event RewardSettled(address providerAddress, uint256 amount);
 
     // Chainlink VRF properties
     uint256 s_subscriptionId;
@@ -31,6 +37,9 @@ contract Feedback is VRFConsumerBaseV2Plus {
     uint32 private numWords =  1; // Number of random values to request
     uint256[] public requestIds;
     uint256 public lastRequestId;
+    mapping(address => mapping(string => address)) private s_bundleSettlements;
+    mapping(uint256 => string) private s_randomBundleSettlements;
+    mapping(uint256 => string) private s_randomBundleSettlementResults;
     struct RequestStatus {
         bool fulfilled; // whether the request has been successfully fulfilled
         bool exists; // whether a requestId exists
@@ -61,51 +70,41 @@ contract Feedback is VRFConsumerBaseV2Plus {
         return keyHash;
     }
 
-    // function rewardProviders(address[] winners) public {
-    //     require(bytes(winners).length < 3, "There must be at least 3 winners.")
-    //     // TODO: distribute rewards
-    // }
-
-    function vote(string memory itemId, string memory displayName, address receiverAddress) public {
-        require(!hasVotedOnItem[msg.sender][receiverAddress][itemId], "address already voted on item");
-        hasVotedOnItem[msg.sender][receiverAddress][itemId] = true;
-        itemVotes[receiverAddress][itemId]++;
-        emit Voted(msg.sender, receiverAddress, itemId);
+    function provideFeedback(address recieverAddress, string memory itemId, string memory feedbackId) public {
+        require(!hasProvidedFeedback[msg.sender][recieverAddress][itemId], "address has already provided feedback on item");
+        hasProvidedFeedback[msg.sender][recieverAddress][itemId] = true;
+        itemFeedback[msg.sender][recieverAddress][itemId] = feedbackId;
+        emit FeedbackProvided(msg.sender, recieverAddress, itemId);
     }
 
-    // function registerReward(uint prize, address receiverAddress, string[] memory itemIds) public payable {
-
-    // }
-
-    // function distributeReward() public {
-    //     require(msg.sender
-    // }
-
-    // TODO: maybe this could implemented where the proviers send a link
-    // function comment() public {
-
-    // }
-
-    // TODO: maybe this could be implemented where the provider sends a link
-    // function review() public {
-
-    // }
-
-    function getItemVoteCount(string memory itemId, address receiverAddress) public view returns (uint) {
-        return itemVotes[receiverAddress][itemId];
+    function addFeedbackBundle(uint256 _rewardBalance, string memory _itemId, uint _settleDeadline) public payable {
+        feedbackBundles[_itemId] = FeedbackBundle(msg.sender, _rewardBalance, _settleDeadline, false);
     }
 
-    function checkHasVoted(string memory itemId, address receiverAddress) public view returns (bool) {
-        return hasVotedOnItem[msg.sender][receiverAddress][itemId];
+    function settleReward(address payable providerAddress, string memory itemId) public {
+        FeedbackBundle memory bundle = feedbackBundles[itemId];
+        require(!bundle.isSettled, "bundle already settled");
+        require(bundle.owner == msg.sender, "only bundle owner can send reward");
+        uint256 rewardAmount = bundle.rewardBalance;
+        providerAddress.transfer(rewardAmount);
+    }
+
+    function settleRewardRandomly(address recieverAddress, string memory itemId) public {
+        FeedbackBundle memory bundle = feedbackBundles[itemId];
+        require(!bundle.isSettled, "item id does not exist or owner is invalid.");
+        require(bundle.settleDeadline > block.timestamp);
+        chooseRandomProvider(itemId);
+    }
+
+    function checkHasFeedback(string memory itemId, address receiverAddress) public view returns (bool) {
+        return hasProvidedFeedback[msg.sender][receiverAddress][itemId];
     }
 
     function getBalance() public view returns (uint256) {
         return address(this).balance;
     }
 
-    function requestRandomWords(
-        bool enableNativePayment
-    ) internal returns (uint256 requestId) {
+    function chooseRandomProvider(string memory itemId) internal returns (uint256 requestId) {
         requestId = s_vrfCoordinator.requestRandomWords(
             VRFV2PlusClient.RandomWordsRequest({
                 keyHash: keyHash,
@@ -115,11 +114,12 @@ contract Feedback is VRFConsumerBaseV2Plus {
                 numWords: numWords,
                 extraArgs: VRFV2PlusClient._argsToBytes(
                     VRFV2PlusClient.ExtraArgsV1({
-                        nativePayment: enableNativePayment
+                        nativePayment: false
                     })
                 )
             })
         );
+        s_randomBundleSettlements[requestId] = itemId;
         s_requests[requestId] = RequestStatus({
             randomWords: new uint256[](0),
             exists: true,
@@ -146,5 +146,7 @@ contract Feedback is VRFConsumerBaseV2Plus {
         s_requests[_requestId].randomWords = _randomWords;
         emit RequestFulfilled(_requestId, _randomWords);
         uint256 randomResult = _randomWords[0];
+        string memory itemId = s_randomBundleSettlements[_requestId];
+
     }
 }
