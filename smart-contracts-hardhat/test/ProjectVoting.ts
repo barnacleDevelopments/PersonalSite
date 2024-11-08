@@ -55,7 +55,7 @@ describe("Project Voting Contract", () => {
     });
   });
 
-  describe("Item Vote", () => {
+  describe("Add feeback bundle", () => {
     let feedback: any, owner: any, signer: any;
 
     beforeEach(async () => {
@@ -69,22 +69,45 @@ describe("Project Voting Contract", () => {
       await stopImpersonatingAccount(owner.address);
     });
 
-    // TODO: fix this
-    it("Should allow voting on a item", async () => {
-      const [owner] = await hre.ethers.getSigners();
+    it("Should create bundle", async () => {
       const itemId = "example_id_1";
-      const voterDisplayName = "Example Name 1";
-      const receiverAddress = owner.address;
       const transaction = await feedback
         .connect(signer)
-        .vote(itemId, voterDisplayName, receiverAddress);
+        .addFeedbackBundle(itemId, 1, 1);
       const receipt = await transaction.wait();
-
       expect(receipt.status).to.equal(1);
+      const [owner, rewardBalance, settleDeadline, isSettled] = await feedback
+        .connect(signer)
+        .getFeedbackBundle(itemId);
+      expect(owner).to.have.lengthOf(42);
+      expect(rewardBalance).to.equal(1);
+      expect(settleDeadline).to.equal(1);
+      expect(isSettled).to.be.false;
+    });
+  });
+
+  describe("Add item feedback", () => {
+    let feedback: any, owner: any, signer: any;
+
+    beforeEach(async () => {
+      // Load fixture and impersonate the owner account before each test
+      ({ feedback, owner } = await loadFixture(deployFeedbackFixture));
+      signer = await impersonateAccount(owner.address);
     });
 
-    // TODO: finish this
-    it("Vote transaction should have a minimum contribution", async () => {});
-    it("Vote transaction should have a maximum contribution", async () => {});
+    afterEach(async () => {
+      // Stop impersonating after each test
+      await stopImpersonatingAccount(owner.address);
+    });
+
+    it("Should create bundle", async () => {
+      const itemId = "example_id_1";
+      const feedbackId = "example_feedback_id";
+      const transaction = await feedback
+        .connect(signer)
+        .provideFeedback(itemId, feedbackId);
+      const receipt = await transaction.wait();
+      expect(receipt.status).to.equal(1);
+    });
   });
 });
