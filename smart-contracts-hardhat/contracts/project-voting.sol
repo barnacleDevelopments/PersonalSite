@@ -16,6 +16,7 @@ struct FeedbackBundle {
     uint256 rewardBalance;
     uint settleDeadline;
     bool isSettled;
+    uint feedbackCount;
 }
 
 contract Feedback is VRFConsumerBaseV2Plus {
@@ -24,7 +25,7 @@ contract Feedback is VRFConsumerBaseV2Plus {
     mapping(address => mapping(string => bool)) public hasProvidedFeedback;
     mapping(string => address[]) public itemFeedbackProviders;
     mapping(string => FeedbackBundle) public feedbackBundles;
-
+    mapping(address => uint) public addressFeedbackTokens;
     // Voting Events
     event FeedbackProvided(address providerAddress, string itemId);
     event RewardSettled(address providerAddress, uint256 amount);
@@ -70,16 +71,24 @@ contract Feedback is VRFConsumerBaseV2Plus {
         return keyHash;
     }
 
-    function provideFeedback(string memory itemId, string memory feedbackId) public {
-        require(!hasProvidedFeedback[msg.sender][itemId], "address has already provided feedback on item");
-        hasProvidedFeedback[msg.sender][itemId] = true;
-        itemFeedback[msg.sender][itemId] = feedbackId;
-        itemFeedbackProviders[itemId].push(msg.sender);
-        emit FeedbackProvided(msg.sender, itemId);
+    function provideFeedback(string memory _itemId, string memory _feedbackId) public {
+        require(!hasProvidedFeedback[msg.sender][_itemId], "address has already provided feedback on item");
+        hasProvidedFeedback[msg.sender][_itemId] = true;
+        itemFeedback[msg.sender][_itemId] = _feedbackId;
+        itemFeedbackProviders[_itemId].push(msg.sender);
+        addressFeedbackTokens[msg.sender]++;
+        feedbackBundles[_itemId].feedbackCount++;
+        emit FeedbackProvided(msg.sender, _itemId);
     }
 
-    function addFeedbackBundle(string memory _itemId, uint256 _rewardBalance, uint _settleDeadline) public payable {
-        feedbackBundles[_itemId] = FeedbackBundle(msg.sender, _rewardBalance, _settleDeadline, false);
+    function addFeedbackBundle(string memory _itemId, uint _settleDeadline) public payable {
+        feedbackBundles[_itemId] = FeedbackBundle(msg.sender, msg.value, _settleDeadline, false, 0);
+    }
+
+    function refundFeedbackBundle(string memory _itemId) public {
+        FeedbackBundle memory bundle = feedbackBundles[_itemId];
+        require(bundle.owner == msg.sender, "only owner can refund bundle.");
+        payable(msg.sender).transfer(bundle.rewardBalance);
     }
 
     function getFeedbackBundle(string memory _itemId) public view returns (address, uint256, uint, bool) {
@@ -87,12 +96,12 @@ contract Feedback is VRFConsumerBaseV2Plus {
        return (bundle.owner, bundle.rewardBalance, bundle.settleDeadline, bundle.isSettled);
     }
 
-    function settleReward(address payable providerAddress, string memory itemId) public {
+    function settleBundle(address payable providerAddress, string memory itemId) public {
         FeedbackBundle memory bundle = feedbackBundles[itemId];
+        require(bundle.feedbackCount > 0, "item must have feedback");
         require(!bundle.isSettled, "bundle already settled");
         require(bundle.owner == msg.sender, "only bundle owner can send reward");
-        uint256 rewardAmount = bundle.rewardBalance;
-        providerAddress.transfer(rewardAmount);
+        providerAddress.transfer(bundle.rewardBalance);
     }
 
     function settleRewardRandomly(string memory itemId) public {
@@ -102,8 +111,8 @@ contract Feedback is VRFConsumerBaseV2Plus {
         chooseRandomProvider(itemId);
     }
 
-    function checkHasFeedback(string memory itemId) public view returns (bool) {
-        return hasProvidedFeedback[msg.sender][itemId];
+    function checkBundleHasFeedback(string memory _itemId) public view returns (bool) {
+        return feedbackBundles[_itemId].feedbackCount > 0;
     }
 
     function getBalance() public view returns (uint256) {
