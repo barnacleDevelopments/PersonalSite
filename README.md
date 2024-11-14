@@ -8,22 +8,32 @@ This website includes a decentralized element where users can utilize a smart co
 
 The solution to this is putting the feedback receiver in control. Everyone knows what it feels like to receive genuine feedback. When we know we have received genuine feedback we are much more likely to reward those who have given it. Paying people directly for feedback is not enough because this only results in the bare minimum for the reward. Rewards should be gated so that the receiver determines when they are satified with the feedback they have received. Further, feedback providers should have the opportunity to gain credibility to no only signal their worth but to increase their chances of compensation. The planned incentivised behaviors are the following.
 
-1. `COMMENTING` is short form piece of feedback that provides a deeper level of interest (MVP).
-2. `REVIEW` is a long form pieve of feedback that provides a deep level of interest.
-3. `SPONSOR` is a long term investment from an individual and shows a exeptional level of interest. (Still thinking about this)
+## Roles
 
 There are two roles that the contract users can participate in:
 
 1. `Feedback Recievers` Those recieving feedback
 2. `Feedback Providers` Those providing feedback
 
+## Resources:
+
+There are four resources that both roles utilize during an exchange.
+
+1. `Feedback Tokens` - uint value representing the reputation gained by a feedback provider.
+2. `Abstract Feedback Text` - Publicaly visible text representing a sneak peek of the Encrypted Feedback Text.
+3. `Encrypted Feedback Text` - Encrypted text representing the complete feedback.
+
 ## Registering Feedback Items (MVP)
 
 `Feedback Items` are references to things `Feedback Providers` can provide feedback on. The `Feedback Recievers` add `Feedback Items` to the smart contract utilizing the `addFeedbackBundle` function of the smart contract. Each `Feedback Bundle` contains a `rewardBalance`, a `itemId`, and a `prizeReleaseDate`. 30% of the prize balance is given back to the feedback reciever for choosing a winner. The `Feedback Receiver` can perform a withdraw of their prize balance with a 30% penalty only if they have already received feedback. This penalty is distributed to all `Feedback Provider` who have provided feedback on the `Feedback Item` in question.
 
+Using [Chainlink Any API](https://docs.chain.link/any-api/introduction) the Feedback Contract ([Client Contract](https://docs.chain.link/architecture-overview/architecture-request-model/#chainlinkclient)) communicates with a [Chainlink Operator contract](https://docs.chain.link/architecture-overview/architecture-request-model/#operator-contract) to retrieve data from an off-chain oracle node that communicates with the Arweave network. This allows feedback to be stored in a tamper proof manner insuring that feedback remains unchanged thus fortifing it's value.
+
 ## Providing Feedback on Items (MVP)
 
-To provide feedback on items users use the `provideFeedback` function. It takes 3 arguments including the `receiverAddress`, `itemId`, and `feedbackId`. The `feedbackId` needs to be signed by the `Feedback Provider` to be considered valid.
+To provide feedback on items users use the `provideFeedback` function. It takes 3 arguments including the `receiverAddress`, `itemId`, `feedbackAbstractId`, and `feedbackId`. The `feedbackId` and `feedbackAbstractId` needs to be signed by the `Feedback Provider` to be considered valid. This insures that the feedback is tied to the feedback provider.
+
+TODO: Need to figure out what should be signed by what here. The feedback provider has both a Arweave address and a Ethereum address that need to be associated with each other.
 
 ### Ideas
 
@@ -31,7 +41,17 @@ To provide feedback on items users use the `provideFeedback` function. It takes 
 
 ## Recieving Feedback on Items (MVP)
 
-If `Feedback Providers` manage to provide feedback that is useful to the `Feedback Reciever` they may receive the `Feedback Bundle` reward. When the `Feedback Reciever` receives a piece of feedback they are satified with, they choose a `Feedback Provider` using the `sendReward` function to recieve the `Feedback Bundle` reward.
+There are two steps in Recieving Feedback including Reading and Accepting. Reading is when the `Feedback Reciever` reads the feedback abstract of a `Feedback Provider`. The abstract is publically visible on the Arweave network. The second step is accepting feedback where the feedback reciever sends the reward to the feedback provider and provides the feedback reciever with a key to decrypt the full feedback.
+
+### Reading Feedback
+
+Reading feedback requires that the `Feedback Reciever` call the `getFeedback` function with the itemId. This will return a list of Arweave transaction ids which can be used to retrieve the associated feedback.
+
+### Accepting Feedback
+
+Feedback Recievers can view the Feedback Token Count of the feedback provider while browsing their feedback items feedback.
+
+If `Feedback Providers` manage to provide feedback that is useful to the `Feedback Reciever` they may receive the `Feedback Bundle` reward. When the `Feedback Reciever` receives a piece of feedback they are satified with, they choose a `Feedback Provider` using the `sendReward` function to send the `Feedback Bundle` reward to the winner.
 
 ### Ideas
 
