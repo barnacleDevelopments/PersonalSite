@@ -6,7 +6,7 @@ This repository is my personal portfolio site! I'm publicaly documenting the dev
 
 This website includes a decentralized element where users can utilize a smart contract designed to insentivice feedback. This smart contract is designed to help people recieve geniune feedback on "things" through offering tangible rewards for genuine interactions. Geniune feedback is a hard thing to crowd source because credibility is hard to ensure.
 
-The solution to this is putting the feedback receiver in control. Everyone knows what it feels like to receive genuine feedback. When we know we have received genuine feedback we are much more likely to reward those who have given it. Paying people directly for feedback is not enough because this only results in the bare minimum for the reward. Rewards should be gated so that the receiver determines when they are satified with the feedback they have received. Further, feedback providers should have the opportunity to gain credibility to no only signal their worth but to increase their chances of compensation. The planned incentivised behaviors are the following.
+The solution to this is putting feedback receiver in control. Everyone knows what it feels like to receive genuine feedback. When we know we have received genuine feedback we are much more likely to reward those who have given it. Paying people directly for feedback is not enough because this only results in the bare minimum for the reward. Rewards should be gated so that the receiver determines when they are satified with the feedback they have received. Further, feedback providers should have the opportunity to gain credibility to not only signal their worth but to increase their chances of compensation.
 
 ## Roles
 
@@ -25,13 +25,13 @@ There are four resources that both roles utilize during an exchange.
 
 ## Registering Feedback Items (MVP)
 
-`Feedback Items` are references to things `Feedback Providers` can provide feedback on. The `Feedback Recievers` add `Feedback Items` to the smart contract utilizing the `addFeedbackBundle` function of the smart contract. Each `Feedback Bundle` contains a `rewardBalance`, a `itemId`, and a `prizeReleaseDate`. 30% of the prize balance is given back to the feedback reciever for choosing a winner. The `Feedback Receiver` can perform a withdraw of their prize balance with a 30% penalty only if they have already received feedback. This penalty is distributed to all `Feedback Provider` who have provided feedback on the `Feedback Item` in question.
+`Feedback Items` are references to things `Feedback Providers` can provide feedback on. The `Feedback Recievers` add `Feedback Items` to the smart contract utilizing the `addItemBundle` function of the smart contract. Each `Item Bundle` contains a `rewardBalance`, a `itemId`, and a `prizeReleaseDate`. 30% of the prize balance is given back to the feedback reciever for choosing a winner. The `Feedback Receiver` can perform a withdraw of their prize balance with a 30% penalty only if they have already received feedback. This penalty is distributed to all `Feedback Providers` who have provided feedback on the `Feedback Item` in question.
 
 Using [Chainlink Any API](https://docs.chain.link/any-api/introduction) the Feedback Contract ([Client Contract](https://docs.chain.link/architecture-overview/architecture-request-model/#chainlinkclient)) communicates with a [Chainlink Operator contract](https://docs.chain.link/architecture-overview/architecture-request-model/#operator-contract) to retrieve data from an off-chain oracle node that communicates with the Arweave network. This allows feedback to be stored in a tamper proof manner insuring that feedback remains unchanged thus fortifing it's value.
 
 ## Providing Feedback on Items (MVP)
 
-To provide feedback on items users use the `provideFeedback` function. It takes 3 arguments including the `receiverAddress`, `itemId`, `feedbackAbstractId`, and `feedbackId`. The `feedbackId` and `feedbackAbstractId` needs to be signed by the `Feedback Provider` to be considered valid. This insures that the feedback is tied to the feedback provider.
+To provide feedback on items users use the `provideFeedback` function. It takes 4 arguments including the `receiverAddress`, `itemId`, `feedbackAbstractId`, and `feedbackId`. These are used to create a `Feedback Bundle`. The `feedbackId` and `feedbackAbstractId` needs to be signed by the `Feedback Provider` to be considered valid. This insures that the feedback is tied to the feedback provider.
 
 TODO: Need to figure out what should be signed by what here. The feedback provider has both a Arweave address and a Ethereum address that need to be associated with each other.
 
