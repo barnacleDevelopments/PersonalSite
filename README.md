@@ -47,6 +47,7 @@ TODO: Need to figure out what should be signed by what here. The feedback provid
 ### Ideas
 
 - Eventually have mutliple `feedbackIds`?
+- Need to add protective measure to prevent feedback providers from providing empty or useless complete feedback. 
 
 ## Recieving Feedback on Items (MVP)
 
