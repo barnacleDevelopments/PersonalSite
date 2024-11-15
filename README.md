@@ -21,17 +21,24 @@ There are four resources that both roles utilize during an exchange.
 
 1. `Feedback Tokens` - uint value representing the reputation gained by a feedback provider.
 2. `Abstract Feedback Text` - Publicaly visible text representing a sneak peek of the Encrypted Feedback Text.
-3. `Encrypted Feedback Text` - Encrypted text representing the complete feedback.
+3. `Encrypted Feedback Text` - Encrypted text representing the complete feedback (Later Decrypted uppon accepting feedback).
 
 ## Registering Feedback Items (MVP)
 
-`Feedback Items` are references to things `Feedback Providers` can provide feedback on. The `Feedback Recievers` add `Feedback Items` to the smart contract utilizing the `addItemBundle` function of the smart contract. Each `Item Bundle` contains a `rewardBalance`, a `itemId`, and a `prizeReleaseDate`. 30% of the prize balance is given back to the feedback reciever for choosing a winner. The `Feedback Receiver` can perform a withdraw of their prize balance with a 30% penalty only if they have already received feedback. This penalty is distributed to all `Feedback Providers` who have provided feedback on the `Feedback Item` in question.
+`Feedback Items` are references to *things* `Feedback Providers` can provide feedback on. The `Feedback Recievers` add `Feedback Items` to the smart contract utilizing the `addItemBundle` function. Each `Item Bundle` contains a `rewardBalance`, a `itemId`, and a `rewardReleaseDate`. The `rewardBalance` is compensation for a single Feedback Provider. 
+
+### Protective Rules
+1. 30% of the prize balance is given back to the feedback reciever for choosing a winner.
+2. The `Feedback Receiver` can perform a withdraw of their prize balance with a 30% penalty only if they have already received feedback. This penalty is distributed to all `Feedback Providers` who have provided feedback on the `Feedback Item` in question.
 
 Using [Chainlink Any API](https://docs.chain.link/any-api/introduction) the Feedback Contract ([Client Contract](https://docs.chain.link/architecture-overview/architecture-request-model/#chainlinkclient)) communicates with a [Chainlink Operator contract](https://docs.chain.link/architecture-overview/architecture-request-model/#operator-contract) to retrieve data from an off-chain oracle node that communicates with the Arweave network. This allows feedback to be stored in a tamper proof manner insuring that feedback remains unchanged thus fortifing it's value.
 
+### Ideas
+- May need to consider case where feedback recievers may want to reveal multiple feedback. The use case for this could be to send the reward balance multiple times? This might mean the reward balance is constant. 
+
 ## Providing Feedback on Items (MVP)
 
-To provide feedback on items users use the `provideFeedback` function. It takes 4 arguments including the `receiverAddress`, `itemId`, `feedbackAbstractId`, and `feedbackId`. These are used to create a `Feedback Bundle`. The `feedbackId` and `feedbackAbstractId` needs to be signed by the `Feedback Provider` to be considered valid. This insures that the feedback is tied to the feedback provider.
+To provide feedback on items users use the `provideFeedback` function. It takes 4 arguments including the `receiverAddress`, `itemId`, `feedbackAbstractId`, and `feedbackId`. These are used to create a `Feedback Bundle`. The `feedbackId` and `feedbackAbstractId` needs to be signed by the `Feedback Provider` to be considered valid. This insures that the feedback is tied to the Feedback Provider.
 
 TODO: Need to figure out what should be signed by what here. The feedback provider has both a Arweave address and a Ethereum address that need to be associated with each other.
 
