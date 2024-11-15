@@ -31,10 +31,12 @@ There are four resources that both roles utilize during an exchange.
 1. 30% of the prize balance is given back to the feedback reciever for choosing a winner.
 2. The `Feedback Receiver` can perform a withdraw of their prize balance with a 30% penalty only if they have already received feedback. This penalty is distributed to all `Feedback Providers` who have provided feedback on the `Feedback Item` in question.
 
+### Feedback Storage
+
 Using [Chainlink Any API](https://docs.chain.link/any-api/introduction) the Feedback Contract ([Client Contract](https://docs.chain.link/architecture-overview/architecture-request-model/#chainlinkclient)) communicates with a [Chainlink Operator contract](https://docs.chain.link/architecture-overview/architecture-request-model/#operator-contract) to retrieve data from an off-chain oracle node that communicates with the Arweave network. This allows feedback to be stored in a tamper proof manner insuring that feedback remains unchanged thus fortifing it's value.
 
 ### Ideas
-- May need to consider case where feedback recievers may want to reveal multiple feedback. The use case for this could be to send the reward balance multiple times? This might mean the reward balance is constant. 
+- May need to consider case where feedback receivers may want to reveal multiple feedback. The use case for this could be to send the reward balance multiple times? This might mean the initial reward balance is a guaranteed reward while additional accepted feedback is extra. This way the feedback receivers know the potential guaranteed reward. This creates a system that incentivizes feedback providers to put maximum effort to receive the inital reward while also encouraging further feedback. 
 
 ## Providing Feedback on Items (MVP)
 
