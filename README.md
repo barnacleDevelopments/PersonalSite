@@ -42,13 +42,25 @@ Using [Chainlink Any API](https://docs.chain.link/any-api/introduction) the Feed
 
 ## Providing Feedback on Items (MVP)
 
-To provide feedback on items users use the `provideFeedback` function. It takes 4 arguments including the `receiverAddress`, `itemId`, `feedbackAbstractId`, and `feedbackId`. These are used to create a `Feedback Bundle`.
+To provide feedback on items users use the `provideFeedback` function. It takes 5 arguments including the `itemId`, `abstractTxId`, `feedbackTxId` and `encryptedKey`. These are used to create a `Feedback Bundle`.
+
+### Abstract and Complete Feedback
+
+Have two components to the feedback allows `Feedback Providers` to decide how they would like to market the value of their feedback.
+
+### Parameters
+
+`itemId` - item id is used to retrieve the bundle and is compound id of the `feedbackAbstractId` and `feedbackId`.
+
+`feedbackTxId` - transaction id of complete feedback stored on Arweave.
+`abstractTxId` - transaction id of Arweave data that a sneak peak into the full feedback.
+
+`encryptedKey` - encryption key used to decrypt the complete feedback stored on Arweave.
 
 ### Ideas
 
 - Eventually have mutliple `feedbackIds`?
 - Need to add protective measure to prevent feedback providers from providing empty or useless complete feedback. Maybe using some form of AI model to read the feedback to insure that it is complete?
-- The `feedbackId` and `feedbackAbstractId` needs to be signed by the `Feedback Provider` to be considered valid. This insures that the feedback is tied to the `Feedback Provider`. Need to figure out what should be signed by what here. The feedback provider has both a Arweave address and a Ethereum address that need to be associated with each other.
 
 ## Recieving Feedback on Items (MVP)
 
