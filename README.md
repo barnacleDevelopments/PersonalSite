@@ -25,9 +25,10 @@ There are four resources that both roles utilize during an exchange.
 
 ## Registering Feedback Items (MVP)
 
-`Feedback Items` are references to *things* `Feedback Providers` can provide feedback on. The `Feedback Recievers` add `Feedback Items` to the smart contract utilizing the `addItemBundle` function. Each `Item Bundle` contains a `rewardBalance`, a `itemId`, and a `rewardReleaseDate`. The `rewardBalance` is compensation for a single Feedback Provider. 
+`Feedback Items` are references to _things_ `Feedback Providers` can provide feedback on. The `Feedback Recievers` add `Feedback Items` to the smart contract utilizing the `addItemBundle` function. Each `Item Bundle` contains a `rewardBalance`, a `itemId`, and a `rewardReleaseDate`. The `rewardBalance` is compensation for a single `Feedback Provider`.
 
 ### Protective Rules
+
 1. 30% of the prize balance is given back to the feedback reciever for choosing a winner.
 2. The `Feedback Receiver` can perform a withdraw of their prize balance with a 30% penalty only if they have already received feedback. This penalty is distributed to all `Feedback Providers` who have provided feedback on the `Feedback Item` in question.
 
@@ -36,18 +37,18 @@ There are four resources that both roles utilize during an exchange.
 Using [Chainlink Any API](https://docs.chain.link/any-api/introduction) the Feedback Contract ([Client Contract](https://docs.chain.link/architecture-overview/architecture-request-model/#chainlinkclient)) communicates with a [Chainlink Operator contract](https://docs.chain.link/architecture-overview/architecture-request-model/#operator-contract) to retrieve data from an off-chain oracle node that communicates with the Arweave network. This allows feedback to be stored in a tamper proof manner insuring that feedback remains unchanged thus fortifing it's value.
 
 ### Ideas
-- May need to consider case where feedback receivers may want to reveal multiple feedback. The use case for this could be to send the reward balance multiple times? This might mean the initial reward balance is a guaranteed reward while additional accepted feedback is extra. This way the feedback receivers know the potential guaranteed reward. This creates a system that incentivizes feedback providers to put maximum effort to receive the inital reward while also encouraging further feedback. 
+
+- May need to consider case where feedback receivers may want to reveal multiple feedback. The use case would be to send the reward balance multiple times. This might mean the initial reward balance is a guaranteed reward while additional accepted feedback is extra. This way the feedback receivers know the potential guaranteed reward. This creates a system that incentivizes feedback providers to put maximum effort to receive the inital reward while also encouraging further feedback.
 
 ## Providing Feedback on Items (MVP)
 
-To provide feedback on items users use the `provideFeedback` function. It takes 4 arguments including the `receiverAddress`, `itemId`, `feedbackAbstractId`, and `feedbackId`. These are used to create a `Feedback Bundle`. The `feedbackId` and `feedbackAbstractId` needs to be signed by the `Feedback Provider` to be considered valid. This insures that the feedback is tied to the Feedback Provider.
-
-TODO: Need to figure out what should be signed by what here. The feedback provider has both a Arweave address and a Ethereum address that need to be associated with each other.
+To provide feedback on items users use the `provideFeedback` function. It takes 4 arguments including the `receiverAddress`, `itemId`, `feedbackAbstractId`, and `feedbackId`. These are used to create a `Feedback Bundle`.
 
 ### Ideas
 
 - Eventually have mutliple `feedbackIds`?
-- Need to add protective measure to prevent feedback providers from providing empty or useless complete feedback. 
+- Need to add protective measure to prevent feedback providers from providing empty or useless complete feedback. Maybe using some form of AI model to read the feedback to insure that it is complete?
+- The `feedbackId` and `feedbackAbstractId` needs to be signed by the `Feedback Provider` to be considered valid. This insures that the feedback is tied to the `Feedback Provider`. Need to figure out what should be signed by what here. The feedback provider has both a Arweave address and a Ethereum address that need to be associated with each other.
 
 ## Recieving Feedback on Items (MVP)
 
