@@ -20,8 +20,6 @@ struct ItemBundle {
 }
 
 struct FeedbackBundle {
-    string abstractFeedbackId;
-    string feedbackId;
     string encryptedKey; // key used to decrypt off-chain Arweave data
     string abstractTxId; // transaction id of abstract text stored on Arweave
     string feedbackTxId; // transaction id of feedback text stored on Arweave
