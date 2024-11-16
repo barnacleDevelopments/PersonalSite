@@ -95,7 +95,6 @@ describe("Project Voting Contract", () => {
 
       it("Should refund feedback bundle", async () => {
         await createFeedbackBundle(signer, itemId, "1.0");
-        // Retrieve the feedback bundle
 
         // refund feedback bundle
         const transaction = await feedback
