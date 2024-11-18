@@ -46,13 +46,18 @@ To provide feedback on items users use the `provideFeedback` function. It takes 
 
 ### Abstract and Complete Feedback
 
-Have two components to the feedback allows `Feedback Providers` to decide how they would like to market the value of their feedback.
+Abstract and Complete feedback allows `Feedback Providers` flexibility in how they decide to market their feedback. The Feedback Abstract enables `Feedback Providers` to create a "sneak peak" into their complete feedback. This creates an incentive for `Feeback Receivers` to choose one piece of feedback over another.
+
+_the feedback abstract and total feedback tokens of a `Feedback Provider` allow them to demonstrate their reputation as credible feedback providers_
+
+The Complete Feeback is the resource with the most value. It is a encrypted file containing the complete feedback from a `Feedback Provider` of a `Item Bundle`. It remains encrypted until a `Feedback Receiver` chooses a winner or the settlement dealine is met. This insures that `Feedack Receivers` can only benefit from the feedback they have paid for.
 
 ### Parameters
 
 `itemId` - item id is used to retrieve the bundle and is compound id of the `feedbackAbstractId` and `feedbackId`.
 
 `feedbackTxId` - transaction id of complete feedback stored on Arweave.
+
 `abstractTxId` - transaction id of Arweave data that a sneak peak into the full feedback.
 
 `encryptedKey` - encryption key used to decrypt the complete feedback stored on Arweave.
