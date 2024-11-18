@@ -6,7 +6,7 @@ This repository is my personal portfolio site! I'm publicaly documenting the dev
 
 This website includes a decentralized element where users can utilize a smart contract designed to insentivice feedback. This smart contract is designed to help people recieve geniune feedback on "things" through offering tangible rewards for genuine interactions. Geniune feedback is a hard thing to crowd source because credibility is hard to ensure.
 
-The solution to this is putting feedback receiver in control. Everyone knows what it feels like to receive genuine feedback. When we know we have received genuine feedback we are much more likely to reward those who have given it. Paying people directly for feedback is not enough because this only results in the bare minimum for the reward. Rewards should be gated so that the receiver determines when they are satified with the feedback they have received. Further, feedback providers should have the opportunity to gain credibility to not only signal their worth but to increase their chances of compensation.
+The solution to this is putting feedback receiver in control. Everyone knows what it feels like to receive genuine feedback. When we know we have received genuine feedback we are much more likely to reward those who have given it. Paying people directly for feedback is not sufficient because the credibility of the person providing the feedback is impossible to guarentee. Rewards should be gated so that the receiver determines when they are satified and the provider has confidence in a potential reward. Further, feedback providers should have the opportunity to gain credibility to not only signal their worth but to increase their chances of compensation.
 
 ## Roles
 
