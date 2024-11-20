@@ -4,7 +4,7 @@ import { graphql } from "gatsby";
 
 // Components
 import ProjectCard from "../components/projects/ProjectCard";
-import { Box, Spinner, Heading, Button, Flex, Text } from "theme-ui";
+import { Box, Heading, Button, Flex, Text } from "theme-ui";
 import Seo from "../components/app/Seo";
 import { useContext, useEffect, useState } from "react";
 import WalletBanner from "../components/projects/WalletBanner";

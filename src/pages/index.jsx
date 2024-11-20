@@ -1,10 +1,10 @@
 /** @jsx jsx */
-import { Paragraph, jsx } from "theme-ui";
+import { jsx } from "theme-ui";
 import { graphql } from "gatsby";
 
 // Components
 import { StaticImage } from "gatsby-plugin-image";
-import { Card, Text, Button, Flex, Box, Grid, Link, Heading } from "theme-ui";
+import { Text, Button, Flex, Box, Grid, Link, Heading } from "theme-ui";
 import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
 import {
   faBrain,
@@ -22,17 +22,12 @@ import {
 import Seo from "../components/app/Seo";
 import Loader from "../components/Loader";
 import { faGit } from "@fortawesome/free-brands-svg-icons";
-import { getProjects, getProjectVoteCounts } from "../functions/project-voting";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import PostCard from "../components/blog/PostCard";
 import CallToAction from "../components/CallToAction";
 
 const IndexPage = ({ data }) => {
-  const [projects, setProjects] = useState([]);
-
-  console.log(data);
   const landingPageData = data.markdownRemark.frontmatter;
-  console.log(data);
   const posts = data.blogPosts.edges
     .filter((_, index) => index < 4)
     .map(({ node }) => ({
@@ -44,44 +39,10 @@ const IndexPage = ({ data }) => {
     if (typeof window !== "undefined") {
       const init = async () => {
         await getProjectWithContent();
-        await updateProjectVoteCounts();
       };
       init();
     }
   }, []);
-
-  const updateProjectVoteCounts = async () => {
-    const voteCounts = await getProjectVoteCounts();
-    console.log(voteCounts);
-    setProjects((projects) => {
-      return projects
-        .map((project) => {
-          if (voteCounts[project.id]) {
-            return {
-              ...project,
-              votes: Number.parseFloat(voteCounts[project.id]),
-            };
-          }
-          return project;
-        })
-        .sort((a, b) => b.votes - a.votes);
-    });
-  };
-
-  const getProjectWithContent = async () => {
-    const projects = await getProjects();
-    if (projects && projects.length > 0) {
-      const formattedProjects = projects.map((project) => {
-        return {
-          id: project.id,
-          title: project.title,
-          votes: 0,
-          link: `/projects/${project.id}`,
-        };
-      });
-      setProjects(formattedProjects.filter((x, index) => index < 3));
-    }
-  };
 
   return (
     <Box>
@@ -414,26 +375,6 @@ export const landingPageQuery = graphql`
       frontmatter {
         indexContent
         indexHeader
-      }
-    }
-    projects: allMarkdownRemark(
-      filter: { fileAbsolutePath: { regex: "//projects//" } }
-      sort: { frontmatter: { endDate: DESC } }
-      limit: 3
-    ) {
-      edges {
-        node {
-          fields {
-            slug
-          }
-          frontmatter {
-            title
-            startDate
-            endDate
-            status
-          }
-          html
-        }
       }
     }
     blogPosts: allMarkdownRemark(
