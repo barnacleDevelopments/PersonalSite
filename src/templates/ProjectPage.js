@@ -1,9 +1,7 @@
 /** @jsx jsx */
 import { jsx, Link } from "theme-ui";
 import { graphql } from "gatsby";
-import { GatsbyImage } from "gatsby-plugin-image";
 import showdown from "showdown";
-import { getImage } from "gatsby-plugin-image";
 import moment from "moment";
 // Components
 import { Box, Flex, Button, Heading, Text, Grid } from "theme-ui";
@@ -17,7 +15,9 @@ function ProjectPage({ data }) {
       <Seo
         title={node.frontmatter.title}
         keywords={node.frontmatter.keywords.split(",")}
-      />
+      >
+        <meta property="og:image" content={node.frontmatter.image1} />
+      </Seo>
       {/* Hero */}
       <Flex sx={pageWrapper}>
         <Heading as="h1" variant="hero" color="white">
