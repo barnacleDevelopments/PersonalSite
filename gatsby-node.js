@@ -245,7 +245,6 @@ async function writeProjectFiles() {
       "myboards.md",
       "novajonstone-co.md",
       "ressons-marketing-website.md",
-      "traceability-report.md",
       "warriertech-api.md",
     ];
 
