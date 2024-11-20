@@ -191,13 +191,12 @@ async function fetchArweaveContentByCreatorAndTags(
     });
 
     const queryObject = {
-      query: `{
+      query: `query {
         transactions (
-          owners:["${creatorAddress}"],
           tags: [
             {
               name: "${tagName}",
-              values: [${JSON.stringify(tagValues)}]
+              values: ${JSON.stringify(tagValues)}
             }
           ],
           first: 1,
@@ -206,13 +205,17 @@ async function fetchArweaveContentByCreatorAndTags(
           edges {
             node {
               id
+
             }
           }
         }
       }`,
     };
 
+    console.log(queryObject);
+
     const results = await arweave.api.post("/graphql", queryObject);
+    console.log(JSON.stringify(results.data.errors));
 
     const txIds = results.data.data.transactions.edges.map(
       ({ node }) => node.id,
@@ -252,7 +255,7 @@ async function writeProjectFiles() {
       fetchArweaveContentByCreatorAndTags(
         "m_k57NPohHi0S3g7lAr0IoOKmfC_3S9676FaF9refWE",
         "File-Name",
-        x,
+        [x],
       ),
     );
 
