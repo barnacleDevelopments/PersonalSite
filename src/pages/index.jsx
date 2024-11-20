@@ -431,7 +431,6 @@ export const landingPageQuery = graphql`
             startDate
             endDate
             status
-            date
           }
           html
         }
