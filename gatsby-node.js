@@ -187,8 +187,7 @@ async function fetchArweaveContentByCreatorAndTags(
       host: "arweave.net",
       port: 443,
       protocol: "https",
-      timeout: 20000,
-      logging: false,
+      timeout: 100000,
     });
 
     const queryObject = {
@@ -198,7 +197,7 @@ async function fetchArweaveContentByCreatorAndTags(
           tags: [
             {
               name: "${tagName}",
-              values: [${tagValues.map((x) => `"${x}"`).join(",")}]
+              values: [${JSON.stringify(tagValues)}]
             }
           ],
           first: 1,
@@ -245,6 +244,7 @@ async function writeProjectFiles() {
       "myboards.md",
       "novajonstone-co.md",
       "ressons-marketing-website.md",
+      "traceability-report.md",
       "warriertech-api.md",
     ];
 
@@ -252,11 +252,13 @@ async function writeProjectFiles() {
       fetchArweaveContentByCreatorAndTags(
         "m_k57NPohHi0S3g7lAr0IoOKmfC_3S9676FaF9refWE",
         "File-Name",
-        [x],
+        x,
       ),
     );
 
     const projectData = await Promise.all(projectDataQueries);
+
+    console.log("DEBUG: ", projectData);
 
     if (!fs.existsSync(path.resolve(__dirname, "content", "projects"))) {
       fs.mkdirSync(path.resolve(__dirname, "content", "projects"), {

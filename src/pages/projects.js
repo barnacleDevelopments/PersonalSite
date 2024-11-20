@@ -293,7 +293,10 @@ const ProjectsPage = ({ data }) => {
 
 export const projectsQuery = graphql`
   query ProjectsPageQuery {
-    allMarkdownRemark(filter: { fileAbsolutePath: { regex: "//projects//" } }) {
+    allMarkdownRemark(
+      filter: { fileAbsolutePath: { regex: "//projects//" } }
+      sort: { frontmatter: { startDate: DESC } }
+    ) {
       edges {
         node {
           fields {
