@@ -22,7 +22,6 @@ import {
 import Seo from "../components/app/Seo";
 import Loader from "../components/Loader";
 import { faGit } from "@fortawesome/free-brands-svg-icons";
-import { useEffect } from "react";
 import PostCard from "../components/blog/PostCard";
 import CallToAction from "../components/CallToAction";
 
@@ -35,14 +34,6 @@ const IndexPage = ({ data }) => {
       ...node.fields,
       html: node.html,
     }));
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const init = async () => {
-        await getProjectWithContent();
-      };
-      init();
-    }
-  }, []);
 
   return (
     <Box>
