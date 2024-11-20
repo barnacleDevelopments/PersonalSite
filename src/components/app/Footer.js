@@ -2,7 +2,7 @@
 import { jsx } from "theme-ui";
 import { Box, Link, Text, Grid, Button, Flex } from "theme-ui";
 import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
-import { faLinkedin } from "@fortawesome/free-brands-svg-icons";
+import { faLinkedin, faInstagram } from "@fortawesome/free-brands-svg-icons";
 
 const Footer = () => {
   return (
@@ -29,6 +29,17 @@ const Footer = () => {
               <Text sx={{ color: "white", ml: 1 }} variant="small">
                 {" "}
                 Linkdin
+              </Text>
+            </Link>
+            <Link
+              href="https://www.instagram.com/devindavis732/"
+              sx={{ mb: 2, width: "max-content", svg: { fontSize: "1.2em" } }}
+              variant="footer"
+            >
+              <Icon icon={faInstagram} />
+              <Text sx={{ color: "white", ml: 1 }} variant="small">
+                {" "}
+                Instagram
               </Text>
             </Link>
           </Flex>

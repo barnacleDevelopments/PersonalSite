@@ -52,6 +52,10 @@ _the feedback abstract and total feedback tokens of a `Feedback Provider` allow 
 
 The Complete Feeback is the resource with the most value. It is a encrypted file containing the complete feedback from a `Feedback Provider` of a `Item Bundle`. It remains encrypted until a `Feedback Receiver` chooses a winner or the settlement dealine is met. This insures that `Feedack Receivers` can only benefit from the feedback they have paid for.
 
+#### Encryption
+
+Asymmetric encryption is used to secure the keys used by the `Feedback Receivers` to decrypt the feedback provided by the `Feedback Providers`. This insures that the feedback is only accsible to the feedback receiver and feedback provider.
+
 ### Parameters
 
 `itemId` - item id is used to retrieve the bundle and is compound id of the `feedbackAbstractId` and `feedbackId`.
