@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from "theme-ui";
+import { Button, jsx, Link } from "theme-ui";
 import { Heading, Box, Flex, Text } from "theme-ui";
 import { graphql } from "gatsby";
 import showdown from "showdown";
@@ -9,6 +9,7 @@ import moment from "moment";
 import Seo from "../components/app/Seo";
 import { useEffect } from "react";
 import Prism from "prismjs";
+import CallToAction from "../components/CallToAction";
 
 // markup
 const BlogPostPage = ({ data }) => {
@@ -80,6 +81,11 @@ const BlogPostPage = ({ data }) => {
             __html: converter.makeHtml(node.html),
           }}
         ></Text>
+        <Box sx={{ textAlign: "center" }}>
+          <Link href="/blog">
+            <Button>Read More</Button>
+          </Link>
+        </Box>
       </Box>
     </Box>
   );
