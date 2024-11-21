@@ -212,10 +212,7 @@ async function fetchArweaveContentByCreatorAndTags(
       }`,
     };
 
-    console.log(queryObject);
-
     const results = await arweave.api.post("/graphql", queryObject);
-    console.log(JSON.stringify(results.data.errors));
 
     const txIds = results.data.data.transactions.edges.map(
       ({ node }) => node.id,
@@ -260,8 +257,6 @@ async function writeProjectFiles() {
     );
 
     const projectData = await Promise.all(projectDataQueries);
-
-    console.log("DEBUG: ", projectData);
 
     if (!fs.existsSync(path.resolve(__dirname, "content", "projects"))) {
       fs.mkdirSync(path.resolve(__dirname, "content", "projects"), {
