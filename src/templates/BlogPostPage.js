@@ -24,8 +24,12 @@ const BlogPostPage = ({ data }) => {
       <Seo
         title={`Post - ${node.frontmatter.title}`}
         keywords={node.frontmatter?.keywords.split(",")}
-        image={node.frontmatter?.thumbnail}
-      />
+      >
+        <meta
+          property="og:image"
+          content={node.frontmatter.thumbnail.publicURL}
+        />
+      </Seo>
       <Flex
         sx={{
           width: ["100%"],
@@ -92,7 +96,7 @@ export const pageQuery = graphql`
         date
         keywords
         thumbnail {
-          absolutePath
+          publicURL
         }
       }
       html

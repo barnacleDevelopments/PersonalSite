@@ -11,7 +11,7 @@ const ProgrammingPostsPage = ({ data }) => {
   const pageData = data.allMarkdownRemark.edges;
   return (
     <Box>
-      <Seo title="Blog" />
+      <Seo title="Blog"></Seo>
       <Box
         sx={{
           margin: "0 auto",
