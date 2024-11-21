@@ -14,6 +14,7 @@ import Prism from "prismjs";
 const BlogPostPage = ({ data }) => {
   const { markdownRemark: node, site } = data;
   const converter = new showdown.Converter();
+
   useEffect(() => {
     Prism.highlightAll();
   }, []);
@@ -32,6 +33,8 @@ const BlogPostPage = ({ data }) => {
             node.frontmatter.thumbnail.relativePath
           }
         />
+
+        <meta property="og:description" content={node.excerpt} />
       </Seo>
       <Flex
         sx={{
@@ -107,6 +110,7 @@ export const pageQuery = graphql`
           relativePath
         }
       }
+      excerpt(truncate: true, format: PLAIN, pruneLength: 70)
       html
       timeToRead
     }
