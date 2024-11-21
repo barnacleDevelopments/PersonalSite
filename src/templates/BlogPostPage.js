@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui";
 import { Heading, Box, Flex, Text } from "theme-ui";
-import { graphql } from "gatsby";
+import { graphql, useStaticQuery } from "gatsby";
 import showdown from "showdown";
 import moment from "moment";
 
@@ -14,6 +14,15 @@ import Prism from "prismjs";
 const BlogPostPage = ({ data }) => {
   const { markdownRemark: node } = data;
   const converter = new showdown.Converter();
+  const { site } = useStaticQuery(graphql`
+    query {
+      site {
+        siteMetadata {
+          siteUrl: url
+        }
+      }
+    }
+  `);
 
   useEffect(() => {
     Prism.highlightAll();
@@ -27,7 +36,11 @@ const BlogPostPage = ({ data }) => {
       >
         <meta
           property="og:image"
-          content={node.frontmatter.thumbnail.publicURL}
+          content={
+            site.siteMetadata.siteUrl +
+            "assets/" +
+            node.frontmatter.thumbnail.relativePath
+          }
         />
       </Seo>
       <Flex
@@ -96,7 +109,7 @@ export const pageQuery = graphql`
         date
         keywords
         thumbnail {
-          publicURL
+          relativePath
         }
       }
       html
