@@ -1,10 +1,9 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui";
 import { StaticImage } from "gatsby-plugin-image";
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import SideNav from "./SideNav";
 import { Box, Flex, NavLink, Link } from "theme-ui";
-import { WalletContext } from "../../contexts/WalletContext";
 
 const Navbar = () => {
   const [pageStatus, setPageStatus] = useState("");
@@ -13,8 +12,6 @@ const Navbar = () => {
   const [navScrollColor, setNavScrollColor] = useState("");
   const [isScrolledTop, setIsScrolledTop] = useState(true);
   const [sideNavOpen, setSideNavOpen] = useState(false);
-
-  const { hasVoted, isWalletConnected } = useContext(WalletContext);
 
   const styleNavBar = () => {
     if (window.scrollY < 20) {
@@ -212,18 +209,6 @@ const Navbar = () => {
             </NavLink>
           </Box>
         </Box>
-        {isWalletConnected && hasVoted ? (
-          <Box
-            sx={{
-              width: "100%",
-              height: "18px",
-              backgroundColor: "orange",
-              display: "block",
-            }}
-          >
-            {" "}
-          </Box>
-        ) : null}
       </Flex>
       {pageStatus && isScrolledTop && (
         <Box
