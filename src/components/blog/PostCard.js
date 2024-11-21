@@ -12,18 +12,6 @@ const PostCard = ({ post, postContent }) => {
   const cardImage = getImage(post.thumbnail);
   const converter = new showdown.Converter();
 
-  function truncateSentence(str) {
-    let strArr = str.split(" ");
-    let firstSentence = "";
-
-    strArr.some((w) => {
-      firstSentence = firstSentence.concat(w + " ");
-      return w[w.length - 1] === ".";
-    });
-
-    return firstSentence;
-  }
-
   return (
     <Card
       variant="primary"
@@ -75,7 +63,7 @@ const PostCard = ({ post, postContent }) => {
             }}
             variant="small"
             dangerouslySetInnerHTML={{
-              __html: converter.makeHtml(truncateSentence(postContent)),
+              __html: converter.makeHtml(postContent),
             }}
           ></Text>
           <Box>

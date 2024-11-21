@@ -11,7 +11,7 @@ Open graph protocol (OGP) is a method of treating a web page as an object. This 
 
 I have implemented the OGP protocol on each of my webpages on this site to allows me to share my blog posts and projects to the different media platforms like Linkedin to have them display my content in an appealing way.
 
-In order to use the graph protocol you simply utilize meta tags on your web pages. Then you can take your page link and share it on any platform that supports the protocol, like Facebook, and it will be able to display that content.
+In order to use the graph protocol you simply utilize meta tags on your web pages. Then you can take your page link and share it on any platform that supports the protocol, like Facebook, and it will be able to display that content. If you would like to test out your link you can use the [opengraph.dev](https://opengraph.dev/) website to verify that you are using your meta tags correctly.
 
 ```HTML
 <meta property="og:title" content="Example Page Title" />

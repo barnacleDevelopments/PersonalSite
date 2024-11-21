@@ -32,7 +32,7 @@ const IndexPage = ({ data }) => {
     .map(({ node }) => ({
       ...node.frontmatter,
       ...node.fields,
-      html: node.html,
+      excerpt: node.excerpt,
     }));
 
   return (
@@ -340,7 +340,7 @@ const IndexPage = ({ data }) => {
           columns={[1]}
         >
           {posts.map((post) => (
-            <PostCard key={post.slug} post={post} postContent={post.html} />
+            <PostCard key={post.slug} post={post} postContent={post.excerpt} />
           ))}
         </Grid>
       </Box>
@@ -391,7 +391,7 @@ export const landingPageQuery = graphql`
             }
             category
           }
-          html
+          excerpt(truncate: true, format: HTML, pruneLength: 100)
         }
       }
     }

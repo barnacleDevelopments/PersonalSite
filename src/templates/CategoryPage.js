@@ -42,11 +42,9 @@ const CategoryPage = ({ data }) => {
           {pageData.length > 0 ? (
             pageData.map(({ node }, index) => {
               const post = node.frontmatter;
-              const postContent = node.html;
+              const excerpt = node.excerpt;
               post.slug = node.fields.slug;
-              return (
-                <PostCard key={index} post={post} postContent={postContent} />
-              );
+              return <PostCard key={index} post={post} postContent={excerpt} />;
             })
           ) : (
             <Box sx={{ height: "80vh" }}>
@@ -87,7 +85,7 @@ export const pageQuery = graphql`
               }
             }
           }
-          html
+          excerpt(truncate: true, format: HTML, pruneLength: 100)
         }
       }
     }
