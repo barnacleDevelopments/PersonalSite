@@ -3,65 +3,22 @@ import { jsx } from "theme-ui";
 
 // Components
 import { Card, Text, Button, Flex, Box, Link, Heading } from "theme-ui";
-import { useContext } from "react";
-import { WalletContext } from "../../contexts/WalletContext";
 
 // markup
-const ProjectCard = ({
-  id,
-  title,
-  content,
-  siteLink,
-  buttonText,
-  vote,
-  hasVoted,
-  voteCount,
-  isVote,
-  startDate,
-  image,
-}) => {
-  const walletContext = useContext(WalletContext);
-
-  const isDisabled = () => {
-    return hasVoted || !walletContext?.isWalletConnected;
-  };
-
+const ProjectCard = ({ project }) => {
   return (
     <Card
       variant="primary"
       sx={{
         color: "white",
         height: "max-content",
-        border: isVote ? "3px solid orange" : "none",
         position: "relative",
         borderRadius: "10px",
         overflow: "hidden",
         backgroundColor: "primary",
+        mb: 3,
       }}
     >
-      {isVote && (
-        <Box
-          sx={{
-            position: "absolute",
-            top: "0px",
-            right: "0px",
-            bg: "orange",
-            color: "white",
-            p: 2,
-            fontSize: "10px",
-            zIndex: "1",
-          }}
-        >
-          <Text
-            variant="small"
-            sx={{
-              fontWeight: "bold",
-            }}
-          >
-            Your Vote
-          </Text>
-        </Box>
-      )}
       <Flex
         sx={{
           bg: "primary",
@@ -94,40 +51,26 @@ const ProjectCard = ({
               mb: [1.5],
             }}
           >
-            {title}
+            {project.title}
           </Heading>
           <Text variant="regular" sx={{ color: "white" }}>
-            {startDate}
+            {project.startDate}
           </Text>
-          <Text variant="regular" sx={{ color: "white", display: "block" }}>
-            {voteCount} Vote
-          </Text>
-          {content && (
+          {project.content && (
             <Text variant="regular" sx={{ color: "white" }}>
-              {content}
+              {project.content}
             </Text>
           )}
           <Box>
-            <Link href={siteLink}>
+            <Link href={project.slug}>
               <Button
                 variant="secondary"
                 sx={{ mt: 3 }}
                 className="secondary-btn"
               >
-                {buttonText}
+                View
               </Button>
             </Link>
-            {!isDisabled() && (
-              <Button
-                disabled={isDisabled()}
-                variant={isDisabled() ? "disabled" : "secondary"}
-                sx={{ mt: 3, ml: 3 }}
-                className="secondary-btn"
-                onClick={() => vote(id)}
-              >
-                Vote
-              </Button>
-            )}
           </Box>
         </Box>
         <Box
@@ -138,7 +81,7 @@ const ProjectCard = ({
             overflow: "hidden",
           }}
         >
-          <img sx={{ width: "100%", display: "block" }} src={image} />
+          <img sx={{ width: "100%", display: "block" }} src={project.image1} />
         </Box>
       </Flex>
     </Card>

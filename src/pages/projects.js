@@ -8,10 +8,7 @@ import { Box, Heading, Button, Flex, Text } from "theme-ui";
 import Seo from "../components/app/Seo";
 import { useContext, useEffect, useState } from "react";
 import WalletBanner from "../components/projects/WalletBanner";
-import ProgressGauge from "../components/projects/ProgressGauge";
-import ContributionForm from "../components/projects/ContributionForm";
 import CallToAction from "../components/CallToAction";
-import VoterList from "../components/projects/VoterList";
 import Dialog from "../components/dialog";
 
 // Contexts
@@ -30,15 +27,6 @@ import {
 } from "../functions/project-voting";
 
 const ProjectsPage = ({ data }) => {
-  const [voteCounts, setVoteCounts] = useState([]);
-  const [hasVoted, setHasVoted] = useState(false);
-  const [balance, setBalance] = useState(0);
-  const [contribution, setContribution] = useState(0);
-  const [name, setName] = useState("");
-  const [addressVote, setAddressVote] = useState();
-  const [winners, setWinners] = useState({});
-  const [voters, setVoters] = useState([]);
-  const [threshold, setThreshold] = useState(0);
   const [voteStarted, setVoteStarted] = useState(false);
   const [voteConfirmed, setVoteConfirmed] = useState(false);
 
@@ -46,113 +34,17 @@ const ProjectsPage = ({ data }) => {
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      const init = async () => {
-        await updateThreshold();
-        await updateVoteStates();
-      };
+      const init = async () => {};
       init();
     }
   }, [walletContext?.walletAddress, walletContext?.isWalletConnected]);
 
-  const getProjectWithContent = () => {
-    const projectData = data.allMarkdownRemark.edges.map(({ node }) => ({
-      ...node.fields,
-      ...node.frontmatter,
-    }));
-    if (projectData.length > 0) {
-      return projectData.map((project) => {
-        return {
-          title: project.title,
-          votes: 0,
-          link: project.slug,
-          startDate: project.startDate,
-          image: project.image1,
-        };
-      });
-    }
-  };
-
-  const projects = getProjectWithContent();
-
-  const updateVoteStates = async () => {
-    if (walletContext?.walletAddress) {
-      await updateHasVoted();
-      await updateAddressVote();
-    }
-
-    await updateVotes();
-    await updateThreshold();
-    await updateBalance();
-    await updateWinners();
-    await updateVoters();
-  };
-
-  const voteForProject = async (id) => {
-    try {
-      await walletContext?.checkNetwork();
-      validateContributionInput(name, parseFloat(contribution));
-      setVoteStarted(true);
-      await vote(id, contribution, name);
-      await updateVoteStates();
-      await updateVotes();
-      setVoteConfirmed(true);
-    } catch (error) {
-      alert(error.message);
-      setVoteStarted(false);
-    }
-  };
-
-  const validateContributionInput = (name, contributionAmount) => {
-    if (typeof name !== "string" || name.length <= 0)
-      throw new Error(`Must provide a display name`);
-    if (typeof contributionAmount !== "number")
-      throw new Error(`Must provide a contribution amount`);
-    if (isNaN(contributionAmount))
-      throw new Error(`Contribution amount must be a number`);
-    if (contributionAmount < 0.001 || contributionAmount > 0.05)
-      throw new Error(
-        `Contribution amount must be greater than 0.001 and less than 0.05`,
-      );
-  };
-
-  const updateAddressVote = async () => {
-    const vote = await getVote(walletContext?.walletAddress);
-    setAddressVote(vote);
-  };
-
-  const updateWinners = async () => {
-    const winners = await getWinners();
-    setWinners(winners);
-  };
-
-  const updateVoters = async () => {
-    const voters = await getVoters();
-    setVoters(voters);
-  };
-
-  const updateHasVoted = async () => {
-    const hasVoted = await checkHasVoted(walletContext?.walletAddress);
-    setHasVoted(hasVoted);
-  };
-
-  const updateBalance = async () => {
-    const balance = await getBalance();
-    setBalance(balance);
-  };
-
-  const updateThreshold = async () => {
-    const threshold = await getThreshold();
-    setThreshold(threshold);
-  };
-
-  const updateVotes = async () => {
-    const voteCounts = await getProjectVoteCounts();
-    setVoteCounts(voteCounts);
-  };
-
-  const getProjectVotes = (id) => {
-    return voteCounts[id] ? voteCounts[id] : 0;
-  };
+  const projects = data.allMarkdownRemark.edges.map(
+    ({ node: { fields, frontmatter } }) => ({
+      ...fields,
+      ...frontmatter,
+    }),
+  );
 
   return (
     <Box>
@@ -209,10 +101,10 @@ const ProjectsPage = ({ data }) => {
               Discover a selection of my latest projects. If you're interested
               in collaboration or want to learn more, feel free to{" "}
               <Link href="/contact">contact me</Link>. Plus, take a moment to
-              provide feedback on a project and you might win a prize!
+              provide feedback on a project and you might be rewarded!
             </Paragraph>
             <Heading as="h2" variant="subheading1" sx={{ mt: 4 }}>
-              Participate in Web3 Voting
+              Participate in Web3 Crowd Sourced Feedback
             </Heading>
             <Paragraph variant="regular" sx={{ mt: 3 }}>
               Embracing the new era of Web3, I'm on a mission to educate
@@ -233,24 +125,8 @@ const ProjectsPage = ({ data }) => {
           <WalletBanner
             walletAddress={walletContext?.walletAddress}
             isWalletConnected={walletContext?.isWalletConnected}
-            hasVoted={hasVoted}
-            threshold={threshold}
             onConnectClick={walletContext?.connectWallet}
           ></WalletBanner>
-          <ProgressGauge
-            currentProgress={balance}
-            maxProgress={threshold}
-          ></ProgressGauge>
-          {/* <JudgementGrid projects={projects}></JudgementGrid> */}
-          {voters?.length > 0 && (
-            <VoterList winners={winners} voters={voters}></VoterList>
-          )}
-          {!hasVoted && walletContext?.walletAddress && (
-            <ContributionForm
-              onContributionInput={(value) => setContribution(value)}
-              onNameInput={(value) => setName(value)}
-            ></ContributionForm>
-          )}
         </Box>
         <Box
           as="section"
@@ -258,25 +134,9 @@ const ProjectsPage = ({ data }) => {
             mb: 3,
           }}
         >
-          {projects.map((project, index) => {
-            return (
-              <Box key={project.id} id={"id" + project.id} mb={3}>
-                <ProjectCard
-                  id={project.id}
-                  image={project.image}
-                  title={project.title}
-                  startDate={project.startDate}
-                  siteLink={project.link}
-                  key={index}
-                  buttonText={"View"}
-                  vote={voteForProject}
-                  hasVoted={hasVoted}
-                  voteCount={0}
-                  isVote={false}
-                />
-              </Box>
-            );
-          })}
+          {projects.map((project) => (
+            <ProjectCard key={project.slug} project={project} />
+          ))}
         </Box>
         <CallToAction
           title={"Interested in collaborating?"}

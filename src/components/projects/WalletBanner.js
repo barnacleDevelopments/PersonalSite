@@ -75,7 +75,7 @@ const WalletBanner = ({
           {/* title */}
           {!isWalletConnected ? (
             <Heading as="h2" variant="subheading1" sx={{ color: "white" }}>
-              Connect Wallet & Vote
+              Connect Wallet
             </Heading>
           ) : (
             <Heading as="h2" variant="subheading1" sx={{ color: "white" }}>
