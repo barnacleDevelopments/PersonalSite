@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui";
 import { Heading, Box, Flex, Text } from "theme-ui";
-import { graphql, useStaticQuery } from "gatsby";
+import { graphql } from "gatsby";
 import showdown from "showdown";
 import moment from "moment";
 
@@ -12,18 +12,8 @@ import Prism from "prismjs";
 
 // markup
 const BlogPostPage = ({ data }) => {
-  const { markdownRemark: node } = data;
+  const { markdownRemark: node, site } = data;
   const converter = new showdown.Converter();
-  const { site } = useStaticQuery(graphql`
-    query {
-      site {
-        siteMetadata {
-          siteUrl: url
-        }
-      }
-    }
-  `);
-
   useEffect(() => {
     Prism.highlightAll();
   }, []);
@@ -103,6 +93,11 @@ const BlogPostPage = ({ data }) => {
 
 export const pageQuery = graphql`
   query PostsByTitle($slug: String!) {
+    site {
+      siteMetadata {
+        siteUrl: url
+      }
+    }
     markdownRemark(fields: { slug: { eq: $slug } }) {
       frontmatter {
         title
