@@ -12,7 +12,7 @@ import Prism from "prismjs";
 
 // markup
 const BlogPostPage = ({ data }) => {
-  const { markdownRemark: node, site } = data;
+  const { markdownRemark: node } = data;
   const converter = new showdown.Converter();
 
   useEffect(() => {
@@ -24,18 +24,9 @@ const BlogPostPage = ({ data }) => {
       <Seo
         title={`Post - ${node.frontmatter.title}`}
         keywords={node.frontmatter?.keywords.split(",")}
-      >
-        <meta
-          property="og:image"
-          content={
-            site.siteMetadata.siteUrl +
-            "assets/" +
-            node.frontmatter.thumbnail.relativePath
-          }
-        />
-
-        <meta property="og:description" content={node.excerpt} />
-      </Seo>
+        description={node.excerpt}
+        image={node.frontmatter.thumbnail.childImageSharp.original.src}
+      ></Seo>
       <Flex
         sx={{
           width: ["100%"],
@@ -107,7 +98,11 @@ export const pageQuery = graphql`
         date
         keywords
         thumbnail {
-          relativePath
+          childImageSharp {
+            original {
+              src
+            }
+          }
         }
       }
       excerpt(truncate: true, format: PLAIN, pruneLength: 70)

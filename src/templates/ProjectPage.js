@@ -17,6 +17,7 @@ function ProjectPage({ data }) {
         keywords={node.frontmatter.keywords.split(",")}
       >
         <meta property="og:image" content={node.frontmatter.image1} />
+        <meta property="twitter:image" content={node.frontmatter.image1} />
       </Seo>
       {/* Hero */}
       <Flex sx={pageWrapper}>

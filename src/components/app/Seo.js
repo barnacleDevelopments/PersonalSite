@@ -24,7 +24,7 @@ const Seo = ({ title, description, image, lang, keywords, children }) => {
     title: title ? `${title} - ${titleTemplate}` : defaultTitle,
     description: description || defaultDescription,
     image: {
-      src: `${siteUrl}${image?.src || metaImage.src}`,
+      src: `${siteUrl}${image || metaImage.src}`,
       width: metaImage.width,
       height: metaImage.height,
     },
@@ -37,10 +37,13 @@ const Seo = ({ title, description, image, lang, keywords, children }) => {
     <Helmet htmlAttributes={lang}>
       {children}
       <meta name="title" content={seo.title} />
-      <meta name="og:title" content={seo.title} />
-      <meta name="twitter:title" content={seo.title} />
       <meta name="description" content={seo.description} />
+      <meta name="og:title" content={seo.title} />
       <meta name="og:description" content={seo.description} />
+      <meta name="og:image" content={seo.image} />
+      <meta name="twitter:title" content={seo.title} />
+      <meta name="twitter:description" content={seo.description} />
+      <meta name="twitter:image" content={seo.image.src} />
       <meta name="og:type" content="website" />
       <meta name="keywords" content={seo.keywords.join(",")} />
       <link
