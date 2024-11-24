@@ -17,10 +17,11 @@ struct ItemBundle {
     uint settleDeadline;
     bool isSettled;
     uint feedbackCount;
+    string encryptionKey;// key used to decrypt off-chain Arweave data (decrypted using provider private key)
 }
 
 struct FeedbackBundle {
-    string encryptedKey; // key used to decrypt off-chain Arweave data
+    string encryptedKey; // key used to decrypt off-chain Arweave data (decrypted using receiver private key)
     string abstractTxId; // transaction id of abstract text stored on Arweave
     string feedbackTxId; // transaction id of feedback text stored on Arweave
 }
@@ -32,7 +33,7 @@ contract Feedback is VRFConsumerBaseV2Plus {
     mapping(string => mapping(address => FeedbackBundle)) public feedbackBundles;
     mapping(string => ItemBundle) public itemBundles;
     mapping(address => uint) public addressFeedbackTokens;
-
+    mapping(string => mapping(address => string)) public ndaEncryptionKeys;
     event FeedbackProvided(address providerAddress, string itemId);
     event RewardSettled(address providerAddress, uint256 amount);
 
@@ -79,30 +80,41 @@ contract Feedback is VRFConsumerBaseV2Plus {
 
     function provideFeedback(
         string memory _itemId,
-        string memory _feedbackAbstractId,
-        string memory _feedbackId,
-        string memory _encryptedKey,
         string memory _abstractTxId,
         string memory _feedbackTxId
     ) public {
         require(!hasProvidedFeedback[msg.sender][_itemId], "address has already provided feedback on item");
         hasProvidedFeedback[msg.sender][_itemId] = true;
         feedbackBundles[_itemId][msg.sender] = FeedbackBundle(
-                                                _feedbackAbstractId,
-                                                _feedbackId,
-                                                _encryptedKey,
+                                                "",
                                                 _abstractTxId,
-                                                _feedbackTxId
+                                                _feedbackTxId,
+                                                false
                                                );
         itemFeedbackProviders[_itemId].push(msg.sender);
-        addressFeedbackTokens[msg.sender]++;
         itemBundles[_itemId].feedbackCount++;
         addressFeedbackTokens[msg.sender]++;
         emit FeedbackProvided(msg.sender, _itemId);
     }
 
+    function provideFeedbackEncryptionKey(string memory _itemId, string memory _encryptionKey) public {
+        string memory key = feedbackBundles[_itemId][msg.sender].encryptedKey;
+        require(bytes(key).length > 0, "bundle already accepted.");
+        feedbackBundles[_itemId][msg.sender].encryptedKey = _encryptionKey;
+    }
+
+    function provideItemEncryptionKey(string memory _itemId, string memory _encryptionKey) public {
+        string memory key = itemBundles[_itemId].encryptionKey;
+        require(bytes(key).length > 0, "bundle already accepted.");
+        itemBundles[_itemId].encryptionKey = _encryptionKey;
+    }
+
+    function signNDA(string memory _itemId) {
+        ndaEncryptionKeys[_itemId][msg.sender]
+    }
+
     function addItemBundle(string memory _itemId, uint _settleDeadline) public payable {
-        itemBundles[_itemId] = ItemBundle(msg.sender, msg.value, _settleDeadline, false, 0);
+        itemBundles[_itemId] = ItemBundle(msg.sender, msg.value, _settleDeadline, false, 0, "");
     }
 
     function refundFeedbackBundle(string memory _itemId) public {

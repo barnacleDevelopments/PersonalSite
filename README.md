@@ -42,7 +42,9 @@ Using [Chainlink Any API](https://docs.chain.link/any-api/introduction) the Feed
 
 ## Providing Feedback on Items (MVP)
 
-To provide feedback on items users use the `provideFeedback` function. It takes 5 arguments including the `itemId`, `abstractTxId`, `feedbackTxId` and `encryptedKey`. These are used to create a `Feedback Bundle`.
+To provide feedback on items users use the `provideFeedback` function. It takes 3 arguments including the `itemId`, `abstractTxId`, and `feedbackTxId`. These are used to create a `Feedback Bundle`.
+
+The `feedbackTxId` is a reference to a encrypted file stored on the Arweave network. This file can only be accessed by the feedback receiver using asymmetric enrypted key. This key remains private until the feedback receiver chooses the winner of the reward or the settlement date is reached. Utilizing the [Lit Protocol](https://developer.litprotocol.com/sdk/access-control/intro) the key is safe guarded until the release conditioni is met.
 
 ### Abstract and Complete Feedback
 
