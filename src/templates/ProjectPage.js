@@ -3,7 +3,6 @@ import { jsx, Link } from "theme-ui";
 import { graphql } from "gatsby";
 import showdown from "showdown";
 import moment from "moment";
-// Components
 import { Box, Flex, Button, Heading, Text, Grid } from "theme-ui";
 import Seo from "../components/app/Seo";
 

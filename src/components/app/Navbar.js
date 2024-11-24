@@ -83,11 +83,6 @@ const Navbar = () => {
 
   useEffect(() => {
     const path = getPath();
-    setPageStatus(
-      path.includes("projects")
-        ? "🚧 This page is under construction. Some functionality may be limited. 🚧 "
-        : "",
-    );
 
     const scrollColor = getScrollColor(path);
     const textColor = getTextColor(path);
