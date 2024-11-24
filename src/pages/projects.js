@@ -27,7 +27,7 @@ const ProjectsPage = ({ data }) => {
           my: 6,
         }}
       >
-        <Box as="section" sx={{ mb: 4, mt: 4 }}>
+        <Box as="section" sx={{ mb: 5 }}>
           <Heading as="h1" variant="hero">
             Projects
           </Heading>
