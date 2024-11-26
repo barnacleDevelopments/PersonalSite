@@ -48,6 +48,13 @@ module.exports = {
       fontSize: 4,
       mb: 3,
     },
+    subheading2: {
+      color: "primary",
+      fontFamily: "heading",
+      lineHeight: "heading",
+      fontSize: 3,
+      mb: 3,
+    },
     small: {
       color: "primary",
       fontSize: 1,

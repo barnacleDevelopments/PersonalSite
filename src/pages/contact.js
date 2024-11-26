@@ -190,16 +190,24 @@ const ContactPage = () => {
                 in crafting innovative solutions across Web2 and Web3
                 technologies. Whether you have a project idea, need a technical
                 collaborator, or just want to connect, I’d love to hear from
-                you. Let’s build something amazing together! Reach Out Feel free
-                to connect with me on{" "}
+                you. Let’s build something amazing together! Feel free to
+                connect with me on{" "}
                 <Link
                   target="_blank"
                   href="https://www.linkedin.com/in/devin-dev-d-63008412b"
                 >
                   LinkedIn
                 </Link>{" "}
-                . Alternatively, use my contact form and I'll get back to you
-                shortly.
+                or use my contact form, and I'll get back to you shortly.
+              </Paragraph>
+              <Heading variant="subheading2" sx={{ mt: 3 }}>
+                Availability
+              </Heading>
+              <Paragraph>
+                I’m currently open for new opportunities! Whether you’re looking
+                for a dedicated freelance developer to bring your project to
+                life or seeking a full-time professional to join your team, I’d
+                love to connect.
               </Paragraph>
             </Box>
           </Grid>
