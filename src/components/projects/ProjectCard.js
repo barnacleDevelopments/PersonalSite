@@ -1,4 +1,5 @@
 /** @jsx jsx */
+import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import { jsx } from "theme-ui";
 
 // Components
@@ -81,7 +82,11 @@ const ProjectCard = ({ project }) => {
             overflow: "hidden",
           }}
         >
-          <img sx={{ width: "100%", display: "block" }} src={project.image1} />
+          <GatsbyImage
+            placeholder="blurred"
+            image={getImage(project.image1)}
+            alt={"image 1"}
+          />
         </Box>
       </Flex>
     </Card>

@@ -71,9 +71,13 @@ export const projectsQuery = graphql`
           }
           frontmatter {
             title
-            image1
             description
             startDate(formatString: "MMMM, YYYY")
+            image1 {
+              childImageSharp {
+                gatsbyImageData
+              }
+            }
           }
         }
       }

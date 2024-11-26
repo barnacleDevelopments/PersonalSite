@@ -1,11 +1,11 @@
 ---
 title: Brewers Insight - Packaging BOM
 description: The Packaging Bill of Materials (BOM) method helps organize and manage material costs efficiently by grouping materials into reusable collections. In brewing, for example, a 12-pack of beer consists of multiple components such as lids, cans, labels, and boxes. By consolidating these into a BOM, brewers can avoid the repetitive task of calculating the individual cost of each material every time they produce a batch. This not only simplifies cost management but also improves production efficiency and planning.
-image1: "https://arweave.net/gwYO_wRA7bOgyh3-3w_u2KxeTj4brmLuB4sT9P3FVjQ"
+image1: /assets/project_photos/packaging-bom-1.png
 tech: Brewer's Insight is a browser application developed using Angular and ASP.NET Core and is hosted on Azure infastructure.
-image2: "https://arweave.net/JyQVLx9evQt0h4OL_k1qpB57FetkxNXNQiRUKdmm4qo"
+image2: /assets/project_photos/packaging-bom-2.png
 challenges: The greatest challenge I faced while developing the Packaging BOM and Finished Goods feature was transitioning from the old packaging system to the new one. Previously, brewers had to manually enter each packaging material individually. Unfortunately, the update to the Packaging BOM caused cascading changes throughout the entire application, as reports and other features were reliant on the older system. This experience taught me the importance of considering the broader system impact before implementing new features.
-image3: "https://arweave.net/c5p8OMAW-sbNoP-yLW6HsWG9SI_JzU4Ai5CAcBr92hk"
+image3: /assets/project_photos/packaging-bom-3.png
 technologies:
   - name: "Angular"
     image: "https://arweave.net/cEKMXNRVQelD16HFG_O7dgDAY_3L_8TaGkH7S2Y9RkI"

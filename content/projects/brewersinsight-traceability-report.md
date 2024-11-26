@@ -1,11 +1,11 @@
 ---
 title: BrewersInsight - Traceability Report
 description: "The Traceability Report is a key feature of the BrewersInsight platform, offering brewers the ability to monitor and manage the journey of resources throughout their brewery. From malt and hops to various raw materials, this tool ensures complete visibility of how these components move from suppliers to the brewery and ultimately to the customer. Effective traceability is essential for optimal beer production quality and compliance."
-image1: "https://arweave.net/zxcVmc0b9YhavSGkm641epTqt3_4lh-MqAH-T6pqVWU"
+image1: /assets/project_photos/traceability-report-1.png
 tech: Brewer's Insight is a web application developed using Angular and ASP.NET Core.
-image2: "https://arweave.net/wntcrXxSt_-NS_x_ADOxzkMYUseSdV0aZtq2OtOGw60"
+image2: /assets/project_photos/traceability-report-2.png
 challenges: "One of the primary challenges in developing this feature was consolidating data from multiple databases to create four tab-separated tables: Materials on Hand, Materials in Production, Finished Goods, and Shipped Products. This involved establishing connections between materials and their corresponding products. Additionally, I implemented several filters to further refine the results displayed in these tables, including Batch ID, Lot Code, Material, and Supplier."
-image3: "https://arweave.net/ytW95wnQI4fjchgpvCyxSpMnRP7PvbIGqou21J7sDK0"
+image3: /assets/project_photos/traceability-report-3.png
 technologies:
   - name: "Angular"
     image: "https://arweave.net/cEKMXNRVQelD16HFG_O7dgDAY_3L_8TaGkH7S2Y9RkI"

@@ -1,11 +1,11 @@
 ---
 title: "WarrierTech API"
 description: "I played a key role in designing and developing the WarrierTech API, which provides a robust suite of APIs for seamless integration of WarrierTech and third-party IoT devices across diverse platforms. Covering WarrierTech's satellite and cellular solutions, these APIs support applications in telematics, environmental monitoring, industrial management, and more. They allow for easy retrieval of device data, configuration updates, and control over actuators, as well as access to a wide array of digital and analog sensors. Secure cloud storage enables developers to reliably access device information and data through these APIs."
-image1: "https://arweave.net/HGVQxjCyZB4nmpIU77VRFn8vPN39efXMB6I4510WEdY"
+image1: /assets/project_photos/warriertech-api-1.png
 tech: "As a key contributor, I developed this API alongside a generic interface for consuming it. Using Azure Functions, Azure API Gateway, and CosmosDB, this API delivers a secure, structured way for customers to seamlessly access their sensor data."
-image2: "https://arweave.net/vy0RhSYUTj153xZZstGZaxuW-b1XcWv0I3d3UdUQKLY"
+image2: /assets/project_photos/warriertech-api-2.png
 challenges: "The most challenging aspect of developing this API was establishing a flexible data format to handle the unique sensors on each IoT device. To achieve both adaptability and structure, we implemented a flexible JSON format and selected CosmosDB for its scalability and suitability for diverse data structures."
-image3: "https://arweave.net/prLea9ImztNJhOIqww3pO4WXPXc9N9ET2GI71mlKbMc"
+image3: /assets/project_photos/warriertech-api-3.png
 technologies:
   - name: "Azure"
     image: "https://arweave.net/v_zJVhElzcDwnwr3FIzmlsf_9G4sXDf-gijdkP3GA0Y"

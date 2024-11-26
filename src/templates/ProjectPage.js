@@ -5,6 +5,7 @@ import showdown from "showdown";
 import moment from "moment";
 import { Box, Flex, Button, Heading, Text, Grid } from "theme-ui";
 import Seo from "../components/app/Seo";
+import { GatsbyImage, getImage } from "gatsby-plugin-image";
 
 function ProjectPage({ data }) {
   const { markdownRemark: node } = data;
@@ -70,12 +71,12 @@ function ProjectPage({ data }) {
             ></Text>
           </Box>
           <Box sx={{ order: [1, 2], mb: [5, 0], mt: [0, 3] }}>
-            {/* <GatsbyImage */}
-            {/*   placeholder="blurred" */}
-            {/*   imgStyle={imgStyle} */}
-            {/*   image={getImage(node.frontmatter.image1)} */}
-            {/*   alt={"image 1"} */}
-            {/* /> */}
+            <GatsbyImage
+              placeholder="blurred"
+              imgStyle={imgStyle}
+              image={getImage(node.frontmatter.image1)}
+              alt={"image 1"}
+            />
 
             <img sx={imgStyle} src={node.frontmatter.image1} />
           </Box>
@@ -91,13 +92,12 @@ function ProjectPage({ data }) {
           sx={{ ...sectionFlexStyle, alignItems: "center" }}
         >
           <Box sx={{ mb: [5, 0], mt: [0, 3], order: [2, 2, 1] }}>
-            {/* <GatsbyImage */}
-            {/*   style={imgWrapStyle} */}
-            {/*   imgStyle={imgStyle} */}
-            {/*   image={getImage(node.frontmatter.image2)} */}
-            {/*   alt={"image 2"} */}
-            {/* /> */}
-
+            <GatsbyImage
+              style={imgWrapStyle}
+              imgStyle={imgStyle}
+              image={getImage(node.frontmatter.image2)}
+              alt={"image 2"}
+            />
             <img sx={imgStyle} src={node.frontmatter.image2} />
           </Box>
           <Box sx={{ py: [4, 6], pl: [0, 5], order: [1, 1, 2] }}>
@@ -133,11 +133,11 @@ function ProjectPage({ data }) {
           sx={{ ...sectionFlexStyle, alignItems: "center" }}
         >
           <Box sx={{ mb: [5, 0], mt: [0, 3], order: [2, 2, 2] }}>
-            {/* <GatsbyImage */}
-            {/*   image={getImage(node.frontmatter.image3)} */}
-            {/*   imgStyle={imgStyle} */}
-            {/*   alt={"image 3"} */}
-            {/* /> */}
+            <GatsbyImage
+              image={getImage(node.frontmatter.image3)}
+              imgStyle={imgStyle}
+              alt={"image 3"}
+            />
             <img sx={imgStyle} src={node.frontmatter.image3} />
           </Box>
           <Box sx={{ py: [4, 6], pr: [0, 5], order: [1, 1, 1] }}>
@@ -226,9 +226,21 @@ export const pageQuery = graphql`
           name
           image
         }
-        image1
-        image2
-        image3
+        image1 {
+          childImageSharp {
+            gatsbyImageData
+          }
+        }
+        image2 {
+          childImageSharp {
+            gatsbyImageData
+          }
+        }
+        image3 {
+          childImageSharp {
+            gatsbyImageData
+          }
+        }
       }
     }
   }
