@@ -36,6 +36,7 @@ const Seo = ({ title, description, image, lang, keywords, children }) => {
   return (
     <Helmet htmlAttributes={lang}>
       {children}
+      <title>{seo.title}</title>
       <meta name="title" content={seo.title} />
       <meta name="description" content={seo.description} />
       <meta name="og:title" content={seo.title} />
