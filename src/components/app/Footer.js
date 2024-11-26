@@ -21,6 +21,7 @@ const Footer = () => {
           <h4 sx={{ mb: 3, color: "white" }}>Media</h4>
           <Flex sx={{ flexDirection: "column", alignItems: "center" }}>
             <Link
+              target="_blank"
               href="https://www.linkedin.com/in/devin-dev-d-63008412b"
               sx={{ mb: 2, width: "max-content", svg: { fontSize: "1.2em" } }}
               variant="footer"
@@ -32,6 +33,7 @@ const Footer = () => {
               </Text>
             </Link>
             <Link
+              target="_blank"
               href="https://www.instagram.com/devindavis732/"
               sx={{ mb: 2, width: "max-content", svg: { fontSize: "1.2em" } }}
               variant="footer"
