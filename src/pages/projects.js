@@ -1,12 +1,10 @@
 /** @jsx jsx */
-import { Link, Paragraph, Progress, jsx } from "theme-ui";
+import { Link, Paragraph, jsx } from "theme-ui";
 import { graphql } from "gatsby";
 import ProjectCard from "../components/projects/ProjectCard";
-import { Box, Heading, Button, Flex, Text } from "theme-ui";
+import { Box, Heading } from "theme-ui";
 import Seo from "../components/app/Seo";
-import WalletBanner from "../components/projects/WalletBanner";
 import CallToAction from "../components/CallToAction";
-import Dialog from "../components/dialog";
 
 const ProjectsPage = ({ data }) => {
   const projects = data.allMarkdownRemark.edges.map(
