@@ -187,27 +187,37 @@ const ContactPage = () => {
             <Box sx={{ mb: 3 }}>
               <Paragraph>
                 I’m a results-oriented Full Stack Web Developer with expertise
-                in crafting innovative solutions across Web2 and Web3
-                technologies. Whether you have a project idea, need a technical
-                collaborator, or just want to connect, I’d love to hear from
-                you. Let’s build something amazing together! Feel free to
-                connect with me on{" "}
+                in creating innovative solutions for Web2 and Web3 technologies.
+                Whether you have a project idea, need a technical collaborator,
+                or just want to connect, I’d love to hear from you. Connect with
+                me on{" "}
                 <Link
                   target="_blank"
                   href="https://www.linkedin.com/in/devin-dev-d-63008412b"
                 >
                   LinkedIn
                 </Link>{" "}
-                or use my contact form, and I'll get back to you shortly.
+                or use my contact form—I’ll get back to you shortly.
               </Paragraph>
               <Heading variant="subheading2" sx={{ mt: 3 }}>
                 Availability
               </Heading>
               <Paragraph>
-                I’m currently open for new opportunities! Whether you’re looking
-                for a dedicated freelance developer to bring your project to
-                life or seeking a full-time professional to join your team, I’d
-                love to connect.
+                I’m currently open to new opportunities! Whether you need a
+                freelance developer to bring your project to life or a full-time
+                professional to join your team, let’s connect.
+              </Paragraph>
+              <Heading variant="subheading2" sx={{ mt: 3 }}>
+                Check Out My Work
+              </Heading>
+              <Paragraph>
+                Explore how I’ve helped businesses and teams bring their ideas
+                to life. My portfolio highlights my versatility and commitment
+                to delivering high-quality results.{" "}
+                <Link target="_blank" href="/projects">
+                  View my portfolio
+                </Link>{" "}
+                and reach out to discuss your next project!
               </Paragraph>
             </Box>
           </Grid>
