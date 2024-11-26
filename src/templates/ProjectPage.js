@@ -75,8 +75,6 @@ function ProjectPage({ data }) {
               image={getImage(node.frontmatter.image1)}
               alt={"image 1"}
             />
-
-            <img sx={imgStyle} src={node.frontmatter.image1} />
           </Box>
         </Grid>
       </Box>
@@ -96,7 +94,6 @@ function ProjectPage({ data }) {
               image={getImage(node.frontmatter.image2)}
               alt={"image 2"}
             />
-            <img sx={imgStyle} src={node.frontmatter.image2} />
           </Box>
           <Box sx={{ py: [4, 6], pl: [0, 5], order: [1, 1, 2] }}>
             <Heading as="h2" variant="subheading1" color="white">
@@ -136,7 +133,6 @@ function ProjectPage({ data }) {
               imgStyle={imgStyle}
               alt={"image 3"}
             />
-            <img sx={imgStyle} src={node.frontmatter.image3} />
           </Box>
           <Box sx={{ py: [4, 6], pr: [0, 5], order: [1, 1, 1] }}>
             <Heading as="h2" variant="subheading1">
