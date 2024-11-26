@@ -21,7 +21,7 @@ const AboutPage = () => {
         <Heading as="h1" variant="hero">
           A Little More About Me
         </Heading>
-        <Grid gap={3} columns={["1fr", "1fr 1fr", "1.5fr 2fr"]}>
+        <Grid sx={{ mb: 4 }} gap={3} columns={["1fr", "1fr 1fr", "1.5fr 2fr"]}>
           <Box
             sx={{
               borderRadius: "10px",

@@ -21,12 +21,10 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import Seo from "../components/app/Seo";
 import Loader from "../components/Loader";
-import { faGit } from "@fortawesome/free-brands-svg-icons";
 import PostCard from "../components/blog/PostCard";
 import CallToAction from "../components/CallToAction";
 
 const IndexPage = ({ data }) => {
-  const landingPageData = data.markdownRemark.frontmatter;
   const posts = data.blogPosts.edges
     .filter((_, index) => index < 4)
     .map(({ node }) => ({
@@ -78,7 +76,7 @@ const IndexPage = ({ data }) => {
               Dev the Developer
             </Heading>
             <Text variant="regular" color="white ">
-              {landingPageData.indexHeader}
+              I translate business requirements into awesome solutions.
             </Text>
           </Box>
           <Box
@@ -127,7 +125,7 @@ const IndexPage = ({ data }) => {
             py: [4],
           }}
         >
-          <Grid gap={[1]} columns={[1, 1, 1, 1, "1fr 2fr", "1fr 2fr"]}>
+          <Grid gap={[1]} columns={[1, 1, 1, 1, "1fr 3fr", "1fr 3fr"]}>
             <Box
               sx={{
                 overflow: "hidden",
@@ -145,7 +143,7 @@ const IndexPage = ({ data }) => {
             <Box
               sx={{
                 px: [0, 0, 0, 0, 4],
-                py: 3,
+                pt: 1,
               }}
             >
               <Box
@@ -158,165 +156,20 @@ const IndexPage = ({ data }) => {
                   Hey there!
                 </Heading>
                 <Text variant="regular">
-                  My name is Dev. I'm a web developer located in Montreal. I
-                  specialize in building websites and web applications for small
-                  to medium sized businesses. I work diligently to ensure that
-                  those I work with receive a product they can be proud of. I'm
-                  always looking for new and exciting projects to work on. If
-                  you're interested in working together, feel free to{" "}
+                  Hey! My name is Devin, but you can call me Dev. I'm a
+                  results-oriented Full Stack Web Developer with 4 years of
+                  professional experience in designing, developing, and
+                  maintaining dynamic web applications. My expertise spans a
+                  wide range of web technologies. I have a strong record of
+                  collaborating with cross-functional teams to deliver
+                  innovative solutions while translating complex business needs
+                  into functional, user-friendly software. Above all, I pride
+                  myself on being a proven self-starter who thrives in both
+                  independent and team environments. If you're interested in
+                  working together, feel free to{" "}
                   <Link href="/contact">reach out</Link>!
                 </Text>
               </Box>
-            </Box>
-          </Grid>
-        </Box>
-        {/* <Box sx={{ mb: 3 }}> */}
-        {/*   <Heading as="h3" variant="subheading1"> */}
-        {/*     Top Projects */}
-        {/*   </Heading> */}
-        {/*   <Paragraph variant="small" sx={{ mb: 3 }}> */}
-        {/*     Checkout my{" "} */}
-        {/*     <Link href="/projects">web3 educational project voting</Link>{" "} */}
-        {/*     feature to grade my projects using blockchain technology. */}
-        {/*   </Paragraph> */}
-        {/*   {projects.map((project) => { */}
-        {/*     return ( */}
-        {/*       <Card key={project.id} variant="project" sx={{ mb: 3 }}> */}
-        {/*         <Flex sx={{ justifyContent: "space-between", width: "100%" }}> */}
-        {/*           <Box> */}
-        {/*             <Heading mb={2}>{project.title}</Heading> */}
-        {/*             <Text>{project.votes} Votes</Text> */}
-        {/*           </Box> */}
-        {/*         </Flex> */}
-        {/*         <Link href={project.link}> */}
-        {/*           <Button */}
-        {/*             title={"View more about this project."} */}
-        {/*             sx={{ mt: 3 }} */}
-        {/*             variant="secondary" */}
-        {/*           > */}
-        {/*             View */}
-        {/*           </Button> */}
-        {/*         </Link> */}
-        {/*       </Card> */}
-        {/*     ); */}
-        {/*   })} */}
-
-        {/*   <Link href="/projects" sx={{ display: "block", mt: 3 }}> */}
-        {/*     <Button title="View a list of all my projects." variant="primary"> */}
-        {/*       View More Projects */}
-        {/*     </Button> */}
-        {/*   </Link> */}
-        {/* </Box> */}
-        <Box
-          as="article"
-          sx={{
-            py: 2,
-          }}
-        >
-          <Heading as="h3" variant="subheading1">
-            Soft Skills
-          </Heading>
-          <Grid gap={3} columns={[1, null, 2]}>
-            <Box sx={styles.skillCard}>
-              <Flex>
-                <Icon size="2x" icon={faBrain} />
-                <Text variant="regular" sx={styles.skillText}>
-                  Analytical Thinker
-                </Text>
-              </Flex>
-            </Box>
-            <Box sx={styles.skillCard}>
-              <Flex>
-                <Icon size="2x" icon={faPeopleArrows} />
-                <Text variant="regular" sx={styles.skillText}>
-                  Client Focused
-                </Text>
-              </Flex>
-            </Box>
-            <Box sx={styles.skillCard}>
-              <Flex>
-                <Icon size="2x" icon={faChartLine} />
-                <Text variant="regular" sx={styles.skillText}>
-                  Adaptable
-                </Text>
-              </Flex>
-            </Box>
-            <Box sx={styles.skillCard}>
-              <Flex>
-                <Icon size="2x" icon={faStore} />
-                <Text variant="regular" sx={styles.skillText}>
-                  Detail Oriented
-                </Text>
-              </Flex>
-            </Box>
-            <Box sx={styles.skillCard}>
-              <Flex>
-                <Icon size="2x" icon={faLaptopCode} />
-                <Text variant="regular" sx={styles.skillText}>
-                  Active Learner
-                </Text>
-              </Flex>
-            </Box>
-          </Grid>
-          <Heading sx={{ mt: 4 }} as="h3" variant="subheading1">
-            Hard Skills
-          </Heading>
-          <Grid gap={3} columns={[1, null, 2]}>
-            <Box sx={styles.skillCard}>
-              <Flex>
-                <Icon size="2x" icon={faServer} />
-                <Text variant="regular" sx={styles.skillText}>
-                  Back-End Development
-                </Text>
-              </Flex>
-            </Box>
-            <Box sx={styles.skillCard}>
-              <Flex>
-                <Icon size="2x" icon={faTabletAlt} />
-                <Text variant="regular" sx={styles.skillText}>
-                  Front-End Development
-                </Text>
-              </Flex>
-            </Box>
-            <Box sx={styles.skillCard}>
-              <Flex>
-                <Icon size="2x" icon={faDesktop} />
-                <Text variant="regular" sx={styles.skillText}>
-                  Responsive Design
-                </Text>
-              </Flex>
-            </Box>
-            <Box sx={styles.skillCard}>
-              <Flex>
-                <Icon size="2x" icon={faBug} />
-                <Text variant="regular" sx={styles.skillText}>
-                  Testing/Debugging
-                </Text>
-              </Flex>
-            </Box>
-            <Box sx={styles.skillCard}>
-              <Flex>
-                <Icon size="2x" icon={faRocket} />
-                <Text variant="regular" sx={styles.skillText}>
-                  Web Performance
-                </Text>
-              </Flex>
-            </Box>
-            <Box sx={styles.skillCard}>
-              <Flex>
-                <Icon size="2x" icon={faGit} />
-                <Text variant="regular" sx={styles.skillText}>
-                  Version Control/Git
-                </Text>
-              </Flex>
-            </Box>
-            <Box sx={styles.skillCard}>
-              <Flex>
-                <Icon size="2x" icon={faPencil} />
-                <Text variant="regular" sx={styles.skillText}>
-                  Documenting
-                </Text>
-              </Flex>
             </Box>
           </Grid>
         </Box>
@@ -328,46 +181,34 @@ const IndexPage = ({ data }) => {
           buttonText={"Learn how I can help"}
           pageLink={"/about"}
         />
-        <Heading as="h3" variant="subheading1">
-          Recent Posts
-        </Heading>
-        <Grid
-          sx={{
-            mb: 6,
-            width: "100%",
-          }}
-          gap={3}
-          columns={[1]}
-        >
-          {posts.map((post) => (
-            <PostCard key={post.slug} post={post} postContent={post.excerpt} />
-          ))}
-        </Grid>
+        <Box as="section" sx={{ mt: 4 }}>
+          <Heading as="h3" variant="subheading1">
+            Recent Posts
+          </Heading>
+          <Grid
+            sx={{
+              mb: 6,
+              width: "100%",
+            }}
+            gap={3}
+            columns={[1]}
+          >
+            {posts.map((post) => (
+              <PostCard
+                key={post.slug}
+                post={post}
+                postContent={post.excerpt}
+              />
+            ))}
+          </Grid>
+        </Box>
       </Box>
     </Box>
   );
 };
 
-const styles = {
-  skillCard: {
-    pb: 4,
-    pl: [4, 4],
-    pt: 4,
-    bg: "#30362F",
-    color: "white",
-    borderRadius: "5px",
-  },
-  skillText: { pl: 3, color: "white" },
-};
-
 export const landingPageQuery = graphql`
   query LandingPageQuery {
-    markdownRemark(fileAbsolutePath: { regex: "/landing.md/" }) {
-      frontmatter {
-        indexContent
-        indexHeader
-      }
-    }
     blogPosts: allMarkdownRemark(
       filter: {
         frontmatter: { draft: { eq: false } }

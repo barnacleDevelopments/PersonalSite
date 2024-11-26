@@ -11,7 +11,6 @@ const CallToAction = ({ title, content, buttonText, pageLink }) => {
         textAlign: "center",
         flexDirection: "column",
         justifyContent: "center",
-        my: [5],
         px: [0, 3],
         bg: "primary",
         color: "white",
