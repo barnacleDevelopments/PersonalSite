@@ -9,7 +9,6 @@ import moment from "moment";
 import Seo from "../components/app/Seo";
 import { useEffect } from "react";
 import Prism from "prismjs";
-import CallToAction from "../components/CallToAction";
 
 // markup
 const BlogPostPage = ({ data }) => {

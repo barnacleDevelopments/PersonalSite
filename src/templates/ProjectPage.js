@@ -15,10 +15,8 @@ function ProjectPage({ data }) {
       <Seo
         title={node.frontmatter.title}
         keywords={node.frontmatter.keywords.split(",")}
-      >
-        <meta property="og:image" content={node.frontmatter.image1} />
-        <meta property="twitter:image" content={node.frontmatter.image1} />
-      </Seo>
+        image={node.frontmatter.image1.childImageSharp.original.src}
+      ></Seo>
       {/* Hero */}
       <Flex sx={pageWrapper}>
         <Heading as="h1" variant="hero" color="white">
@@ -229,16 +227,25 @@ export const pageQuery = graphql`
         image1 {
           childImageSharp {
             gatsbyImageData
+            original {
+              src
+            }
           }
         }
         image2 {
           childImageSharp {
             gatsbyImageData
+            original {
+              src
+            }
           }
         }
         image3 {
           childImageSharp {
             gatsbyImageData
+            original {
+              src
+            }
           }
         }
       }

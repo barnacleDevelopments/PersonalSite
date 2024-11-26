@@ -41,7 +41,7 @@ const Seo = ({ title, description, image, lang, keywords, children }) => {
       <meta name="description" content={seo.description} />
       <meta name="og:title" content={seo.title} />
       <meta name="og:description" content={seo.description} />
-      <meta name="og:image" content={seo.image} />
+      <meta name="og:image" content={seo.image.src} />
       <meta name="twitter:title" content={seo.title} />
       <meta name="twitter:description" content={seo.description} />
       <meta name="twitter:image" content={seo.image.src} />
