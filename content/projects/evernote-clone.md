@@ -20,5 +20,5 @@ githubURL: "https://github.com/barnacleDevelopments/EvernoteClone"
 startDate: 2021-12-13T20:10:21.522Z
 endDate: 2021-12-13T20:10:21.522Z
 status: complete
-keywords: evernote desktop clone, electron desktop app, electron evernote clone, state management in electron, javascript desktop apps, note-taking app clone, sqlite database electron app, electron state management, custom state management system, web developer desktop app, portfolio project electron, nova scotia community college project, javascript state management from scratch
+keywords: evernote desktop clone, electron desktop app, electron evernote clone, state management in electron, javascript desktop apps, note-taking app clone, sqlite database electron app, electron state management, custom state management system, web developer desktop app, portfolio project electron, nova scotia community college project, javascript state management from scratch, Devin Davis
 ---

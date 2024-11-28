@@ -18,5 +18,5 @@ githubURL: "https://github.com/barnacleDevelopments/NovaJohnstoneAndCo"
 startDate: 2021-12-13T20:10:36.919Z
 endDate: 2021-12-13T20:10:36.919Z
 status: "complete"
-keywords: nova johnstone executive assistant services, gatsby static website for consulting business, cloud-hosted business website with netlify, c-suite support services website, project coordination consulting, operations management website, marketing for executive assistant businesses, netlify cms for business sites, gatsby and graphql integration challenges, business website for consulting firms, scalable static site for consulting, temporary services consulting website
+keywords: nova johnstone executive assistant services, gatsby static website for consulting business, cloud-hosted business website with netlify, c-suite support services website, project coordination consulting, operations management website, marketing for executive assistant businesses, netlify cms for business sites, gatsby and graphql integration challenges, business website for consulting firms, scalable static site for consulting, temporary services consulting website, Devin Davis
 ---

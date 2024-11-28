@@ -17,5 +17,5 @@ githubURL: "https://github.com/barnacleDevelopments/RessonMarketingWebsite"
 startDate: 2022-12-29T20:58:39.301Z
 endDate: 2022-12-29T20:58:39.301Z
 status: complete
-keywords: resson aerospace website, gatsby static site generation, cloud-hosted website with netlify, high-performance web design, responsive design for aerospace, content management with netlify cms, mccain acquisition website, seo optimization for gatsby sites, paul legere web development, javascript framework for static sites, fast-loading gatsby websites, gatsby plugin integration challenges, scalable websites on the cloud, static site for aerospace industry
+keywords: resson aerospace website, gatsby static site generation, cloud-hosted website with netlify, high-performance web design, responsive design for aerospace, content management with netlify cms, mccain acquisition website, seo optimization for gatsby sites, paul legere web development, javascript framework for static sites, fast-loading gatsby websites, gatsby plugin integration challenges, scalable websites on the cloud, static site for aerospace industry, Devin Davis
 ---

@@ -16,7 +16,28 @@ const ProjectsPage = ({ data }) => {
 
   return (
     <Box>
-      <Seo title="Projects" />
+      <Seo
+        title="Projects"
+        description={`Explore the portfolio of Devin Davis, a results-oriented full-stack developer showcasing web solutions and creative designs. Let's connect to collaborate or discuss new opportunities.`}
+        keywords={[
+          "Devin Davis",
+          "full-stack developer portfolio",
+          "web development projects",
+          "innovative web solutions",
+          "creative web design",
+          "frontend development",
+          "backend development",
+          "JavaScript frameworks",
+          "React projects",
+          "Angular projects",
+          "Vue.js projects",
+          "full-stack development",
+          "web application development",
+          "developer portfolio",
+          "software development",
+          "collaboration opportunities",
+        ]}
+      />
       <Box
         sx={{
           margin: "0 auto",

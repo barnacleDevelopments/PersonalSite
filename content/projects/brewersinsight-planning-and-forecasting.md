@@ -29,5 +29,5 @@ githubURL: ""
 startDate: 2024-01-01T12:13:10.205Z
 endDate: 2024-01-01T12:13:10.205Z
 status: complete
-keywords: BrewersInsight, Brewer's Insight, Planner and Forecasting, Planning and Forecasting, brew planner, material forecasting, brewing production planning, beer production management, brewery materials management, brew run integration, Gantt chart brew planner, forecasting material shortages, angular brewing app, CosmosDB brew system, Azure brewing solutions, systems integration brewing
+keywords: BrewersInsight, Brewer's Insight, Planner and Forecasting, Planning and Forecasting, brew planner, material forecasting, brewing production planning, beer production management, brewery materials management, brew run integration, Gantt chart brew planner, forecasting material shortages, angular brewing app, CosmosDB brew system, brewing solutions, systems integration brewing, Devin Davis
 ---

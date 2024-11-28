@@ -34,7 +34,7 @@ module.exports = {
       "Smart contracts",
       "Blockchain technology",
       "DeFi developer",
-      "NFT developer",
+      "Devin Davis",
       "API integration",
     ],
   },

@@ -15,8 +15,6 @@ technologies:
     image: "https://arweave.net/RZ97XLLlv_LzMyy5zV0f_zEB6XajCZAarLA1QlCiiEA"
   - name: "C#"
     image: "https://arweave.net/YgsGFbjkXXZX3UFfi3xjjQHaetX33qlobHwMTai83s4"
-  - name: "Digital Ocean"
-    image: "https://arweave.net/_RdXbJkbuM5lMfvEBMNqy2Fy1981W3UQMZv5hg9kbog"
   - name: "MSSQL"
     image: "https://arweave.net/VvSD0vuK-fQeifHqTZZLVQAAz9cKNmQ-tZOb53k1zg4"
   - name: "Azure Active Directory"
@@ -29,5 +27,5 @@ githubURL: ""
 startDate: 2023-07-30T12:13:10.205Z
 endDate: 2023-07-30T12:13:10.205Z
 status: complete
-keywords: BrewersInsight, Brewer's Insight, Finished Goods, Packaging BOM, Bill of Materials, BOM system, beer packaging BOM, brewery production efficiency, packaging materials cost management, angular browser application, ASP.NET Core brewing app, Azure hosted brewery software, brewing production planning, brewery software packaging, digital ocean brewery app
+keywords: BrewersInsight, Brewer's Insight, Finished Goods, Packaging BOM, Bill of Materials, BOM system, beer packaging BOM, brewery production efficiency, packaging materials cost management, angular browser application, ASP.NET Core brewing app, Azure hosted brewery software, brewing production planning, brewery software packaging, brewery app, Devin Davis
 ---

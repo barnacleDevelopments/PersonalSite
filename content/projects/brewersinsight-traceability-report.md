@@ -24,5 +24,5 @@ ENSURL: ""
 githubURL: ""
 startDate: 2024-08-8T12:13:10.205Z
 endDate: 2024-08-9T12:13:10.205Z
-keywords: BrewersInsight, Traceability Report, Brewery Resource Tracking, Malt and Hops Management, Supply Chain Visibility, Beer Production Quality, Brewer’s Traceability Solutions, Brewing Industry Analytics, Resource Management Software, Bill of Materials (BOM) in Brewing
+keywords: BrewersInsight, Traceability Report, Brewery Resource Tracking, Malt and Hops Management, Supply Chain Visibility, Beer Production Quality, Brewer’s Traceability Solutions, Brewing Industry Analytics, Resource Management Software, Bill of Materials (BOM) in Brewing, Devin Davis
 ---
