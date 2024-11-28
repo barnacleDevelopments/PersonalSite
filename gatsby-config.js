@@ -13,7 +13,7 @@ module.exports = {
     },
     titleTemplate: "devdeveloper portfolio",
     defaultTitle: "devdeveloper portfolio",
-    description: "my personal porfolio site",
+    description: "Devin Davis profesional web porfolio",
     lang: "en",
     keywords: [
       "Web development",
@@ -87,7 +87,7 @@ module.exports = {
         background_color: `#FFF`,
         theme_color: `#30362F`,
         display: `standalone`,
-        icon: "src/images/logo.png",
+        icon: "src/images/logo_2.png",
         description: "personal engineer portfolio for Devin Davis",
       },
     },
