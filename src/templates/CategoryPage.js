@@ -12,7 +12,26 @@ const CategoryPage = ({ data }) => {
   const postCategory = pageData[0]?.node.frontmatter.category;
   return (
     <Box>
-      <Seo title={postCategory} />
+      <Seo
+        title={postCategory}
+        keywords={[
+          "Devin Davis",
+          "Category Posts",
+          "Web Development Blog",
+          `${postCategory} Tutorials`,
+          `${postCategory} Insights`,
+          `${postCategory} Articles`,
+          `Latest ${postCategory} Updates`,
+          "Web Developer Blog",
+          "Tech Tutorials",
+          "Coding Insights",
+          "Programming Blog",
+          "Web Development News",
+          "Innovative Web Solutions",
+          "Web Development Tips",
+          "Developer Resources",
+        ]}
+      />
       <Box
         sx={{
           margin: "0 auto",
