@@ -206,11 +206,9 @@ const ContactPage = () => {
             </Box>
             <Box sx={{ mb: 3 }}>
               <Paragraph>
-                I’m a results-oriented Full Stack Web Developer with expertise
-                in creating innovative solutions for Web2 and Web3 technologies.
-                Whether you have a project idea, need a technical collaborator,
-                or just want to connect, I’d love to hear from you. Connect with
-                me on{" "}
+                I’m a results-oriented Full Stack Web Developer. Whether you
+                have a project idea, need a technical collaborator, or just want
+                to connect, I’d love to hear from you. Connect with me on{" "}
                 <Link
                   target="_blank"
                   href="https://www.linkedin.com/in/devin-dev-d-63008412b"
