@@ -5,7 +5,6 @@ import { graphql } from "gatsby";
 // Components
 import { StaticImage } from "gatsby-plugin-image";
 import { Text, Button, Flex, Box, Grid, Link, Heading } from "theme-ui";
-import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
 import {
   faBrain,
   faBug,
@@ -23,6 +22,7 @@ import Seo from "../components/app/Seo";
 import Loader from "../components/Loader";
 import PostCard from "../components/blog/PostCard";
 import CallToAction from "../components/CallToAction";
+import GridCanvas from "../components/GridCanvas";
 
 const IndexPage = ({ data }) => {
   const posts = data.blogPosts.edges
@@ -44,8 +44,11 @@ const IndexPage = ({ data }) => {
           mt: "60px",
           width: "100%",
           textTransform: "uppercase",
+          position: "relative",
+          overflow: "hidden",
         }}
       >
+        <GridCanvas width={1500} />
         <Flex
           sx={{
             flexWrap: "wrap",
