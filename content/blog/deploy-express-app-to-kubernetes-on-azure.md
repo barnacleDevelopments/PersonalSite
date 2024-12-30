@@ -7,6 +7,8 @@ draft: true
 category:
 ---
 
+This tutorial assumes some basic understanding of Azure CLI and Azure in general.
+
 ## Create a NodeJs Express API
 
 We are going to create a basic API that will eventually be consumed by a React front-end.
@@ -30,15 +32,77 @@ docker build -t node-ts-api .
 
 We want to create a docker image of our client application to be deployed on Kubernetes. We do this by creating a docker image that will start a nginx server to serve our client application.
 
-## Setup Infastructure as Code (IAC) using Ansible
+## Setup Infastructure as Code (IAC) using Bicep Templates
 
-This section covers creating Ansible Playbook to deploy 3 resources to Azure.
+https://learn.microsoft.com/en-ca/azure/azure-resource-manager/templates/template-tutorial-create-first-template?tabs=azure-powershell&WT.mc_id=azuredevops-azuredevops-jagord
+
+This section covers creating Bicep template to provision 3 resources to Azure.
 
 - Deploy Kubernetes Cluster
 - Deploy SQL Server and Database
 - Deploy Container Registry
 
 This comes in handy when we want to quickly setup and then tear down a set of resources. This makes it efficient to test a production deployment while saving money on valuable resource utilization.
+
+**Create Template File**
+
+```yaml
+
+param location string = resourceGroup().location
+param clusterName string = 'devdeveloper-aks-cluster'
+param nodeSize string = 'Standard_A2_v2'
+param nodeCount int = 1
+param k8sVersion string = ''
+
+resource devDeveloperCluster 'Microsoft.ContainerService/managedClusters@2024-09-01' = {
+  location: location
+  name: clusterName
+  sku: {
+    name: 'Base'
+    tier: 'Free'
+  }
+  identity: {
+    type: 'SystemAssigned'
+  }
+  properties: {
+    agentPoolProfiles: [
+      {
+        count: nodeCount
+        name: 'nodepool1'
+        osDiskSizeGB: 30
+        osType: 'Linux'
+        vmSize: nodeSize
+        mode: 'System'
+      }
+    ]
+    dnsPrefix: 'minimalaks'
+  }
+}
+
+resource devDeveloperSqlServer 'Microsoft.AzureData/sqlServerRegistrations/sqlServers@2019-07-24-preview' = {
+  parent: resourceSymbolicName
+  name: 'string'
+  properties: {
+    cores: int
+    edition: 'string'
+    propertyBag: 'string'
+    registrationID: 'string'
+    version: 'string'
+  }
+}
+```
+
+This bicep template file contains configurations for provisioning our resources. You can find a list of other resources in the [microsoft template documentation](https://learn.microsoft.com/en-us/azure/templates/).
+
+**Deploy Template to Azure**
+https://learn.microsoft.com/en-us/azure/templates/microsoft.containerservice/managedclusters?pivots=deployment-language-bicep
+
+```bash
+az group create --name myResourceGroup --location 'Central US'
+
+templateFile="{provide-the-path-to-the-template-file}"
+az deployment group create --name blanktemplate --resource-group myResourceGroup --template-file $templateFile
+```
 
 ## Setup Kubernetes Deployment Pipeline using Azure DevOps
 
@@ -184,3 +248,7 @@ spec:
 **Ansible AKS Deployment**
 
 - https://learn.microsoft.com/en-us/azure/developer/ansible/aks-configure-clusters?toc=%2Fazure%2Faks%2Ftoc.json&bc=%2Fazure%2Faks%2Fbreadcrumb%2Ftoc.json
+
+**Self Hosted Azure Agents**
+
+- https://learn.microsoft.com/en-us/azure/devops/pipelines/agents/linux-agent?view=azure-devops
