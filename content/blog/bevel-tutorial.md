@@ -2,9 +2,9 @@
 title: Bevel All-In-One Tutorial
 thumbnail: /assets/logo_2.png
 date: 2024-12-09T15:13:45.129Z
-keywords: hyperledger fabric, hyperledger bevel
+keywords: "hyperledger fabric, hyperledger bevel"
 category: hyperledger
-draft:true 
+draft: true
 ---
 
 I started learning about Hyperledger Bevel and I wanted to provide a all in one tutorial covering a basic development setup. I'll later write a tutorial for a production setup which I will link to here.

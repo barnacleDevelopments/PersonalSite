@@ -2,9 +2,9 @@
 title: Deploy Express API to Kubernetes Cluster on Azure
 thumbnail: /assets/logo_2.png
 date: 2021-12-14T19:31:21.081Z
-keywords:
+keywords: kubernetes
 draft: true
-category:
+category: programming
 ---
 
 This tutorial assumes some basic understanding of Azure CLI and Azure in general.
