@@ -143,7 +143,7 @@ const IndexPage = ({ data }) => {
             <Box
               sx={{
                 px: [0, 0, 0, 0, 4],
-                pt: 1,
+                pt: [3, 3, 3, 3, 0],
               }}
             >
               <Box
