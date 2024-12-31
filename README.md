@@ -20,3 +20,5 @@ npm install
 ```bash
 npm run develop
 ```
+
+### Versioning
