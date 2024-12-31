@@ -5,7 +5,6 @@ import { graphql } from "gatsby";
 // Components
 import { StaticImage } from "gatsby-plugin-image";
 import { Text, Button, Flex, Box, Grid, Link, Heading } from "theme-ui";
-import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
 import {
   faBrain,
   faBug,
@@ -225,11 +224,6 @@ export const landingPageQuery = graphql`
           frontmatter {
             title
             date(formatString: "MMMM do, YYYY")
-            thumbnail {
-              childImageSharp {
-                gatsbyImageData
-              }
-            }
             category
           }
           excerpt(truncate: true, format: HTML, pruneLength: 100)

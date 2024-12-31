@@ -22,7 +22,10 @@ const PostCard = ({ post, postContent }) => {
         overflow: "hidden",
       }}
     >
-      <Grid gap={0} columns={[1, 1, 1, "1fr 3fr", "1fr 5fr"]}>
+      <Grid
+        gap={0}
+        columns={post.thumbnail ? [1, 1, 1, "1fr 3fr", "1fr 5fr"] : 1}
+      >
         {post.thumbnail && (
           <GatsbyImage
             imgStyle={{ objectFit: "cover" }}
