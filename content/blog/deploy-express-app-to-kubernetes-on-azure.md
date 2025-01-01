@@ -1,13 +1,13 @@
 ---
 title: Deploying a Node.js Express API to Kubernetes with Azure DevOps
 thumbnail: /assets/logo_2.png
-date: 2021-12-14T19:31:21.081Z
-keywords: kubernetes
-draft: true
+date: 2025-01-01T19:31:21.081Z
+keywords: kubernetes, azure, devops, node.js, express, docker, bicep templates, azure pipelines, ci/cd, aks, azure container registry
+draft: false
 category: programming
 ---
 
-This guide walks you through creating and deploying a Node.js Express API to Kubernetes, leveraging Docker, Kubernetes, and Azure DevOps. It assumes basic familiarity with the Azure CLI and Azure concepts.
+This guide walks you through creating and deploying a Node.js Express API to Kubernetes, leveraging Docker, Kubernetes, and Azure DevOps. It assumes basic familiarity with the Azure CLI and Azure concepts. I have created a [repository for reference](https://github.com/barnacleDevelopments/kubernetes-test) to help follow along with the tutorial.
 
 ## Prerequisites
 
@@ -150,38 +150,12 @@ resource devDeveloperCluster 'Microsoft.ContainerService/managedClusters@2024-09
 }
 
 output aksPrincipalId string = aks.identity.principalId
-output acrId string = acr.id
-
-// Reference: https://learn.microsoft.com/en-us/azure/templates/microsoft.sql/servers?pivots=deployment-language-bicep
-resource devDeveloperSqlServer 'Microsoft.Sql/servers@2022-05-01-preview' = {
-  name: sqlServerName
-  location: location
-  identity: {
-    type: 'SystemAssigned'
-  }
-  properties: {
-    minimalTlsVersion: '1.2'
-    publicNetworkAccess: 'Disabled'
-  }
-}
-
-// Reference: https://learn.microsoft.com/en-us/azure/templates/microsoft.sql/servers/databases?pivots=deployment-language-bicep
-resource sqlDB 'Microsoft.Sql/servers/databases@2022-05-01-preview' = {
-  parent: devDeveloperSqlServer
-  name: sqlDBName
-  location: location
-  sku: {
-    name: 'Basic'
-    tier: 'Basic'
-  }
-}
 ```
 
 **Create the Role Assignments Bicep File**
 Here we are writing the role assignments bicep file which will create a role assignment for our Kubernetes cluster to authenticate with the container registry to pull images.
 
 ```bicep
-
 @description('The Azure Container Registry ID')
 param acrId string
 
@@ -196,7 +170,6 @@ resource roleAssignment 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
     principalId: aksPrincipalId
   }
 }
-
 ```
 
 **Deploy the Templates to Azure**
@@ -211,12 +184,13 @@ az deployment group create \
   --resource-group <resource-group-name> \
   --template-file azuredeploy.bicep
 
-# Fetch outputs
+# Fetch outputs and store in variable
 outputs=$(az deployment group show \
   --resource-group <resource-group-name> \
   --name <deployment-name> \
   --query properties.outputs -o json)
 
+# Store aks principal id and acr id into variables
 aksPrincipalId=$(echo $outputs | jq -r '.aksPrincipalId.value')
 acrId=$(echo $outputs | jq -r '.acrId.value')
 
@@ -229,7 +203,7 @@ az deployment group create \
 
 ## Setup Kubernetes Deployment Pipeline using Azure DevOps
 
-This section covers deploying docker containers to our Kubernetes cluster using Azure Pipelines. This allows us to push continiously update our application images. This is achieved using a two staged pipeline defined in a YAML pipeline file. Once your pipeline file is defined you can run the pipeline to deploy your applications.
+This section covers deploying docker containers to our Kubernetes cluster using Azure Pipelines. This allows us to push continiously update our application images. This is achieved using a two staged pipeline defined in a YAML pipeline file. This file can be generated inside the Devops interface. Once your pipeline file is defined you can run the pipeline to deploy your applications.
 
 1. Stage One: Build Application and Update Azure Container Registry
 2. Stage Two: Deploy Applications to Kubernetes Cluster
@@ -243,15 +217,15 @@ resources:
 
 variables:
   # Container registry service connection established during pipeline creation
-  dockerRegistryServiceConnection: "ee2f42af-176c-4aba-848c-785e5de67f77"
+  dockerRegistryServiceConnection: "f908d294-cc22-4ef7-9658-c29d3df43b12"
   imageRepository: "node-ts-api"
   containerRegistry: "devdeveloperregistry.azurecr.io"
-  dockerfilePath: "**/Dockerfile.dev"
+  dockerfilePath: "**/Dockerfile"
   tag: "$(Build.BuildId)"
-  imagePullSecret: "devdeveloperregistry159782e3-auth"
+  imagePullSecret: "devdeveloperregistry8892c7e1-auth"
 
-  # Agent VM image name
-  vmImageName: "Personal Laptop"
+  # Agent Pool Name
+  poolName: "Personal Laptop"
 
 stages:
   - stage: Build
@@ -260,7 +234,7 @@ stages:
       - job: Build
         displayName: Build
         pool:
-          name: $(vmImageName)
+          name: $(poolName)
         steps:
           - task: Docker@2
             displayName: Build and push an image to container registry
@@ -283,8 +257,8 @@ stages:
       - deployment: Deploy
         displayName: Deploy
         pool:
-          name: $(vmImageName)
-        environment: "barnacleDevelopmentskubernetestest-1754.default"
+          name: $(poolName)
+        environment: "barnacleDevelopmentskubernetestest-1499.default"
         strategy:
           runOnce:
             deploy:
