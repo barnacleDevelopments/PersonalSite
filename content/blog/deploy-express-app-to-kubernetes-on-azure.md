@@ -80,7 +80,7 @@ spec:
 
 ## Setup Infastructure as Code (IAC) using Bicep Templates
 
-Use Bicep templates to provision an Azure Container Registry, Kubernetes cluster, and SQL Server with a database.
+Use Bicep templates to provision an Azure Container Registry, and Kubernetes cluster.
 
 **Create Template File**
 This bicep template file contains instructions for provisioning our resources. You can find a list of other resources in the [microsoft template documentation](https://learn.microsoft.com/en-us/azure/templates/). I've reference the Microsoft Documentation link for each resource for your reference.
@@ -96,10 +96,6 @@ param clusterName string = 'devdeveloper-aks-cluster'
 param nodeSize string = 'Standard_A2_v2'
 param nodeCount int = 1
 param k8sVersion string = ''
-
-// SQL SERVER + DB
-param sqlServerName string = 'devdeveloper-sql-server'
-param sqlDBName string = 'devdeveloper-sql-db'
 
 // Storage Account
 param storageAccountName string = 'devdevelopersa'
