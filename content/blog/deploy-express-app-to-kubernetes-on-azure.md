@@ -180,21 +180,17 @@ az deployment group create \
   --resource-group <resource-group-name> \
   --template-file azuredeploy.bicep
 
-# Fetch outputs and store in variable
-outputs=$(az deployment group show \
+# Fetch outputs
+az deployment group show \
   --resource-group <resource-group-name> \
   --name <deployment-name> \
-  --query properties.outputs -o json)
-
-# Store aks principal id and acr id into variables
-aksPrincipalId=$(echo $outputs | jq -r '.aksPrincipalId.value')
-acrId=$(echo $outputs | jq -r '.acrId.value')
+  --query properties.outputs -o json
 
 # Deploy Role Assignment
 az deployment group create \
   --resource-group <resource-group-name> \
   --template-file roleAssignment.bicep \
-  --parameters acrId=$acrId aksPrincipalId=$aksPrincipalId
+  --parameters aksPrincipalId=<principle-id>
 ```
 
 ## Setup Kubernetes Deployment Pipeline using Azure DevOps
