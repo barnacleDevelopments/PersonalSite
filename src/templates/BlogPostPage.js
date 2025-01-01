@@ -70,7 +70,7 @@ const BlogPostPage = ({ data }) => {
             h1: { fontSize: "2.2em" },
             h2: { fontSize: "2em" },
             h3: { fontSize: "1.5em", fontStyle: "italic" },
-            ul: { marginLeft: "40px" },
+            ul: { marginLeft: "40px", overflowWrap: "break-word" },
             ol: { marginLeft: "40px", overflowWrap: "break-word" },
             li: { listStyleType: "dot" },
             blockquote: { fontStyle: "italic" },
