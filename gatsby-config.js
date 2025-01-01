@@ -58,6 +58,7 @@ module.exports = {
               iframeId: false, //Optional: if true, iframe's id will be set to what is provided after 'video:' (YouTube IFrame player API requires iframe id)
             },
           },
+          "gatsby-remark-responsive-iframe",
           "gatsby-remark-relative-images",
           {
             resolve: `gatsby-remark-images`,

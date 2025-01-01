@@ -9,6 +9,8 @@ category: programming
 
 This guide walks you through creating and deploying a Node.js Express API to Kubernetes, leveraging Docker, Kubernetes, and Azure DevOps. It assumes basic familiarity with the Azure CLI and Azure concepts. I have created a [repository for reference](https://github.com/barnacleDevelopments/kubernetes-test) to help follow along with the tutorial.
 
+`vimeo:https://vimeo.com/1043303804?share=copy`
+
 ## Prerequisites
 
 - Basic understanding of Azure CLI and Kubernetes
@@ -212,7 +214,7 @@ variables:
   dockerRegistryServiceConnection: "f908d294-cc22-4ef7-9658-c29d3df43b12"
   imageRepository: "node-ts-api"
   containerRegistry: "devdeveloperregistry.azurecr.io"
-  dockerfilePath: "**/Dockerfile"
+  dockerfilePath: "**/Dockerfile.dev"
   tag: "$(Build.BuildId)"
   imagePullSecret: "devdeveloperregistry8892c7e1-auth"
 
