@@ -1,6 +1,6 @@
 ---
 title: Content Security Policy
-thumbnail: /assets/logo_2.png
+thumbnail: /assets/csp.webp
 date: 2021-12-14T19:31:21.081Z
 keywords: content security policy, html standard, XSS attack, headers, cors, csp
 draft: false

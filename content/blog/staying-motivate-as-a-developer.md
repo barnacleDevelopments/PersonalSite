@@ -1,6 +1,6 @@
 ---
 title: Staying Motivated as a Developer
-thumbnail: /assets/logo_2.png
+thumbnail: /assets/cartoon-working.webp
 date: 2024-10-17T15:59:17.824Z
 keywords: software development, web technologies, imposter syndrome, learning strategy, project management, programming challenges, persistence in learning, developer motivation, technology tools, growth mindset, coding journey, overcoming challenges, feedback in programming, mastery in software development, learning from failure, programming insights.
 category: programming
