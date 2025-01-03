@@ -39,6 +39,11 @@ const Seo = ({ title, description, image, lang, keywords, children }) => {
       <title>{seo.title}</title>
       <meta name="title" content={seo.title} />
       <meta name="description" content={seo.description} />
+      <meta name="github" content={"https://github.com/barnacleDevelopments"} />
+      <meta
+        name="linkedin"
+        content={"https://www.linkedin.com/in/devin-dev-d-63008412b/"}
+      />
       <meta name="og:title" content={seo.title} />
       <meta name="og:description" content={seo.description} />
       <meta name="og:image" content={seo.image.src} />
