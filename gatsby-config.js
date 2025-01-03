@@ -11,7 +11,7 @@ module.exports = {
       width: 110,
       height: 110,
     },
-    titleTemplate: "%s | Full-Stack developer & Devops Engineer",
+    titleTemplate: "Full-Stack Developer & Devops Engineer",
     defaultTitle: "Devin Davis | Full-Stack Developer & Devops Engineer",
     description:
       "Explore the professional portfolio of Devin Davis, a results-oriented Full-Stack Web Developer specializing Devops and Blockchain.",
