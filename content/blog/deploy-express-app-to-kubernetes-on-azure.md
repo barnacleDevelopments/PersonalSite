@@ -99,9 +99,6 @@ param nodeSize string = 'Standard_A2_v2'
 param nodeCount int = 1
 param k8sVersion string = ''
 
-// Storage Account
-param storageAccountName string = 'devdevelopersa'
-
 // Container Registry
 param containerRegistryName string = 'devdeveloperregistry'
 
