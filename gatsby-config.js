@@ -5,7 +5,7 @@ require("dotenv").config({
 module.exports = {
   siteMetadata: {
     url: "https://devdeveloper.ca",
-    title: "devdeveloper",
+    title: "Devin Davis | Full-Stack Developer & Devops Engineer",
     image: {
       src: `assets/logo_2.png`,
       width: 110,
