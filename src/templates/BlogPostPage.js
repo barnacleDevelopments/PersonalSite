@@ -83,7 +83,7 @@ const BlogPostPage = ({ data }) => {
         ></Text>
         <Box sx={{ textAlign: "center" }}>
           <Link href="/blog">
-            <Button>Read More</Button>
+            <Button>Read More Articles</Button>
           </Link>
         </Box>
       </Box>
