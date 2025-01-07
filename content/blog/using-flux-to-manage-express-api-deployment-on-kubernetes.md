@@ -101,7 +101,13 @@ az deployment group create --resource-group kubernetesTest --template-file azure
 
 ```
 
-**Create new bicep file to setup managed identity between AKS and container registry**
+**Create new bicep file to setup managed identity between AKS and container registry** TODO: need to figure out how to setup the principal properly
+
+```bash
+az aks show --resource-group KubernetesTest --name devdeveloper-aks-cluster --query "identityProfile.kubeletidentity.objectId" -o tsv
+
+az role assignment create --assignee ed6b1c8a-ca84-4041-9d87-da92420c8565 --role "AcrPull" --scope /subscriptions/d8ba9377-cef7-4515-af2b-dca92421761b/resourceGroups/KubernetesTest/providers/Microsoft.ContainerRegistry/registries/devdeveloperregistry
+```
 
 ```bash
 @description('The AKS principal ID')
@@ -113,7 +119,7 @@ resource acr 'Microsoft.ContainerRegistry/registries@2022-09-01' existing = {
 }
 
 resource roleAssignment 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
-  name: guid(acrId, aksPrincipalId, 'acrpull')
+  name: guid(acr.Id, aksPrincipalId, 'acrpull')
   scope: acr
   properties: {
     roleDefinitionId: subscriptionResourceId('Microsoft.Authorization/roleDefinitions', '7f951dda-4ed3-4680-a7ca-43fe172d538d') // AcrPull role
@@ -126,7 +132,7 @@ resource roleAssignment 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
 
 ```bash
 
-az deployment group create --resource-group kubernetesTest --template-file roleAssignment.bicep
+az deployment group create --resource-group kubernetesTest --template-file roleAssignment.bicep --parameters aksPrincipalId=
 
 ```
 
@@ -222,34 +228,16 @@ node-ts-api   LoadBalancer   10.43.180.22   172.19.0.3    8080:32289/TCP   5m25s
 
 ## Setup Flux
 
-By the end of this section your file structure should look like this.
-
-```
-my-flux-repo/
-├── flux-system/
-│   ├── kustomization.yaml       # Main kustomization file for Flux configuration
-│   ├── gitrepository.yaml        # Defines the Git source for syncing manifests
-│   ├── imagerepository.yaml      # Defines the ACR source for tracking images
-│   ├── imagepolicy.yaml          # Defines the policy for selecting image versions
-│   └── imageupdateautomation.yaml # Automates image updates in manifests
-├── apps/
-│   └── my-app/
-│       ├── kustomization.yaml    # Defines kustomization for the app
-│       └── deployment.yaml       # Kubernetes Deployment manifest (uses image tag)
-└── README.md                     # Documentation about the setup
-```
-
-### Create Flux repository
-
 Here we setup a new repository for the main Flux Configuration. This is the repository that our Kubernetes cluster will interact with and watch for changes.
 
 ```bash
 flux bootstrap github \
   --owner=$GITHUB_USER \
-  --repository=flux-kuberntes-test \
+  --repository=flux-kubernetes-test \
   --branch=main \
   --path=./clusters/test-cluster \
-  --personal
+  --personal \
+  --components-extra image-reflector-controller,image-automation-controller #<=== add extra components to automate image updates
 ```
 
 Now clone the respository:
@@ -262,14 +250,28 @@ cd flux-kubernetes-test
 
 ```
 
+By the end of this section your Flux repository structure should look like this.
+
+```
+test-cluster/
+├── flux-system/
+│   ├── kustomization.yaml       # Main kustomization file for Flux configuration
+|   └── flux-kubernetes-test-source.yaml # GitRepository
+├── apps/
+│   └── my-app/
+│       ├── kustomization.yaml    # Defines kustomization for the app
+│       └── deployment.yaml       # Kubernetes Deployment manifest (uses image tag)
+└── README.md                     # Documentation about the setup
+```
+
 ### Add ExpressJS API Repositoy to Flux
 
 The next step is to add a `GitRepository` object referencing the ExpressJS application repository to the Flux repository so that it becomes aware of its manifest files. Notice that we are creating a file `flux-kubernetes-test-source.yaml` under the `/clusters/test-cluster/` directory of the Flux configuration repository we just cloned.
 
 ```bash
 flux create source git flux-kubernetes-test \
-  --url=https://github.com/barnacleDevelopments/kubernetes-test/tree/version_2 \
-  --branch=master \
+  --url=https://github.com/barnacleDevelopments/kubernetes-test
+  --branch=version_2 \
   --interval=1m \
   --export > ./clusters/test-cluster/flux-kubernetes-test-source.yaml
 ```
@@ -285,16 +287,11 @@ metadata:
 spec:
   interval: 1m
   ref:
-    branch: master
-  url: https://github.com/$GITHUB_USER/kubernetes-test/tree/version_2
+    branch: version_2
+  url: https://github.com/$GITHUB_USER/kubernetes-test
 ```
 
-Commit and push changes to github.
-
-```bash
-git add -A && git commit -m "Add flux-kubernetes-test GitRepository"
-git push
-```
+the next few objects will go in the same file.
 
 ### Add Azure Container Registry by creating an ImageRepository object
 
@@ -312,13 +309,6 @@ spec:
   provider: generic
 ```
 
-Commit and push changes to github.
-
-```bash
-git add -A && git commit -m "Add flux-kubernetes-test ImageRepository"
-git push
-```
-
 ### Create ImagePolicy object
 
 The image policy object will tell Kubernetes how to select the latest image from our container registry.
@@ -331,16 +321,9 @@ metadata:
   namespace: default
 spec:
   imageRepositoryRef:
-    name: kubernetes-test <=== reference to the ImageRepository object.
+    name: kubernetes-test #<=== reference to the ImageRepository object.
   policy:
-    latest: {}            <=== the image we would like to select (the latest image in this case)
-```
-
-Commit and push changes to github.
-
-```bash
-git add -A && git commit -m "Add flux-kubernetes-test ImagePolicy"
-git push
+    latest: {} #<=== the image we would like to select (the latest image in this case)
 ```
 
 ### Create ImageUpdateAutomation object
@@ -354,18 +337,68 @@ metadata:
   name: node-ts-api-automation
   namespace: flux-system
 spec:
-  interval: 5m           <=== check the repository every 5 minutes for changes
+  interval: 5m #<=== check the repository every 5 minutes for changes
   sourceRef:
     kind: GitRepository
-    name: node-ts-api    <=== use the node-ts-api GitRepository object
+    name: node-ts-api #<=== use the node-ts-api GitRepository object
   update:
     strategy: Setters
 ```
 
-Commit and push changes to Github.
+### Complete Config
+
+```yaml
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: GitRepository
+metadata:
+  name: node-ts-api
+  namespace: flux-system
+spec:
+  interval: 1m0s
+  ref:
+    branch: version_2
+  url: https://github.com/barnacleDevelopments/kubernetes-test
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageRepository
+metadata:
+  name: kubernetes-test
+  namespace: default
+spec:
+  image: devdeveloperregistry.azurecr.io/node-ts-api #<=== this is the address of our image
+  interval: 1h #<=== we are checking every hour
+  provider: generic
+---
+apiVersion: image.toolkit.fluxcd.io/v1alpha2
+kind: ImageUpdateAutomation
+metadata:
+  name: node-ts-api-automation
+  namespace: flux-system
+spec:
+  interval: 5m #<=== check the repository every 5 minutes for changes
+  sourceRef:
+    kind: GitRepository
+    name: node-ts-api #<=== use the node-ts-api GitRepository object
+  update:
+    strategy: Setters
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImagePolicy
+metadata:
+  name: flux-kubernetes-test
+  namespace: default
+spec:
+  imageRepositoryRef:
+    name: kubernetes-test # <=== reference to the ImageRepository object.
+  policy:
+    latest: {} # <=== the image we would like to select (the latest image in this case)
+```
+
+Commit and push changes to github.
 
 ```bash
-git add -A && git commit -m "Add flux-kubernetes-test ImageUpdateAutomation"
+git add -A && git commit -m "Add flux-kubernetes-test GitRepository"
 git push
 ```
 
@@ -377,7 +410,7 @@ Next, we are creating a kustomization object. This object tells flux where the m
 flux create kustomization flux-kubernetes-test \
   --target-namespace=default \
   --source=flux-kubernetes-test \
-  --path="./manifest" \
+  --path="./manifests" \
   --prune=true \
   --wait=true \
   --interval=30m \
