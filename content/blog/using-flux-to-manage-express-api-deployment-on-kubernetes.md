@@ -149,7 +149,7 @@ az aks get-credentials --resource-group KubernetesTest --name devdeveloper-aks-c
 Create a `kustomization.yaml` file inside the manifest directory of the ExpressJS repository.
 
 ```yaml
-apiVersion: kustomize.config.k8s.io/v1beta1
+  apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - deployment.yaml
@@ -364,13 +364,13 @@ apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImageRepository
 metadata:
   name: kubernetes-test
-  namespace: default
+  namespace: flux-system
 spec:
   image: devdeveloperregistry.azurecr.io/node-ts-api #<=== this is the address of our image
-  interval: 1h #<=== we are checking every hour
-  provider: generic
+  interval: 1m #<=== we are checking every hour
+  provider: azure
 ---
-apiVersion: image.toolkit.fluxcd.io/v1alpha2
+apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImageUpdateAutomation
 metadata:
   name: node-ts-api-automation
@@ -380,19 +380,30 @@ spec:
   sourceRef:
     kind: GitRepository
     name: node-ts-api #<=== use the node-ts-api GitRepository object
+  git:
+    checkout:
+      ref:
+        branch: version_2
+    push:
+      branch: version_2
+    commit:
+      author:
+        email: devin@mailfence.com
+        name: devin
   update:
-    strategy: Setters
+    path: ./manifests
 ---
 apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImagePolicy
 metadata:
   name: flux-kubernetes-test
-  namespace: default
+  namespace: flux-system
 spec:
   imageRepositoryRef:
     name: kubernetes-test # <=== reference to the ImageRepository object.
   policy:
-    latest: {} # <=== the image we would like to select (the latest image in this case)
+    numerical:
+      order: asc # <=== the image we would like to select (the latest image in this case)
 ```
 
 Commit and push changes to github.
