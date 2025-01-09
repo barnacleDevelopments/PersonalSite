@@ -15,13 +15,13 @@ Flux leverages GitOps to manage Kubernetes clusters declaratively. It does so by
 
 - Review my [previous tutorial](/blog/deploy-express-app-to-kubernetes-on-azure) on deploying Express js api to AKS.
 
-- Install K3D for a local cluster for testing purposes.
+- [Install K3D](https://k3d.io/stable/) for a local cluster for testing purposes.
 
 - [Install Flux](https://fluxcd.io/flux/installation/#install-the-flux-cli)
 
 ## Create Cluster
 
-First you'll need to startup a fresh Azure Kubernetes Service (AKS) Deployment.
+First you'll need to startup a fresh Azure Kubernetes Service (AKS) and Azure Container Registry (ACR) deployment. We will utilize Bicep files to declaratively deploy these resources to Azure using Azure CLI.
 
 **Create a bicep file to describe you resources.**
 
@@ -101,39 +101,12 @@ az deployment group create --resource-group kubernetesTest --template-file azure
 
 ```
 
-**Create new bicep file to setup managed identity between AKS and container registry** TODO: need to figure out how to setup the principal properly
+**Create new role assignment to give AKS AcrPull access.**
 
 ```bash
 az aks show --resource-group KubernetesTest --name devdeveloper-aks-cluster --query "identityProfile.kubeletidentity.objectId" -o tsv
 
 az role assignment create --assignee ed6b1c8a-ca84-4041-9d87-da92420c8565 --role "AcrPull" --scope /subscriptions/d8ba9377-cef7-4515-af2b-dca92421761b/resourceGroups/KubernetesTest/providers/Microsoft.ContainerRegistry/registries/devdeveloperregistry
-```
-
-```bash
-@description('The AKS principal ID')
-param aksPrincipalId string
-
-// Declare the existing ACR resource
-resource acr 'Microsoft.ContainerRegistry/registries@2022-09-01' existing = {
-  name: 'devdeveloperregistry'
-}
-
-resource roleAssignment 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
-  name: guid(acr.Id, aksPrincipalId, 'acrpull')
-  scope: acr
-  properties: {
-    roleDefinitionId: subscriptionResourceId('Microsoft.Authorization/roleDefinitions', '7f951dda-4ed3-4680-a7ca-43fe172d538d') // AcrPull role
-    principalId: aksPrincipalId
-  }
-}
-```
-
-**Create role assignment on Azure**
-
-```bash
-
-az deployment group create --resource-group kubernetesTest --template-file roleAssignment.bicep --parameters aksPrincipalId=
-
 ```
 
 **Register aks deployment with Kubectl**
@@ -156,7 +129,7 @@ resources:
   - service.yaml
 ```
 
-Modify the deployment.yaml file with ImagePolicy comment. This will allow flux to identity the field it needs to update when a new image is uploaded to our Azure Container Registry.
+Modify the deployment.yaml file with ImagePolicy comment and set the initial tag to 0. This will allow flux to identity the field it needs to update when a new image is uploaded to our ACR.
 
 ```yaml
 apiVersion: apps/v1
@@ -178,7 +151,7 @@ spec:
     spec:
       containers:
         - name: nodetsapi
-          image: devdeveloperregistry.azurecr.io/node-ts-api:0 # {"$imagepolicy": "flux-system:node-ts-api"}
+          image: devdeveloperregistry.azurecr.io/node-ts-api:0 # {"$imagepolicy": "flux-system:node-ts-api"} <=== add this comment and change intial tag
           ports:
             - containerPort: 3000
 ```
@@ -241,10 +214,10 @@ kubectl apply -k ./manifests/
 
 ```
 
-Check that the services are running.
+Check that the services and deployments are up and running.
 
 ```bash
-kubectl get services
+kubectl get services,deployments
 
 // Output
 NAME          TYPE           CLUSTER-IP     EXTERNAL-IP   PORT(S)          AGE
@@ -517,3 +490,5 @@ git push
 ```bash
 
 ```
+
+## Resources
