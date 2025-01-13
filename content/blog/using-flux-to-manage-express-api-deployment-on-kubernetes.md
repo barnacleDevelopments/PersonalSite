@@ -136,9 +136,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: node-ts-api
-  annotations:
-    fluxcd.io/automated: "true"
-    fluxcd.io/tag.kubernetes-test: "alphabetical"
 spec:
   replicas: 1
   selector:
