@@ -19,86 +19,118 @@ Flux leverages GitOps to manage Kubernetes clusters declaratively. It does so by
 
 - [Install Flux](https://fluxcd.io/flux/installation/#install-the-flux-cli)
 
+- [Install Terraform CLI](https://developer.hashicorp.com/terraform/tutorials/cloud-get-started/cloud-login)
+
 ## Create Cluster
 
 First you'll need to startup a fresh Azure Kubernetes Service (AKS) and Azure Container Registry (ACR) deployment. We will utilize Bicep files to declaratively deploy these resources to Azure using Azure CLI.
 
 **Create a bicep file to describe you resources.**
 
-```bicep
-// General
-param location string = resourceGroup().location
-param resourceGroupName string = resourceGroup().name
-param subscriptionId string = subscription().subscriptionId
+```tf
+# Configure the Azure provider
+terraform {
+  required_version = ">=1.0"
 
-// Kubernetes Cluster
-param clusterName string = 'devdeveloper-aks-cluster'
-param nodeSize string = 'Standard_A2_v2'
-param nodeCount int = 1
-param k8sVersion string = ''
-
-// Container Registry
-param containerRegistryName string = 'devdeveloperregistry'
-
-// Reference: https://learn.microsoft.com/en-us/azure/templates/microsoft.containerregistry/registries?pivots=deployment-language-bicep
-resource containerRegistry 'Microsoft.ContainerRegistry/registries@2022-12-01' = {
-  name: containerRegistryName
-  location: location
-  identity: {
-    type: 'SystemAssigned'
-  }
-  sku: {
-    name: 'Basic'
-  }
-  properties: {
-    adminUserEnabled: false
+  required_providers {
+    azapi = {
+      source  = "azure/azapi"
+      version = "~>1.5"
+    }
+    azurerm = {
+      source  = "hashicorp/azurerm"
+      version = "~>3.0"
+    }
+    random = {
+      source  = "hashicorp/random"
+      version = "~>3.0"
+    }
+    time = {
+      source  = "hashicorp/time"
+      version = "0.9.1"
+    }
   }
 }
 
-// Template Reference: https://learn.microsoft.com/en-us/azure/templates/microsoft.containerservice/managedclusters?pivots=deployment-language-bicep
-// Manage Node Pools Reference: https://learn.microsoft.com/en-us/azure/aks/use-system-pools?tabs=azure-cli
-resource devDeveloperCluster 'Microsoft.ContainerService/managedClusters@2024-09-01' = {
-  location: location
-  name: clusterName
-  sku: {
-    name: 'Base'
-    tier: 'Free'
-  }
-  identity: {
-    type: 'SystemAssigned'
-  }
-  properties: {
-    agentPoolProfiles: [
-      {
-        count: nodeCount
-        name: 'nodepool1'
-        osDiskSizeGB: 30
-        osType: 'Linux'
-        vmSize: nodeSize
-        mode: 'System'
-      }
-    ]
-    dnsPrefix: 'minimalaks'
+provider "azurerm" {
+  features {}
+}
+
+# Variables
+
+resource "azapi_resource_action" "ssh_public_key_gen" {
+  type        = "Microsoft.Compute/sshPublicKeys@2022-11-01"
+  resource_id = azapi_resource.ssh_public_key.id
+  action      = "generateKeyPair"
+  method      = "POST"
+
+  response_export_values = ["publicKey", "privateKey"]
+}
+
+resource "azapi_resource" "ssh_public_key" {
+  type      = "Microsoft.Compute/sshPublicKeys@2022-11-01"
+  name      = var.ssh_key_name
+  location  = azurerm_resource_group.rg.location
+  parent_id = azurerm_resource_group.rg.id
+}
+
+output "key_data" {
+  value = azapi_resource_action.ssh_public_key_gen.output.publicKey
+}
+
+# Resource Group
+resource "azurerm_resource_group" "rg" {
+  name     = "KubernetesTest"
+  location = var.location
+}
+
+# Container Registry
+resource "azurerm_container_registry" "acr" {
+  name                = var.container_registry_name
+  resource_group_name = azurerm_resource_group.rg.name
+  location            = var.location
+  sku                 = "Basic"
+  admin_enabled       = false
+
+  identity {
+    type = "SystemAssigned"
   }
 }
 
-output aksPrincipalId string = aks.identity.principalId
-```
+# Kubernetes Cluster
+resource "azurerm_kubernetes_cluster" "k8s" {
+  location            = azurerm_resource_group.rg.location
+  name                = var.azurerm_kubernetes_cluster_dns_name
+  resource_group_name = azurerm_resource_group.rg.name
+  dns_prefix          = var.azurerm_kubernetes_cluster_dns_prefix
 
-**Create resource group**
+  identity {
+    type = "SystemAssigned"
+  }
 
-```bash
+  default_node_pool {
+    name       = "agentpool"
+    vm_size    = "Standard_A2_v2"
+    node_count = var.node_count
+  }
+  linux_profile {
+    admin_username = var.username
 
-az group create --resource-group KubernetesTest --location canadaeast
-
+    ssh_key {
+      key_data = azapi_resource_action.ssh_public_key_gen.output.publicKey
+    }
+  }
+  network_profile {
+    network_plugin    = "kubenet"
+    load_balancer_sku = "standard"
+  }
+}
 ```
 
 **Deploy resources to Azure**
 
 ```bash
-
-az deployment group create --resource-group kubernetesTest --template-file azuredeploy.bicep
-
+terraform apply
 ```
 
 **Create new role assignment to give AKS AcrPull access.**
@@ -125,8 +157,7 @@ Create a `kustomization.yaml` file inside the manifest directory of the ExpressJ
   apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - deployment.yaml
-  - service.yaml
+  - node-ts-api-deployment.yaml
 ```
 
 Modify the deployment.yaml file with ImagePolicy comment and set the initial tag to 0. This will allow flux to identity the field it needs to update when a new image is uploaded to our ACR.
@@ -489,3 +520,5 @@ git push
 ```
 
 ## Resources
+
+https://registry.terraform.io/
