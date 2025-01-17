@@ -495,13 +495,14 @@ kubectl -n default get deployments,services
 
 ## Bringing it all Together
 
-In the [previous tutorial]() we demonstrated uploading new Docker images of our ExpressJS application to our Azure Container Registry. Once this image was uploaded, Azure Pipelines trigged AKS to pull the latest image from the registry to re-deploy the updated image to Kubernetes pods. Now because we are utilizing Flux to manage deployments to Kubernetes, our pipeline simply needs to handle the build and upload to the container registry and Flux will handle the rest.
+In the [previous tutorial](/blog/deploy-express-app-to-kubernetes-on-azure) I demonstrated uploading new Docker images of our ExpressJS application to our Azure Container Registry. Once this image was uploaded, Azure Pipelines trigged AKS to pull the latest image from the registry to re-deploy the updated image to Kubernetes pods. Now because we are utilizing Flux to manage deployments to Kubernetes, our pipeline simply needs to handle the build and upload to the container registry and Flux will handle the rest.
 
 1. Now let's update our ExpressJS application with a new route.
 
 ```typecript
-
-
+app.get("/flux", (req: Request, res: Response) => {
+  res.send("Welcome to Flux!");
+});
 ```
 
 2. Then push those changes to GitHub.
@@ -519,7 +520,7 @@ git push
 4. Monitor our pods re-deploying.
 
 ```bash
-
+kubectl get pods
 ```
 
 ## Resources
