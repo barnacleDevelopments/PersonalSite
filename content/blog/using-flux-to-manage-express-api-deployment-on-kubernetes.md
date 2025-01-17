@@ -136,7 +136,7 @@ terraform apply
 ```bash
 az aks show --resource-group KubernetesTest --name devdeveloper-aks-cluster --query "identityProfile.kubeletidentity.objectId" -o tsv
 
-az role assignment create --assignee ed6b1c8a-ca84-4041-9d87-da92420c8565 --role "AcrPull" --scope /subscriptions/d8ba9377-cef7-4515-af2b-dca92421761b/resourceGroups/KubernetesTest/providers/Microsoft.ContainerRegistry/registries/devdeveloperregistry
+az role assignment create --assignee ed6b1c8a-ca84-4041-9d87-da92420c8565 --role "AcrPull" --scope /subscriptions/59966e90-8185-44af-a00c-13bc237e59cb/resourceGroups/KubernetesTest/providers/Microsoft.ContainerRegistry/registries/devdeveloperregistry
 ```
 
 **Register aks deployment with Kubectl**
@@ -244,7 +244,6 @@ docker push test-cluster-registry.localhost:36741/node-ts-api:local
 Try running your application inside a local k3d cluster. The `-k` flag tells kubectl to apply the resource manifest files inside the `kustomization.yaml` file.
 
 ```bash
-
 kubectl apply -k ./manifests/overlays/dev
 ```
 
@@ -323,6 +322,12 @@ spec:
   ref:
     branch: version_2
   url: https://github.com/$GITHUB_USER/kubernetes-test
+```
+
+Create secret to authenticate with repository. This is different from the personal access token (PAT) provided when bootstraping flux.
+
+```bash
+kubectl create secret generic flux-git-auth --namespace flux-system --from-literal=username=barnacleDevelopments --from-literal=password=$GITHUB_PAT
 ```
 
 the next few objects will go in the same file.
