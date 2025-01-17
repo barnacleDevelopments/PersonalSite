@@ -7,8 +7,6 @@ draft: false
 category: devops
 ---
 
-Flux is a powerful declarative system to manage your Kubernetes deployments.
-
 ## Prerequisite
 
 - Review my [previous tutorial](/blog/deploy-express-app-to-kubernetes-on-azure) on deploying Express js api to AKS.
@@ -197,7 +195,7 @@ stages:
 
 ## Test out application in local development
 
-The power of Kubernetes is that each application within a system is running inside it's own container independent of other containers. This makes it easy for teams to develop applications inside an isolated environment.
+The power of Kubernetes is that each application within a system is running inside it's own container independent of other containers. This makes it easy for teams to develop applications inside an isolated environment. Let's startup our ExpressJS application in our local dev environment using K3D a lightweight Kubernetes implementation for local development.
 
 ### Create K3D cluster and local registry
 
@@ -360,7 +358,23 @@ spec:
     strategy: Setters
 ```
 
+#### Prepare Express JS API for Flux
+
+In order for Flux to automate image deployment later we will need to update our [ExpressJS application](https://github.com/barnacleDevelopments/kubernetes-test/tree/version_2) manifest files. We are going to update the overlay with a couple comments. These comments will allow flux to identify these fields and push updates to the repository whenever the ExpressJS API image changes. It will update the tag and name seperately as needed.
+
+```yaml
+resources:
+  - ../../base
+namePrefix: prod-
+images:
+  - name: node-ts-api
+    newName: devdeveloperregistry.azurecr.io/node-ts-api # {"$imagepolicy": "flux-system:node-ts-api:name"} #<=== comment 1
+    newTag: "88" # {"$imagepolicy": "flux-system:node-ts-api:tag"} #<=== comment 2
+```
+
 ### Complete Config
+
+Here is the complete configuration for the ExpressJS application. We are going to place this all in one file for simplicity because all these objects are highly related to each other.
 
 ```yaml
 ---
@@ -463,15 +477,15 @@ Now let's watch Flux and Kuberenets do their work reconsiling this deployment:
 flux get kustomizations --watch
 ```
 
-In another terminal look at the deployments and services:
+In another terminal look at the deployments, pods, and services:
 
 ```bash
-kubectl -n default get deployments,services
+kubectl -n default get deployments,services,pods
 ```
 
 ## Bringing it all Together
 
-In the [previous tutorial](/blog/deploy-express-app-to-kubernetes-on-azure) I demonstrated uploading new Docker images of our ExpressJS application to our Azure Container Registry. Once this image was uploaded, Azure Pipelines trigged AKS to pull the latest image from the registry to re-deploy the updated image to Kubernetes pods. Now because we are utilizing Flux to manage deployments to Kubernetes, our pipeline simply needs to handle the build and upload to the container registry and Flux will handle the rest.
+In the [previous tutorial](/blog/deploy-express-app-to-kubernetes-on-azure) I demonstrated uploading new Docker images of our ExpressJS application to our Azure Container Registry. Once this image was uploaded, Azure Pipelines (CI/CD) trigged AKS to pull the latest image from the registry to re-deploy the updated image to Kubernetes pods. Now because we are utilizing Flux to manage deployments to Kubernetes, our pipeline simply needs to handle the build and upload to the container registry and Flux will handle the rest.
 
 1. Now let's update our ExpressJS application with a new route.
 
