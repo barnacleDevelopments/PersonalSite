@@ -7,11 +7,7 @@ draft: true
 category: programming
 ---
 
-This tutorial is a continuation of my previous guide on deploying an [ExpressJS application to AKS](/blog/deploy-express-app-to-kubernetes-on-azure). If you haven’t already, I recommend reviewing that tutorial before diving into this one. In the previous guide, we explored a CI/CD deployment strategy using Azure DevOps with Bicep files. In this tutorial, we’ll take it a step further by removing the deployment step from the pipeline and adopting a declarative approach with GitOps, powered by Flux.
-
-Flux leverages GitOps to manage Kubernetes clusters declaratively. It does so by deploying agents on the cluster that continuously monitor configuration files stored in a Git repository and reconcile any differences. This ensures that Kubernetes infrastructure consistently reflects the desired state of the application. While setting up Flux can involve some complex configuration, once in place, it seamlessly works with Kubernetes to maintain the desired state. This tutorial will walk you through deploying an Express JS API to Kubernetes using Flux.
-
-## Prerequisites
+## Prerequisite
 
 - Review my [previous tutorial](/blog/deploy-express-app-to-kubernetes-on-azure) on deploying Express js api to AKS.
 
@@ -20,6 +16,8 @@ Flux leverages GitOps to manage Kubernetes clusters declaratively. It does so by
 - [Install Flux](https://fluxcd.io/flux/installation/#install-the-flux-cli)
 
 - [Install Terraform CLI](https://developer.hashicorp.com/terraform/tutorials/cloud-get-started/cloud-login)
+
+- [Pull Latest Project Image](https://github.com/barnacleDevelopments/kubernetes-test/tree/version_2)
 
 ## Create Cluster
 
@@ -151,15 +149,6 @@ az aks get-credentials --resource-group KubernetesTest --name devdeveloper-aks-c
 
 ## Prepare ExpressJS API for Flux
 
-Create a `kustomization.yaml` file inside the manifest directory of the ExpressJS repository.
-
-```yaml
-  apiVersion: kustomize.config.k8s.io/v1beta1
-kind: Kustomization
-resources:
-  - node-ts-api-deployment.yaml
-```
-
 Modify the deployment.yaml file with ImagePolicy comment and set the initial tag to 0. This will allow flux to identity the field it needs to update when a new image is uploaded to our ACR.
 
 ```yaml
@@ -179,7 +168,7 @@ spec:
     spec:
       containers:
         - name: nodetsapi
-          image: devdeveloperregistry.azurecr.io/node-ts-api:0 # {"$imagepolicy": "flux-system:node-ts-api"} <=== add this comment and change intial tag
+          image: devdeveloperregistry.azurecr.io/node-ts-api:0 # {"$imagepolicy": "flux-system:node-ts-api"} # <=== add this comment and change intial tag
           ports:
             - containerPort: 3000
 ```
@@ -232,14 +221,31 @@ stages:
 
 ## Test out application in local development
 
-The power of Kubernetes is that each application within a system is running inside it's own container independent of other containers. This makes it easy for teams to develop applications inside an isolated environment. Try running your application inside a local k3d cluster. The `-k` flag tells kubectl to apply the resource manifest files inside the `kustomization.yaml` file. Make sure that your Pipeline has at least uploaded one image to the container registry.
+The power of Kubernetes is that each application within a system is running inside it's own container independent of other containers. This makes it easy for teams to develop applications inside an isolated environment.
+
+### Create K3D cluster and local registry
+
+```bash
+k3d cluster create test-cluster --registry-create test-cluster-registry.localhost --port 44397
+```
+
+### Upload ExpressJS app image to local registry
+
+```bash
+docker build -t node-ts-api . -f Dockerfile.dev
+
+docker tag node-ts-api:latest test-cluster-registry.localhost:36741/node-ts-api:local
+
+docker push test-cluster-registry.localhost:36741/node-ts-api:local
+```
+
+### Run Application
+
+Try running your application inside a local k3d cluster. The `-k` flag tells kubectl to apply the resource manifest files inside the `kustomization.yaml` file.
 
 ```bash
 
-k3d cluster create
-
-kubectl apply -k ./manifests/
-
+kubectl apply -k ./manifests/overlays/dev
 ```
 
 Check that the services and deployments are up and running.
@@ -247,11 +253,10 @@ Check that the services and deployments are up and running.
 ```bash
 kubectl get services,deployments
 
-// Output
+// Example Output:
 NAME          TYPE           CLUSTER-IP     EXTERNAL-IP   PORT(S)          AGE
 kubernetes    ClusterIP      10.43.0.1      <none>        443/TCP          8m12s
 node-ts-api   LoadBalancer   10.43.180.22   172.19.0.3    8080:32289/TCP   5m25s
-
 ```
 
 ## Setup Flux
@@ -265,7 +270,8 @@ flux bootstrap github \
   --branch=main \
   --path=./clusters/test-cluster \
   --personal \
-  --components-extra image-reflector-controller,image-automation-controller #<=== add extra components to automate image updates
+  --components-extra image-reflector-controller,image-automation-controller #<=== add extra components to automate image updates \
+  --read-write-key=true #<=== add this to allow Flux write access to your GitHub account.
 ```
 
 Now clone the respository:
@@ -321,7 +327,7 @@ spec:
 
 the next few objects will go in the same file.
 
-### Add Azure Container Registry by creating an ImageRepository object
+### Add Azure Container Registry
 
 The Azure container registry is where the Docker images for our ExpressJS application will be stored after they have been built in our CI/CD Azure Devops Pipeline. This is not to be confused with the `GitRepository` object. This object will configure Flux to watch for new images and trigger Kubernetes to re-deploy the application.
 
@@ -337,7 +343,7 @@ spec:
   provider: azure
 ```
 
-### Create ImagePolicy object
+### Add ImagePolicy object
 
 The image policy object will tell Kubernetes how to select the latest image from our container registry.
 
@@ -355,9 +361,9 @@ spec:
       order: asc # <=== the image we would like to select (the latest image in this case)
 ```
 
-### Create ImageUpdateAutomation object
+### Add ImageUpdateAutomation object
 
-This object tells Kubernetes how often to check our ExpressJS repository for changes.
+This object tells Kubernetes how often to check our ExpressJS repository for changes and where to update the latest image tag.
 
 ```yaml
 apiVersion: image.toolkit.fluxcd.io/v1beta2
@@ -381,7 +387,8 @@ spec:
         email: devin@mailfence.com
         name: devin
   update:
-    path: ./manifests
+    path: ./manifests/overlays/prod
+    strategy: Setters
 ```
 
 ### Complete Config
@@ -398,6 +405,8 @@ spec:
   ref:
     branch: version_2
   url: https://github.com/barnacleDevelopments/kubernetes-test
+  secretRef:
+    name: kubernetes-test-auth
 ---
 apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImageRepository
@@ -430,7 +439,8 @@ spec:
         email: devin@mailfence.com
         name: devin
   update:
-    path: ./manifests
+    path: ./manifests/overlays/prod
+    strategy: Setters
 ---
 apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImagePolicy
@@ -460,7 +470,7 @@ Next, we are creating a kustomization object. This object tells flux where the m
 flux create kustomization flux-kubernetes-test \
   --target-namespace=default \
   --source=node-ts-api \
-  --path="./manifests" \
+  --path="./manifests/overlays/prod" \
   --prune=true \
   --wait=true \
   --interval=30m \
@@ -521,4 +531,5 @@ git push
 
 ## Resources
 
+https://fluxcd.io/flux/cheatsheets/troubleshooting/
 https://registry.terraform.io/
