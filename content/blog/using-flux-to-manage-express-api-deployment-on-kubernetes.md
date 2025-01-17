@@ -7,6 +7,8 @@ draft: false
 category: devops
 ---
 
+Flux is a powerful declarative system to manage your Kubernetes deployments.
+
 ## Prerequisite
 
 - Review my [previous tutorial](/blog/deploy-express-app-to-kubernetes-on-azure) on deploying Express js api to AKS.
