@@ -270,7 +270,7 @@ flux bootstrap github \
   --path=./clusters/test-cluster \
   --personal \
   --components-extra image-reflector-controller,image-automation-controller #<=== add extra components to automate image updates \
-  --read-write-key=true #<=== add this to allow Flux write access to your GitHub account.
+  --read-write-key=true
 ```
 
 Now clone the respository:
@@ -281,20 +281,6 @@ git clone https://github.com/$GITHUB_USER/flux-kubernetes-test
 
 cd flux-kubernetes-test
 
-```
-
-By the end of this section your Flux repository structure should look like this.
-
-```
-test-cluster/
-├── flux-system/
-│   ├── kustomization.yaml       # Main kustomization file for Flux configuration
-|   └── flux-kubernetes-test-source.yaml # GitRepository
-├── apps/
-│   └── my-app/
-│       ├── kustomization.yaml    # Defines kustomization for the app
-│       └── deployment.yaml       # Kubernetes Deployment manifest (uses image tag)
-└── README.md                     # Documentation about the setup
 ```
 
 ### Add ExpressJS API Repositoy to Flux
@@ -318,10 +304,12 @@ metadata:
   name: node-ts-api
   namespace: flux-system
 spec:
-  interval: 1m
+  interval: 1m0s
   ref:
     branch: version_2
-  url: https://github.com/$GITHUB_USER/kubernetes-test
+  url: https://github.com/barnacleDevelopments/kubernetes-test
+  secretRef:
+    name: kubernetes-test-auth
 ```
 
 Create secret to authenticate with repository. This is different from the personal access token (PAT) provided when bootstraping flux.
@@ -344,7 +332,7 @@ metadata:
   namespace: flux-system
 spec:
   image: devdeveloperregistry.azurecr.io/node-ts-api #<=== this is the address of our image
-  interval: 1m #<=== we are checking every hour
+  interval: 1h #<=== we are checking every hour
   provider: azure
 ```
 
@@ -420,7 +408,7 @@ metadata:
   namespace: flux-system
 spec:
   image: devdeveloperregistry.azurecr.io/node-ts-api #<=== this is the address of our image
-  interval: 1m #<=== we are checking every hour
+  interval: 1h #<=== we are checking every hour
   provider: azure
 ---
 apiVersion: image.toolkit.fluxcd.io/v1beta2
