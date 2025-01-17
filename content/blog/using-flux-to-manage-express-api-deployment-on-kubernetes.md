@@ -23,12 +23,12 @@ Flux is a powerful declarative system to manage your Kubernetes deployments. Thi
 
 ## Create Cluster
 
-First you'll need to startup a fresh Azure Kubernetes Service (AKS) and Azure Container Registry (ACR) deployment. We will utilize Bicep files to declaratively deploy these resources to Azure using Azure CLI.
+Startup a fresh AKS and Azure Container Registry (ACR) deployment. We will utilize Terraform files to declaratively deploy these resources to Azure using [Terraform CLI](https://developer.hashicorp.com/terraform/tutorials/cloud-get-started/cloud-login)
+.
 
-**Create a bicep file to describe you resources.**
+**Create a `.tf` file to describe you resources.**
 
 ```tf
-# Configure the Azure provider
 terraform {
   required_version = ">=1.0"
 
@@ -52,7 +52,6 @@ provider "azurerm" {
   features {}
 }
 
-# Resource Group
 resource "azurerm_resource_group" "rg" {
   name     = "KubernetesTest"
   location = var.location
@@ -75,7 +74,6 @@ resource "azurerm_container_registry" "acr" {
   }
 }
 
-# Kubernetes Cluster
 resource "azurerm_kubernetes_cluster" "k8s" {
   name                = var.azurerm_kubernetes_cluster_dns_name
   location            = "canadacentral"
@@ -166,9 +164,11 @@ stages:
             artifact: manifests
 ```
 
-## Test out application in local development
+## Test out application on local cluster
 
-The power of Kubernetes is that each application within a system is running inside it's own container independent of other containers. This makes it easy for teams to develop applications inside an isolated environment. Let's startup our ExpressJS application in our local dev environment using K3D a lightweight Kubernetes implementation for local development.
+Now let's deploy our ExpressJS application in our local cluster.
+
+_The power of Kubernetes is that each application within a system is running inside it's own container independent of other containers. This makes it easy for teams to develop applications inside an isolated environment. Let's deploy our ExpressJS application in a local development cluster using K3D: a lightweight Kubernetes implementation for local development._
 
 ### Create K3D cluster and local registry
 
@@ -188,7 +188,7 @@ docker push test-cluster-registry.localhost:36741/node-ts-api:local
 
 ### Run Application
 
-Try running your application inside a local k3d cluster. The `-k` flag tells kubectl to apply the resource manifest files inside the `kustomization.yaml` file.
+Run your application inside a local k3d cluster. The `-k` flag tells kubectl to apply the resource manifest files inside the `kustomization.yaml` file using the `dev` overlay `kustomization.yaml`.
 
 ```bash
 kubectl apply -k ./manifests/overlays/dev
@@ -197,7 +197,7 @@ kubectl apply -k ./manifests/overlays/dev
 Check that the services and deployments are up and running.
 
 ```bash
-kubectl get services,deployments
+kubectl get services,deployments,pods
 
 // Example Output:
 NAME          TYPE           CLUSTER-IP     EXTERNAL-IP   PORT(S)          AGE
@@ -205,9 +205,19 @@ kubernetes    ClusterIP      10.43.0.1      <none>        443/TCP          8m12s
 node-ts-api   LoadBalancer   10.43.180.22   172.19.0.3    8080:32289/TCP   5m25s
 ```
 
+### View application running in browser
+
+Now visit your browser and hit the load balancer IP address (172.19.0.3) on port 8080 (mapped to port 3000 on ExpressJS application container).
+
+```bash
+172.19.0.3:8080
+```
+
 ## Setup Flux
 
-Here we setup a new repository for the main Flux Configuration. This is the repository that our Kubernetes cluster will interact with and watch for changes.
+Setup a new repository for the main Flux Configuration. This is the repository that our Kubernetes cluster will interact with and watch for changes.
+
+_The `flux bootstrap` command utilizes `kubectl` to deploy flux controllers on your AKS cluster. It also authenticates with your GitHub account to create a repository to store your Flux configurations. This repository represents the desired state of your cluster. Whenever new changes are pushed to this repository, the Flux controllers running on your cluster will recognise it. It will then attempt to reconsile any differences so that the desired state matches the actual state of the cluster._
 
 ```bash
 flux bootstrap github \
@@ -409,6 +419,7 @@ spec:
   policy:
     numerical:
       order: asc # <=== the image we would like to select (the latest image in this case)
+---
 ```
 
 Commit and push changes to github.
