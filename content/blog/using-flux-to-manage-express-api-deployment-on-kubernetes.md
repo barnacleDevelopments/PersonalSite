@@ -7,7 +7,7 @@ draft: false
 category: devops
 ---
 
-Flux is a powerful declarative system to manage your Kubernetes deployments. This tutorial covers deploying a ExpressJS application to a Azure Kubernetes Service (AKS) utilizing Flux. It will also cover deployment of resources utilizing Terraform.
+Flux is a declarative system for managing Kubernetes deployments. This tutorial will guide you through deploying an ExpressJS application to Azure Kubernetes Service (AKS) using Flux, along with managing resources with Terraform.
 
 ## Prerequisite
 
@@ -499,5 +499,7 @@ kubectl get pods
 
 ## Resources
 
-https://fluxcd.io/flux/cheatsheets/troubleshooting/
-https://registry.terraform.io/
+- [Flux Troubleshooting](https://fluxcd.io/flux/cheatsheets/troubleshooting/)
+- [Terraform Resource Registry Documentation](https://registry.terraform.io/)
+- [K3D Website](https://k3d.io/stable/)
+- [Flux Website](https://fluxcd.io/)
