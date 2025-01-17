@@ -1,8 +1,8 @@
 ---
 title: Managing ExpressJs API Kubernetes Deployment with Flux
 thumbnail: /assets/kubernetes-devops.webp
-date: 2025-01-01T19:31:21.081Z
-keywords: kubernetes, azure, devops, node.js, express, docker, bicep templates, azure pipelines, ci/cd, aks, azure container registry
+date: 2025-01-17T19:31:21.081Z
+keywords: kubernetes, azure, devops, node.js, express, docker, bicep templates, azure pipelines, ci/cd, aks, azure container registry, flux
 draft: false
 category: devops
 ---
