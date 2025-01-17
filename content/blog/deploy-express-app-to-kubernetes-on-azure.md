@@ -4,7 +4,7 @@ thumbnail: /assets/kubernetes-devops.webp
 date: 2025-01-01T19:31:21.081Z
 keywords: kubernetes, azure, devops, node.js, express, docker, bicep templates, azure pipelines, ci/cd, aks, azure container registry
 draft: false
-category: programming
+category: devops
 ---
 
 This guide walks you through creating and deploying a Node.js Express API to Kubernetes, leveraging Docker, Kubernetes, and Azure DevOps. It assumes basic familiarity with the Azure CLI and Azure concepts. I have created a [repository for reference](https://github.com/barnacleDevelopments/kubernetes-test/tree/version_1) to help follow along with the tutorial.

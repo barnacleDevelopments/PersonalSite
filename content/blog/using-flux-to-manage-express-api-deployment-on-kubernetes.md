@@ -4,7 +4,7 @@ thumbnail: /assets/kubernetes-devops.webp
 date: 2025-01-01T19:31:21.081Z
 keywords: kubernetes, azure, devops, node.js, express, docker, bicep templates, azure pipelines, ci/cd, aks, azure container registry
 draft: false
-category: cloud
+category: devops
 ---
 
 ## Prerequisite
