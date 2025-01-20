@@ -2,7 +2,7 @@
 import { jsx } from "theme-ui";
 import { graphql } from "gatsby";
 // Components
-import { Box, Text, Grid, Heading } from "theme-ui";
+import { Box, Flex, Text, Grid, Heading } from "theme-ui";
 import Seo from "../components/app/Seo";
 import PostCategoryCard from "../components/blog/PostCategoryCard";
 
@@ -18,17 +18,26 @@ const BlogPage = ({ data }) => {
           my: 6,
         }}
       >
-        <Box sx={{ mt: 6, mb: 5 }}>
-          <Heading as="h1" variant="hero">
-            Blog
-          </Heading>
-          <Text variant="large">
-            I'm on a lifelong journey of learning and I love to share what I
-            learn with others. When I get the chance I like to write about what
-            I'm learning. This is an archive of my blog posts. Feel free to take
-            a gander!
-          </Text>
-        </Box>
+        <Flex sx={{ mt: 6, mb: 5 }}>
+          <Box>
+            <Heading as="h1" variant="hero">
+              Blog
+            </Heading>
+            <Text variant="large">
+              I'm on a lifelong journey of learning and I love to share what I
+              learn with others. When I get the chance I like to write about
+              what I'm learning. This is an archive of my blog posts. Feel free
+              to take a gander!
+            </Text>
+          </Box>
+          <a href="https://app.daily.dev/devdeveloper">
+            <img
+              src="https://api.daily.dev/devcards/v2/cXKKpBu9O.png?type=default&r=6yz"
+              width="250"
+              alt="Devin's Dev Card"
+            />
+          </a>
+        </Flex>
         <Grid
           sx={{
             mb: 3,
