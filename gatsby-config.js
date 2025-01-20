@@ -40,6 +40,7 @@ module.exports = {
     ],
   },
   plugins: [
+    `gatsby-plugin-feed`,
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
     {
