@@ -11,7 +11,7 @@ Flux is a declarative system for managing Kubernetes deployments. This tutorial 
 
 `vimeo:https://vimeo.com/1048605720/4380c9db42`
 
-## Prerequisite
+## Prerequisites
 
 - Review my [previous tutorial](/blog/deploy-express-app-to-kubernetes-on-azure) on deploying Express js api to AKS.
 
