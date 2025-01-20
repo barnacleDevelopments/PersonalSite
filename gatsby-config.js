@@ -58,6 +58,7 @@ module.exports = {
         feeds: [
           {
             serialize: ({ query: { site, allMarkdownRemark } }) => {
+              console.log("DEBUG: ", allMarkdownRemark.edges);
               return allMarkdownRemark.edges.map((edge) => {
                 return Object.assign({}, edge.node.frontmatter, {
                   description: edge.node.excerpt,
@@ -70,23 +71,30 @@ module.exports = {
             },
             query: `
               {
-                allMarkdownRemark(sort: { frontmatter: { date: DESC }}) {
+                allMarkdownRemark(
+                  filter: {
+                    fileAbsolutePath: { regex: "//blog//" }
+                    frontmatter: { draft: { eq: false } }
+                  }
+                  sort: { frontmatter: { date: DESC } }
+                ) {
                   edges {
                     node {
-                      excerpt
-                      html
-                      fields { slug }
+                      fields {
+                        slug
+                      }
                       frontmatter {
                         title
-                        date
+                        date(formatString: "MMMM, YYYY")
                       }
+                      excerpt(truncate: true, format: HTML, pruneLength: 100)
                     }
                   }
                 }
               }
             `,
             output: "/rss.xml",
-            title: "Your Site's RSS Feed",
+            title: "DevDeveloper RSS Feed",
           },
         ],
       },
