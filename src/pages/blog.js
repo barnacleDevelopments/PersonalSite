@@ -1,13 +1,17 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui";
 import { graphql } from "gatsby";
+import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
+
 // Components
 import { Box, Flex, Text, Grid, Heading } from "theme-ui";
 import Seo from "../components/app/Seo";
 import PostCategoryCard from "../components/blog/PostCategoryCard";
+import { faRssSquare } from "@fortawesome/free-solid-svg-icons";
 
 const BlogPage = ({ data }) => {
   const categories = data.allMarkdownRemark.distinct;
+
   return (
     <Box>
       <Seo title="Blog" />
@@ -29,6 +33,25 @@ const BlogPage = ({ data }) => {
               what I'm learning. This is an archive of my blog posts. Feel free
               to take a gander!
             </Text>
+            <Box
+              sx={{
+                mt: 3,
+                backgroundColor: "primary",
+                width: "min-content",
+                borderRadius: 5,
+                padding: 2,
+              }}
+            >
+              <a target="_blanc" href="/rss.xml">
+                <Icon
+                  icon={faRssSquare}
+                  size="2x"
+                  sx={{
+                    color: "orange",
+                  }}
+                />
+              </a>
+            </Box>
           </Box>
           <a href="https://app.daily.dev/devdeveloper">
             <img
@@ -62,6 +85,11 @@ const BlogPage = ({ data }) => {
 
 export const pageQuery = graphql`
   query BlogPageQuery {
+    site {
+      siteMetadata {
+        url
+      }
+    }
     allMarkdownRemark(filter: { frontmatter: { draft: { eq: false } } }) {
       distinct(field: { frontmatter: { category: SELECT } })
     }
