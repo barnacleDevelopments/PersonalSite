@@ -56,7 +56,7 @@ const AboutPage = () => {
         </Grid>
         <CallToAction
           title={"Checkout Some of my Projects"}
-          content={"Every project I take on take ownership of."}
+          content={"Every project I take on I take ownership of."}
           buttonText={"Let's Go!"}
           pageLink={"/projects"}
         />
