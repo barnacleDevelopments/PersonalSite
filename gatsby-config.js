@@ -86,6 +86,7 @@ module.exports = {
                         title
                         date
                       }
+                      html
                       excerpt(truncate: true, format: HTML, pruneLength: 100)
                     }
                   }
