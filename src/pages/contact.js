@@ -285,9 +285,7 @@ const ContactPage = () => {
               </Text>
               <Flex sx={{ gap: 3, alignItems: "center", mb: 3 }}>
                 <Box>
-                  {
-                    "Copy my public PGP key to ensure I can securely email you. Learn more about PGP."
-                  }{" "}
+                  {"Copy my public PGP key to ensure I can securely email you."}{" "}
                   <Link href="https://www.fortinet.com/resources/cyberglossary/pgp-encryption">
                     Learn more about PGP
                   </Link>{" "}
