@@ -7,7 +7,7 @@ import PostCard from "../components/blog/PostCard";
 import { Box, Text, Grid, Heading } from "theme-ui";
 import Seo from "../components/app/Seo";
 
-const ProgrammingPostsPage = ({ data }) => {
+const AllPostsPage = ({ data }) => {
   const pageData = data.allMarkdownRemark.edges;
   return (
     <Box>
@@ -47,7 +47,7 @@ const ProgrammingPostsPage = ({ data }) => {
   );
 };
 
-export default ProgrammingPostsPage;
+export default AllPostsPage;
 
 export const programmingPostsPageQuery = graphql`
   query ProgrammingPostsPageQuery {
