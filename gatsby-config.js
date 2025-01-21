@@ -84,7 +84,7 @@ module.exports = {
                       }
                       frontmatter {
                         title
-                        date(formatString: "MMMM, YYYY")
+                        date
                       }
                       excerpt(truncate: true, format: HTML, pruneLength: 100)
                     }
