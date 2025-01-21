@@ -2,7 +2,6 @@
 import { jsx } from "theme-ui";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-
 // Hooks
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
@@ -20,8 +19,12 @@ import {
   Link,
   Paragraph,
 } from "theme-ui";
+import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
 import Loader from "../components/Loader";
 import Seo from "../components/app/Seo";
+
+// Icons
+import { faCopy } from "@fortawesome/free-regular-svg-icons";
 
 const schema = yup
   .object({
@@ -69,6 +72,16 @@ const ContactPage = () => {
       setIsPostSuccessful(true);
     }
   };
+
+  async function copyPGP() {
+    const response = await fetch("/pgp-key.asc");
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+    const text = await response.text();
+
+    navigator.clipboard.writeText(text);
+  }
 
   return (
     <Box>
@@ -196,12 +209,13 @@ const ContactPage = () => {
                 )}
               </Box>
               <Button
+                sx={{ flexShrink: 0 }}
                 variant="primary"
                 onClick={handleSubmit(onSubmit)}
                 type="submit"
                 disabled={!isValid}
               >
-                send
+                SEND
               </Button>
             </Box>
             <Box sx={{ mb: 3 }}>
@@ -262,13 +276,35 @@ const ContactPage = () => {
             }}
           >
             <Box textAlign="center">
-              <h2 sx={{ mb: 3 }}>Thank you for the email!</h2>
+              <Heading variant="large" sx={{ mb: 3 }}>
+                Thank you for the email!
+              </Heading>
               <Text variant="regular" sx={{ my: 3, display: "block" }}>
                 {" "}
                 I'll be in touch with you shortly.
               </Text>
+              <Flex sx={{ gap: 3, alignItems: "center", mb: 3 }}>
+                <Box>
+                  {
+                    "Copy my public PGP key to ensure I can securely email you. Learn more about PGP."
+                  }{" "}
+                  <Link href="https://www.fortinet.com/resources/cyberglossary/pgp-encryption">
+                    Learn more about PGP
+                  </Link>{" "}
+                </Box>
+              </Flex>
+              <Button variant="secondary" sx={{ mr: 2 }}>
+                <Text>Copy PGP</Text>
+                <Icon
+                  onClick={copyPGP}
+                  sx={{
+                    ml: 2,
+                  }}
+                  icon={faCopy}
+                />
+              </Button>
               <Link href="/">
-                <Button>Back Home</Button>
+                <Button variant="primary">Back Home</Button>
               </Link>
             </Box>
           </Flex>
