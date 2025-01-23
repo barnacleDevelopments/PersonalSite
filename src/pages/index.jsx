@@ -219,18 +219,25 @@ const IndexPage = ({ data }) => {
             {books.map((book) => {
               const image = getImage(book.image);
               return (
-                <GatsbyImage
+                <Link
                   sx={{
-                    flex: "0 0 auto",
                     width: "150px",
-                    border: "2px solid black",
-                    borderColor: "primary",
-                    borderRadius: 3,
+                    flex: "0 0 auto",
                   }}
-                  key={book.title}
-                  alt={book.title}
-                  image={image}
-                />
+                  href={book.url}
+                >
+                  <GatsbyImage
+                    sx={{
+                      width: "100%",
+                      border: "2px solid black",
+                      borderColor: "primary",
+                      borderRadius: 3,
+                    }}
+                    key={book.title}
+                    alt={book.title}
+                    image={image}
+                  />
+                </Link>
               );
             })}
           </Flex>
@@ -276,6 +283,7 @@ export const landingPageQuery = graphql`
           }
           frontmatter {
             title
+            url
             image {
               childImageSharp {
                 gatsbyImageData
