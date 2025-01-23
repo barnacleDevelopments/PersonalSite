@@ -371,7 +371,7 @@ metadata:
 spec:
   interval: 1m0s
   ref:
-    branch: version_2
+    branch: master
   url: https://github.com/barnacleDevelopments/kubernetes-test
   secretRef:
     name: flux-git-auth
@@ -383,7 +383,7 @@ metadata:
   namespace: flux-system
 spec:
   image: devdeveloperregistry.azurecr.io/node-ts-api #<=== this is the address of our image
-  interval: 1h #<=== we are checking every hour
+  interval: 1m #<=== we are checking every hour
   provider: azure
 ---
 apiVersion: image.toolkit.fluxcd.io/v1beta2
@@ -399,9 +399,9 @@ spec:
   git:
     checkout:
       ref:
-        branch: version_2
+        branch: master
     push:
-      branch: version_2
+      branch: master
     commit:
       author:
         email: devin@mailfence.com
