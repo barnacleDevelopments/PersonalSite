@@ -374,7 +374,7 @@ spec:
     branch: version_2
   url: https://github.com/barnacleDevelopments/kubernetes-test
   secretRef:
-    name: kubernetes-test-auth
+    name: flux-git-auth
 ---
 apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImageRepository
