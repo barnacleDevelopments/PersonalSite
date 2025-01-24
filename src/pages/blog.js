@@ -53,7 +53,10 @@ const BlogPage = ({ data }) => {
               </a>
             </Box>
           </Box>
-          <a href="https://app.daily.dev/devdeveloper">
+          <a
+            sx={{ display: ["none", "block"] }}
+            href="https://app.daily.dev/devdeveloper"
+          >
             <img
               src="https://api.daily.dev/devcards/v2/cXKKpBu9O.png?type=default&r=6yz"
               width="250"
