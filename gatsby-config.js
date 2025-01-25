@@ -181,12 +181,29 @@ module.exports = {
       },
     },
     {
-      // TODO: Fix this
-      resolve: "gatsby-plugin-robots-txt",
+      resolve: "gatsby-plugin-sitemap",
       options: {
-        host: "https://devdeveloper.ca",
-        sitemap: "https://devdeveloper.ca/sitemap.xml",
-        policy: [{ userAgent: "Mediapartners-Google*", allow: "/" }],
+        query: `
+        {
+          allSitePage {
+            nodes {
+              path
+            }
+          }
+        }
+      `,
+        resolveSiteUrl: () => siteUrl,
+        resolvePages: ({ allSitePage: { nodes: allPages } }) => {
+          return allPages.map((page) => {
+            return { ...page };
+          });
+        },
+        serialize: ({ path, modifiedGmt }) => {
+          return {
+            url: path,
+            lastmod: modifiedGmt,
+          };
+        },
       },
     },
     "gatsby-plugin-react-helmet",
@@ -195,7 +212,7 @@ module.exports = {
       resolve: "gatsby-plugin-react-svg",
       options: {
         rule: {
-          include: /images/, // See below to configure properly
+          include: /images/, // TODO See below to configure properly
         },
       },
     },

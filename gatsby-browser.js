@@ -3,10 +3,7 @@ const React = require("react");
 const Layout = require("./src/components/app/Layout").default;
 
 // in gastby-browser.js
-exports.shouldUpdateScroll = ({
-  routerProps: { location },
-  getSavedScrollPosition,
-}) => {
+exports.shouldUpdateScroll = ({ routerProps: { location } }) => {
   const { pathname } = location;
   // list of routes for the scroll-to-top-hook
   const scrollToTopRoutes = [`/projects`, `/contact`];
