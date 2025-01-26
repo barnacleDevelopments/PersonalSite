@@ -4,7 +4,7 @@ require("dotenv").config({
 
 module.exports = {
   siteMetadata: {
-    url: "https://devdeveloper.ca",
+    siteUrl: "https://devdeveloper.ca",
     title: "Devin Davis | Full-Stack Developer & Devops Engineer",
     image: {
       src: `assets/logo_2.png`,
@@ -40,6 +40,7 @@ module.exports = {
     ],
   },
   plugins: [
+    "gatsby-plugin-sitemap",
     {
       resolve: `gatsby-plugin-feed`,
       options: {
@@ -49,8 +50,8 @@ module.exports = {
               siteMetadata {
                 title
                 description
-                url
-                site_url: url
+                siteUrl
+                site_url: siteUrl
               }
             }
           }
@@ -62,8 +63,8 @@ module.exports = {
                 return Object.assign({}, edge.node.frontmatter, {
                   description: edge.node.excerpt,
                   date: edge.node.frontmatter.date,
-                  url: site.siteMetadata.url + edge.node.fields.slug,
-                  guid: site.siteMetadata.url + edge.node.fields.slug,
+                  url: site.siteMetadata.siteUrl + edge.node.fields.slug,
+                  guid: site.siteMetadata.siteUrl + edge.node.fields.slug,
                   custom_elements: [{ "content:encoded": edge.node.html }],
                 });
               });
@@ -177,32 +178,6 @@ module.exports = {
           "font-src": `'self' data: fonts.gstatic.com`,
           "connect-src": "'self'",
           "frame-src": `'self' player.vimeo.com`,
-        },
-      },
-    },
-    {
-      resolve: "gatsby-plugin-sitemap",
-      options: {
-        query: `
-        {
-          allSitePage {
-            nodes {
-              path
-            }
-          }
-        }
-      `,
-        resolveSiteUrl: () => "https://devdeveloper.ca",
-        resolvePages: ({ allSitePage: { nodes: allPages } }) => {
-          return allPages.map((page) => {
-            return { ...page };
-          });
-        },
-        serialize: ({ path, modifiedGmt }) => {
-          return {
-            url: path,
-            lastmod: modifiedGmt,
-          };
         },
       },
     },

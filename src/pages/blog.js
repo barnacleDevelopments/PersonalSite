@@ -90,7 +90,7 @@ export const pageQuery = graphql`
   query BlogPageQuery {
     site {
       siteMetadata {
-        url
+        siteUrl
       }
     }
     allMarkdownRemark(filter: { frontmatter: { draft: { eq: false } } }) {

@@ -95,7 +95,7 @@ export const pageQuery = graphql`
   query PostsByTitle($slug: String!) {
     site {
       siteMetadata {
-        siteUrl: url
+        siteUrl
       }
     }
     markdownRemark(fields: { slug: { eq: $slug } }) {

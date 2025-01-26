@@ -88,7 +88,7 @@ const query = graphql`
         defaultTitle: title
         titleTemplate
         defaultDescription: description
-        siteUrl: url
+        siteUrl
         defaultLang: lang
         defaultKeywords: keywords
         metaImage: image {
