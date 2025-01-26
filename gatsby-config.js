@@ -192,7 +192,7 @@ module.exports = {
           }
         }
       `,
-        resolveSiteUrl: () => siteUrl,
+        resolveSiteUrl: () => "https://devdeveloper.ca",
         resolvePages: ({ allSitePage: { nodes: allPages } }) => {
           return allPages.map((page) => {
             return { ...page };
