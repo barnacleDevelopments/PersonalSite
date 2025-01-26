@@ -7,7 +7,7 @@ draft: false
 category: devops
 ---
 
-This guide walks you through creating and deploying a Node.js Express API to Kubernetes, leveraging Docker, Kubernetes, and Azure DevOps. It assumes basic familiarity with the Azure CLI and Azure concepts. I have created a [repository for reference](https://github.com/barnacleDevelopments/kubernetes-test/tree/version_1) to help follow along with the tutorial.
+This guide walks you through creating and deploying a Node.js Express API to Kubernetes, leveraging Docker, Kubernetes, and Azure DevOps. It assumes basic familiarity with the Azure CLI and Azure concepts. I have created a [repository for reference](https://github.com/barnacleDevelopments/node-ts-api-kubernetes/tree/version_1) to help follow along with the tutorial.
 
 `vimeo:https://vimeo.com/1043303804?share=copy`
 
