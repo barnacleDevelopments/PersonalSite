@@ -14,7 +14,7 @@ const Layout = ({ children }) => {
     <Box>
       <Helmet>
         {" "}
-        <html lang="en" />
+        <html style="scroll-behavior: smooth" lang="en" />
       </Helmet>
       <Navbar />
       <main>{children}</main>

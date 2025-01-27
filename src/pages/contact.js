@@ -24,7 +24,6 @@ import Seo from "../components/app/Seo";
 
 // Icons
 import { faCopy } from "@fortawesome/free-regular-svg-icons";
-import useWindow from "../hooks/use-window";
 
 const schema = yup
   .object({
@@ -36,6 +35,7 @@ const schema = yup
 
 const ContactPage = () => {
   const [isPostSuccessful, setIsPostSuccessful] = useState(false);
+  const [isFormHighlighted, setIsFormHighlighted] = useState(false);
   const {
     register,
     handleSubmit,
@@ -45,11 +45,16 @@ const ContactPage = () => {
     resolver: yupResolver(schema),
     mode: "onBlur",
   });
-  const { scrollToTop } = useWindow();
 
   useEffect(() => {
     setFocus("email");
   }, []);
+
+  function highlightContactForm() {
+    setFocus("email");
+    setIsFormHighlighted(true);
+    window.scrollTo(0, 200);
+  }
 
   function encode(data) {
     return Object.keys(data)
@@ -131,95 +136,103 @@ const ContactPage = () => {
             </Paragraph>
           </Box>
         )}
-
         {(!isSubmitted || !isValid) && (
           <Grid gap={3} columns={["1fr", "1fr 1fr", "1.5fr 2fr"]}>
             <Box
-              as="form"
-              action="/contact"
-              name="Contact Form"
-              method="POST"
-              data-netlify="true"
+              sx={{
+                border: isFormHighlighted ? "3px solid orange" : "none",
+                borderRadius: 5,
+                p: 3,
+              }}
             >
-              <Input
-                variant="primary"
-                sx={{ mb: 3, bg: "secondary" }}
-                type="hidden"
-                name="form-name"
-                value="Contact Form"
-              />
-              <Box>
-                <Input
-                  sx={{
-                    mb: 3,
-                    bg: "primary",
-                    color: "secondary",
-                    border: "none",
-                    p: 3,
-                  }}
-                  name="email"
-                  {...register("email")}
-                  type="text"
-                  placeholder="Email Address..."
-                />
-                {errors.email && (
-                  <Text sx={{ color: "red", mb: 3, display: "block" }}>
-                    {errors.email?.message}
-                  </Text>
-                )}
-              </Box>
-              <Box>
-                <Input
-                  sx={{
-                    mb: 3,
-                    bg: "primary",
-                    color: "secondary",
-                    border: "none",
-                    p: 3,
-                  }}
-                  name="subject"
-                  {...register("subject")}
-                  type="text"
-                  placeholder="Subject..."
-                />
-                {errors.subject && (
-                  <Text sx={{ color: "red", mb: 3, display: "block" }}>
-                    {errors.subject?.message}
-                  </Text>
-                )}
-              </Box>
-              <Box>
-                <Textarea
-                  sx={{
-                    mb: 3,
-                    bg: "primary",
-                    color: "secondary",
-                    border: "none",
-                    p: 3,
-                    fontFamily: "roboto",
-                    minHeight: "300px",
-                    resize: "vertical",
-                  }}
-                  name="message"
-                  {...register("message")}
-                  type="text"
-                  placeholder="Message..."
-                ></Textarea>
-                {errors.message && (
-                  <Text sx={{ color: "red", mb: 3, display: "block" }}>
-                    {errors.message?.message}
-                  </Text>
-                )}
-              </Box>
-              <Button
-                sx={{ flexShrink: 0 }}
-                variant="primary"
-                onClick={handleSubmit(onSubmit)}
-                type="submit"
-                disabled={!isValid}
+              <Box
+                as="form"
+                action="/contact"
+                name="Contact Form"
+                method="POST"
+                data-netlify="true"
+                id="contact-form"
               >
-                SEND
-              </Button>
+                <Input
+                  variant="primary"
+                  sx={{ mb: 3, bg: "secondary" }}
+                  type="hidden"
+                  name="form-name"
+                  value="Contact Form"
+                />
+                <Box>
+                  <Input
+                    sx={{
+                      mb: 3,
+                      bg: "primary",
+                      color: "secondary",
+                      border: "none",
+                      p: 3,
+                    }}
+                    name="email"
+                    {...register("email")}
+                    type="text"
+                    placeholder="Email Address..."
+                  />
+                  {errors.email && (
+                    <Text sx={{ color: "red", mb: 3, display: "block" }}>
+                      {errors.email?.message}
+                    </Text>
+                  )}
+                </Box>
+                <Box>
+                  <Input
+                    sx={{
+                      mb: 3,
+                      bg: "primary",
+                      color: "secondary",
+                      border: "none",
+                      p: 3,
+                    }}
+                    name="subject"
+                    {...register("subject")}
+                    type="text"
+                    placeholder="Subject..."
+                  />
+                  {errors.subject && (
+                    <Text sx={{ color: "red", mb: 3, display: "block" }}>
+                      {errors.subject?.message}
+                    </Text>
+                  )}
+                </Box>
+                <Box>
+                  <Textarea
+                    sx={{
+                      mb: 3,
+                      bg: "primary",
+                      color: "secondary",
+                      border: "none",
+                      p: 3,
+                      fontFamily: "roboto",
+                      minHeight: "300px",
+                      resize: "vertical",
+                    }}
+                    name="message"
+                    {...register("message")}
+                    type="text"
+                    placeholder="Message..."
+                  ></Textarea>
+                  {errors.message && (
+                    <Text sx={{ color: "red", mb: 3, display: "block" }}>
+                      {errors.message?.message}
+                    </Text>
+                  )}
+                </Box>
+                <Button
+                  sx={{ flexShrink: 0 }}
+                  variant="primary"
+                  onClick={handleSubmit(onSubmit)}
+                  type="submit"
+                  disabled={!isValid}
+                >
+                  SEND
+                </Button>
+              </Box>
             </Box>
             <Box sx={{ mb: 3 }}>
               <Paragraph>
@@ -238,17 +251,17 @@ const ContactPage = () => {
                   LinkedIn
                 </Link>{" "}
                 or use my{" "}
-                <span
+                <Link
                   sx={{
                     color: "blue",
                     textDecoration: "underline",
                     cursor: "pointer",
                     fontWeight: "bold",
                   }}
-                  onClick={scrollToTop}
+                  onClick={highlightContactForm}
                 >
                   contact form
-                </span>
+                </Link>
                 —I’ll get back to you shortly.
               </Paragraph>
               <Heading variant="subheading2" sx={{ mt: 3 }}>
