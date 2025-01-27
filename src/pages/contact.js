@@ -142,7 +142,7 @@ const ContactPage = () => {
               sx={{
                 border: isFormHighlighted ? "3px solid orange" : "none",
                 borderRadius: 5,
-                p: 3,
+                p: isFormHighlighted ? 3 : 0,
               }}
             >
               <Box
