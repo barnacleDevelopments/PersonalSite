@@ -167,15 +167,7 @@ const IndexPage = ({ data }) => {
             </Box>
           </Grid>
         </Box>
-        <CallToAction
-          title={"Let's Work Together"}
-          content={
-            "I'm an pasionate developer who is always trying to master new skills and be of service to those I work with."
-          }
-          buttonText={"Learn how I can help"}
-          pageLink={"/about"}
-        />
-        <Box as="section" sx={{ mt: 4 }}>
+        <Box as="section" sx={{ mt: 3 }}>
           <Heading as="h3" variant="subheading1">
             Recent Posts
           </Heading>
@@ -232,6 +224,16 @@ const IndexPage = ({ data }) => {
               );
             })}
           </Flex>
+        </Box>
+        <Box sx={{ mb: 4 }} as="section">
+          <CallToAction
+            title={"Let's Work Together"}
+            content={
+              "I'm an pasionate developer who is always trying to master new skills and be of service to those I work with."
+            }
+            buttonText={"Learn how I can help"}
+            pageLink={"/about"}
+          />
         </Box>
       </Box>
     </Box>
