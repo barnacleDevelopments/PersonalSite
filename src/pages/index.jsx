@@ -5,19 +5,6 @@ import { graphql } from "gatsby";
 // Components
 import { GatsbyImage, getImage, StaticImage } from "gatsby-plugin-image";
 import { Text, Button, Flex, Box, Grid, Link, Heading } from "theme-ui";
-import {
-  faBrain,
-  faBug,
-  faChartLine,
-  faDesktop,
-  faLaptopCode,
-  faPencil,
-  faPeopleArrows,
-  faRocket,
-  faServer,
-  faStore,
-  faTabletAlt,
-} from "@fortawesome/free-solid-svg-icons";
 import Seo from "../components/app/Seo";
 import Loader from "../components/Loader";
 import PostCard from "../components/blog/PostCard";
@@ -225,6 +212,7 @@ const IndexPage = ({ data }) => {
                     flex: "0 0 auto",
                   }}
                   href={book.url}
+                  key={book.title}
                 >
                   <GatsbyImage
                     sx={{
