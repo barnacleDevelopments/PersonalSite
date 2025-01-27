@@ -151,8 +151,11 @@ const IndexPage = ({ data }) => {
                   results-oriented Full Stack Web Developer with 4 years of
                   professional experience in designing, developing, and
                   maintaining dynamic web applications. My expertise spans a
-                  wide range of web technologies. I have a strong record of
-                  collaborating with cross-functional teams to deliver
+                  wide range of web technologies. I have a{" "}
+                  <Link variant="text" href="/about">
+                    strong record
+                  </Link>{" "}
+                  of collaborating with cross-functional teams to deliver
                   innovative solutions while translating complex business needs
                   into functional, user-friendly software. If you're interested
                   in working together, feel free to{" "}
