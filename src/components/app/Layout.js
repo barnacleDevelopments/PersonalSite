@@ -7,10 +7,15 @@ import "../../css/reset.css";
 // COMPONENTS
 import Navbar from "./Navbar";
 import Footer from "./Footer";
+import { Helmet } from "react-helmet";
 
 const Layout = ({ children }) => {
   return (
     <Box>
+      <Helmet>
+        {" "}
+        <html lang="en" />
+      </Helmet>
       <Navbar />
       <main>{children}</main>
       <Footer />
