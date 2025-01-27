@@ -96,6 +96,7 @@ const ContactPage = () => {
           "Web3 Solutions",
           "Contact Devin S. Davis",
           "Freelance Developer",
+          "Contractor",
           "Full-Time Developer Opportunities",
           "Web Development Services",
           "Innovative Web Technologies",
@@ -119,6 +120,7 @@ const ContactPage = () => {
             sx={{
               margin: "0 auto",
               mt: 6,
+              mb: 4,
             }}
           >
             <Heading as="h1" variant="hero">
@@ -221,9 +223,13 @@ const ContactPage = () => {
             </Box>
             <Box sx={{ mb: 3 }}>
               <Paragraph>
-                I’m a results-oriented Full Stack Web Developer. Whether you
-                have a project idea, need a technical collaborator, or just want
-                to connect, I’d love to hear from you. Connect with me on{" "}
+                I’m a{" "}
+                <Link variant="text" target="_blank" href="/about">
+                  results-oriented Full Stack Web Developer
+                </Link>
+                . Whether you have a project idea, need a technical
+                collaborator, or just want to connect, I’d love to hear from
+                you. Connect with me on{" "}
                 <Link
                   variant="text"
                   target="_blank"
