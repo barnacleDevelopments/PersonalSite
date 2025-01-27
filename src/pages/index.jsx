@@ -154,10 +154,8 @@ const IndexPage = ({ data }) => {
                   wide range of web technologies. I have a strong record of
                   collaborating with cross-functional teams to deliver
                   innovative solutions while translating complex business needs
-                  into functional, user-friendly software. Above all, I pride
-                  myself on being a proven self-starter who thrives in both
-                  independent and team environments. If you're interested in
-                  working together, feel free to{" "}
+                  into functional, user-friendly software. If you're interested
+                  in working together, feel free to{" "}
                   <Link variant="text" href="/contact">
                     reach out
                   </Link>
