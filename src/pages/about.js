@@ -6,8 +6,16 @@ import { Box, Heading, Grid } from "theme-ui";
 import Seo from "../components/app/Seo";
 import { StaticImage } from "gatsby-plugin-image";
 import CallToAction from "../components/CallToAction";
+import { graphql } from "gatsby";
+import showdown from "showdown";
 
-const AboutPage = () => {
+const AboutPage = ({ data }) => {
+  const converter = new showdown.Converter();
+  console.log(data);
+  const resume = {
+    title: data.markdownRemark.frontmatter.title,
+    html: data.markdownRemark.html,
+  };
   return (
     <Box>
       <Seo title="About" />
@@ -54,6 +62,24 @@ const AboutPage = () => {
             </Paragraph>
           </Box>
         </Grid>
+        <Box
+          sx={{
+            mt: 4,
+            "h1, h2, h3": { fontWeight: 500 },
+            h1: { fontSize: "subheading1" },
+            h2: { fontSize: "subheading1" },
+            h3: { fontSize: "1.5em", fontStyle: "italic" },
+            ul: { marginLeft: "40px", overflowWrap: "break-word" },
+            ol: { marginLeft: "40px", overflowWrap: "break-word" },
+            li: { listStyleType: "dot", mb: 2 },
+            blockquote: { fontStyle: "italic" },
+            a: { color: "orange" },
+          }}
+          as="section"
+          dangerouslySetInnerHTML={{
+            __html: converter.makeHtml(resume.html),
+          }}
+        ></Box>
         <CallToAction
           title={"Checkout Some of my Projects"}
           content={"Every project I take on I take ownership of."}
@@ -64,5 +90,16 @@ const AboutPage = () => {
     </Box>
   );
 };
+
+export const aboutPageQuery = graphql`
+  query AboutPageQuery {
+    markdownRemark(fileAbsolutePath: { regex: "//resumes//" }) {
+      html
+      frontmatter {
+        title
+      }
+    }
+  }
+`;
 
 export default AboutPage;

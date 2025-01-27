@@ -81,7 +81,20 @@ module.exports = {
       lineHeight: "body",
       fontWeight: "body",
     },
-
+    h1: {
+      fontSize: [5, 6, 7],
+      fontFamily: "heading",
+      fontWeight: "heading",
+      lineHeight: "heading",
+    },
+    h2: {
+      fontSize: [4, 5, 6],
+      fontFamily: "heading",
+      fontWeight: "heading",
+      lineHeight: "heading",
+    },
+  },
+  headings: {
     h1: {
       fontSize: [5, 6, 7],
       fontFamily: "heading",
