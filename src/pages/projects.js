@@ -53,7 +53,10 @@ const ProjectsPage = ({ data }) => {
           <Paragraph variant="large">
             Discover a selection of my latest projects. If you're interested in
             collaboration or want to learn more, feel free to{" "}
-            <Link href="/contact">contact me</Link>.
+            <Link variant="text" href="/contact">
+              contact me
+            </Link>
+            .
           </Paragraph>
         </Box>
         <Box

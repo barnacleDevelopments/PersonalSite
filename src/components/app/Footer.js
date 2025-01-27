@@ -48,7 +48,7 @@ const Footer = () => {
         </Box>
         <Box sx={{ textAlign: "center" }}>
           <h4 sx={{ mb: 3, color: "white" }}>Navigation</h4>
-          <Flex sx={{ flexDirection: "column", alignItems: "center" }}>
+          <Flex as="nav" sx={{ flexDirection: "column", alignItems: "center" }}>
             <Link
               sx={{ mb: 2, width: "max-content" }}
               href="/"
@@ -56,13 +56,25 @@ const Footer = () => {
             >
               Home
             </Link>
-            <Link sx={{ mb: 2, width: "max-content" }} href="/contact">
+            <Link
+              sx={{ mb: 2, width: "max-content" }}
+              href="/contact"
+              variant="footer"
+            >
               Contact
             </Link>
-            <Link sx={{ mb: 2, width: "max-content" }} href="/projects">
+            <Link
+              sx={{ mb: 2, width: "max-content" }}
+              href="/projects"
+              variant="footer"
+            >
               Projects
             </Link>
-            <Link sx={{ mb: 2, width: "max-content" }} href="/about">
+            <Link
+              sx={{ mb: 2, width: "max-content" }}
+              href="/about"
+              variant="footer"
+            >
               About
             </Link>
           </Flex>

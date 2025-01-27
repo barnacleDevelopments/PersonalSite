@@ -4,10 +4,12 @@ module.exports = {
   ...tailwind,
   colors: {
     primary: "#292E29",
+    darkOrange: "#9C4A00",
     secondary: "#eeeeee",
     orange: "#FFA630",
     lightOrange: "#FFA63050",
     white: "#f5f5f5",
+    blue: "#2A5F6A",
   },
   fonts: {
     body: "'Raleway', sans-serif",
@@ -79,26 +81,6 @@ module.exports = {
       lineHeight: "body",
       fontWeight: "body",
     },
-    a: {
-      color: "#FFA630",
-      textDecoration: "none",
-      "&:visited": {
-        color: "#FFA63050",
-      },
-      "&:hover": {
-        color: "#E07A5F",
-        textDecoration: "underline",
-      },
-      "&:focus": {
-        color: "#3D405B",
-        outline: "2px solid #3D405B",
-        outlineOffset: "2px",
-      },
-      "&:active": {
-        color: "#F2CC8F",
-        textDecoration: "none",
-      },
-    },
 
     h1: {
       fontSize: [5, 6, 7],
@@ -114,12 +96,33 @@ module.exports = {
     },
   },
   links: {
+    text: {
+      color: "blue",
+      fontWeight: "bold",
+      textDecoration: "underline",
+      "&:hover": {
+        color: "#E07A5F",
+        textDecoration: "underline",
+      },
+      "&:focus": {
+        color: "#3D405B",
+        outline: "2px solid #3D405B",
+        outlineOffset: "2px",
+      },
+      "&:active": {
+        color: "#F2CC8F",
+        textDecoration: "none",
+      },
+    },
     mobileNav: {
       color: "primary",
     },
     footer: {
       color: "white",
       textDecoration: "none",
+      a: {
+        color: "orange",
+      },
       "&:visited": {
         color: "#FFA63050",
       },
@@ -169,7 +172,7 @@ module.exports = {
     primary: {
       fontFamily: "body",
       fontWeight: "bold",
-      color: "white",
+      color: "#1A1A1A",
       cursor: "pointer",
       bg: "orange",
       transition: "all 0.3s ease-in-out",
@@ -181,7 +184,6 @@ module.exports = {
       },
       "&:hover": {
         backgroundColor: "white",
-        color: "orange",
         boxShadow: "0 0 0 2px orange inset",
       },
     },

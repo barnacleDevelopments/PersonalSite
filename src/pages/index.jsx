@@ -158,7 +158,10 @@ const IndexPage = ({ data }) => {
                   myself on being a proven self-starter who thrives in both
                   independent and team environments. If you're interested in
                   working together, feel free to{" "}
-                  <Link href="/contact">reach out</Link>!
+                  <Link variant="text" href="/contact">
+                    reach out
+                  </Link>
+                  !
                 </Text>
               </Box>
             </Box>

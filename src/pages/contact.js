@@ -224,6 +224,7 @@ const ContactPage = () => {
                 have a project idea, need a technical collaborator, or just want
                 to connect, I’d love to hear from you. Connect with me on{" "}
                 <Link
+                  variant="text"
                   target="_blank"
                   href="https://www.linkedin.com/in/devin-dev-d-63008412b"
                 >
@@ -246,7 +247,7 @@ const ContactPage = () => {
                 Explore how I’ve helped businesses and teams bring their ideas
                 to life. My portfolio highlights my versatility and commitment
                 to delivering high-quality results.{" "}
-                <Link target="_blank" href="/projects">
+                <Link variant="text" target="_blank" href="/projects">
                   View my portfolio
                 </Link>{" "}
                 and reach out to discuss your next project!
@@ -286,7 +287,10 @@ const ContactPage = () => {
               <Flex sx={{ gap: 3, alignItems: "center", mb: 3 }}>
                 <Box>
                   {"Copy my public PGP key to ensure I can securely email you."}{" "}
-                  <Link href="https://www.fortinet.com/resources/cyberglossary/pgp-encryption">
+                  <Link
+                    variant="text"
+                    href="https://www.fortinet.com/resources/cyberglossary/pgp-encryption"
+                  >
                     Learn more about PGP
                   </Link>{" "}
                 </Box>
