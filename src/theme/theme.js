@@ -3,7 +3,7 @@ const { tailwind } = require("@theme-ui/presets");
 module.exports = {
   ...tailwind,
   colors: {
-    primary: "#30362F",
+    primary: "#292E29",
     secondary: "#eeeeee",
     orange: "#FFA630",
     lightOrange: "#FFA63050",
