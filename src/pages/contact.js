@@ -5,7 +5,6 @@ import { yupResolver } from "@hookform/resolvers/yup";
 // Hooks
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
-
 // Components
 import {
   Box,
@@ -25,6 +24,7 @@ import Seo from "../components/app/Seo";
 
 // Icons
 import { faCopy } from "@fortawesome/free-regular-svg-icons";
+import useWindow from "../hooks/use-window";
 
 const schema = yup
   .object({
@@ -45,6 +45,7 @@ const ContactPage = () => {
     resolver: yupResolver(schema),
     mode: "onBlur",
   });
+  const { scrollToTop } = useWindow();
 
   useEffect(() => {
     setFocus("email");
@@ -230,7 +231,19 @@ const ContactPage = () => {
                 >
                   LinkedIn
                 </Link>{" "}
-                or use my contact form—I’ll get back to you shortly.
+                or use my{" "}
+                <span
+                  sx={{
+                    color: "blue",
+                    textDecoration: "underline",
+                    cursor: "pointer",
+                    fontWeight: "bold",
+                  }}
+                  onClick={scrollToTop}
+                >
+                  contact form
+                </span>
+                —I’ll get back to you shortly.
               </Paragraph>
               <Heading variant="subheading2" sx={{ mt: 3 }}>
                 Availability
