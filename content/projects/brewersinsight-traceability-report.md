@@ -1,32 +1,32 @@
 ---
 title: BrewersInsight - Traceability Report
 description: "The Traceability Report is a key feature of the BrewersInsight platform, offering brewers the ability to monitor and manage the journey of resources throughout their brewery. From malt and hops to various raw materials, this tool ensures complete visibility of how these components move from suppliers to the brewery and ultimately to the customer. Effective traceability is essential for optimal beer production quality and compliance."
-image1: /assets/project_photos/traceability-report-1.png
+image1: assets/traceability-report-1.png
 tech: Brewer's Insight is a web application developed using Angular and ASP.NET Core.
-image2: /assets/project_photos/traceability-report-2.png
+image2: assets/traceability-report-2.png
 challenges: "One of the primary challenges in developing this feature was consolidating data from multiple databases to create four tab-separated tables: Materials on Hand, Materials in Production, Finished Goods, and Shipped Products. This involved establishing connections between materials and their corresponding products. Additionally, I implemented several filters to further refine the results displayed in these tables, including Batch ID, Lot Code, Material, and Supplier."
-image3: /assets/project_photos/traceability-report-3.png
+image3: assets/traceability-report-3.png
 technologies:
   - name: "Azure"
-    image: "/assets/tech_logos/azure.png"
+    image: "../tech_logos/azure.png"
   - name: "Azure Functions"
-    image: "/assets/tech_logos/azure-functions.png"
+    image: "../tech_logos/azure-functions.png"
   - name: "CosmosDB"
-    image: "/assets/tech_logos/cosmos-db.png"
+    image: "../tech_logos/cosmos-db.png"
   - name: "Key Vault"
-    image: "/assets/tech_logos/key-vault.png"
+    image: "../tech_logos/key-vault.png"
   - name: "Angular"
-    image: "/assets/tech_logos/angular.png"
+    image: "../tech_logos/angular.png"
   - name: "MSSQL"
-    image: "/assets/tech_logos/sql-server.png"
+    image: "../tech_logos/sql-server.png"
   - name: "Azure Service Bus"
-    image: "/assets/tech_logos/service-bus.png"
+    image: "../tech_logos/service-bus.png"
   - name: "Event Hubs"
-    image: "/assets/tech_logos/event-hubs.png"
+    image: "../tech_logos/event-hubs.png"
   - name: "Typescript"
-    image: "/assets/tech_logos/typescript.png"
+    image: "../tech_logos/typescript.png"
   - name: "API Management"
-    image: "/assets/tech_logos/api-management.png"
+    image: "../tech_logos/api-management.png"
 URL: "https://app.brewersinsight.com/"
 ENSURL: ""
 githubURL: ""

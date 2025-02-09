@@ -2,7 +2,6 @@
 import { Button, jsx, Link } from "theme-ui";
 import { Heading, Box, Flex, Text } from "theme-ui";
 import { graphql } from "gatsby";
-import showdown from "showdown";
 import moment from "moment";
 
 // COMPONENTS
@@ -13,7 +12,6 @@ import Prism from "prismjs";
 // markup
 const BlogPostPage = ({ data }) => {
   const { mdx: node } = data;
-  const converter = new showdown.Converter();
 
   useEffect(() => {
     Prism.highlightAll();
@@ -77,9 +75,6 @@ const BlogPostPage = ({ data }) => {
             a: { color: "orange" },
           }}
           variant="small"
-          dangerouslySetInnerHTML={{
-            __html: converter.makeHtml(node.html),
-          }}
         ></Text>
         <Box sx={{ textAlign: "center" }}>
           <Link href="/blog">
@@ -112,7 +107,6 @@ export const pageQuery = graphql`
         }
       }
       excerpt(truncate: true, format: PLAIN, pruneLength: 70)
-      html
       timeToRead
     }
   }

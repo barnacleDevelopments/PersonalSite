@@ -6,15 +6,8 @@ import { Box, Heading, Grid } from "theme-ui";
 import Seo from "../components/app/Seo";
 import { StaticImage } from "gatsby-plugin-image";
 import CallToAction from "../components/CallToAction";
-import { graphql } from "gatsby";
-import showdown from "showdown";
 
-const AboutPage = ({ data }) => {
-  const converter = new showdown.Converter();
-  const resume = {
-    title: data.mdx.frontmatter.title,
-    html: data.mdx.html,
-  };
+const AboutPage = () => {
   return (
     <Box>
       <Seo title="About" />
@@ -71,16 +64,5 @@ const AboutPage = ({ data }) => {
     </Box>
   );
 };
-
-export const aboutPageQuery = graphql`
-  query AboutPageQuery {
-    mdx(fileAbsolutePath: { regex: "//resumes//" }) {
-      html
-      frontmatter {
-        title
-      }
-    }
-  }
-`;
 
 export default AboutPage;

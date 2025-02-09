@@ -4,14 +4,14 @@ description: I started this desktop application while attending the [Nova Scotia
   Community College](https://www.nscc.ca/) as part of my Electron course. I
   decided to do a partial clone of the desktop version of
   [Evernote](https://evernote.com/).
-image1: /assets/project_photos/evernote-clone-1.png
+image1: assets/evernote-clone-1.png
 tech: Our course had us use Electron to build desktop-grade applications with JavaScript, HTML, and CSS. The advantage here is that web developers like myself are able to produce desktop applications without needing to change their language context. I went a step further and implemented a simple state management system from scratch so that various actions could have "side effects" like disabling the create note button when a notebook is not selected. Frameworks like React enable this kind of functionality but I wanted to learn what was going on under the hood.
-image2: /assets/project_photos/evernote-clone-2.png
+image2: assets/evernote-clone-2.png
 challenges: The main challenges I faced were while implementing the state management system. State management involves the use of a few different consepts most notably, a store, mutations, and actions. The store contains the current state of the application. For instance the create note button can be disabled or enabled depending on a certain state value. Actions call mutations which are functions that change or "mutate" the store. Therefore, actions simply call mutations and should not do any mutating themselves. The store's contents represent the current state of the application. It's an advanced consept that I still don't completly understand on a technicle level but I managed to implement a simple solution.
-image3: /assets/project_photos/evernote-clone-3.png
+image3: assets/evernote-clone-3.png
 technologies:
   - name: "Electron"
-    image: "/assets/tech_logos/electron.png"
+    image: "../tech_logos/electron.png"
 URL: ""
 ENSURL: ""
 githubURL: "https://github.com/barnacleDevelopments/EvernoteClone"

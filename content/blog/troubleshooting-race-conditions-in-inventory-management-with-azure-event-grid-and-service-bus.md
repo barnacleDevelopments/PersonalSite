@@ -1,6 +1,6 @@
 ---
 title: Troubleshooting Race Conditions in Inventory Management with Azure Event Grid and Service Bus
-thumbnail: /assets/photo-1521192520982-5d6ca468a30f.jpg
+thumbnail: assets/photo-1521192520982-5d6ca468a30f.jpg
 date: 2024-06-08T00:00:00.000Z
 keywords: inventory management, race conditions, azure event grid, azure service bus, azure functions, troubleshooting
 draft: false

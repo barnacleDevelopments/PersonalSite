@@ -1,6 +1,6 @@
 ---
 title: Staying Relevant as a Developer
-thumbnail: /assets/blockchain_1.jpg
+thumbnail: assets/blockchain_1.jpg
 date: 2024-10-20T15:59:17.824Z
 keywords: developer job market, staying relevant as a developer, IT industry trends, LLMs in tech, IT career advice, developer skills, problem-solving in tech, future of IT jobs, AI and IT jobs, tech industry growth, web development jobs, computer engineering careers, IT professional mindset, skills for developers, adapting to AI in tech
 draft: true

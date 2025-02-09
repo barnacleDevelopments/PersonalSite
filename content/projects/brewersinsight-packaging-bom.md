@@ -1,32 +1,32 @@
 ---
 title: Brewers Insight - Packaging BOM
 description: The Packaging Bill of Materials (BOM) method helps organize and manage material costs efficiently by grouping materials into reusable collections. In brewing, for example, a 12-pack of beer consists of multiple components such as lids, cans, labels, and boxes. By consolidating these into a BOM, brewers can avoid the repetitive task of calculating the individual cost of each material every time they produce a batch. This not only simplifies cost management but also improves production efficiency and planning.
-image1: /assets/project_photos/packaging-bom-1.png
+image1: assets/packaging-bom-1.png
 tech: Brewer's Insight is a browser application developed using Angular and ASP.NET Core and is hosted on Azure infastructure.
-image2: /assets/project_photos/packaging-bom-2.png
+image2: assets/packaging-bom-2.png
 challenges: The greatest challenge I faced while developing the Packaging BOM and Finished Goods feature was transitioning from the old packaging system to the new one. Previously, brewers had to manually enter each packaging material individually. Unfortunately, the update to the Packaging BOM caused cascading changes throughout the entire application, as reports and other features were reliant on the older system. This experience taught me the importance of considering the broader system impact before implementing new features.
-image3: /assets/project_photos/packaging-bom-3.png
+image3: assets/packaging-bom-3.png
 technologies:
   - name: "Azure"
-    image: "/assets/tech_logos/azure.png"
+    image: "../tech_logos/azure.png"
   - name: "Azure Functions"
-    image: "/assets/tech_logos/azure-functions.png"
+    image: "../tech_logos/azure-functions.png"
   - name: "CosmosDB"
-    image: "/assets/tech_logos/cosmos-db.png"
+    image: "../tech_logos/cosmos-db.png"
   - name: "Key Vault"
-    image: "/assets/tech_logos/key-vault.png"
+    image: "../tech_logos/key-vault.png"
   - name: "Angular"
-    image: "/assets/tech_logos/angular.png"
+    image: "../tech_logos/angular.png"
   - name: "MSSQL"
-    image: "/assets/tech_logos/sql-server.png"
+    image: "../tech_logos/sql-server.png"
   - name: "Azure Service Bus"
-    image: "/assets/tech_logos/service-bus.png"
+    image: "../tech_logos/service-bus.png"
   - name: "Event Hubs"
-    image: "/assets/tech_logos/event-hubs.png"
+    image: "../tech_logos/event-hubs.png"
   - name: "Typescript"
-    image: "/assets/tech_logos/typescript.png"
+    image: "../tech_logos/typescript.png"
   - name: "API Management"
-    image: "/assets/tech_logos/api-management.png"
+    image: "../tech_logos/api-management.png"
 URL: "https://app.brewersinsight.com/"
 ENSURL: ""
 githubURL: ""

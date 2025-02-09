@@ -1,6 +1,6 @@
 ---
 title: Automating Azure Kubernetes Flux Deployment
-thumbnail: /assets/kubernetes-devops.webp
+thumbnail: assets/kubernetes-devops.webp
 date: 2025-01-17T19:31:21.081Z
 keywords: kubernetes, azure, devops, node.js, express, docker, bicep, templates, azure pipelines, ci/cd, aks, azure container registry, flux
 draft: true

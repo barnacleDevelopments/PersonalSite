@@ -1,6 +1,6 @@
 ---
 title: Content Disposition Header
-thumbnail: /assets/logo_2.png
+thumbnail: assets/logo_2.png
 date: 2024-04-22T19:31:21.081Z
 keywords: content disposition header, pdf, stop download
 category: programming
@@ -32,15 +32,15 @@ function generateSASUri(name: string) {
     //@ts-ignore
     new StorageSharedKeyCredential(
       blobServiceClient.accountName,
-      blobServiceClient.credential.accountKey
-    )
+      blobServiceClient.credential.accountKey,
+    ),
   );
 
   // Combine the SAS token with the blob URL to create the complete URL
   const blobUrlWithSAS = `${blockBlobClient.url}?${sasQueryParameters}`;
   console.log(
     "🚀 ~ file: generatePdf.ts:406 ~ generateSASUri ~ blobUrlWithSAS:",
-    blobUrlWithSAS
+    blobUrlWithSAS,
   );
 
   return blobUrlWithSAS;
@@ -66,8 +66,8 @@ const sasQueryParameters = generateBlobSASQueryParameters(
   //@ts-ignore
   new StorageSharedKeyCredential(
     blobServiceClient.accountName,
-    blobServiceClient.credential.accountKey
-  )
+    blobServiceClient.credential.accountKey,
+  ),
 );
 ```
 

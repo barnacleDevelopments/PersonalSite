@@ -1,6 +1,6 @@
 ---
 title: Bevel All-In-One Tutorial
-thumbnail: /assets/logo_2.png
+thumbnail: assets/logo_2.png
 date: 2024-12-09T15:13:45.129Z
 keywords: "hyperledger fabric, hyperledger bevel"
 category: hyperledger

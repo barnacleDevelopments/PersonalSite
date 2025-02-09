@@ -49,12 +49,12 @@ const AllPostsPage = ({ data }) => {
 
 export default AllPostsPage;
 
-//fileAbsolutePath: { regex: "//blog//" }
 export const programmingPostsPageQuery = graphql`
   query ProgrammingPostsPageQuery {
     allMdx(
       filter: { frontmatter: { draft: { eq: false } } }
       sort: { frontmatter: { date: DESC } }
+      fileAbsolutePath: { regex: "//blog//" }
     ) {
       edges {
         node {

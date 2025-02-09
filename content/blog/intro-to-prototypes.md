@@ -1,6 +1,6 @@
 ---
 title: Intro to Prototypes
-thumbnail: /assets/logo_2.png
+thumbnail: assets/logo_2.png
 date: 2020-04-03T15:13:45.129Z
 keywords: javascript, prototypes, javascript prototypes, oop, object oriented, programming, inheritance, augmentation
 category: programming

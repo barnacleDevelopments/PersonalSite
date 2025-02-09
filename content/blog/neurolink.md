@@ -1,6 +1,6 @@
 ---
 title: Is Neurolink Going to Break Our Brains?
-thumbnail: /assets/logo_2.png
+thumbnail: assets/logo_2.png
 date: 2020-04-03T15:13:45.129Z
 keywords: neurolink
 category: programming

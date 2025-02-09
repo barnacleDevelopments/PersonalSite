@@ -1,6 +1,6 @@
 ---
 title: Azure Pipelines Uploading Project Source File to Storage Account
-thumbnail: /assets/logo_2.png
+thumbnail: assets/logo_2.png
 date: 2024-07-2T19:31:21.081Z
 keywords: azure, file access, storage account, blob storage, build.sourcedirectory
 draft: false

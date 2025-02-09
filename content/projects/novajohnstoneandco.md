@@ -2,14 +2,14 @@
 title: NovaJohnstoneAndCo
 description: Nova operates an excuative assistant consulting business and I set
   her up with a welcoming web presence.
-image1: /assets/project_photos/nova-1.png
+image1: assets/nova-1.png
 tech: This site was built with Gatsby and is hosted via Netlify. It also uses Netlify's CMS to allow Nova to add new team members to her site without needing a developer.
-image2: /assets/project_photos/nova-2.png
+image2: assets/nova-2.png
 challenges: This was my first site that I built using Gatsby. Gatsby facilitates static site generation where pages are staticaly generated then hosted on the cloud. The plugin ecosystem and the GraphQL layer where the most challenging aspect of working with Gatsby.
-image3: /assets/project_photos/nova-3.png
+image3: assets/nova-3.png
 technologies:
   - name: "Netlify"
-    image: "/assets/tech_logos/netlify.png"
+    image: "../tech_logos/netlify.png"
 URL: "https://njohnstoneandco.devdeveloper.ca"
 ENSURL: "njohnstoneandco.devdeveloper.eth"
 githubURL: "https://github.com/barnacleDevelopments/NovaJohnstoneAndCo"

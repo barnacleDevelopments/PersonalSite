@@ -1,6 +1,6 @@
 ---
 title: Open Graph Protocol
-thumbnail: /assets/ogp.png
+thumbnail: assets/ogp.png
 date: 2024-11-20T19:31:21.081Z
 category: programming
 draft: false

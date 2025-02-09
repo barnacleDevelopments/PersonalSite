@@ -120,26 +120,27 @@ exports.createPages = async ({ actions, graphql }) => {
   return Promise.allSettled([categoryResult]);
 };
 
-// exports.onCreateNode = async ({
-//   node,
-//   actions: { createNodeField },
-//   getNode,
-// }) => {
-//   if (node.internal.type === `Mdx`) {
-//     let path;
-//     if (node.frontmatter.path) {
-//       path = node.frontmatter.path;
-//     } else {
-//       path = createFilePath({ node, getNode });
-//     }
+exports.onCreateNode = async ({
+  node,
+  actions: { createNodeField },
+  getNode,
+}) => {
+  if (node.internal.type === `Mdx`) {
+    let path;
+    console.log("NODE: ", node.frontmatter);
+    if (node.frontmatter.path) {
+      path = node.frontmatter.path;
+    } else {
+      path = createFilePath({ node, getNode });
+    }
 
-//     createNodeField({
-//       name: `slug`,
-//       node,
-//       value: path,
-//     });
-//   }
-// };
+    createNodeField({
+      name: `slug`,
+      node,
+      value: path,
+    });
+  }
+};
 
 exports.onCreateWebpackConfig = ({ actions, getConfig }) => {
   const config = getConfig();

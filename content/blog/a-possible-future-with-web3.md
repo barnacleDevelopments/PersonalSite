@@ -1,6 +1,6 @@
 ---
 title: A Possible Future with Web3
-thumbnail: /assets/blockchain_1.jpg
+thumbnail: assets/blockchain_1.jpg
 date: 2024-01-01T13:48:58.632Z
 keywords: blockchain, ethereum, consensus, voting, cryptocurrency, bitcoin
 draft: false

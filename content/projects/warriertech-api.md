@@ -1,26 +1,26 @@
 ---
 title: "WarrierTech API"
 description: "I played a key role in designing and developing the WarrierTech API, which provides a robust suite of APIs for seamless integration of WarrierTech and third-party IoT devices across diverse platforms. Covering WarrierTech's satellite and cellular solutions, these APIs support applications in telematics, environmental monitoring, industrial management, and more. They allow for easy retrieval of device data, configuration updates, and control over actuators, as well as access to a wide array of digital and analog sensors. Secure cloud storage enables developers to reliably access device information and data through these APIs."
-image1: /assets/project_photos/warriertech-api-1.png
+image1: assets/warriertech-api-1.png
 tech: "As a key contributor, I developed this API alongside a generic interface for consuming it. Using Azure Functions, Azure API Gateway, and CosmosDB, this API delivers a secure, structured way for customers to seamlessly access their sensor data."
-image2: /assets/project_photos/warriertech-api-2.png
+image2: assets/warriertech-api-2.png
 challenges: "The most challenging aspect of developing this API was establishing a flexible data format to handle the unique sensors on each IoT device. To achieve both adaptability and structure, we implemented a flexible JSON format and selected CosmosDB for its scalability and suitability for diverse data structures."
-image3: /assets/project_photos/warriertech-api-3.png
+image3: assets/warriertech-api-3.png
 technologies:
   - name: "Azure"
-    image: "/assets/tech_logos/azure.png"
+    image: "../tech_logos/azure.png"
   - name: "Azure Functions"
-    image: "/assets/tech_logos/azure-functions.png"
+    image: "../tech_logos/azure-functions.png"
   - name: "CosmosDB"
-    image: "/assets/tech_logos/cosmos-db.png"
+    image: "../tech_logos/cosmos-db.png"
   - name: "Key Vault"
-    image: "/assets/tech_logos/key-vault.png"
+    image: "../tech_logos/key-vault.png"
   - name: "Typescript"
-    image: "/assets/tech_logos/typescript.png"
+    image: "../tech_logos/typescript.png"
   - name: "NodeJS"
-    image: "/assets/tech_logos/nodejs.png"
+    image: "../tech_logos/nodejs.png"
   - name: "API Management"
-    image: "/assets/tech_logos/api-management.png"
+    image: "../tech_logos/api-management.png"
 URL: "https://developer.warriertech.com"
 ENSURL: ""
 githubURL: ""
