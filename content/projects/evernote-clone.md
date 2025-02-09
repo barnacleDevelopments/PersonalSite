@@ -11,9 +11,7 @@ challenges: The main challenges I faced were while implementing the state manage
 image3: /assets/project_photos/evernote-clone-3.png
 technologies:
   - name: "Electron"
-    image: "https://arweave.net/Rvk45znM88OD1WtsBFgrb_RvaeHute80Fmkk4Dj5Z4s"
-  - name: "SQLite"
-    image: "https://arweave.net/lIndmxHck3IQfrwcpyrwhgCiT51hA3haAVEyRe2o96c"
+    image: "/assets/tech_logos/electron.png"
 URL: ""
 ENSURL: ""
 githubURL: "https://github.com/barnacleDevelopments/EvernoteClone"

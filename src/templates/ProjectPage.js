@@ -10,6 +10,7 @@ import { GatsbyImage, getImage } from "gatsby-plugin-image";
 function ProjectPage({ data }) {
   const { markdownRemark: node } = data;
   const converter = new showdown.Converter();
+  console.log(data);
   return (
     <Box>
       <Seo
@@ -83,6 +84,7 @@ function ProjectPage({ data }) {
         sx={{ ...sectionWrapperStyle, backgroundColor: "primary" }}
         color="white"
       >
+        {" "}
         <Grid
           columns={[1, null, 2]}
           sx={{ ...sectionFlexStyle, alignItems: "center" }}
@@ -109,8 +111,12 @@ function ProjectPage({ data }) {
               {node.frontmatter.technologies.map((x) => (
                 <Box>
                   <Flex sx={{ alignItems: "center" }}>
-                    <img sx={techImageStyle} src={x.image} alt={x.name} />
-                    {x.name}
+                    <GatsbyImage
+                      placeholder="blurred"
+                      style={techImageStyle}
+                      image={getImage(x.image)}
+                      alt={x.name}
+                    />
                   </Flex>
                 </Box>
               ))}
@@ -218,7 +224,14 @@ export const pageQuery = graphql`
         keywords
         technologies {
           name
-          image
+          image {
+            childImageSharp {
+              gatsbyImageData
+              original {
+                src
+              }
+            }
+          }
         }
         image1 {
           childImageSharp {

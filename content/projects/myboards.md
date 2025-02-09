@@ -10,22 +10,12 @@ URL: ""
 ENSURL: ""
 githubURL: https://github.com/barnacleDevelopments/MyBoards
 technologies:
-  - name: "React-Native"
-    image: "https://arweave.net/xVMN5cv_iwFVV7xXIV_w7jOSRHwFRfOeL6dTzwFwOYA"
-  - name: "Typescript"
-    image: ""
-  - name: "C#"
-    image: "https://arweave.net/YgsGFbjkXXZX3UFfi3xjjQHaetX33qlobHwMTai83s4"
   - name: "Digital Ocean"
-    image: "https://arweave.net/_RdXbJkbuM5lMfvEBMNqy2Fy1981W3UQMZv5hg9kbog"
-  - name: "MSSQL"
-    image: "https://arweave.net/VvSD0vuK-fQeifHqTZZLVQAAz9cKNmQ-tZOb53k1zg4"
-  - name: "Azure Active Directory"
-    image: "https://arweave.net/IiV7wYL8uimmRi-4QyT9VwNAvqk2MDk_w5aYWN_x9o0"
-  - name: ".NET Core"
-    image: "https://arweave.net/2OEbRffInEVfcLN1TzntSs5C0do2b-EMnqjm2sT365s"
-  - name: "Entity Framework Core"
-    image: "https://arweave.net/4hR37IUATVhve_SAp0KPMOOOnYsR50jdyLKUEoou6Sg"
+    image: "/assets/tech_logos/digital-ocean.png"
+  - name: "React Native"
+    image: "/assets/tech_logos/react-native.png"
+  - name: "PostgreSQL"
+    image: "/assets/tech_logos/postgresql.png"
 startDate: 2022-01-01T14:54:06.484Z
 endDate: 2022-01-01T14:54:06.484Z
 status: complete

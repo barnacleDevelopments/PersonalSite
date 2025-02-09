@@ -7,10 +7,8 @@ image2: /assets/project_photos/resson-marketing-website-2.png
 challenges: G﻿atsby facilitates static site generation to create small footprint sites that can cheaply be hosted on the cloud. The primary challenge of working with Gatsby is its use of plugins which take time to understand how they relate to each other.
 image3: /assets/project_photos/resson-marketing-website-3.png
 technologies:
-  - name: "Gatsby"
-    image: "https://arweave.net/iT8VNjjj9ErtDhFT-vkjst5-tqxHOo4yDU8yyZBLQe8"
   - name: "Netlify"
-    image: "https://arweave.net/xSAjMOYyyFlXe5115lktOArSYSLRu4wkvYrLb4B-kJM"
+    image: "/assets/tech_logos/netlify.png"
 URL: "https://resson.devdeveloper.ca"
 ENSURL: "resson.devdeveloper.eth"
 githubURL: "https://github.com/barnacleDevelopments/RessonMarketingWebsite"

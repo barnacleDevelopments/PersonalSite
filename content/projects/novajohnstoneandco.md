@@ -8,10 +8,10 @@ image2: /assets/project_photos/nova-2.png
 challenges: This was my first site that I built using Gatsby. Gatsby facilitates static site generation where pages are staticaly generated then hosted on the cloud. The plugin ecosystem and the GraphQL layer where the most challenging aspect of working with Gatsby.
 image3: /assets/project_photos/nova-3.png
 technologies:
-  - name: "Gatsby"
-    image: "https://arweave.net/iT8VNjjj9ErtDhFT-vkjst5-tqxHOo4yDU8yyZBLQe8"
-  - name: "Netlify"
-    image: "https://arweave.net/xSAjMOYyyFlXe5115lktOArSYSLRu4wkvYrLb4B-kJM"
+  - name: "Azure"
+    image: "/assets/tech_logos/azure.png"
+  - name: "Azure Functions"
+    image: "/assets/tech_logos/azure-functions.png"
 URL: "https://njohnstoneandco.devdeveloper.ca"
 ENSURL: "njohnstoneandco.devdeveloper.eth"
 githubURL: "https://github.com/barnacleDevelopments/NovaJohnstoneAndCo"
