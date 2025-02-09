@@ -7,7 +7,7 @@ import Seo from "../components/app/Seo";
 import CallToAction from "../components/CallToAction";
 
 const ProjectsPage = ({ data }) => {
-  const projects = data.allMarkdownRemark.edges.map(
+  const projects = data.allMdx.edges.map(
     ({ node: { fields, frontmatter } }) => ({
       ...fields,
       ...frontmatter,
@@ -84,7 +84,7 @@ const ProjectsPage = ({ data }) => {
 
 export const projectsQuery = graphql`
   query ProjectsPageQuery {
-    allMarkdownRemark(
+    allMdx(
       filter: { fileAbsolutePath: { regex: "//projects//" } }
       sort: { frontmatter: { startDate: DESC } }
     ) {

@@ -8,9 +8,8 @@ import Seo from "../components/app/Seo";
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
 
 function ProjectPage({ data }) {
-  const { markdownRemark: node } = data;
+  const { mdx: node } = data;
   const converter = new showdown.Converter();
-  console.log(data);
   return (
     <Box>
       <Seo
@@ -211,7 +210,7 @@ const sectionFlexStyle = {
 
 export const pageQuery = graphql`
   query ProjectBySlug($slug: String!) {
-    markdownRemark(fields: { slug: { eq: $slug } }) {
+    mdx(fields: { slug: { eq: $slug } }) {
       frontmatter {
         title
         startDate

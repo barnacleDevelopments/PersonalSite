@@ -12,7 +12,7 @@ import Prism from "prismjs";
 
 // markup
 const BlogPostPage = ({ data }) => {
-  const { markdownRemark: node } = data;
+  const { mdx: node } = data;
   const converter = new showdown.Converter();
 
   useEffect(() => {
@@ -98,7 +98,7 @@ export const pageQuery = graphql`
         siteUrl
       }
     }
-    markdownRemark(fields: { slug: { eq: $slug } }) {
+    mdx(fields: { slug: { eq: $slug } }) {
       frontmatter {
         title
         date

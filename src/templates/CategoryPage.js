@@ -8,7 +8,7 @@ import { Heading, Box, Text, Grid, Link, Button } from "theme-ui";
 import Seo from "../components/app/Seo";
 
 const CategoryPage = ({ data }) => {
-  const pageData = data.allMarkdownRemark.edges;
+  const pageData = data.allMdx.edges;
   const postCategory = pageData[0]?.node.frontmatter.category;
   return (
     <Box>
@@ -83,7 +83,7 @@ export default CategoryPage;
 
 export const pageQuery = graphql`
   query PostsByCategoryQuery($category: String!) {
-    allMarkdownRemark(
+    allMdx(
       filter: {
         frontmatter: { draft: { eq: false }, category: { eq: $category } }
       }

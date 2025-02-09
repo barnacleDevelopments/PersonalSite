@@ -10,7 +10,7 @@ import PostCategoryCard from "../components/blog/PostCategoryCard";
 import { faRssSquare } from "@fortawesome/free-solid-svg-icons";
 
 const BlogPage = ({ data }) => {
-  const categories = data.allMarkdownRemark.distinct;
+  const categories = data.allMdx.distinct;
 
   return (
     <Box>
@@ -93,7 +93,7 @@ export const pageQuery = graphql`
         siteUrl
       }
     }
-    allMarkdownRemark(filter: { frontmatter: { draft: { eq: false } } }) {
+    allMdx(filter: { frontmatter: { draft: { eq: false } } }) {
       distinct(field: { frontmatter: { category: SELECT } })
     }
   }

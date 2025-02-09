@@ -11,10 +11,9 @@ import showdown from "showdown";
 
 const AboutPage = ({ data }) => {
   const converter = new showdown.Converter();
-  console.log(data);
   const resume = {
-    title: data.markdownRemark.frontmatter.title,
-    html: data.markdownRemark.html,
+    title: data.mdx.frontmatter.title,
+    html: data.mdx.html,
   };
   return (
     <Box>
@@ -75,7 +74,7 @@ const AboutPage = ({ data }) => {
 
 export const aboutPageQuery = graphql`
   query AboutPageQuery {
-    markdownRemark(fileAbsolutePath: { regex: "//resumes//" }) {
+    mdx(fileAbsolutePath: { regex: "//resumes//" }) {
       html
       frontmatter {
         title

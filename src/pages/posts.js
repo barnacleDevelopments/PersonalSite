@@ -8,7 +8,7 @@ import { Box, Text, Grid, Heading } from "theme-ui";
 import Seo from "../components/app/Seo";
 
 const AllPostsPage = ({ data }) => {
-  const pageData = data.allMarkdownRemark.edges;
+  const pageData = data.allMdx.edges;
   return (
     <Box>
       <Seo title="Blog"></Seo>
@@ -49,13 +49,11 @@ const AllPostsPage = ({ data }) => {
 
 export default AllPostsPage;
 
+//fileAbsolutePath: { regex: "//blog//" }
 export const programmingPostsPageQuery = graphql`
   query ProgrammingPostsPageQuery {
-    allMarkdownRemark(
-      filter: {
-        fileAbsolutePath: { regex: "//blog//" }
-        frontmatter: { draft: { eq: false } }
-      }
+    allMdx(
+      filter: { frontmatter: { draft: { eq: false } } }
       sort: { frontmatter: { date: DESC } }
     ) {
       edges {
