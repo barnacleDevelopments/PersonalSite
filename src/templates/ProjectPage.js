@@ -36,14 +36,14 @@ function ProjectPage({ data }) {
           {node.frontmatter.URL && (
             <a target="_blanc" href={node.frontmatter.URL}>
               <Button mt={3} variant="primary" mr={2}>
-                View Live Site
+                View
               </Button>
             </a>
           )}{" "}
           {node.frontmatter.githubURL && (
             <a target="_blanc" href={node.frontmatter.githubURL}>
               <Button mt={3} variant="primary">
-                View on GitHub
+                GitHub Repo
               </Button>
             </a>
           )}
