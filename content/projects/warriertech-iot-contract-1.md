@@ -26,8 +26,8 @@ technologies:
 URL: "https://warriertech.com"
 ENSURL: ""
 githubURL: ""
-startDate: 2025-02-07T20:58:39.301Z
-endDate: 2025-02-07T20:58:39.301Z
+startDate: 2025-07-01T20:58:39.301Z
+endDate: 2025-07-017T20:58:39.301Z
 status: complete
 keywords: WarrierTech API, custom IoT solutions, satellite and cellular IoT, IoT data integration, environmental monitoring IoT, telematics API, industrial IoT API, Azure Functions, CosmosDB, secure IoT data, flexible JSON API, third-party IoT integration, digital and analog sensor API, device management IoT, cloud IoT storage, Devin Davis
 ---
