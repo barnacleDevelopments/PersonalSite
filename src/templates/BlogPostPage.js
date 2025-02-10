@@ -86,6 +86,7 @@ const BlogPostPage = ({ data }) => {
   );
 };
 
+//excerpt(truncate: true, format: PLAIN, pruneLength: 70)
 export const pageQuery = graphql`
   query PostsByTitle($slug: String!) {
     site {
@@ -106,8 +107,6 @@ export const pageQuery = graphql`
           }
         }
       }
-      excerpt(truncate: true, format: PLAIN, pruneLength: 70)
-      timeToRead
     }
   }
 `;

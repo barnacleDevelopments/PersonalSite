@@ -1,7 +1,6 @@
 /** @jsx jsx */
 import { jsx, Link } from "theme-ui";
 import { graphql } from "gatsby";
-import showdown from "showdown";
 import moment from "moment";
 import { Box, Flex, Button, Heading, Text, Grid } from "theme-ui";
 import Seo from "../components/app/Seo";
@@ -9,7 +8,6 @@ import { GatsbyImage, getImage } from "gatsby-plugin-image";
 
 function ProjectPage({ data }) {
   const { mdx: node } = data;
-  const converter = new showdown.Converter();
   return (
     <Box>
       <Seo
@@ -61,12 +59,7 @@ function ProjectPage({ data }) {
             <Heading as="h2" variant="subheading1">
               Overview
             </Heading>
-            <Text
-              sx={paragraphStyles}
-              dangerouslySetInnerHTML={{
-                __html: converter.makeHtml(node.frontmatter.description),
-              }}
-            ></Text>
+            <Text sx={paragraphStyles}></Text>
           </Box>
           <Box sx={{ order: [1, 2], mb: [5, 0], mt: [0, 3] }}>
             <GatsbyImage
@@ -100,12 +93,7 @@ function ProjectPage({ data }) {
             <Heading as="h2" variant="subheading1" color="white">
               Tech Used
             </Heading>
-            <Text
-              sx={paragraphStyles}
-              dangerouslySetInnerHTML={{
-                __html: converter.makeHtml(node.frontmatter.tech),
-              }}
-            ></Text>
+            <Text sx={paragraphStyles}></Text>
             <Flex sx={{ flexWrap: "wrap", gap: "10px" }}>
               {node.frontmatter.technologies.map((x) => (
                 <Box>
@@ -143,12 +131,7 @@ function ProjectPage({ data }) {
             <Heading as="h2" variant="subheading1">
               Challenges
             </Heading>
-            <Text
-              sx={paragraphStyles}
-              dangerouslySetInnerHTML={{
-                __html: converter.makeHtml(node.frontmatter.challenges),
-              }}
-            ></Text>
+            <Text sx={paragraphStyles}></Text>
             <Link href="/projects">
               <Button variant="primary">Back to Projects</Button>
             </Link>

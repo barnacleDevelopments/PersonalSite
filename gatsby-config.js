@@ -69,6 +69,9 @@ module.exports = {
                 });
               });
             },
+
+            //excerpt(truncate: true, format: HTML, pruneLength: 100)
+            // html
             query: `
               {
                 allMdx(
@@ -87,8 +90,6 @@ module.exports = {
                         title
                         date
                       }
-                      html
-                      excerpt(truncate: true, format: HTML, pruneLength: 100)
                     }
                   }
                 }

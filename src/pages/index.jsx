@@ -244,7 +244,10 @@ const IndexPage = ({ data }) => {
 export const landingPageQuery = graphql`
   query LandingPageQuery {
     blogPosts: allMdx(
-      filter: { frontmatter: { draft: { eq: false } } }
+      filter: {
+        frontmatter: { draft: { eq: false } }
+        internal: { contentFilePath: { regex: "/content/posts/" } }
+      }
       sort: { frontmatter: { date: DESC } }
       limit: 3
     ) {
@@ -258,12 +261,14 @@ export const landingPageQuery = graphql`
             date(formatString: "MMMM do, YYYY")
             category
           }
-          excerpt(truncate: true, format: HTML, pruneLength: 100)
         }
       }
     }
 
-    books: allMdx(sort: { frontmatter: { date: DESC } }) {
+    books: allMdx(
+      filter: { internal: { contentFilePath: { regex: "/content/books/" } } }
+      sort: { frontmatter: { date: DESC } }
+    ) {
       edges {
         node {
           fields {
@@ -278,7 +283,6 @@ export const landingPageQuery = graphql`
               }
             }
           }
-          excerpt(truncate: true, format: HTML, pruneLength: 100)
         }
       }
     }

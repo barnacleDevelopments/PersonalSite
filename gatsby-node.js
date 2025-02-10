@@ -74,7 +74,7 @@ exports.createPages = async ({ actions, graphql }) => {
   const categoryResult = graphql(`
     query ProjectsPageQuery {
       allMdx(
-        filter: { internal: { contentFilePath: { regex: "/content/blog/" } } }
+        filter: { internal: { contentFilePath: { regex: "/content/posts/" } } }
       ) {
         distinct(field: { frontmatter: { category: SELECT } })
       }
@@ -94,7 +94,7 @@ exports.createPages = async ({ actions, graphql }) => {
       allMdx(
         filter: {
           frontmatter: { draft: { eq: false } }
-          internal: { contentFilePath: { regex: "/content/blog/" } }
+          internal: { contentFilePath: { regex: "/content/posts/" } }
         }
       ) {
         edges {

@@ -2,7 +2,6 @@
 import { jsx } from "theme-ui";
 import { GatsbyImage } from "gatsby-plugin-image";
 import { getImage } from "gatsby-plugin-image";
-import showdown from "showdown";
 
 // Components
 import { Heading, Card, Text, Button, Box, Grid, Link } from "theme-ui";
@@ -10,7 +9,6 @@ import { Heading, Card, Text, Button, Box, Grid, Link } from "theme-ui";
 // markup
 const PostCard = ({ post, postContent }) => {
   const cardImage = getImage(post.thumbnail);
-  const converter = new showdown.Converter();
 
   return (
     <Card
@@ -65,9 +63,6 @@ const PostCard = ({ post, postContent }) => {
               color: "white",
             }}
             variant="small"
-            dangerouslySetInnerHTML={{
-              __html: converter.makeHtml(postContent),
-            }}
           ></Text>
           <Box>
             <Link href={`${post.slug}`}>

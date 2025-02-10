@@ -53,9 +53,11 @@ export default AllPostsPage;
 export const programmingPostsPageQuery = graphql`
   query ProgrammingPostsPageQuery {
     allMdx(
-      filter: { frontmatter: { draft: { eq: false } } }
+      filter: {
+        frontmatter: { draft: { eq: false } }
+        internal: { contentFilePath: { regex: "/content/posts/" } }
+      }
       sort: { frontmatter: { date: DESC } }
-      filter: { internal: { contentFilePath: { regex: "/content/posts/" } } }
     ) {
       edges {
         node {
