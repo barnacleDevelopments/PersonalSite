@@ -49,7 +49,6 @@ const AllPostsPage = ({ data }) => {
 
 export default AllPostsPage;
 
-//excerpt(truncate: true, format: HTML, pruneLength: 100)
 export const programmingPostsPageQuery = graphql`
   query ProgrammingPostsPageQuery {
     allMdx(
@@ -73,6 +72,7 @@ export const programmingPostsPageQuery = graphql`
               }
             }
           }
+          excerpt(pruneLength: 100)
         }
       }
     }

@@ -1,10 +1,10 @@
 ---
-title: Automating Azure Kubernetes Flux Deployment
-thumbnail: assets/kubernetes-devops.webp
-date: 2025-01-17T19:31:21.081Z
-keywords: kubernetes, azure, devops, node.js, express, docker, bicep, templates, azure pipelines, ci/cd, aks, azure container registry, flux
+title: "Automating Azure Kubernetes Flux Deployment"
+thumbnail: "assets/kubernetes-devops.webp"
+date: "2025-01-17T19:31:21.081Z"
+keywords: "kubernetes, azure, devops, node.js, express, docker, bicep, templates, azure pipelines, ci/cd, aks, azure container registry, flux"
 draft: true
-category: devops
+category: "devops"
 ---
 
 The ultimate power of DevOps lies in the full automation of deployment pipelines. Automating Kubernetes deployments with Flux ensures reproducibility, scalability, and control over production resources. This tutorial will guide you through automating a Kubernetes Flux deployment, allowing you to quickly spin up and tear down a production-grade Kubernetes environment using Flux. Additionally, we'll set up a PostgreSQL database that leverages an Azure Storage Account, demonstrating how deployment updates work in a GitOps-driven environment.

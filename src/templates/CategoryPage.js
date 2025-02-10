@@ -80,7 +80,6 @@ const CategoryPage = ({ data }) => {
 };
 
 export default CategoryPage;
-//excerpt(truncate: true, format: HTML, pruneLength: 100)
 export const pageQuery = graphql`
   query PostsByCategoryQuery($category: String!) {
     allMdx(
@@ -104,6 +103,7 @@ export const pageQuery = graphql`
               }
             }
           }
+          excerpt(pruneLength: 100)
         }
       }
     }

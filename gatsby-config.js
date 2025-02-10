@@ -65,18 +65,14 @@ module.exports = {
                   date: edge.node.frontmatter.date,
                   url: site.siteMetadata.siteUrl + edge.node.fields.slug,
                   guid: site.siteMetadata.siteUrl + edge.node.fields.slug,
-                  custom_elements: [{ "content:encoded": edge.node.html }],
                 });
               });
             },
-
-            //excerpt(truncate: true, format: HTML, pruneLength: 100)
-            // html
             query: `
               {
                 allMdx(
                   filter: {
-                    internal: {contentFilePath: {regex: "/content/blog/"}}
+                    internal: {contentFilePath: {regex: "/content/posts/"}}
                     frontmatter: { draft: { eq: false } }
                   }
                   sort: { frontmatter: { date: DESC } }
@@ -90,6 +86,7 @@ module.exports = {
                         title
                         date
                       }
+                      excerpt(pruneLength: 100)
                     }
                   }
                 }

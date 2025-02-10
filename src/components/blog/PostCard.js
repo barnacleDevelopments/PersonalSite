@@ -63,7 +63,9 @@ const PostCard = ({ post, postContent }) => {
               color: "white",
             }}
             variant="small"
-          ></Text>
+          >
+            {postContent}
+          </Text>
           <Box>
             <Link href={`${post.slug}`}>
               <Button

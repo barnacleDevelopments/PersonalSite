@@ -1,8 +1,10 @@
 /** @jsx jsx */
+import React from "react";
 import { Button, jsx, Link } from "theme-ui";
 import { Heading, Box, Flex, Text } from "theme-ui";
 import { graphql } from "gatsby";
 import moment from "moment";
+import { MDXProvider } from "@mdx-js/react";
 
 // COMPONENTS
 import Seo from "../components/app/Seo";
@@ -10,7 +12,7 @@ import { useEffect } from "react";
 import Prism from "prismjs";
 
 // markup
-const BlogPostPage = ({ data }) => {
+const BlogPostPage = ({ data, children }) => {
   const { mdx: node } = data;
 
   useEffect(() => {
@@ -62,20 +64,7 @@ const BlogPostPage = ({ data }) => {
           width: ["90%", "80%", "70%"],
         }}
       >
-        <Text
-          sx={{
-            "h1, h2, h3": { fontWeight: 500 },
-            h1: { fontSize: "2.2em" },
-            h2: { fontSize: "2em" },
-            h3: { fontSize: "1.5em", fontStyle: "italic" },
-            ul: { marginLeft: "40px", overflowWrap: "break-word" },
-            ol: { marginLeft: "40px", overflowWrap: "break-word" },
-            li: { listStyleType: "dot" },
-            blockquote: { fontStyle: "italic" },
-            a: { color: "orange" },
-          }}
-          variant="small"
-        ></Text>
+        <MDXProvider variant="small">{children}</MDXProvider>
         <Box sx={{ textAlign: "center" }}>
           <Link href="/blog">
             <Button>Read More Articles</Button>
@@ -86,7 +75,6 @@ const BlogPostPage = ({ data }) => {
   );
 };
 
-//excerpt(truncate: true, format: PLAIN, pruneLength: 70)
 export const pageQuery = graphql`
   query PostsByTitle($slug: String!) {
     site {
@@ -107,6 +95,7 @@ export const pageQuery = graphql`
           }
         }
       }
+      excerpt(pruneLength: 70)
     }
   }
 `;

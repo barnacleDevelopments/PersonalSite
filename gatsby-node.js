@@ -8,7 +8,7 @@ exports.createPages = async ({ actions, graphql }) => {
   function genPostPage(node, post) {
     createPage({
       path: `${node.fields.slug}`,
-      component: path.resolve(`src/templates/BlogPostPage.js`),
+      component: `${path.resolve(`./src/templates/BlogPostPage.js`)}?__contentFilePath=${node.internal.contentFilePath}`,
       context: {
         title: post.title,
         slug: node.fields.slug,
@@ -61,7 +61,6 @@ exports.createPages = async ({ actions, graphql }) => {
       if (result.errors) {
         Promise.reject(result.errors);
       }
-      console.log("DEBUG: ", result.data);
       result.data.allMdx.edges.forEach(({ node }) => {
         const project = node.frontmatter;
         genProjectPage(node, project);
@@ -104,6 +103,9 @@ exports.createPages = async ({ actions, graphql }) => {
             }
             frontmatter {
               title
+            }
+            internal {
+              contentFilePath
             }
           }
         }

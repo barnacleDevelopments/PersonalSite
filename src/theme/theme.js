@@ -93,6 +93,19 @@ module.exports = {
       fontWeight: "heading",
       lineHeight: "heading",
     },
+    h1: { fontSize: "2.2em" },
+    h2: { fontSize: "2em" },
+    h3: { fontSize: "1.5em", fontStyle: "italic" },
+    ul: { marginLeft: "40px", overflowWrap: "break-word" },
+    ol: { marginLeft: "40px", overflowWrap: "break-word" },
+    li: { listStyleType: "dot", mb: 2 },
+    blockquote: { fontStyle: "italic" },
+    a: { color: "orange" },
+    p: {
+      color: "primary",
+      fontSize: 1,
+      lineHeight: "body",
+    },
   },
   headings: {
     h1: {

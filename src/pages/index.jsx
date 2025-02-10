@@ -261,6 +261,7 @@ export const landingPageQuery = graphql`
             date(formatString: "MMMM do, YYYY")
             category
           }
+          excerpt(pruneLength: 100)
         }
       }
     }
