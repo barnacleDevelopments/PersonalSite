@@ -85,8 +85,8 @@ const ProjectsPage = ({ data }) => {
 export const projectsQuery = graphql`
   query ProjectsPageQuery {
     allMdx(
-      filter: { fileAbsolutePath: { regex: "//projects//" } }
       sort: { frontmatter: { startDate: DESC } }
+      filter: { internal: { contentFilePath: { regex: "/content/projects/" } } }
     ) {
       edges {
         node {

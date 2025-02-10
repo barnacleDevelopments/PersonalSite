@@ -37,39 +37,45 @@ exports.createPages = async ({ actions, graphql }) => {
     });
   }
 
-  // const projectsResult = graphql(`
-  //   query ProjectsQuery {
-  //     allMdx(filter: { fileAbsolutePath: { regex: "//projects//" } }) {
-  //       edges {
-  //         node {
-  //           fields {
-  //             slug
-  //           }
-  //           frontmatter {
-  //             title
-  //           }
-  //         }
-  //       }
-  //     }
-  //   }
-  // `)
-  //   .then((result) => {
-  //     if (result.errors) {
-  //       Promise.reject(result.errors);
-  //     }
-  //     console.log("DEBUG: ", result.data);
-  //     result.data.allMdx.edges.forEach(({ node }) => {
-  //       const project = node.frontmatter;
-  //       genProjectPage(node, project);
-  //     });
-  //   })
-  //   .catch((error) =>
-  //     console.log("Error occured while generating project pages", error),
-  //   );
+  const projectsResult = graphql(`
+    query ProjectsQuery {
+      allMdx(
+        filter: {
+          internal: { contentFilePath: { regex: "/content/projects/" } }
+        }
+      ) {
+        edges {
+          node {
+            fields {
+              slug
+            }
+            frontmatter {
+              title
+            }
+          }
+        }
+      }
+    }
+  `)
+    .then((result) => {
+      if (result.errors) {
+        Promise.reject(result.errors);
+      }
+      console.log("DEBUG: ", result.data);
+      result.data.allMdx.edges.forEach(({ node }) => {
+        const project = node.frontmatter;
+        genProjectPage(node, project);
+      });
+    })
+    .catch((error) =>
+      console.log("Error occured while generating project pages", error),
+    );
 
   const categoryResult = graphql(`
     query ProjectsPageQuery {
-      allMdx(filter: { frontmatter: { draft: { eq: false } } }) {
+      allMdx(
+        filter: { internal: { contentFilePath: { regex: "/content/blog/" } } }
+      ) {
         distinct(field: { frontmatter: { category: SELECT } })
       }
     }
@@ -83,41 +89,41 @@ exports.createPages = async ({ actions, graphql }) => {
     });
   });
 
-  // const postsResult = graphql(`
-  //   query BlogQuery {
-  //     allMdx(
-  //       filter: {
-  //         fileAbsolutePath: { regex: "//blog//" }
-  //         frontmatter: { draft: { eq: false } }
-  //       }
-  //     ) {
-  //       edges {
-  //         node {
-  //           fields {
-  //             slug
-  //           }
-  //           frontmatter {
-  //             title
-  //           }
-  //         }
-  //       }
-  //     }
-  //   }
-  // `).then((result) => {
-  //   if (result.errors) {
-  //     Promise.reject(results.errors);
-  //   }
-  //   result.data.allMdx.edges
-  //     .filter(({ node }) => {
-  //       return !node.frontmatter.draft;
-  //     })
-  //     .forEach(({ node }) => {
-  //       const post = node.frontmatter;
-  //       genPostPage(node, post);
-  //     });
-  // });
+  const postsResult = graphql(`
+    query BlogQuery {
+      allMdx(
+        filter: {
+          frontmatter: { draft: { eq: false } }
+          internal: { contentFilePath: { regex: "/content/blog/" } }
+        }
+      ) {
+        edges {
+          node {
+            fields {
+              slug
+            }
+            frontmatter {
+              title
+            }
+          }
+        }
+      }
+    }
+  `).then((result) => {
+    if (result.errors) {
+      Promise.reject(results.errors);
+    }
+    result.data.allMdx.edges
+      .filter(({ node }) => {
+        return !node.frontmatter.draft;
+      })
+      .forEach(({ node }) => {
+        const post = node.frontmatter;
+        genPostPage(node, post);
+      });
+  });
 
-  return Promise.allSettled([categoryResult]);
+  return Promise.allSettled([categoryResult, postsResult, projectsResult]);
 };
 
 exports.onCreateNode = async ({
@@ -127,7 +133,6 @@ exports.onCreateNode = async ({
 }) => {
   if (node.internal.type === `Mdx`) {
     let path;
-    console.log("NODE: ", node.frontmatter);
     if (node.frontmatter.path) {
       path = node.frontmatter.path;
     } else {

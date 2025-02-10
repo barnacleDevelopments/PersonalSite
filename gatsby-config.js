@@ -73,7 +73,7 @@ module.exports = {
               {
                 allMdx(
                   filter: {
-                    fileAbsolutePath: { regex: "//blog//" }
+                    internal: {contentFilePath: {regex: "/content/blog/"}}
                     frontmatter: { draft: { eq: false } }
                   }
                   sort: { frontmatter: { date: DESC } }
@@ -172,11 +172,10 @@ module.exports = {
     {
       resolve: `gatsby-source-filesystem`,
       options: {
-        name: `content`,
+        name: `projects`,
         path: `${__dirname}/content`,
       },
     },
-
     {
       resolve: "gatsby-plugin-theme-ui",
       options: {

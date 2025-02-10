@@ -49,12 +49,13 @@ const AllPostsPage = ({ data }) => {
 
 export default AllPostsPage;
 
+//excerpt(truncate: true, format: HTML, pruneLength: 100)
 export const programmingPostsPageQuery = graphql`
   query ProgrammingPostsPageQuery {
     allMdx(
       filter: { frontmatter: { draft: { eq: false } } }
       sort: { frontmatter: { date: DESC } }
-      fileAbsolutePath: { regex: "//blog//" }
+      filter: { internal: { contentFilePath: { regex: "/content/posts/" } } }
     ) {
       edges {
         node {
@@ -70,7 +71,6 @@ export const programmingPostsPageQuery = graphql`
               }
             }
           }
-          excerpt(truncate: true, format: HTML, pruneLength: 100)
         }
       }
     }

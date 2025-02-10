@@ -244,10 +244,7 @@ const IndexPage = ({ data }) => {
 export const landingPageQuery = graphql`
   query LandingPageQuery {
     blogPosts: allMdx(
-      filter: {
-        frontmatter: { draft: { eq: false } }
-        fileAbsolutePath: { regex: "//blog//" }
-      }
+      filter: { frontmatter: { draft: { eq: false } } }
       sort: { frontmatter: { date: DESC } }
       limit: 3
     ) {
@@ -266,10 +263,7 @@ export const landingPageQuery = graphql`
       }
     }
 
-    books: allMdx(
-      filter: { fileAbsolutePath: { regex: "//books//" } }
-      sort: { frontmatter: { date: DESC } }
-    ) {
+    books: allMdx(sort: { frontmatter: { date: DESC } }) {
       edges {
         node {
           fields {
