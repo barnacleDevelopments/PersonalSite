@@ -19,7 +19,7 @@ exports.createPages = async ({ actions, graphql }) => {
   async function genProjectPage(node, project) {
     createPage({
       path: node.fields.slug,
-      component: path.resolve(`src/templates/ProjectPage.js`),
+      component: `${path.resolve(`./src/templates/ProjectPage.js`)}?__contentFilePath=${node.internal.contentFilePath}`,
       context: {
         title: project.title,
         slug: node.fields.slug,
@@ -51,6 +51,9 @@ exports.createPages = async ({ actions, graphql }) => {
             }
             frontmatter {
               title
+            }
+            internal {
+              contentFilePath
             }
           }
         }

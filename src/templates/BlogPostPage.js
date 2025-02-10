@@ -64,7 +64,7 @@ const BlogPostPage = ({ data, children }) => {
           width: ["90%", "80%", "70%"],
         }}
       >
-        <MDXProvider variant="small">{children}</MDXProvider>
+        <MDXProvider>{children}</MDXProvider>
         <Box sx={{ textAlign: "center" }}>
           <Link href="/blog">
             <Button>Read More Articles</Button>
