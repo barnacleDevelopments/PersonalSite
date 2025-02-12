@@ -21,6 +21,7 @@ exports.createPages = async ({ actions, graphql }) => {
       path: node.fields.slug,
       component: `${path.resolve(`./src/templates/ProjectPage.js`)}?__contentFilePath=${node.internal.contentFilePath}`,
       context: {
+        frontmatter: node.frontmatter,
         title: project.title,
         slug: node.fields.slug,
       },
@@ -51,6 +52,32 @@ exports.createPages = async ({ actions, graphql }) => {
             }
             frontmatter {
               title
+              image1 {
+                childImageSharp {
+                  gatsbyImageData
+                }
+              }
+              image2 {
+                childImageSharp {
+                  gatsbyImageData
+                }
+              }
+              image3 {
+                childImageSharp {
+                  gatsbyImageData
+                }
+              }
+              technologies {
+                name
+                image {
+                  childImageSharp {
+                    gatsbyImageData
+                    original {
+                      src
+                    }
+                  }
+                }
+              }
             }
             internal {
               contentFilePath

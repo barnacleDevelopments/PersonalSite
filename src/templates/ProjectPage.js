@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx, Link } from "theme-ui";
+import { jsx } from "theme-ui";
 import { graphql } from "gatsby";
 import moment from "moment";
 import { Box, Flex, Button, Heading, Text, Grid } from "theme-ui";
@@ -7,24 +7,24 @@ import Seo from "../components/app/Seo";
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import { MDXProvider } from "@mdx-js/react";
 
-function ProjectPageSection({ text, image, imageAlt }) {
-  console.log("DEBUG: ", image);
+function ProjectPageSection({ children, image, imageAlt, alignment = "left" }) {
+  const isLeftAligned = alignment === "left";
+
   return (
-    <Box
-      sx={{ ...sectionWrapperStyle, backgroundColor: "secondary" }}
-      backgroundColor="#EEEEEE"
-    >
-      <Grid
-        columns={[1, null, 2]}
-        sx={{ ...sectionFlexStyle, alignItems: "center" }}
-      >
-        <Box sx={{ py: [4, 6], pr: [0, 5], order: [1, 2] }}>
-          <Heading as="h2" variant="subheading1">
-            Overview
-          </Heading>
-          <Text sx={paragraphStyles}>{text}</Text>
+    <Box sx={{ ...sectionWrapperStyle }}>
+      <Grid columns={[1, 2]} sx={{ alignItems: "center" }}>
+        <Box
+          sx={{
+            order: [2, isLeftAligned ? 1 : 2],
+          }}
+        >
+          {children}
         </Box>
-        <Box sx={{ order: [1, 2], mb: [5, 0], mt: [0, 3] }}>
+        <Box
+          sx={{
+            order: [1, isLeftAligned ? 2 : 1],
+          }}
+        >
           <GatsbyImage
             placeholder="blurred"
             imgStyle={imgStyle}
@@ -34,6 +34,25 @@ function ProjectPageSection({ text, image, imageAlt }) {
         </Box>
       </Grid>
     </Box>
+  );
+}
+
+function TechListing({ technologies }) {
+  return (
+    <Flex sx={{ flexWrap: "wrap", gap: "10px" }}>
+      {technologies.map((x) => (
+        <Box>
+          <Flex sx={{ alignItems: "center" }}>
+            <GatsbyImage
+              placeholder="blurred"
+              style={techImageStyle}
+              image={getImage(x.image)}
+              alt={x.name}
+            />
+          </Flex>
+        </Box>
+      ))}
+    </Flex>
   );
 }
 
@@ -79,124 +98,57 @@ const sectionWrapperStyle = {
   textAlign: ["center", "left"],
 };
 
-const sectionFlexStyle = {
-  width: ["90%", "75%"],
-  m: "0 auto !important",
-  height: "100%",
-  flexWrap: "wrap",
-};
-
-const shortCodes = { ProjectPageSection };
+const shortCodes = { ProjectPageSection, TechListing };
 
 function ProjectPage({ data, children }) {
   const { mdx: node } = data;
-  console.log(data);
+
   return (
-    <Box>
+    <Box sx={{ backgroundColor: "secondary" }}>
       <Seo
         title={node.frontmatter.title}
         keywords={node.frontmatter.keywords.split(",")}
         image={node.frontmatter.image1.childImageSharp.original.src}
       ></Seo>
-      <MDXProvider components={shortCodes}>{children}</MDXProvider>
-      {/* {/\* Hero *\/} */}
-      {/* <Flex sx={pageWrapper}> */}
-      {/*   <Heading as="h1" variant="hero" color="white"> */}
-      {/*     {node.frontmatter.title} */}
-      {/*   </Heading> */}
-      {/*   <Text */}
-      {/*     sx={{ */}
-      {/*       my: 2, */}
-      {/*       fontSize: 3, */}
-      {/*     }} */}
-      {/*   > */}
-      {/*     {moment(node.frontmatter.startDate).format("MMM Do, YYYY")} */}
-      {/*   </Text> */}
-      {/*   <Box> */}
-      {/*     {" "} */}
-      {/*     {node.frontmatter.URL && ( */}
-      {/*       <a target="_blanc" href={node.frontmatter.URL}> */}
-      {/*         <Button mt={3} variant="primary" mr={2}> */}
-      {/*           View */}
-      {/*         </Button> */}
-      {/*       </a> */}
-      {/*     )}{" "} */}
-      {/*     {node.frontmatter.githubURL && ( */}
-      {/*       <a target="_blanc" href={node.frontmatter.githubURL}> */}
-      {/*         <Button mt={3} variant="primary"> */}
-      {/*           GitHub Repo */}
-      {/*         </Button> */}
-      {/*       </a> */}
-      {/*     )} */}
-      {/*   </Box> */}
-      {/* </Flex> */}
-      {/* {/\* Section 2 *\/} */}
-      {/* <Box */}
-      {/*   sx={{ ...sectionWrapperStyle, backgroundColor: "primary" }} */}
-      {/*   color="white" */}
-      {/* > */}
-      {/*   {" "} */}
-      {/*   <Grid */}
-      {/*     columns={[1, null, 2]} */}
-      {/*     sx={{ ...sectionFlexStyle, alignItems: "center" }} */}
-      {/*   > */}
-      {/*     <Box sx={{ mb: [5, 0], mt: [0, 3], order: [2, 2, 1] }}> */}
-      {/*       <GatsbyImage */}
-      {/*         style={imgWrapStyle} */}
-      {/*         imgStyle={imgStyle} */}
-      {/*         image={getImage(node.frontmatter.image2)} */}
-      {/*         alt={"image 2"} */}
-      {/*       /> */}
-      {/*     </Box> */}
-      {/*     <Box sx={{ py: [4, 6], pl: [0, 5], order: [1, 1, 2] }}> */}
-      {/*       <Heading as="h2" variant="subheading1" color="white"> */}
-      {/*         Tech Used */}
-      {/*       </Heading> */}
-      {/*       <Text sx={paragraphStyles}></Text> */}
-      {/*       <Flex sx={{ flexWrap: "wrap", gap: "10px" }}> */}
-      {/*         {node.frontmatter.technologies.map((x) => ( */}
-      {/*           <Box> */}
-      {/*             <Flex sx={{ alignItems: "center" }}> */}
-      {/*               <GatsbyImage */}
-      {/*                 placeholder="blurred" */}
-      {/*                 style={techImageStyle} */}
-      {/*                 image={getImage(x.image)} */}
-      {/*                 alt={x.name} */}
-      {/*               /> */}
-      {/*             </Flex> */}
-      {/*           </Box> */}
-      {/*         ))} */}
-      {/*       </Flex> */}
-      {/*     </Box> */}
-      {/*   </Grid> */}
-      {/* </Box> */}
-      {/* {/\* Section 3 *\/} */}
-      {/* <Box */}
-      {/*   sx={{ ...sectionWrapperStyle, backgroundColor: "secondary" }} */}
-      {/*   backgroundColor="#EEEEEE" */}
-      {/* > */}
-      {/*   <Grid */}
-      {/*     columns={[1, null, 2]} */}
-      {/*     sx={{ ...sectionFlexStyle, alignItems: "center" }} */}
-      {/*   > */}
-      {/*     <Box sx={{ mb: [5, 0], mt: [0, 3], order: [2, 2, 2] }}> */}
-      {/*       <GatsbyImage */}
-      {/*         image={getImage(node.frontmatter.image3)} */}
-      {/*         imgStyle={imgStyle} */}
-      {/*         alt={"image 3"} */}
-      {/*       /> */}
-      {/*     </Box> */}
-      {/*     <Box sx={{ py: [4, 6], pr: [0, 5], order: [1, 1, 1] }}> */}
-      {/*       <Heading as="h2" variant="subheading1"> */}
-      {/*         Challenges */}
-      {/*       </Heading> */}
-      {/*       <Text sx={paragraphStyles}></Text> */}
-      {/*       <Link href="/projects"> */}
-      {/*         <Button variant="primary">Back to Projects</Button> */}
-      {/*       </Link> */}
-      {/*     </Box> */}
-      {/*   </Grid> */}
-      {/* </Box> */}
+      <Flex sx={pageWrapper}>
+        <Heading as="h1" variant="hero" color="white">
+          {node.frontmatter.title}
+        </Heading>
+        <Text
+          sx={{
+            my: 2,
+            fontSize: 3,
+          }}
+        >
+          {moment(node.frontmatter.startDate).format("MMM Do, YYYY")}
+        </Text>
+        <Box>
+          {" "}
+          {node.frontmatter.URL && (
+            <a target="_blanc" href={node.frontmatter.URL}>
+              <Button mt={3} variant="primary" mr={2}>
+                View
+              </Button>
+            </a>
+          )}{" "}
+          {node.frontmatter.githubURL && (
+            <a target="_blanc" href={node.frontmatter.githubURL}>
+              <Button mt={3} variant="primary">
+                GitHub Repo
+              </Button>
+            </a>
+          )}
+        </Box>
+      </Flex>
+      <Box
+        sx={{
+          width: ["90%", "80%", "70%"],
+          mx: "auto",
+          my: 6,
+        }}
+      >
+        <MDXProvider components={shortCodes}>{children}</MDXProvider>
+      </Box>
     </Box>
   );
 }
@@ -214,36 +166,8 @@ export const pageQuery = graphql`
         URL
         githubURL
         keywords
-        technologies {
-          name
-          image {
-            childImageSharp {
-              gatsbyImageData
-              original {
-                src
-              }
-            }
-          }
-        }
         image1 {
           childImageSharp {
-            gatsbyImageData
-            original {
-              src
-            }
-          }
-        }
-        image2 {
-          childImageSharp {
-            gatsbyImageData
-            original {
-              src
-            }
-          }
-        }
-        image3 {
-          childImageSharp {
-            gatsbyImageData
             original {
               src
             }
