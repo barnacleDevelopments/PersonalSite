@@ -10,6 +10,7 @@ import Seo from "../components/app/Seo";
 const CategoryPage = ({ data }) => {
   const pageData = data.allMdx.edges;
   const postCategory = pageData[0]?.node.frontmatter.category;
+  console.log("DEBUG: ", postCategory);
   return (
     <Box>
       <Seo
@@ -104,7 +105,6 @@ export const pageQuery = graphql`
               }
             }
           }
-          excerpt(pruneLength: 100)
         }
       }
     }

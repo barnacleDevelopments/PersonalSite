@@ -42,6 +42,7 @@ exports.createPages = async ({ actions, graphql }) => {
     query ProjectsQuery {
       allMdx(
         filter: {
+          frontmatter: { draft: { eq: false } }
           internal: { contentFilePath: { regex: "/content/projects/" } }
         }
       ) {
@@ -52,6 +53,7 @@ exports.createPages = async ({ actions, graphql }) => {
             }
             frontmatter {
               title
+              draft
               image1 {
                 childImageSharp {
                   gatsbyImageData
@@ -103,7 +105,10 @@ exports.createPages = async ({ actions, graphql }) => {
   const categoryResult = graphql(`
     query ProjectsPageQuery {
       allMdx(
-        filter: { internal: { contentFilePath: { regex: "/content/blog/" } } }
+        filter: {
+          internal: { contentFilePath: { regex: "/content/blog/" } }
+          frontmatter: { draft: { eq: false } }
+        }
       ) {
         distinct(field: { frontmatter: { category: SELECT } })
       }
@@ -122,8 +127,8 @@ exports.createPages = async ({ actions, graphql }) => {
     query BlogQuery {
       allMdx(
         filter: {
-          frontmatter: { draft: { eq: false } }
           internal: { contentFilePath: { regex: "/content/blog/" } }
+          frontmatter: { draft: { eq: false } }
         }
       ) {
         edges {
