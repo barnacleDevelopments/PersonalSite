@@ -1,0 +1,41 @@
+---
+title: Evernote Clone
+image1: assets/evernote-clone-1.png
+image2: assets/evernote-clone-2.png
+image3: assets/evernote-clone-3.png
+technologies:
+  - name: "Electron"
+    image: "../tech_logos/electron.png"
+URL: ""
+ENSURL: ""
+githubURL: "https://github.com/barnacleDevelopments/EvernoteClone"
+startDate: 2021-12-13T20:10:21.522Z
+endDate: 2021-12-13T20:10:21.522Z
+status: complete
+keywords: evernote desktop clone, electron desktop app, electron evernote clone, state management in electron, javascript desktop apps, note-taking app clone, sqlite database electron app, electron state management, custom state management system, web developer desktop app, portfolio project electron, nova scotia community college project, javascript state management from scratch, Devin Davis
+---
+
+<ProjectPageSection image={props.pageContext.frontmatter.image1} imageAlt={"image1"} >
+
+## Overview
+
+I started this desktop application while attending the [Nova Scotia
+Community College](https://www.nscc.ca/) as part of my Electron course. I
+decided to do a partial clone of the desktop version of
+[Evernote](https://evernote.com/).
+</ProjectPageSection>
+
+<ProjectPageSection image={props.pageContext.frontmatter.image2} imageAlt={"image1"} alignment="right" >
+
+## Tech
+
+tech: Our course had us use Electron to build desktop-grade applications with JavaScript, HTML, and CSS. The advantage here is that web developers like myself are able to produce desktop applications without needing to change their language context. I went a step further and implemented a simple state management system from scratch so that various actions could have "side effects" like disabling the create note button when a notebook is not selected. Frameworks like React enable this kind of functionality but I wanted to learn what was going on under the hood.
+<TechListing technologies={props.pageContext.frontmatter.technologies} />
+</ProjectPageSection>
+
+<ProjectPageSection image={props.pageContext.frontmatter.image3} imageAlt={"image1"} >
+
+## Challenges
+
+challenges: The main challenges I faced were while implementing the state management system. State management involves the use of a few different consepts most notably, a store, mutations, and actions. The store contains the current state of the application. For instance the create note button can be disabled or enabled depending on a certain state value. Actions call mutations which are functions that change or "mutate" the store. Therefore, actions simply call mutations and should not do any mutating themselves. The store's contents represent the current state of the application. It's an advanced consept that I still don't completly understand on a technicle level but I managed to implement a simple solution.
+</ProjectPageSection>

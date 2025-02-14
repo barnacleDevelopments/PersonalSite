@@ -80,6 +80,7 @@ const CategoryPage = ({ data }) => {
 };
 
 export default CategoryPage;
+
 export const pageQuery = graphql`
   query PostsByCategoryQuery($category: String!) {
     allMdx(

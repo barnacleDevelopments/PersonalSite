@@ -6,13 +6,14 @@ import { Box, Flex, Button, Heading, Text, Grid } from "theme-ui";
 import Seo from "../components/app/Seo";
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import { MDXProvider } from "@mdx-js/react";
+import CallToAction from "../components/CallToAction";
 
 function ProjectPageSection({ children, image, imageAlt, alignment = "left" }) {
   const isLeftAligned = alignment === "left";
 
   return (
     <Box sx={{ ...sectionWrapperStyle }}>
-      <Grid columns={[1, 2]} sx={{ alignItems: "center" }}>
+      <Grid columns={[1, 2]} sx={{ alignItems: "center", gap: 5 }}>
         <Box
           sx={{
             order: [2, isLeftAligned ? 1 : 2],
@@ -70,20 +71,10 @@ const pageWrapper = {
   textAlign: "center",
 };
 
-const paragraphStyles = {
-  lineHeight: "1.5",
-  fontSize: 2,
-};
-
 const techImageStyle = {
   width: "30px",
   mr: 1,
   mb: 2,
-};
-
-const imgWrapStyle = {
-  display: "flex",
-  justifyContent: "center",
 };
 
 const imgStyle = {
@@ -95,6 +86,7 @@ const imgStyle = {
 const sectionWrapperStyle = {
   width: ["100%"],
   mx: "auto",
+  mb: 5,
   textAlign: ["center", "left"],
 };
 
@@ -104,7 +96,7 @@ function ProjectPage({ data, children }) {
   const { mdx: node } = data;
 
   return (
-    <Box sx={{ backgroundColor: "secondary" }}>
+    <Box>
       <Seo
         title={node.frontmatter.title}
         keywords={node.frontmatter.keywords.split(",")}
@@ -148,6 +140,13 @@ function ProjectPage({ data, children }) {
         }}
       >
         <MDXProvider components={shortCodes}>{children}</MDXProvider>
+        <CallToAction
+          sx={{ mt: 5 }}
+          title="Thanks for checking out my project!"
+          content="Explore some of my other projects and see what I've been working on."
+          buttonText="Explore"
+          pageLink="/projects"
+        />
       </Box>
     </Box>
   );
@@ -160,9 +159,6 @@ export const pageQuery = graphql`
         title
         startDate
         endDate
-        description
-        tech
-        challenges
         URL
         githubURL
         keywords

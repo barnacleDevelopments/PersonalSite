@@ -95,7 +95,6 @@ export const projectsQuery = graphql`
           }
           frontmatter {
             title
-            description
             startDate(formatString: "MMMM, YYYY")
             image1 {
               childImageSharp {
