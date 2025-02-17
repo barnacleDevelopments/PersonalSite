@@ -93,7 +93,6 @@ module.exports = {
       fontWeight: "heading",
       lineHeight: "heading",
     },
-    h1: { fontSize: "2.2em" },
     h2: { fontSize: "2em" },
     h3: { fontSize: "1.5em", fontStyle: "italic" },
     ul: { marginLeft: "40px", overflowWrap: "break-word" },
@@ -105,6 +104,9 @@ module.exports = {
       color: "primary",
       fontSize: 1,
       lineHeight: "body",
+    },
+    em: {
+      fontStyle: "italic",
     },
   },
   headings: {

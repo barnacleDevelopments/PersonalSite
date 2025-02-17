@@ -67,11 +67,7 @@ Seo.propTypes = {
   title: PropTypes.string,
   description: PropTypes.string,
   article: PropTypes.bool,
-  image: PropTypes.shape({
-    src: PropTypes.string.isRequired,
-    height: PropTypes.number.isRequired,
-    width: PropTypes.number.isRequired,
-  }),
+  image: PropTypes.string,
 };
 
 Seo.defaultProps = {

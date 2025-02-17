@@ -11,7 +11,21 @@ import Seo from "../components/app/Seo";
 import { useEffect } from "react";
 import Prism from "prismjs";
 
-// markup
+function HorizontalImages({ children }) {
+  const imageComponents = children.filter((x) => x.type == "span");
+  console.log(imageComponents);
+  return (
+    <Flex sx={{ gap: 3 }}>
+      {imageComponents.map((x, index) => (
+        <Box key={index} sx={{ flex: 1 }}>
+          {x}
+        </Box>
+      ))}
+    </Flex>
+  );
+}
+
+const shortCodes = { HorizontalImages };
 const BlogPostPage = ({ data, children }) => {
   const { mdx: node } = data;
 
@@ -64,7 +78,7 @@ const BlogPostPage = ({ data, children }) => {
           width: ["90%", "80%", "70%"],
         }}
       >
-        <MDXProvider>{children}</MDXProvider>
+        <MDXProvider components={shortCodes}>{children}</MDXProvider>
         <Box sx={{ textAlign: "center" }}>
           <Link href="/blog">
             <Button>Read More Articles</Button>

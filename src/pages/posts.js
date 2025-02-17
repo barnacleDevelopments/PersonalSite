@@ -54,7 +54,7 @@ export const programmingPostsPageQuery = graphql`
     allMdx(
       filter: {
         frontmatter: { draft: { eq: false } }
-        internal: { contentFilePath: { regex: "/content/posts/" } }
+        internal: { contentFilePath: { regex: "/content/blog/" } }
       }
       sort: { frontmatter: { date: DESC } }
     ) {
