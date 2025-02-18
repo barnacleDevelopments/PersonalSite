@@ -108,6 +108,9 @@ module.exports = {
     em: {
       fontStyle: "italic",
     },
+    b: {
+      fontWeight: 800,
+    },
   },
   headings: {
     h1: {

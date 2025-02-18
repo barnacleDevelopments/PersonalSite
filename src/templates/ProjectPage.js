@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from "theme-ui";
+import { jsx, Link } from "theme-ui";
 import { graphql } from "gatsby";
 import moment from "moment";
 import { Box, Flex, Button, Heading, Text, Grid } from "theme-ui";
@@ -38,20 +38,23 @@ function ProjectPageSection({ children, image, imageAlt, alignment = "left" }) {
   );
 }
 
-function TechListing({ technologies }) {
+export function TechListing({ technologies, onClick }) {
   return (
     <Flex sx={{ flexWrap: "wrap", gap: "10px" }}>
       {technologies.map((x) => (
-        <Box>
-          <Flex sx={{ alignItems: "center" }}>
-            <GatsbyImage
-              placeholder="blurred"
-              style={techImageStyle}
-              image={getImage(x.image)}
-              alt={x.name}
-            />
-          </Flex>
-        </Box>
+        <Flex
+          sx={{ cursor: "pointer", alignItems: "center", gap: 2 }}
+          onClick={() => onClick(x)}
+          key={x.name}
+        >
+          <GatsbyImage
+            placeholder="blurred"
+            style={techImageStyle}
+            image={getImage(x.image)}
+            alt={x.name}
+          />
+          {x.name}
+        </Flex>
       ))}
     </Flex>
   );

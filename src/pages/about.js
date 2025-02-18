@@ -6,8 +6,44 @@ import { Box, Heading, Grid } from "theme-ui";
 import Seo from "../components/app/Seo";
 import { StaticImage } from "gatsby-plugin-image";
 import CallToAction from "../components/CallToAction";
+import { graphql } from "gatsby";
+import { TechListing } from "../templates/ProjectPage";
+import { useEffect, useState } from "react";
 
-const AboutPage = () => {
+const AboutPage = ({ data }) => {
+  const allProjects = data.allMdx.edges;
+
+  const technologyMap = new Map();
+  allProjects.forEach(({ node }) => {
+    const { title, technologies } = node.frontmatter;
+    const { slug } = node.fields;
+
+    technologies.forEach((tech) => {
+      if (!technologyMap.has(tech.name)) {
+        technologyMap.set(tech.name, {
+          image: tech.image,
+          slug,
+          projects: [],
+        });
+      }
+      technologyMap.get(tech.name).projects.push({ title, slug });
+    });
+  });
+
+  const technologies = Array.from(technologyMap, ([name, data]) => ({
+    name,
+    image: data.image,
+    projects: data.projects,
+  }));
+
+  const [technologiesDynamic, setTechnologies] = useState(technologies);
+  const [selectedTechnology, setSelectedTechnology] = useState(technologies[0]);
+
+  useEffect(() => {
+    console.log(technologiesDynamic);
+    console.log(selectedTechnology);
+  }, []);
+
   return (
     <Box>
       <Seo title="About" />
@@ -54,6 +90,62 @@ const AboutPage = () => {
             </Paragraph>
           </Box>
         </Grid>
+        <Box
+          sx={{
+            px: [0, 3],
+            my: 3,
+            bg: "primary",
+            color: "white",
+            p: 4,
+            borderRadius: "10px",
+          }}
+        >
+          <Box sx={{ textAlign: "center" }}>
+            <Heading variant="subheading1" sx={{ color: "white" }}>
+              Technology Experience
+            </Heading>
+            <Paragraph sx={{ mb: 4 }}>
+              I have a wide range of experience with different technologies.
+              Most of my experience is in the JavaScript and .NET Core
+              ecosystems. I also have experience within DevOps more specificaly
+              in the Azure ecosystem. I adapt quickly to the technology stack
+              required for a project and don't limit myself to my current domain
+              of experience.{" "}
+              <b>
+                Try clicking on a skill to view projects where I have used it
+              </b>
+              .
+            </Paragraph>
+          </Box>
+          <TechListing
+            technologies={technologies}
+            onClick={setSelectedTechnology}
+          />
+          <Box
+            sx={{
+              borderColor: "white",
+              borderRadius: 4,
+              backgroundColor: "white",
+              mt: 4,
+              p: 4,
+            }}
+          >
+            <Box>
+              <Heading variant="subheading2">
+                {selectedTechnology.name} - Projects
+              </Heading>
+              <ul>
+                {selectedTechnology.projects.map((project) => {
+                  return (
+                    <li key={project.title} sx={{ mb: 2 }}>
+                      <Link href={project.slug}>{project.title}</Link>
+                    </li>
+                  );
+                })}
+              </ul>
+            </Box>
+          </Box>
+        </Box>
         <CallToAction
           title={"Checkout Some of my Projects"}
           content={"Every project I take on I take ownership of."}
@@ -64,5 +156,35 @@ const AboutPage = () => {
     </Box>
   );
 };
+
+export const aboutPageQuery = graphql`
+  query AboutPageQuery {
+    allMdx(
+      filter: {
+        internal: { contentFilePath: { regex: "/content/projects/" } }
+        frontmatter: { draft: { eq: false } }
+      }
+    ) {
+      edges {
+        node {
+          frontmatter {
+            technologies {
+              name
+              image {
+                childImageSharp {
+                  gatsbyImageData
+                }
+              }
+            }
+            title
+          }
+          fields {
+            slug
+          }
+        }
+      }
+    }
+  }
+`;
 
 export default AboutPage;
