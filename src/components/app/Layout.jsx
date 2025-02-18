@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx, Box } from "theme-ui";
+import { jsx } from "theme-ui";
 
 // STYLES
 import "../../css/reset.css";

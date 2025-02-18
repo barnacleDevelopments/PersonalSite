@@ -98,6 +98,7 @@ const AboutPage = ({ data }) => {
             color: "white",
             p: 4,
             borderRadius: "10px",
+            position: "relative",
           }}
         >
           <Box sx={{ textAlign: "center" }}>
@@ -126,8 +127,12 @@ const AboutPage = ({ data }) => {
               borderColor: "white",
               borderRadius: 4,
               backgroundColor: "white",
-              mt: 4,
               p: 4,
+              position: "absolute",
+              top: 0,
+              left: 0,
+              width: "100%",
+              height: "100%",
             }}
           >
             <Box>

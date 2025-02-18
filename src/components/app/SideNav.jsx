@@ -2,6 +2,7 @@
 import { jsx } from "theme-ui";
 import { Box, Link, Flex, NavLink } from "theme-ui";
 import { StaticImage } from "gatsby-plugin-image";
+import { CloseButton } from "./CloseButton";
 
 const SideNav = ({ isOpen, setSideNavOpen, enableScrollFunc }) => {
   return (
@@ -32,45 +33,13 @@ const SideNav = ({ isOpen, setSideNavOpen, enableScrollFunc }) => {
           <Link sx={{ color: "primary", width: "60px" }} href="/">
             <StaticImage alt="logo" src="../../images/logo_2.png" />
           </Link>
-          <Box
+          <CloseButton
             onClick={() => {
               setSideNavOpen(false);
               enableScrollFunc();
             }}
-            href="/"
-            sx={{
-              position: "relative",
-              height: "30px",
-              width: "30px",
-              cursor: "pointer",
-            }}
-          >
-            <Box
-              sx={{
-                bg: "primary",
-                position: "absolute",
-                height: "5px",
-                width: "30px",
-                transform: "rotate(45deg)",
-                transformOrigin: "center",
-                top: "13px",
-                left: "0px",
-              }}
-            ></Box>
-            <Box
-              sx={{
-                bg: "primary",
-                position: "absolute",
-                height: "5px",
-                width: "30px",
-                transform: "rotate(-45deg)",
-                top: "13px",
-                left: "0px",
-              }}
-            ></Box>
-          </Box>
+          />
         </Flex>
-
         <Flex
           sx={{
             mt: 4,
