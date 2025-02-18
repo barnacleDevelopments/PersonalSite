@@ -49,7 +49,7 @@ const AboutPage = () => {
               just about anything I can get my hands on. Naturally, if you don't
               see me at the office, I'm probably at the local bouldering gym.
               Hearing people talk about their passions fires me up. Please reach
-              out; I'm always up for a chat!
+              out; I'm always up for a chat!{" "}
               <Link href="/contact">reach out</Link>; I'm always up for a chat!
             </Paragraph>
           </Box>
