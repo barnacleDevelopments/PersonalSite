@@ -9,6 +9,7 @@ import Seo from "../components/app/Seo";
 import Loader from "../components/Loader";
 import PostCard from "../components/blog/PostCard";
 import CallToAction from "../components/CallToAction";
+import ProjectCard from "../components/projects/ProjectCard";
 
 const IndexPage = ({ data }) => {
   const posts = data.blogPosts.edges
@@ -20,6 +21,11 @@ const IndexPage = ({ data }) => {
     }));
 
   const books = data.books.edges.map(({ node }) => ({
+    ...node.frontmatter,
+    ...node.fields,
+  }));
+
+  const projects = data.projects.edges.map(({ node }) => ({
     ...node.frontmatter,
     ...node.fields,
   }));
@@ -189,6 +195,23 @@ const IndexPage = ({ data }) => {
             ))}
           </Grid>
         </Box>
+        <Box as="section" sx={{ mt: 3 }}>
+          <Heading as="h3" variant="subheading1">
+            Recent Projects
+          </Heading>
+          <Grid
+            sx={{
+              mb: 4,
+              width: "100%",
+            }}
+            gap={3}
+            columns={[1]}
+          >
+            {projects.map((project) => (
+              <ProjectCard key={project.slug} project={project} />
+            ))}
+          </Grid>
+        </Box>
         <Box as="section" sx={{ mb: 4 }}>
           <Heading as="h3" variant="subheading1">
             Reading List
@@ -262,6 +285,44 @@ export const landingPageQuery = graphql`
             category
           }
           excerpt(pruneLength: 100)
+        }
+      }
+    }
+
+    projects: allMdx(
+      sort: { frontmatter: { startDate: DESC } }
+      filter: {
+        internal: { contentFilePath: { regex: "/content/projects/" } }
+        frontmatter: { draft: { eq: false } }
+      }
+      limit: 3
+    ) {
+      edges {
+        node {
+          fields {
+            slug
+          }
+          excerpt(pruneLength: 100)
+          frontmatter {
+            title
+            startDate(formatString: "MMMM, YYYY")
+            image1 {
+              childImageSharp {
+                gatsbyImageData
+              }
+            }
+            technologies {
+              name
+              image {
+                childImageSharp {
+                  gatsbyImageData
+                  original {
+                    src
+                  }
+                }
+              }
+            }
+          }
         }
       }
     }
