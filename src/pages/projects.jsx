@@ -8,9 +8,10 @@ import CallToAction from "../components/CallToAction";
 
 const ProjectsPage = ({ data }) => {
   const projects = data.allMdx.edges.map(
-    ({ node: { fields, frontmatter } }) => ({
+    ({ node: { fields, frontmatter, excerpt } }) => ({
       ...fields,
       ...frontmatter,
+      excerpt,
     }),
   );
 
@@ -96,12 +97,24 @@ export const projectsQuery = graphql`
           fields {
             slug
           }
+          excerpt(pruneLength: 100)
           frontmatter {
             title
             startDate(formatString: "MMMM, YYYY")
             image1 {
               childImageSharp {
                 gatsbyImageData
+              }
+            }
+            technologies {
+              name
+              image {
+                childImageSharp {
+                  gatsbyImageData
+                  original {
+                    src
+                  }
+                }
               }
             }
           }

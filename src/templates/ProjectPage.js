@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx, Link } from "theme-ui";
+import { jsx } from "theme-ui";
 import { graphql } from "gatsby";
 import moment from "moment";
 import { Box, Flex, Button, Heading, Text, Grid } from "theme-ui";
@@ -7,7 +7,6 @@ import Seo from "../components/app/Seo";
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import { MDXProvider } from "@mdx-js/react";
 import CallToAction from "../components/CallToAction";
-import { fontSizes } from "../theme/theme";
 
 function ProjectPageSection({ children, image, imageAlt, alignment = "left" }) {
   const isLeftAligned = alignment === "left";
@@ -39,30 +38,49 @@ function ProjectPageSection({ children, image, imageAlt, alignment = "left" }) {
   );
 }
 
-export function TechListing({ technologies, onClick }) {
+export function TechListing({ technologies, onClick, descriptive = true }) {
   return (
     <Flex sx={{ flexWrap: "wrap", gap: "10px" }}>
-      {technologies.map((x) => (
-        <Button variant="secondary">
-          <Flex
-            sx={{
-              cursor: "pointer",
-              alignItems: "center",
-              gap: 2,
-            }}
-            onClick={() => onClick(x)}
-            key={x.name}
-          >
-            <GatsbyImage
-              placeholder="blurred"
-              style={techImageStyle}
-              image={getImage(x.image)}
-              alt={x.name}
-            />
-            {x.name}
-          </Flex>
-        </Button>
-      ))}
+      {onClick
+        ? technologies.map((x) => (
+            <Button variant="secondary">
+              <Flex
+                sx={{
+                  cursor: "pointer",
+                  alignItems: "center",
+                  gap: 2,
+                }}
+                onClick={() => onClick(x)}
+                key={x.name}
+              >
+                <GatsbyImage
+                  placeholder="blurred"
+                  style={techImageStyle}
+                  image={getImage(x.image)}
+                  alt={x.name}
+                />
+                {descriptive && x.name}
+              </Flex>
+            </Button>
+          ))
+        : technologies.map((x) => (
+            <Flex
+              sx={{
+                cursor: "pointer",
+                alignItems: "center",
+                gap: 2,
+              }}
+              key={x.name}
+            >
+              <GatsbyImage
+                placeholder="blurred"
+                style={techImageStyle}
+                image={getImage(x.image)}
+                alt={x.name}
+              />
+              {descriptive && x.name}
+            </Flex>
+          ))}
     </Flex>
   );
 }

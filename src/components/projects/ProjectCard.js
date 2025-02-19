@@ -4,6 +4,7 @@ import { jsx } from "theme-ui";
 
 // Components
 import { Card, Text, Button, Flex, Box, Link, Heading } from "theme-ui";
+import { TechListing } from "../../templates/ProjectPage";
 
 // markup
 const ProjectCard = ({ project }) => {
@@ -42,26 +43,32 @@ const ProjectCard = ({ project }) => {
             width: "100%",
           }}
         >
-          <Heading
-            as="h2"
-            variant="subheading1"
-            color="white"
-            sx={{
-              overflowWrap: "anywhere",
-              mt: [3, 3, 3, 1.5],
-              mb: [1.5],
-            }}
-          >
-            {project.title}
-          </Heading>
-          <Text variant="regular" sx={{ color: "white" }}>
-            {project.startDate}
-          </Text>
-          {project.content && (
+          <Box sx={{ mb: 2 }}>
+            <Heading
+              as="h2"
+              variant="subheading1"
+              color="white"
+              sx={{
+                overflowWrap: "anywhere",
+                mt: [3, 3, 3, 1.5],
+                mb: [1.5],
+              }}
+            >
+              {project.title}
+            </Heading>
             <Text variant="regular" sx={{ color: "white" }}>
-              {project.content}
+              {project.startDate}
             </Text>
-          )}
+            {project.exerpt && (
+              <Text variant="regular" sx={{ color: "white" }}>
+                {project.exerpt}
+              </Text>
+            )}
+          </Box>
+          <TechListing
+            technologies={project.technologies}
+            descriptive={false}
+          />
           <Box>
             <Link href={project.slug}>
               <Button
