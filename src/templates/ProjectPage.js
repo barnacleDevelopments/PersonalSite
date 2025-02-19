@@ -7,6 +7,7 @@ import Seo from "../components/app/Seo";
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import { MDXProvider } from "@mdx-js/react";
 import CallToAction from "../components/CallToAction";
+import { fontSizes } from "../theme/theme";
 
 function ProjectPageSection({ children, image, imageAlt, alignment = "left" }) {
   const isLeftAligned = alignment === "left";
@@ -42,19 +43,25 @@ export function TechListing({ technologies, onClick }) {
   return (
     <Flex sx={{ flexWrap: "wrap", gap: "10px" }}>
       {technologies.map((x) => (
-        <Flex
-          sx={{ cursor: "pointer", alignItems: "center", gap: 2 }}
-          onClick={() => onClick(x)}
-          key={x.name}
-        >
-          <GatsbyImage
-            placeholder="blurred"
-            style={techImageStyle}
-            image={getImage(x.image)}
-            alt={x.name}
-          />
-          {x.name}
-        </Flex>
+        <Button variant="secondary">
+          <Flex
+            sx={{
+              cursor: "pointer",
+              alignItems: "center",
+              gap: 2,
+            }}
+            onClick={() => onClick(x)}
+            key={x.name}
+          >
+            <GatsbyImage
+              placeholder="blurred"
+              style={techImageStyle}
+              image={getImage(x.image)}
+              alt={x.name}
+            />
+            {x.name}
+          </Flex>
+        </Button>
       ))}
     </Flex>
   );
@@ -75,7 +82,7 @@ const pageWrapper = {
 };
 
 const techImageStyle = {
-  width: "30px",
+  width: "20px",
   mr: 1,
   mb: 2,
 };

@@ -34,6 +34,10 @@ const SideNav = ({ isOpen, setSideNavOpen, enableScrollFunc }) => {
             <StaticImage alt="logo" src="../../images/logo_2.png" />
           </Link>
           <CloseButton
+            sx={{
+              position: "absolute",
+              cursor: "pointer",
+            }}
             onClick={() => {
               setSideNavOpen(false);
               enableScrollFunc();

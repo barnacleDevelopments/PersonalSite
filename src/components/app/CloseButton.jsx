@@ -1,41 +1,39 @@
 /** @jsx jsx */
-import { jsx, Box } from "theme-ui";
+import { jsx, Box, Flex } from "theme-ui";
 
-export function CloseButton(onClick) {
+export function CloseButton({ onClick, sx }) {
   return (
-    <Box
+    <Flex
       onClick={(e) => onClick(e)}
       href="/"
       sx={{
-        position: "relative",
-        height: "30px",
-        width: "30px",
         cursor: "pointer",
+        position: "relative",
+        width: "30px",
+        height: "30px",
+        justifyContent: "center",
+        alignItems: "center",
+        ...sx,
       }}
     >
       <Box
         sx={{
           bg: "primary",
-          position: "absolute",
           height: "5px",
           width: "30px",
           transform: "rotate(45deg)",
-          transformOrigin: "center",
-          top: "13px",
-          left: "0px",
+          position: "absolute",
         }}
       ></Box>
       <Box
         sx={{
           bg: "primary",
-          position: "absolute",
           height: "5px",
           width: "30px",
           transform: "rotate(-45deg)",
-          top: "13px",
-          left: "0px",
+          position: "absolute",
         }}
       ></Box>
-    </Box>
+    </Flex>
   );
 }

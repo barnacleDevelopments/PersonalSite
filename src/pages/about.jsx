@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { Link, Paragraph, jsx } from "theme-ui";
+import { Link, Paragraph, jsx, Flex, Button } from "theme-ui";
 
 // COMPONENTS
 import { Box, Heading, Grid } from "theme-ui";
@@ -8,9 +8,13 @@ import { StaticImage } from "gatsby-plugin-image";
 import CallToAction from "../components/CallToAction";
 import { graphql } from "gatsby";
 import { TechListing } from "../templates/ProjectPage";
-import { useEffect, useState } from "react";
+import { useRef, useState } from "react";
+import { CloseButton } from "../components/app/CloseButton";
 
 const AboutPage = ({ data }) => {
+  const dialog = useRef(null);
+  const [selectedTechnology, setSelectedTechnology] = useState();
+
   const allProjects = data.allMdx.edges;
 
   const technologyMap = new Map();
@@ -36,16 +40,54 @@ const AboutPage = ({ data }) => {
     projects: data.projects,
   }));
 
-  const [technologiesDynamic, setTechnologies] = useState(technologies);
-  const [selectedTechnology, setSelectedTechnology] = useState(technologies[0]);
-
-  useEffect(() => {
-    console.log(technologiesDynamic);
-    console.log(selectedTechnology);
-  }, []);
-
   return (
     <Box>
+      <dialog
+        style={{ position: "fixed", zIndex: 10000, padding: 0 }}
+        ref={dialog}
+      >
+        {selectedTechnology && (
+          <Box
+            sx={{
+              borderColor: "white",
+              borderRadius: 4,
+              backgroundColor: "white",
+              p: 4,
+            }}
+          >
+            <Box>
+              <Flex
+                sx={{
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  gap: 3,
+                  mb: 3,
+                }}
+              >
+                <Heading sx={{ mb: 0 }} variant="subheading2">
+                  {selectedTechnology.name} - Projects
+                </Heading>
+                <CloseButton
+                  sx={{ position: "absolute" }}
+                  onClick={() => {
+                    dialog.current?.close();
+                    setSelectedTechnology(null);
+                  }}
+                />
+              </Flex>
+              <ul>
+                {selectedTechnology.projects.map((project) => {
+                  return (
+                    <li key={project.title} sx={{ mb: 2 }}>
+                      <Link href={project.slug}>{project.title}</Link>
+                    </li>
+                  );
+                })}
+              </ul>
+            </Box>
+          </Box>
+        )}
+      </dialog>
       <Seo title="About" />
       <Box
         sx={{
@@ -98,7 +140,6 @@ const AboutPage = ({ data }) => {
             color: "white",
             p: 4,
             borderRadius: "10px",
-            position: "relative",
           }}
         >
           <Box sx={{ textAlign: "center" }}>
@@ -120,36 +161,11 @@ const AboutPage = ({ data }) => {
           </Box>
           <TechListing
             technologies={technologies}
-            onClick={setSelectedTechnology}
-          />
-          <Box
-            sx={{
-              borderColor: "white",
-              borderRadius: 4,
-              backgroundColor: "white",
-              p: 4,
-              position: "absolute",
-              top: 0,
-              left: 0,
-              width: "100%",
-              height: "100%",
+            onClick={(technology) => {
+              dialog.current?.showModal();
+              setSelectedTechnology(technology);
             }}
-          >
-            <Box>
-              <Heading variant="subheading2">
-                {selectedTechnology.name} - Projects
-              </Heading>
-              <ul>
-                {selectedTechnology.projects.map((project) => {
-                  return (
-                    <li key={project.title} sx={{ mb: 2 }}>
-                      <Link href={project.slug}>{project.title}</Link>
-                    </li>
-                  );
-                })}
-              </ul>
-            </Box>
-          </Box>
+          />
         </Box>
         <CallToAction
           title={"Checkout Some of my Projects"}
