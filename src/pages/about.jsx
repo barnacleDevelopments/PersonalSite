@@ -126,7 +126,7 @@ const AboutPage = ({ data }) => {
               I am constantly learning. If you couldn't tell, I like to climb
               just about anything I can get my hands on. Naturally, if you don't
               see me at the office, I'm probably at the local bouldering gym.
-              Hearing people talk about their passions fires me up.
+              Hearing people talk about their passions fires me up.{" "}
               <Link href="/contact">Please reach out</Link>; I'm always up for a
               chat!{" "}
             </Paragraph>
