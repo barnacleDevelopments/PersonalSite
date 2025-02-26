@@ -10,6 +10,7 @@ import Loader from "../components/Loader";
 import PostCard from "../components/blog/PostCard";
 import CallToAction from "../components/CallToAction";
 import ProjectCard from "../components/projects/ProjectCard";
+import BookCard from "../components/books/BookCard";
 
 const IndexPage = ({ data }) => {
   const posts = data.blogPosts.edges
@@ -43,31 +44,7 @@ const IndexPage = ({ data }) => {
           textTransform: "uppercase",
         }}
       >
-        <Flex
-          sx={{
-            flexWrap: "wrap",
-            alignItems: "center",
-            justifyContent: [
-              "center",
-              "center",
-              "center",
-              "center",
-              "center",
-              "space-between",
-            ],
-            width: ["90%", "80%", "70%"],
-            margin: "0 auto",
-            textAlign: [
-              "center",
-              "center",
-              "center",
-              "center",
-              "center",
-              "left",
-            ],
-            gap: "30px",
-          }}
-        >
+        <Flex sx={styles.hero}>
           <Box>
             <Heading as="h1" variant="hero" color="white">
               Dev the Developer
@@ -222,31 +199,9 @@ const IndexPage = ({ data }) => {
               overflowX: "scroll",
             }}
           >
-            {books.map((book) => {
-              const image = getImage(book.image);
-              return (
-                <Link
-                  sx={{
-                    width: "150px",
-                    flex: "0 0 auto",
-                  }}
-                  href={book.url}
-                  key={book.title}
-                >
-                  <GatsbyImage
-                    sx={{
-                      width: "100%",
-                      border: "2px solid black",
-                      borderColor: "primary",
-                      borderRadius: 3,
-                    }}
-                    key={book.title}
-                    alt={book.title}
-                    image={image}
-                  />
-                </Link>
-              );
-            })}
+            {books.map((book) => (
+              <BookCard key={book.title} book={book} />
+            ))}
           </Flex>
         </Box>
         <Box sx={{ mb: 4 }} as="section">
@@ -262,6 +217,25 @@ const IndexPage = ({ data }) => {
       </Box>
     </Box>
   );
+};
+
+const styles = {
+  hero: {
+    flexWrap: "wrap",
+    alignItems: "center",
+    justifyContent: [
+      "center",
+      "center",
+      "center",
+      "center",
+      "center",
+      "space-between",
+    ],
+    width: ["90%", "80%", "70%"],
+    margin: "0 auto",
+    textAlign: ["center", "center", "center", "center", "center", "left"],
+    gap: "30px",
+  },
 };
 
 export const landingPageQuery = graphql`
