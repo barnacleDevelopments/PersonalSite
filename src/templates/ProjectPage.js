@@ -66,7 +66,6 @@ export function TechListing({ technologies, onClick, descriptive = true }) {
         : technologies.map((x) => (
             <Flex
               sx={{
-                cursor: "pointer",
                 alignItems: "center",
                 gap: 2,
               }}
