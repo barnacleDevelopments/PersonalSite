@@ -73,7 +73,7 @@ const IndexPage = ({ data }) => {
               Dev the Developer
             </Heading>
             <Text variant="regular" color="white ">
-              I translate business requirements into awesome solutions.
+              I transform problems into thoughtful, scalable solutions
             </Text>
           </Box>
           <Box
