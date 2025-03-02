@@ -1,12 +1,12 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui";
 import { graphql } from "gatsby";
-import moment from "moment";
 import { Box, Flex, Button, Heading, Text, Grid } from "theme-ui";
 import Seo from "../components/app/Seo";
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import { MDXProvider } from "@mdx-js/react";
 import CallToAction from "../components/CallToAction";
+import { DateTime } from "luxon";
 
 function ProjectPageSection({ children, image, imageAlt, alignment = "left" }) {
   const isLeftAligned = alignment === "left";
@@ -139,7 +139,7 @@ function ProjectPage({ data, children }) {
             fontSize: 3,
           }}
         >
-          {moment(node.frontmatter.startDate).format("MMM Do, YYYY")}
+          {DateTime.fromISO(node.frontmatter.startDate).toFormat("MMM d, yyyy")}
         </Text>
         <Box>
           {" "}

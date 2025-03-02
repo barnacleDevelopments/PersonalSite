@@ -3,7 +3,7 @@ import React from "react";
 import { Button, jsx, Link } from "theme-ui";
 import { Heading, Box, Flex, Text } from "theme-ui";
 import { graphql } from "gatsby";
-import moment from "moment";
+import { DateTime } from "luxon";
 import { MDXProvider } from "@mdx-js/react";
 
 // COMPONENTS
@@ -65,7 +65,7 @@ const BlogPostPage = ({ data, children }) => {
           {node.frontmatter.title}
         </Heading>
         <Text variant="regular" sx={{ color: "white" }}>
-          {moment(node.frontmatter.date).format("MMM Do, YYYY")}
+          {DateTime.fromISO(node.frontmatter.date).toFormat("MMM d, yyyy")}
         </Text>
         <Text variant="regular" sx={{ color: "white" }}>
           {node.timeToRead} minutes
