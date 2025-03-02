@@ -12,7 +12,6 @@ export default function BookCard({ book }) {
         flex: "0 0 auto",
       }}
       href={book.url}
-      key={book.title}
     >
       <GatsbyImage
         sx={{
