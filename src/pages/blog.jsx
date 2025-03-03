@@ -9,6 +9,10 @@ import Seo from "../components/app/Seo";
 import PostCategoryCard from "../components/blog/PostCategoryCard";
 import { faRssSquare } from "@fortawesome/free-solid-svg-icons";
 
+const dailyDevUrl = "https://app.daily.dev/devdeveloper";
+const dailyDevImgUrl =
+  "https://api.daily.dev/devcards/v2/cXKKpBu9O.png?type=default&r=6yz";
+
 const BlogPage = ({ data }) => {
   const categories = data.allMdx.distinct;
 
@@ -53,15 +57,8 @@ const BlogPage = ({ data }) => {
               </a>
             </Box>
           </Box>
-          <a
-            sx={{ display: ["none", "block"] }}
-            href="https://app.daily.dev/devdeveloper"
-          >
-            <img
-              src="https://api.daily.dev/devcards/v2/cXKKpBu9O.png?type=default&r=6yz"
-              width="250"
-              alt="Devin's Dev Card"
-            />
+          <a sx={{ display: ["none", "block"] }} href={dailyDevUrl}>
+            <img src={dailyDevImgUrl} width="250" alt="Devin's Dev Card" />
           </a>
         </Flex>
         <Grid
