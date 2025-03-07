@@ -1,10 +1,10 @@
 ---
 title: "Mailfence Emacs MU4E Setup"
-thumbnail: "assets/gym-kit.jpeg"
+thumbnail: "assets/logo.png"
 date: "2025-03-07T15:13:45.129Z"
-keywords: "attention"
+keywords: "mailfence, emacs, mu4e, smtp, imap, offlineimap, email configuration, doom emacs, mail client"
 category: "emacs"
-draft: true
+draft: false
 ---
 
 I have been exploring MU4E for Emacs, a searched based mail client that I am thoroughly enjoying using. It has taught me a lot about email protocols and provided me with a seamless email experience that I want to share. This article will outline the process of configuring Doom Emacs with MU4E using the Mailfence email server. There were a few aspects not covered in the Doom Emacs documentation, so I decided to write this article to assist anyone configuring their setup similarly to mine.
@@ -135,7 +135,7 @@ Navigate to the mue4 menu again and view your inbox using `J`. Try pressing `RET
 
 ## Setup SMTP
 
-Now to setup sending mail. The configuration above contains everything you need to send mail through Emacs using SMTP. The only thing you need to do is update the fields to match your credentials and create a file to store your sensitive credentials which you make Emacs aware of by setting the auth-sources variable `(setq auth-sources '("~/.authinfo.gpg" "~/.authinfo"))`. This is an encrypted file that is created on your system and it will prompt you to create a password after saving it.
+Now to setup sending mail. The configuration above contains everything you need to send mail through Emacs using SMTP. The only thing you need to do is update the fields to match your credentials and create a file to store your sensitive credentials.
 
 ```bash
 touch .authinfo.gpg
@@ -144,6 +144,8 @@ touch .authinfo.gpg
 ```gpg
 machine smtp.mailfence.com login joe password <your password> port 465
 ```
+
+Once you save this file, you will be prompted to create a password for decrypting it. The first time you send an email while using Emacs, you will need to enter this password. For any subsequent messages, you won’t be asked for it again. To let Emacs recognize your credentials file, set the `auth-sources` variable like this: `(setq auth-sources '("~/.authinfo.gpg" "~/.authinfo"))`. This is in the configuration at the begining of the article.
 
 ### Try sending mail
 
