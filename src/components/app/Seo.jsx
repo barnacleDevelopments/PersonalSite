@@ -25,7 +25,7 @@ const Seo = ({ title, description, image, lang, keywords, children }) => {
     description: description || defaultDescription,
     image: {
       ...metaImage,
-      src: `${siteUrl}/${image || metaImage.src}`,
+      src: `${siteUrl}${image || metaImage.src}`,
     },
     url: `${siteUrl}${pathname} `,
     keywords: keywords || defaultKeywords,
