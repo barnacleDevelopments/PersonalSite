@@ -13,7 +13,6 @@ import Prism from "prismjs";
 
 function HorizontalImages({ children }) {
   const imageComponents = children.filter((x) => x.type == "span");
-  console.log(imageComponents);
   return (
     <Flex sx={{ gap: 3 }}>
       {imageComponents.map((x, index) => (
@@ -66,9 +65,6 @@ const BlogPostPage = ({ data, children }) => {
         </Heading>
         <Text variant="regular" sx={{ color: "white" }}>
           {DateTime.fromISO(node.frontmatter.date).toFormat("MMM d, yyyy")}
-        </Text>
-        <Text variant="regular" sx={{ color: "white" }}>
-          {node.timeToRead} minutes
         </Text>
       </Flex>
       <Box

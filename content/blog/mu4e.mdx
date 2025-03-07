@@ -1,0 +1,150 @@
+---
+title: "Mailfence Emacs MU4E Setup"
+thumbnail: "assets/gym-kit.jpeg"
+date: "2025-03-07T15:13:45.129Z"
+keywords: "attention"
+category: "emacs"
+draft: false
+---
+
+I have been exploring MU4E for Emacs, a searched based mail client that I am thoroughly enjoying using. It has taught me a lot about email protocols and provided me with a seamless email experience that I want to share. This article will outline the process of configuring Doom Emacs with MU4E using the Mailfence email server. There were a few aspects not covered in the Doom Emacs documentation, so I decided to write this article to assist anyone configuring their setup similarly to mine.
+
+## Snapshot Configuration
+
+Here's the complete Emacs configuration for setting up SMTP for sending mail and IMAP for receiving mail. You will need to install certain programs on your system, as well as additional packages within Emacs. Fortunately, Emacs includes a built-in utility called [smtpmail](https://www.gnu.org/software/emacs/manual/html_mono/smtpmail.html) for sending emails via an email server. However, Emacs does not natively support mail synchronization, which is where [MU4E](https://github.com/emacsmirror/mu4e) becomes essential.
+
+```elisp
+(add-to-list 'load-path "/usr/local/share/emacs/site-lisp/mu4e")
+
+(setq auth-sources '("~/.authinfo.gpg" "~/.authinfo"))
+
+(setq! message-send-mail-function 'smtpmail-send-it
+      smtpmail-smtp-server "smtp.mailfence.com"
+      smtpmail-smtp-service 465
+      smtpmail-stream-type 'ssl
+      smtpmail-auth-supported '(plain login)
+      smtpmail-auth-credentials (expand-file-name "~/.authinfo.gpg"))
+
+(set-email-account! "joe@mailfence.ca"
+  '((mu4e-sent-folder . "/Sent Items")
+    (mu4e-drafts-folder . "/Drafts")
+    (mu4e-get-mail-command . "offlineimap -o")
+    (mu4e-update-interval . 60)
+    (mu4e-trash-folder . "/Trash")
+    (smtpmail-smtp-user . "joe")
+    (mail-host-address . "mailfence.ca")
+    (user-full-name . "Devin")
+    (user-mail-address . "joe@mailfence.ca")
+    (smtpmail-smtp-server   . "smtp.mailfence.com")
+    (mu4e-compose-signature . "---\nRegards,\nDev"))
+  t)
+```
+
+## Setup offlineimap
+
+[offlineimap](https://www.offlineimap.org/doc/installation.html#distribution) is a tool designed to synchronize your emails from a mail server. Setting it up is quite simple.
+
+### Install
+
+```bash
+sudo apt install offlineimap
+```
+
+### Configure
+
+Copy the minimal configuration if you want or just use the configuration I provided.
+
+```bash
+cp offlineimap.conf.minimal ~/.offlineimaprc
+```
+
+```yml
+# .offlineimaprc
+
+[general]
+accounts = Mailfence
+maxsyncaccounts = 3
+
+[Account Mailfence]
+localrepository = Local
+remoterepository = Remote
+
+[Repository Local]
+type = Maildir
+localfolders = ~/Maildir
+
+[Repository Remote]
+type = IMAP
+remotehost = imap.mailfence.com
+remoteuser = joe@mailfence.ca
+remotepass = 'password' <==== update this
+ssl = yes
+maxconnections = 1
+sslcacertfile = /etc/ssl/certs/ca-certificates.crt
+```
+
+### Create directory to hold your mail
+
+```bash
+mkdir ~/Maildir
+```
+
+### Sync your mail
+
+This sync the mail on your email server with a local folder on your pc. Notice the Emacs configuration above includes
+`(mu4e-get-mail-command . "offlineimap -o")` this allows MU4E to trigger mail fetching on your system.
+
+```bash
+offlineimap -o
+```
+
+### Index your mail
+
+This allows mu to quickly query your mail when making searches etc.
+
+```
+mu init --maildir ~/Maildir --my-address joe@mailfence.ca
+```
+
+## Setup MUE4
+
+To start you need to install the MU4E Emacs package. This is it's own program that interacts with the system installation of MU4E. Uncomment the MU4E package inside your `init.el` file under the `:mail` heading.
+
+```elisp
+:email
+(mu4e +org +gmail +offlineimap)
+;;notmuch
+;;(wanderlust +gmail)
+```
+
+Then restart Emacs or run the `doom/reload` command `leader h r r` to install the package.
+
+### Install MU4E on your system
+
+Now you need to install the MU4E program. We will build from source. First clone the repository into a directory of your choice. The typical place to install it would be `/usr/local/share/emacs/site-lisp/mu4e` (the configuration above uses the `add-to-list` function to allow emacs to execute it).
+
+```bash
+cd /usr/local/share/emacs/site-lisp/mu4e
+./autogen.sh && make
+sudo make install
+```
+
+### Try reading mail
+
+Navigate to the mue4 menu again and view your inbox using `J`. Try pressing `RET` on the message you want to read.
+
+## Setup SMTP
+
+Now to setup sending mail. The configuration above contains everything you need to send mail through Emacs using SMTP. The only thing you need to do is update the fields to match your credentials and create a file to store your sensitive credentials which you make Emacs aware of by setting the auth-sources variable `(setq auth-sources '("~/.authinfo.gpg" "~/.authinfo"))`. This is an encrypted file that is created on your system and it will prompt you to create a password after saving it.
+
+```bash
+touch .authinfo.gpg
+```
+
+```gpg
+machine smtp.mailfence.com login joe password <your password> port 465
+```
+
+### Try sending mail
+
+Navigate to the mu4e menu and compose a message by pressing `C`. To send your mail, press `C-c C-c` and you're done.
