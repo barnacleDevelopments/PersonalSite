@@ -3,7 +3,7 @@ import { jsx } from "theme-ui";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 // Hooks
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useForm } from "react-hook-form";
 // Components
 import {
@@ -25,17 +25,21 @@ import Seo from "../components/app/Seo";
 // Icons
 import { faCopy } from "@fortawesome/free-regular-svg-icons";
 
-const schema = yup
-  .object({
-    email: yup.string().email().required(),
-    subject: yup.string().min(1).max(40).required(),
-    message: yup.string().min(1).max(5000).required(),
-  })
-  .required();
-
 const ContactPage = () => {
   const [isPostSuccessful, setIsPostSuccessful] = useState(false);
   const [isFormHighlighted, setIsFormHighlighted] = useState(false);
+  const schema = useMemo(
+    () =>
+      yup
+        .object({
+          email: yup.string().email().required(),
+          subject: yup.string().min(1).max(40).required(),
+          message: yup.string().min(1).max(5000).required(),
+        })
+        .required(),
+    [],
+  );
+
   const {
     register,
     handleSubmit,
