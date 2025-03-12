@@ -3,7 +3,7 @@ import { jsx } from "theme-ui";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 // Hooks
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useCallback } from "react";
 import { useForm } from "react-hook-form";
 // Components
 import {
@@ -68,7 +68,7 @@ const ContactPage = () => {
       .join("&");
   }
 
-  const onSubmit = async (data) => {
+  const onSubmit = useCallback(async (data) => {
     const response = await fetch("/contact", {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
@@ -81,7 +81,7 @@ const ContactPage = () => {
     if (response.ok) {
       setIsPostSuccessful(true);
     }
-  };
+  }, []);
 
   async function copyPGP() {
     const response = await fetch("/pgp-key.asc");
