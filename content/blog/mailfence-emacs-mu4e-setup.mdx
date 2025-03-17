@@ -13,30 +13,30 @@ I have been exploring MU4E for Emacs, a searched based mail client that I am tho
 
 Here's the complete Emacs configuration for setting up SMTP for sending mail and IMAP for receiving mail. You will need to install certain programs on your system, as well as additional packages within Emacs. Fortunately, Emacs includes a built-in utility called [smtpmail](https://www.gnu.org/software/emacs/manual/html_mono/smtpmail.html) for sending emails via an email server. However, Emacs does not natively support mail synchronization, which is where [MU4E](https://github.com/emacsmirror/mu4e) becomes essential.
 
+### Doom Emacs Configuration
+
+Something to mention about the Doom Emacs configuration for MU4E is that it is different than the typical configuration because it includes both the SMTP settings and the mu4e settings. So you will notice that all the configuration variables, starting with `mue4-*` and `smtp-*` will fall under `set-email-account!` setting. If you attempt to place these outside of this setting you will have issues with the elisp scripts not being loaded correctly.
+
 ```elisp
 (add-to-list 'load-path "/usr/local/share/emacs/site-lisp/mu4e")
 
 (setq auth-sources '("~/.authinfo.gpg" "~/.authinfo"))
 
-(setq! message-send-mail-function 'smtpmail-send-it
-      smtpmail-smtp-server "smtp.mailfence.com"
-      smtpmail-smtp-service 465
-      smtpmail-stream-type 'ssl
-      smtpmail-auth-supported '(plain login)
-      smtpmail-auth-credentials (expand-file-name "~/.authinfo.gpg"))
-
 (set-email-account! "joe@mailfence.ca"
   '((mu4e-sent-folder . "/Sent Items")
     (mu4e-drafts-folder . "/Drafts")
+    (mu4e-trash-folder . "/Trash")
     (mu4e-get-mail-command . "offlineimap -o")
     (mu4e-update-interval . 60)
-    (mu4e-trash-folder . "/Trash")
-    (smtpmail-smtp-user . "joe")
-    (mail-host-address . "mailfence.ca")
+    (smtpmail-smtp-user . "devin")
+    (smtpmail-smtp-server . "smtp.mailfence.com")
+    (smtpmail-smtp-service . 465)
+    (smtpmail-stream-type . ssl)
+    (auth-source-debug t)
+    (mail-host-address . "joe@mailfence.ca")
     (user-full-name . "Devin")
     (user-mail-address . "joe@mailfence.ca")
-    (smtpmail-smtp-server   . "smtp.mailfence.com")
-    (mu4e-compose-signature . "---\nRegards,\nDev"))
+    (mu4e-compose-signature . "\nBest,\nDev\nSoftware Developer"))
   t)
 ```
 
