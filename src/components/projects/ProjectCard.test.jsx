@@ -3,7 +3,6 @@ import { render, screen } from "@testing-library/react";
 import ProjectCard from "./ProjectCard";
 import { getImage } from "gatsby-plugin-image";
 import "@testing-library/jest-dom";
-import { TechListing } from "../../templates/ProjectPage";
 
 // Mock GatsbyImage and getImage
 jest.mock("gatsby-plugin-image", () => ({
@@ -35,7 +34,6 @@ describe("ProjectCard", () => {
 
   it("renders project information correctly", () => {
     render(<ProjectCard project={mockProject} />);
-
     expect(
       screen.getByRole("heading", { name: /test project/i }),
     ).toBeInTheDocument();

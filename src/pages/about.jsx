@@ -1,15 +1,16 @@
 /** @jsx jsx */
-import { Link, Paragraph, jsx, Flex, Button } from "theme-ui";
+import { Link, Paragraph, jsx, Flex } from "theme-ui";
 
 // COMPONENTS
 import { Box, Heading, Grid } from "theme-ui";
-import Seo from "../components/app/Seo";
 import { StaticImage } from "gatsby-plugin-image";
-import CallToAction from "../components/CallToAction";
 import { graphql } from "gatsby";
-import { TechListing } from "../templates/ProjectPage";
 import { useRef, useState } from "react";
+
 import { CloseButton } from "../components/app/CloseButton";
+import Seo from "../components/app/Seo";
+import { TechListing } from "../components/projects/TechListing";
+import CallToAction from "../components/CallToAction";
 
 const AboutPage = ({ data }) => {
   const dialog = useRef(null);

@@ -4,7 +4,7 @@ import { jsx } from "theme-ui";
 
 // Components
 import { Card, Text, Button, Flex, Box, Link, Heading } from "theme-ui";
-import { TechListing } from "../../templates/ProjectPage";
+import { TechListing } from "./TechListing";
 
 // markup
 const ProjectCard = ({ project }) => {

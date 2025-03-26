@@ -3,86 +3,11 @@ import { jsx } from "theme-ui";
 import { graphql } from "gatsby";
 import { Box, Flex, Button, Heading, Text, Grid } from "theme-ui";
 import Seo from "../components/app/Seo";
-import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import { MDXProvider } from "@mdx-js/react";
 import CallToAction from "../components/CallToAction";
 import { DateTime } from "luxon";
-
-function ProjectPageSection({ children, image, imageAlt, alignment = "left" }) {
-  const isLeftAligned = alignment === "left";
-
-  return (
-    <Box sx={{ ...sectionWrapperStyle }}>
-      <Grid columns={[1, 2]} sx={{ alignItems: "center", gap: 5 }}>
-        <Box
-          sx={{
-            order: [2, isLeftAligned ? 1 : 2],
-          }}
-        >
-          {children}
-        </Box>
-        <Box
-          sx={{
-            order: [1, isLeftAligned ? 2 : 1],
-          }}
-        >
-          <GatsbyImage
-            placeholder="blurred"
-            imgStyle={imgStyle}
-            image={getImage(image)}
-            alt={imageAlt}
-          />
-        </Box>
-      </Grid>
-    </Box>
-  );
-}
-
-export function TechListing({ technologies, onClick, descriptive = true }) {
-  return (
-    <Flex sx={{ flexWrap: "wrap", gap: "10px" }}>
-      {onClick
-        ? technologies.map((x) => (
-            <Button variant="secondary">
-              <Flex
-                sx={{
-                  cursor: "pointer",
-                  alignItems: "center",
-                  gap: 2,
-                }}
-                onClick={() => onClick(x)}
-                key={x.name}
-              >
-                <GatsbyImage
-                  placeholder="blurred"
-                  style={techImageStyle}
-                  image={getImage(x.image)}
-                  alt={x.name}
-                />
-                {descriptive && x.name}
-              </Flex>
-            </Button>
-          ))
-        : technologies.map((x) => (
-            <Flex
-              sx={{
-                alignItems: "center",
-                gap: 2,
-              }}
-              key={x.name}
-            >
-              <GatsbyImage
-                placeholder="blurred"
-                style={techImageStyle}
-                image={getImage(x.image)}
-                alt={x.name}
-              />
-              {descriptive && x.name}
-            </Flex>
-          ))}
-    </Flex>
-  );
-}
+import { TechListing } from "../components/projects/TechListing";
+import { ProjectSection } from "../components/projects/ProjectSection";
 
 const pageWrapper = {
   width: ["100%"],
@@ -98,26 +23,7 @@ const pageWrapper = {
   textAlign: "center",
 };
 
-const techImageStyle = {
-  width: "20px",
-  mr: 1,
-  mb: 2,
-};
-
-const imgStyle = {
-  objectFit: "contain",
-  maxWidth: "500px",
-  width: "100%",
-};
-
-const sectionWrapperStyle = {
-  width: ["100%"],
-  mx: "auto",
-  mb: 5,
-  textAlign: ["center", "left"],
-};
-
-const shortCodes = { ProjectPageSection, TechListing };
+const shortCodes = { ProjectSection, TechListing };
 
 function ProjectPage({ data, children }) {
   const { mdx: node } = data;

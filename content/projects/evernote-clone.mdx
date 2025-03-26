@@ -18,7 +18,7 @@ keywords: evernote desktop clone, electron desktop app, electron evernote clone,
 draft: false
 ---
 
-<ProjectPageSection image={props.pageContext.frontmatter.image1} imageAlt={"image1"} >
+<ProjectSection image={props.pageContext.frontmatter.image1} imageAlt={"image1"} >
 
 ## Overview
 
@@ -26,19 +26,19 @@ I started this desktop application while attending the [Nova Scotia
 Community College](https://www.nscc.ca/) as part of my Electron course. I
 decided to do a partial clone of the desktop version of
 [Evernote](https://evernote.com/).
-</ProjectPageSection>
+</ProjectSection>
 
-<ProjectPageSection image={props.pageContext.frontmatter.image2} imageAlt={"image1"} alignment="right" >
+<ProjectSection image={props.pageContext.frontmatter.image2} imageAlt={"image1"} alignment="right" >
 
 ## Tech
 
 tech: Our course had us use Electron to build desktop-grade applications with JavaScript, HTML, and CSS. The advantage here is that web developers like myself are able to produce desktop applications without needing to change their language context. I went a step further and implemented a simple state management system from scratch so that various actions could have "side effects" like disabling the create note button when a notebook is not selected. Frameworks like React enable this kind of functionality but I wanted to learn what was going on under the hood.
 <TechListing technologies={props.pageContext.frontmatter.technologies} />
-</ProjectPageSection>
+</ProjectSection>
 
-<ProjectPageSection image={props.pageContext.frontmatter.image3} imageAlt={"image1"} >
+<ProjectSection image={props.pageContext.frontmatter.image3} imageAlt={"image1"} >
 
 ## Challenges
 
 challenges: The main challenges I faced were while implementing the state management system. State management involves the use of a few different consepts most notably, a store, mutations, and actions. The store contains the current state of the application. For instance the create note button can be disabled or enabled depending on a certain state value. Actions call mutations which are functions that change or "mutate" the store. Therefore, actions simply call mutations and should not do any mutating themselves. The store's contents represent the current state of the application. It's an advanced consept that I still don't completly understand on a technicle level but I managed to implement a simple solution.
-</ProjectPageSection>
+</ProjectSection>
