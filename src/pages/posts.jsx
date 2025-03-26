@@ -2,13 +2,13 @@
 import { jsx } from "theme-ui";
 import { graphql } from "gatsby";
 
-// Components
 import PostCard from "../components/blog/PostCard";
 import { Box, Text, Grid, Heading } from "theme-ui";
 import Seo from "../components/app/Seo";
 
 const AllPostsPage = ({ data }) => {
   const pageData = data.allMdx.edges;
+
   return (
     <Box>
       <Seo title="Blog"></Seo>
