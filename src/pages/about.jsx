@@ -9,8 +9,8 @@ import { useRef, useState } from "react";
 
 import { CloseButton } from "../components/app/CloseButton";
 import Seo from "../components/app/Seo";
-import { TechListing } from "../components/projects/TechListing";
 import CallToAction from "../components/CallToAction";
+import { TechListing } from "../components/TechListing/TechListing";
 
 const AboutPage = ({ data }) => {
   const dialog = useRef(null);

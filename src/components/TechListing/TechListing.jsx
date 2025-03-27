@@ -8,7 +8,7 @@ export function TechListing({ technologies, onClick, descriptive = true }) {
     <Flex sx={{ flexWrap: "wrap", gap: "10px" }}>
       {onClick
         ? technologies.map((x) => (
-            <Button variant="secondary">
+            <Button key={x.name} variant="secondary">
               <Flex
                 sx={{
                   cursor: "pointer",
@@ -16,7 +16,6 @@ export function TechListing({ technologies, onClick, descriptive = true }) {
                   gap: 2,
                 }}
                 onClick={() => onClick(x)}
-                key={x.name}
               >
                 <GatsbyImage
                   placeholder="blurred"

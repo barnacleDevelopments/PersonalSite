@@ -3,6 +3,19 @@ import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import { jsx } from "theme-ui";
 import { Box, Grid } from "theme-ui";
 
+const sectionWrapperStyle = {
+  width: ["100%"],
+  mx: "auto",
+  mb: 5,
+  textAlign: ["center", "left"],
+};
+
+const imgStyle = {
+  objectFit: "contain",
+  maxWidth: "500px",
+  width: "100%",
+};
+
 export function ProjectSection({
   children,
   image,
@@ -28,7 +41,6 @@ export function ProjectSection({
         >
           <GatsbyImage
             placeholder="blurred"
-            imgStyle={imgStyle}
             image={getImage(image)}
             alt={imageAlt}
           />
@@ -37,16 +49,3 @@ export function ProjectSection({
     </Box>
   );
 }
-
-const sectionWrapperStyle = {
-  width: ["100%"],
-  mx: "auto",
-  mb: 5,
-  textAlign: ["center", "left"],
-};
-
-const imgStyle = {
-  objectFit: "contain",
-  maxWidth: "500px",
-  width: "100%",
-};

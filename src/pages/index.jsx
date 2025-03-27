@@ -9,7 +9,7 @@ import Seo from "../components/app/Seo";
 import Loader from "../components/Loader";
 import PostCard from "../components/blog/PostCard";
 import CallToAction from "../components/CallToAction";
-import ProjectCard from "../components/projects/ProjectCard";
+import ProjectCard from "../components/ProjectCard/ProjectCard";
 import BookCard from "../components/books/BookCard";
 
 const IndexPage = ({ data }) => {

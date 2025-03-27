@@ -6,8 +6,8 @@ import Seo from "../components/app/Seo";
 import { MDXProvider } from "@mdx-js/react";
 import CallToAction from "../components/CallToAction";
 import { DateTime } from "luxon";
-import { TechListing } from "../components/projects/TechListing";
-import { ProjectSection } from "../components/projects/ProjectSection";
+import { ProjectSection } from "../components/ProjectSection/ProjectSection";
+import { TechListing } from "../components/TechListing/TechListing";
 
 const pageWrapper = {
   width: ["100%"],
