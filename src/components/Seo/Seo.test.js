@@ -1,10 +1,9 @@
 import React from "react";
 import Seo from "./Seo.jsx";
 import { render, waitFor } from "@testing-library/react";
-jest.mock('@reach/router');
 import metaData from "../../../gatsby-config.js"
 
-// can't use imported data in jest mock need to use data defined inside this file
+jest.mock('@reach/router');
 jest.mock("gatsby", () => ({
     graphql: jest.fn(),
     useStaticQuery: jest.fn(() => ({
@@ -66,6 +65,9 @@ describe("SEO", () => {
             const github = document.querySelector(
                 'meta[name="github"]'
             );
+            const linkedin = document.querySelector(
+                'meta[name="linkedin"]'
+            );
             const ogImage = document.querySelector(
                 'meta[name="og:image"]'
             );
@@ -92,6 +94,10 @@ describe("SEO", () => {
             expect(github).toHaveAttribute(
                 "content",
                 metaData.siteMetadata.github
+            );
+            expect(linkedin).toHaveAttribute(
+                "content",
+                metaData.siteMetadata.linkedin
             );
             expect(ogTitle).toHaveAttribute(
                 "content",
