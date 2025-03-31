@@ -3,9 +3,9 @@ import { jsx } from "theme-ui";
 import { graphql } from "gatsby";
 
 // Components
-import PostCard from "../components/blog/PostCard";
 import { Heading, Box, Text, Grid, Link, Button } from "theme-ui";
-import Seo from "../components/app/Seo";
+import Seo from "../components/Seo/Seo"
+import PostCard from "../components/PostCard/PostCard";
 
 const CategoryPage = ({ data }) => {
   const pageData = data.allMdx.edges;

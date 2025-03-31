@@ -8,7 +8,7 @@ import { graphql } from "gatsby";
 import { useRef, useState } from "react";
 
 import { CloseButton } from "../components/app/CloseButton";
-import Seo from "../components/app/Seo";
+import Seo from "../components/Seo/Seo"
 import CallToAction from "../components/CallToAction";
 import { TechListing } from "../components/TechListing/TechListing";
 

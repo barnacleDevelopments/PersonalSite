@@ -2,8 +2,8 @@
 import { Link, Paragraph, jsx } from "theme-ui";
 import { graphql } from "gatsby";
 import { Box, Heading } from "theme-ui";
-import Seo from "../components/app/Seo";
 import CallToAction from "../components/CallToAction";
+import Seo from "../components/Seo/Seo";
 import ProjectCard from "../components/ProjectCard/ProjectCard";
 
 const ProjectsPage = ({ data }) => {

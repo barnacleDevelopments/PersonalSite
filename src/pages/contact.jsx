@@ -20,7 +20,7 @@ import {
 } from "theme-ui";
 import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
 import Loader from "../components/Loader";
-import Seo from "../components/app/Seo";
+import Seo from "../components/Seo/Seo"
 
 // Icons
 import { faCopy } from "@fortawesome/free-regular-svg-icons";

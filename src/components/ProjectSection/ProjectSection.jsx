@@ -10,12 +10,6 @@ const sectionWrapperStyle = {
   textAlign: ["center", "left"],
 };
 
-const imgStyle = {
-  objectFit: "contain",
-  maxWidth: "500px",
-  width: "100%",
-};
-
 export function ProjectSection({
   children,
   image,
@@ -25,7 +19,7 @@ export function ProjectSection({
   const isLeftAligned = alignment === "left";
 
   return (
-    <Box sx={{ ...sectionWrapperStyle }}>
+    <Box as="section" aria-label="Project Section" sx={{ ...sectionWrapperStyle }}>
       <Grid columns={[1, 2]} sx={{ alignItems: "center", gap: 5 }}>
         <Box
           sx={{

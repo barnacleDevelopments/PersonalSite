@@ -3,10 +3,11 @@ import { jsx } from "theme-ui";
 import { graphql } from "gatsby";
 import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
 
-// Components
 import { Box, Flex, Text, Grid, Heading } from "theme-ui";
-import Seo from "../components/app/Seo";
-import PostCategoryCard from "../components/blog/PostCategoryCard";
+
+import Seo from "../components/Seo/Seo"
+import PostCategoryCard from "../components/PostCategoryCard/PostCategoryCard";
+
 import { faRssSquare } from "@fortawesome/free-solid-svg-icons";
 
 const dailyDevUrl = "https://app.daily.dev/devdeveloper";

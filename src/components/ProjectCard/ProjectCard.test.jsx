@@ -1,8 +1,8 @@
+// https://testing-library.com/docs/queries/
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import ProjectCard from "./ProjectCard";
 import { TechListing } from "../TechListing/TechListing";
-import { GatsbyImage } from "gatsby-plugin-image";
 
 jest.mock("../TechListing/TechListing");
 jest.mock("gatsby-plugin-image");
@@ -30,14 +30,8 @@ describe("ProjectCard", () => {
       expect.anything(),
     );
 
-    expect(GatsbyImage).toHaveBeenCalledWith(
-      {
-        placeholder: "blurred",
-        alt: "image 1",
-      },
-      expect.anything(),
-    );
-
+    const imgEl = screen.getByRole("img", { name: "image 1" });
+    expect(imgEl).toBeInTheDocument();
     expect(screen.getByText("Test Project")).toBeInTheDocument();
     expect(screen.getByText("March 2024")).toBeInTheDocument();
     expect(screen.getByText("This is a test excerpt.")).toBeInTheDocument();

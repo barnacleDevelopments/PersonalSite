@@ -2,12 +2,12 @@
 import { jsx } from "theme-ui";
 import { graphql } from "gatsby";
 import { Box, Flex, Button, Heading, Text, Grid } from "theme-ui";
-import Seo from "../components/app/Seo";
 import { MDXProvider } from "@mdx-js/react";
 import CallToAction from "../components/CallToAction";
 import { DateTime } from "luxon";
 import { ProjectSection } from "../components/ProjectSection/ProjectSection";
 import { TechListing } from "../components/TechListing/TechListing";
+import Seo from "../components/Seo/Seo";
 
 const pageWrapper = {
   width: ["100%"],

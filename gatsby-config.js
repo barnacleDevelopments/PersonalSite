@@ -4,18 +4,18 @@ require("dotenv").config({
 
 module.exports = {
   siteMetadata: {
+    lang: "en",
     siteUrl: "https://devdeveloper.ca",
     title: "Devin Davis | Full-Stack Developer & Devops Engineer",
+    github: "https://github.com/barnacleDevelopments",
+    linkedin: "https://www.linkedin.com/in/devin-dev-d-63008412b/",
     image: {
       src: `assets/logo_2.png`,
       width: 110,
       height: 110,
     },
-    titleTemplate: "Full-Stack Developer & Devops Engineer",
-    defaultTitle: "Devin Davis | Full-Stack Developer & Devops Engineer",
     description:
       "Explore the professional portfolio of Devin Davis, a results-oriented Full-Stack Web Developer specializing Devops and Blockchain.",
-    lang: "en",
     keywords: [
       "Web development",
       "Full-stack Web developer",

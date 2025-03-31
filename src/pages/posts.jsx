@@ -2,9 +2,9 @@
 import { jsx } from "theme-ui";
 import { graphql } from "gatsby";
 
-import PostCard from "../components/blog/PostCard";
+import PostCard from "../components/PostCard/PostCard";
 import { Box, Text, Grid, Heading } from "theme-ui";
-import Seo from "../components/app/Seo";
+import Seo from "../components/Seo/Seo"
 
 const AllPostsPage = ({ data }) => {
   const pageData = data.allMdx.edges;

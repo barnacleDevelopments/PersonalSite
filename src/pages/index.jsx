@@ -3,14 +3,14 @@ import { jsx } from "theme-ui";
 import { graphql } from "gatsby";
 
 // Components
-import { GatsbyImage, getImage, StaticImage } from "gatsby-plugin-image";
+import { StaticImage } from "gatsby-plugin-image";
 import { Text, Button, Flex, Box, Grid, Link, Heading } from "theme-ui";
-import Seo from "../components/app/Seo";
+import Seo from "../components/Seo/Seo"
 import Loader from "../components/Loader";
-import PostCard from "../components/blog/PostCard";
+import PostCard from "../components/PostCard/PostCard";
 import CallToAction from "../components/CallToAction";
 import ProjectCard from "../components/ProjectCard/ProjectCard";
-import BookCard from "../components/books/BookCard";
+import BookCard from "../components/BookCard/BookCard";
 
 const IndexPage = ({ data }) => {
   const posts = data.blogPosts.edges

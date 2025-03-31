@@ -28,5 +28,4 @@ module.exports = {
       "data-test-slice-alias": alias,
     }),
   ),
-  useStaticQuery: jest.fn(),
 };

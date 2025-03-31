@@ -7,9 +7,9 @@ import { DateTime } from "luxon";
 import { MDXProvider } from "@mdx-js/react";
 
 // COMPONENTS
-import Seo from "../components/app/Seo";
 import { useEffect } from "react";
 import Prism from "prismjs";
+import Seo from "../components/Seo/Seo";
 
 function HorizontalImages({ children }) {
   const imageComponents = children.filter((x) => x.type == "span");

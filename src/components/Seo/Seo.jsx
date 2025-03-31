@@ -7,21 +7,21 @@ import { useStaticQuery, graphql } from "gatsby";
 // SEO Component Resource: https://www.gatsbyjs.com/docs/add-seo-component/
 
 const Seo = ({ title, description, image, lang, keywords, children }) => {
-  const { pathname } = useLocation();
+  const { pathname = '/' } = useLocation() || {};
   const { site } = useStaticQuery(query);
-
   const {
     defaultTitle,
-    titleTemplate,
     defaultDescription,
-    siteUrl,
-    metaImage,
     defaultKeywords,
     defaultLang,
+    metaImage,
+    siteUrl,
+    github,
+    linkedin
   } = site.siteMetadata;
 
   const seo = {
-    title: title ? `${title} - ${titleTemplate}` : defaultTitle,
+    title: title ? title : defaultTitle,
     description: description || defaultDescription,
     image: {
       ...metaImage,
@@ -33,23 +33,20 @@ const Seo = ({ title, description, image, lang, keywords, children }) => {
   };
 
   return (
-    <Helmet htmlAttributes={lang}>
+    <Helmet>
       {children}
+      <html lang={seo.lang}/>
       <title>{seo.title}</title>
-      <meta name="title" content={seo.title} />
       <meta name="description" content={seo.description} />
-      <meta name="github" content={"https://github.com/barnacleDevelopments"} />
-      <meta
-        name="linkedin"
-        content={"https://www.linkedin.com/in/devin-dev-d-63008412b/"}
-      />
+      <meta name="github" content={github} />
+      <meta name="linkedin" content={linkedin} />
       <meta name="og:title" content={seo.title} />
       <meta name="og:description" content={seo.description} />
       <meta name="og:image" content={seo.image.src} />
+      <meta name="og:type" content="website" />
       <meta name="twitter:title" content={seo.title} />
       <meta name="twitter:description" content={seo.description} />
       <meta name="twitter:image" content={seo.image.src} />
-      <meta name="og:type" content="website" />
       <meta name="keywords" content={seo.keywords.join(",")} />
       <link
         href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
@@ -82,11 +79,12 @@ const query = graphql`
     site {
       siteMetadata {
         defaultTitle: title
-        titleTemplate
         defaultDescription: description
-        siteUrl
         defaultLang: lang
         defaultKeywords: keywords
+        github
+        linkedin
+        siteUrl
         metaImage: image {
           height
           src
