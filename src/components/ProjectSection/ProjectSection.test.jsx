@@ -4,6 +4,7 @@ import { ProjectSection } from "./ProjectSection";
 
 jest.mock("gatsby-plugin-image")
 
+// TODO need to find out how to mock the image alignment
 describe("ProjectSection", () => {
   const mockProject = {
     image1: "test-image-1.jpg",

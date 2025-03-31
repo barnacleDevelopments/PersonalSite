@@ -71,6 +71,12 @@ describe("SEO", () => {
             const ogImage = document.querySelector(
                 'meta[name="og:image"]'
             );
+            const ogImageWidth = document.querySelector(
+                'meta[name="og:image:width"]'
+            );
+            const ogImageHeight = document.querySelector(
+                'meta[name="og:image:height"]'
+            );
             const twitterTitle = document.querySelector(
                 'meta[name="twitter:title"]'
             );
@@ -110,6 +116,14 @@ describe("SEO", () => {
             expect(ogImage).toHaveAttribute(
                 "content",
                 `${metaData.siteMetadata.siteUrl}${metaData.siteMetadata.image.src}`
+            );
+            expect(ogImageWidth).toHaveAttribute(
+                "content",
+                metaData.siteMetadata.image.width.toString()
+            );
+            expect(ogImageHeight).toHaveAttribute(
+                "content",
+                metaData.siteMetadata.image.height.toString()
             );
             expect(twitterTitle).toHaveAttribute(
                 "content",
