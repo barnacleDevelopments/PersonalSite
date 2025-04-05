@@ -23,6 +23,7 @@ function HorizontalImages({ children }) {
 }
 
 const shortCodes = { HorizontalImages };
+
 const BlogPostPage = ({ data, children }) => {
   const { mdx: node } = data;
 

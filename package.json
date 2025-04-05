@@ -25,6 +25,7 @@
     "@mdx-js/react": "^2.3.0",
     "@theme-ui/mdx": "^0.17.1",
     "@theme-ui/presets": "^0.16.1",
+    "@theme-ui/prism": "^0.17.2",
     "babel-plugin-prismjs": "^2.1.0",
     "dotenv": "^16.4.7",
     "gatsby": "^5.14.1",

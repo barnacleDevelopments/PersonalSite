@@ -1,4 +1,5 @@
 const { tailwind } = require("@theme-ui/presets");
+const nightOwl = require("@theme-ui/prism/presets/night-owl.json");
 
 module.exports = {
   ...tailwind,
@@ -80,6 +81,9 @@ module.exports = {
       lineHeight: "body",
       fontWeight: "body",
     },
+    pre: {
+      ...nightOwl,
+    },
     h1: {
       fontSize: [5, 6, 7],
       fontFamily: "heading",
@@ -87,12 +91,11 @@ module.exports = {
       lineHeight: "heading",
     },
     h2: {
-      fontSize: [4, 5, 6],
+      fontSize: "2em",
       fontFamily: "heading",
       fontWeight: "heading",
       lineHeight: "heading",
     },
-    h2: { fontSize: "2em" },
     h3: { fontSize: "1.5em", fontStyle: "italic" },
     ul: { marginLeft: "40px", overflowWrap: "break-word" },
     ol: { marginLeft: "40px", overflowWrap: "break-word" },
@@ -110,6 +113,9 @@ module.exports = {
     b: {
       fontWeight: 800,
     },
+    img: {
+      marginBottom: "1px"
+    }
   },
   headings: {
     h1: {
@@ -241,5 +247,4 @@ module.exports = {
       },
     },
   },
-  // Define other theme scales such as space, sizes, zIndices, etc., as needed
 };

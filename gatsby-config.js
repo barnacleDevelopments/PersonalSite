@@ -123,10 +123,6 @@ module.exports = {
             resolve: `gatsby-remark-images`,
             options: {},
           },
-          {
-            resolve: "gatsby-remark-prismjs",
-            options: {},
-          },
         ],
       },
     },
@@ -151,10 +147,6 @@ module.exports = {
     //       "gatsby-remark-relative-images",
     //       {
     //         resolve: `gatsby-remark-images`,
-    //         options: {},
-    //       },
-    //       {
-    //         resolve: "gatsby-remark-prismjs",
     //         options: {},
     //       },
     //     ],
