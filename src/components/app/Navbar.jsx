@@ -6,8 +6,7 @@ import SideNav from "./SideNav";
 import { Box, Flex, NavLink, Link } from "theme-ui";
 
 const Navbar = () => {
-  const [pageStatus, setPageStatus] = useState("");
-  const [navTextColor, setNavTextColor] = useState("");
+  const [pageStatus] = useState("");
   const [navTextColorScrolled, setNavTextColorScrolled] = useState("");
   const [navScrollColor, setNavScrollColor] = useState("");
   const [isScrolledTop, setIsScrolledTop] = useState(true);
@@ -26,31 +25,8 @@ const Navbar = () => {
     return path.replaceAll("/", "");
   };
 
-  const getTextColor = (path) => {
-    switch (path) {
-      case "services":
-        return "#ffffff";
-      case "contact":
-        return "#ffffff";
-      case "team":
-        return "#ffffff";
-      case "about":
-        return "#ffffff";
-      default:
-        return "#ffffff";
-    }
-  };
-
   const getTextScrolled = (path) => {
     switch (path) {
-      case "services":
-        return "#30362F";
-      case "contact":
-        return "#30362F";
-      case "team":
-        return "#30362F";
-      case "about":
-        return "#30362F";
       default:
         return "#30362F";
     }
@@ -58,12 +34,6 @@ const Navbar = () => {
 
   const getScrollColor = (path) => {
     switch (path) {
-      case "services":
-        return "#ffffff";
-      case "contact":
-        return "#ffffff";
-      case "services":
-        return "#ffffff";
       default:
         return "#ffffff";
     }
@@ -85,11 +55,9 @@ const Navbar = () => {
     const path = getPath();
 
     const scrollColor = getScrollColor(path);
-    const textColor = getTextColor(path);
     const textColorScrolled = getTextScrolled(path);
 
     setNavScrollColor(scrollColor);
-    setNavTextColor(textColor);
     setNavTextColorScrolled(textColorScrolled);
 
     window.addEventListener("scroll", styleNavBar);
