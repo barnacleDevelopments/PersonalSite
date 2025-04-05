@@ -8,22 +8,9 @@ import { DateTime } from "luxon";
 import { ProjectSection } from "../components/ProjectSection/ProjectSection";
 import { TechListing } from "../components/TechListing/TechListing";
 import Seo from "../components/Seo/Seo";
+import globalCodes from "../short-codes";
 
-const pageWrapper = {
-  width: ["100%"],
-  m: "0 auto !important",
-  pt: "100px",
-  pb: 5,
-  minHeight: "300px",
-  flexDirection: "column",
-  bg: "primary",
-  justifyContent: "center",
-  alignItems: "center",
-  color: "white",
-  textAlign: "center",
-};
-
-const shortCodes = { ProjectSection, TechListing };
+const shortCodes = { ...globalCodes, ProjectSection, TechListing };
 
 function ProjectPage({ data, children }) {
   const { mdx: node } = data;
@@ -84,6 +71,20 @@ function ProjectPage({ data, children }) {
     </Box>
   );
 }
+
+const pageWrapper = {
+  width: ["100%"],
+  m: "0 auto !important",
+  pt: "100px",
+  pb: 5,
+  minHeight: "300px",
+  flexDirection: "column",
+  bg: "primary",
+  justifyContent: "center",
+  alignItems: "center",
+  color: "white",
+  textAlign: "center",
+};
 
 export const pageQuery = graphql`
   query ProjectBySlug($slug: String!) {
