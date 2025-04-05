@@ -50,23 +50,19 @@ const ContactPage = () => {
     mode: "onBlur",
   });
 
-  useEffect(() => {
-    setFocus("email");
-  }, []);
-
-  function highlightContactForm() {
+  const highlightContactForm = useCallback(() => {
     setFocus("email");
     setIsFormHighlighted(true);
     window.scrollTo(0, 200);
-  }
+  });
 
-  function encode(data) {
+  const encode = useCallback((data) => {
     return Object.keys(data)
       .map(
         (key) => encodeURIComponent(key) + "=" + encodeURIComponent(data[key]),
       )
       .join("&");
-  }
+  })
 
   const onSubmit = useCallback(async (data) => {
     const response = await fetch("/contact", {
@@ -83,7 +79,7 @@ const ContactPage = () => {
     }
   }, []);
 
-  async function copyPGP() {
+  const copyPGP = useCallback(async () => {
     const response = await fetch("/pgp-key.asc");
     if (!response.ok) {
       throw new Error("Network response was not ok");
@@ -91,7 +87,11 @@ const ContactPage = () => {
     const text = await response.text();
 
     navigator.clipboard.writeText(text);
-  }
+  });
+
+  useEffect(() => {
+    setFocus("email");
+  }, [setFocus, highlightContactForm]);
 
   return (
     <Box>

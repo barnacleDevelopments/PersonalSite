@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui";
 import { graphql } from "gatsby";
-import { Box, Flex, Button, Heading, Text, Grid } from "theme-ui";
+import { Box, Flex, Button, Heading, Text } from "theme-ui";
 import { MDXProvider } from "@mdx-js/react";
 import CallToAction from "../components/CallToAction";
 import { DateTime } from "luxon";

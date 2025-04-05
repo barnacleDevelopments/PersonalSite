@@ -23,7 +23,6 @@ module.exports = {
     "1.5rem", // 24px
     "1.875rem", // 28px
     "2.875rem", // 30px
-    // Add more sizes as needed
   ],
   fontWeights: {
     body: 400,
