@@ -2,10 +2,8 @@
 import { jsx } from "theme-ui";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-// Hooks
 import { useState, useEffect, useMemo, useCallback } from "react";
 import { useForm } from "react-hook-form";
-// Components
 import {
   Box,
   Grid,
@@ -21,8 +19,6 @@ import {
 import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
 import Loader from "../components/Loader";
 import Seo from "../components/Seo/Seo"
-
-// Icons
 import { faCopy } from "@fortawesome/free-regular-svg-icons";
 
 const ContactPage = () => {
