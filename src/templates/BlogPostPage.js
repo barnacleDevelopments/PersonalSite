@@ -1,9 +1,9 @@
 /** @jsx jsx */
-import React from "react";
 import { Button, jsx, Link, Heading, Box, Flex, Text } from "theme-ui";
 import { graphql } from "gatsby";
 import { DateTime } from "luxon";
 import { MDXProvider } from "@mdx-js/react";
+import PropTypes from "prop-types";
 
 import { useEffect } from "react";
 import Prism from "prismjs";
@@ -11,7 +11,7 @@ import Seo from "../components/Seo/Seo";
 import globalCodes from "../short-codes";
 
 function HorizontalImages({ children }) {
-  const imageComponents = children.filter((x) => x.type === "span");
+  const imageComponents = children.filter((x) => x.type === "span")
   return (
     <Flex sx={{ gap: 3 }}>
       {imageComponents.map((x, index) => (
@@ -22,6 +22,10 @@ function HorizontalImages({ children }) {
     </Flex>
   );
 }
+
+HorizontalImages.propTypes = {
+  children: PropTypes.array.isRequired,
+};
 
 const shortCodes = {...globalCodes, HorizontalImages };
 
@@ -83,6 +87,28 @@ const BlogPostPage = ({ data, children }) => {
       </Box>
     </Box>
   );
+};
+
+// create prop typess
+BlogPostPage.propTypes = {
+  data: PropTypes.shape({
+    mdx: PropTypes.shape({
+      frontmatter: PropTypes.shape({
+        title: PropTypes.string.isRequired,
+        date: PropTypes.string.isRequired,
+        keywords: PropTypes.string,
+        thumbnail: PropTypes.shape({
+          childImageSharp: PropTypes.shape({
+            original: PropTypes.shape({
+              src: PropTypes.string.isRequired,
+            }),
+          }),
+        }),
+      }).isRequired,
+      excerpt: PropTypes.string.isRequired,
+    }).isRequired,
+  }).isRequired,
+  children: PropTypes.node.isRequired,
 };
 
 export const pageQuery = graphql`
