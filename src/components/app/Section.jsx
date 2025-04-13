@@ -1,5 +1,6 @@
 /** @jsx jsx */
 import { jsx, Box } from "theme-ui";
+import PropTypes from "prop-types";
 
 export const Section = ({ children }) => {
   return (
@@ -15,4 +16,8 @@ export const Section = ({ children }) => {
       {children}
     </Box>
   );
+};
+
+Section.propTypes = {
+  children: PropTypes.node.isRequired,
 };
