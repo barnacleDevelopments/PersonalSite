@@ -17,9 +17,88 @@ import {
   Paragraph,
 } from "theme-ui";
 import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
-import Loader from "../components/Loader";
-import Seo from "../components/Seo/Seo"
+import Seo from "../components/Seo/Seo";
 import { faCopy } from "@fortawesome/free-regular-svg-icons";
+import PageLoader from "../components/PageLoader/PageLoader";
+
+const SubmitFailed = () => (
+  <Flex
+    sx={{
+      height: "100%",
+      justifyContent: "center",
+      alignItems: "center",
+      textAlign: "center",
+    }}
+  >
+    <Box textAlign="center">
+      <h2>Oups!</h2>
+      <Text variant="regular" sx={{ my: 3, display: "block" }}>
+        We couldn't send your email.
+      </Text>
+      <Link href="/contact">
+        <Button>Try Again</Button>
+      </Link>
+    </Box>
+  </Flex>
+);
+
+const SubmitSuccess = () => {
+
+  const copyPGP = useCallback(async () => {
+    const response = await fetch("/pgp-key.asc");
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+    const text = await response.text();
+
+    navigator.clipboard.writeText(text);
+  }, []);
+
+  return (
+    <Flex
+      sx={{
+        height: "100%",
+        justifyContent: "center",
+        alignItems: "center",
+        textAlign: "center",
+      }}
+    >
+      <Box textAlign="center">
+        <Heading variant="large" sx={{ mb: 3 }}>
+          Thank you for the email!
+        </Heading>
+        <Text variant="regular" sx={{ my: 3, display: "block" }}>
+          {" "}
+          I'll be in touch with you shortly.
+        </Text>
+        <Flex sx={{ gap: 3, alignItems: "center", mb: 3 }}>
+          <Box>
+            {"Copy my public PGP key to ensure I can securely email you."}{" "}
+            <Link
+              variant="text"
+              href="https://www.fortinet.com/resources/cyberglossary/pgp-encryption"
+            >
+              Learn more about PGP
+            </Link>{" "}
+          </Box>
+        </Flex>
+        <Button variant="secondary" sx={{ mr: 2 }}>
+          <Text>Copy PGP</Text>
+          <Icon
+            onClick={copyPGP}
+            sx={{
+              ml: 2,
+            }}
+            icon={faCopy}
+          />
+        </Button>
+        <Link href="/">
+          <Button variant="primary">Back Home</Button>
+        </Link>
+      </Box>
+    </Flex>
+  );
+};
 
 const ContactPage = () => {
   const [isPostSuccessful, setIsPostSuccessful] = useState(false);
@@ -58,32 +137,25 @@ const ContactPage = () => {
         (key) => encodeURIComponent(key) + "=" + encodeURIComponent(data[key]),
       )
       .join("&");
-  })
-
-  const onSubmit = useCallback(async (data) => {
-    const response = await fetch("/contact", {
-      method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: encode({
-        "form-name": "Contact Form",
-        ...data,
-      }),
-    });
-
-    if (response.ok) {
-      setIsPostSuccessful(true);
-    }
-  }, []);
-
-  const copyPGP = useCallback(async () => {
-    const response = await fetch("/pgp-key.asc");
-    if (!response.ok) {
-      throw new Error("Network response was not ok");
-    }
-    const text = await response.text();
-
-    navigator.clipboard.writeText(text);
   });
+
+  const onSubmit = useCallback(
+    async (data) => {
+      const response = await fetch("/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: encode({
+          "form-name": "Contact Form",
+          ...data,
+        }),
+      });
+
+      if (response.ok) {
+        setIsPostSuccessful(true);
+      }
+    },
+    [setIsPostSuccessful],
+  );
 
   useEffect(() => {
     setFocus("email");
@@ -287,82 +359,9 @@ const ContactPage = () => {
             </Box>
           </Grid>
         )}
-        {isSubmitting && !isPostSuccessful && (
-          <Flex
-            sx={{
-              height: "100%",
-              justifyContent: "center",
-              alignItems: "center",
-              textAlign: "center",
-            }}
-          >
-            <Loader />
-          </Flex>
-        )}
-        {isPostSuccessful && (
-          <Flex
-            sx={{
-              height: "100%",
-              justifyContent: "center",
-              alignItems: "center",
-              textAlign: "center",
-            }}
-          >
-            <Box textAlign="center">
-              <Heading variant="large" sx={{ mb: 3 }}>
-                Thank you for the email!
-              </Heading>
-              <Text variant="regular" sx={{ my: 3, display: "block" }}>
-                {" "}
-                I'll be in touch with you shortly.
-              </Text>
-              <Flex sx={{ gap: 3, alignItems: "center", mb: 3 }}>
-                <Box>
-                  {"Copy my public PGP key to ensure I can securely email you."}{" "}
-                  <Link
-                    variant="text"
-                    href="https://www.fortinet.com/resources/cyberglossary/pgp-encryption"
-                  >
-                    Learn more about PGP
-                  </Link>{" "}
-                </Box>
-              </Flex>
-              <Button variant="secondary" sx={{ mr: 2 }}>
-                <Text>Copy PGP</Text>
-                <Icon
-                  onClick={copyPGP}
-                  sx={{
-                    ml: 2,
-                  }}
-                  icon={faCopy}
-                />
-              </Button>
-              <Link href="/">
-                <Button variant="primary">Back Home</Button>
-              </Link>
-            </Box>
-          </Flex>
-        )}
-        {!isPostSuccessful && isSubmitted && (
-          <Flex
-            sx={{
-              height: "100%",
-              justifyContent: "center",
-              alignItems: "center",
-              textAlign: "center",
-            }}
-          >
-            <Box textAlign="center">
-              <h2 sx={{ mb: 3 }}>Oups!</h2>
-              <Text variant="regular" sx={{ my: 3, display: "block" }}>
-                We couldn't send your email.
-              </Text>
-              <Link href="/contact">
-                <Button>Try Again</Button>
-              </Link>
-            </Box>
-          </Flex>
-        )}
+        {isSubmitting && !isPostSuccessful && <PageLoader />}
+        {isPostSuccessful && <SubmitSuccess />}
+        {!isPostSuccessful && isSubmitted && <SubmitFailed />}
       </Box>
     </Box>
   );

@@ -5,8 +5,6 @@ import { DateTime } from "luxon";
 import { MDXProvider } from "@mdx-js/react";
 import PropTypes from "prop-types";
 
-import { useEffect } from "react";
-import Prism from "prismjs";
 import Seo from "../components/Seo/Seo";
 import globalCodes from "../short-codes";
 
@@ -31,10 +29,6 @@ const shortCodes = {...globalCodes, HorizontalImages };
 
 const BlogPostPage = ({ data, children }) => {
   const { mdx: node } = data;
-
-  useEffect(() => {
-    Prism.highlightAll();
-  }, []);
 
   return (
     <Box>
