@@ -76,13 +76,13 @@ module.exports = {
   },
   styles: {
     ...tailwind.styles,
+    code: {
+      ...nightOwl,
+    },
     root: {
       fontFamily: "body",
       lineHeight: "body",
       fontWeight: "body",
-    },
-    pre: {
-      ...nightOwl,
     },
     h1: {
       fontSize: [5, 6, 7],

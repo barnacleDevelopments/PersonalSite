@@ -83,7 +83,6 @@ const BlogPostPage = ({ data, children }) => {
   );
 };
 
-// create prop typess
 BlogPostPage.propTypes = {
   data: PropTypes.shape({
     mdx: PropTypes.shape({
