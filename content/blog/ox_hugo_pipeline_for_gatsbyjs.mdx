@@ -1,0 +1,95 @@
+---
+title: "Ox-Hugo Pipeline for GatsbyJS"
+author: ["Devin Davis"]
+date: 2025-04-26T19:27:00-03:00
+tags: ["post"]
+categories: ["programming"]
+draft: false
+thumbnail: "assets/logo_2.png"
+category: "programming"
+keywords: "apple,tomato"
+---
+
+## Description
+
+I've been using Doom Emacs for the past year and I am really loving doing as much as possible within its environment. There is this awesome package called [ox-hugo](<https://ox-hugo.scripter.co/>) that allows users to convert \`.org\` files to markdown. This is a pretty useful feature if you like writing in [org-mode](<https://orgmode.org/>) and need to be able to export into a different format. This can be paired with the [Hugo framework](<https://gohugo.io/>) to create a seamless static site generating pipeline. Imagine opening a directory on your machine and writing an article in org and have that file automatically get converted into a web page. Pair that with the Hugo Framework and you have an awesome static site generator. If you are like me and love automation that's pretty darn cool!
+
+My current website is written in Gatsby so you can image that when I found out about the [Hugo framework](<https://gohugo.io/>), I quickly wanted to re-write my whole site which is a bad impulse that many developers fall into (distro hoping comes to mind). Though that would be desirable because the Hugo framework is wicked, I'm not willing to re-write my whole site just yet. Though there is certainly the possibility of that happening in the future, when I don't have better more productive things to do, I still want the partial benefits of Hugo while maintaining my current site.
+
+**GatsbyJS is a static site generator that was popular about 5 years ago but has since lost it's throne to more popular [Javascript frameworks like NextJS and Svwelt](<https://github.com/gatsbyjs/gatsby/discussions/39062>). I know GatsbyJS is no longer the cool kid but I don't plan on spending time converting it over to anything new unless Gatsby actually looses long term [support from Netlify](<https://devclass.com/2023/02/01/netlify-acquires-gatsby-inc-with-focus-on-plugin-ecosystem-and-valhalla-content-hub/>). The commits to Gatsby have been minimal so I'm concerned about its near term future.**
+
+If you are familiar with Gatsby, you know that it's content sourcing is pretty awesome and flexible (though labour heavy at times) through it's GraphQL layer. I currently use [mdx](<https://mdxjs.com/>) to statically source my websites content and while the standard mdx writing experience is good, it's not org and org is what I want ;). Another inconvenience is having to navigate to my project directory into the content folder and write a mdx file and push it up to my project repository.
+
+Though that is not too much trouble, I'd rather work within the org environment where I have access to all my shortcuts and utilities. For example, to create a new article, all I need to do is type \`:leader n r n b\` and I have a article template ready to go. All I have to do is save and voila published!
+
+Anyway, the Hugo Framework, being a static site generator itself, has it's own publishing flow and introducing Gatsby into the mix required me to design an adaptive layer to achieve a similar publishing flow with GatsbyJS. Thankfully, all I needed was a function from the ox-hugo package which let's me convert from org to mdx. This will be handy because I can begin to write my content the hugo way and migrate to it when I have the time. I ran into a few different issues along the way but I have a pretty seemless setup at this point that will do for now.
+
+
+## What did I do?
+
+Now that all the pre-amble is over, let's dig into how I achieved this. To start here is the snippet I wrote for handling the conversion from org =&gt; mdx =&gt; gatsby nodes.
+
+```emacs-lisp
+(defun my/org-to-md-on-save ()
+  "Export Org file to Hugo-compatible Markdown cleanly, strip heading IDs, and copy it to the destination directory."
+  (when (and (eq major-mode 'org-mode)
+             (buffer-file-name)
+             (string-prefix-p (expand-file-name "~/org-roam/posts/")
+                              (expand-file-name (buffer-file-name))))
+    ;; Don't show temporary export buffer
+    (let ((org-export-show-temporary-export-buffer nil))
+      (let* ((base-name (file-name-base (buffer-file-name)))
+             (exported-md (org-hugo-export-as-md)))
+        (when (buffer-live-p exported-md)
+          (let* ((destination-dir (expand-file-name "~/WebDev/Projects/PersonalSite/content/blog/"))
+                 (title (replace-regexp-in-string "[[:digit:]]\\{14\\}-" "" base-name))
+                 (destination-file (expand-file-name (concat title ".mdx") destination-dir)))
+            (with-current-buffer exported-md
+              ;; 🧹 Strip before saving
+              (save-excursion
+                (goto-char (point-min))
+                (while (re-search-forward "]+\\)}" nil t)
+                  (replace-match "")))
+              (write-region (point-min) (point-max) destination-file))
+            (kill-buffer exported-md)))))))
+(add-hook 'after-save-hook 'my/org-to-md-on-save)
+```
+
+
+## Step by Step
+
+The first and most important step is to use the org-hugo-export-as-md function to spawn a buffer containing the current org file converted to markdown.
+
+```emacs-lisp
+(let* ((base-name (file-name-base (buffer-file-name)))
+        (exported-md (org-hugo-export-as-md)))
+```
+
+Next we take the contents of that buffer and write that to a mdx file inside my project content directory.
+
+```emacs-lisp
+(let* ((base-name (file-name-base (buffer-file-name)))
+        (exported-md (org-hugo-export-as-md)))
+(when (buffer-live-p exported-md)
+    (let* ((destination-dir (expand-file-name "~/WebDev/Projects/PersonalSite/content/blog/"))
+            (title (replace-regexp-in-string "[[:digit:]]\\{14\\}-" "" base-name))
+            (destination-file (expand-file-name (concat title ".mdx") destination-dir)))
+    (with-current-buffer exported-md
+        ;; 🧹 Strip before saving
+        (write-region (point-min) (point-max) destination-file))
+    (kill-buffer exported-md))))
+```
+
+Just before we write the buffer contents we strip the header IDs because Gatsby does not know how to parse these and the build process will fail as a result.
+
+```emacs-lisp
+...
+;; 🧹 Strip before saving
+(save-excursion
+(goto-char (point-min))
+(while (re-search-forward "]+\\)}" nil t)
+    (replace-match "")))
+...
+```
+
+Voila! We have setup the conversion from org to mdx and Gatsby can successfully build it's pages.
