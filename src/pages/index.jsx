@@ -1,16 +1,14 @@
 /** @jsx jsx */
-import { jsx } from "theme-ui";
 import { graphql } from "gatsby";
-
-// Components
 import { StaticImage } from "gatsby-plugin-image";
-import { Text, Button, Flex, Box, Grid, Link, Heading } from "theme-ui";
-import Seo from "../components/Seo/Seo";
+import { jsx , Text, Button, Flex, Box, Grid, Link, Heading } from "theme-ui";
+
+import BookCard from "../components/BookCard/BookCard";
+import CallToAction from "../components/CallToAction";
 import Loader from "../components/Loader";
 import PostCard from "../components/PostCard/PostCard";
-import CallToAction from "../components/CallToAction";
 import ProjectCard from "../components/ProjectCard/ProjectCard";
-import BookCard from "../components/BookCard/BookCard";
+import Seo from "../components/Seo/Seo";
 
 const IndexPage = ({ data }) => {
   const posts = data.blogPosts.edges

@@ -1,15 +1,12 @@
 /** @jsx jsx */
-import { Link, Paragraph, jsx, Flex } from "theme-ui";
-
-// COMPONENTS
-import { Box, Heading, Grid } from "theme-ui";
-import { StaticImage } from "gatsby-plugin-image";
 import { graphql } from "gatsby";
+import { StaticImage } from "gatsby-plugin-image";
 import { useRef, useState } from "react";
+import { Link, Paragraph, jsx, Flex , Box, Heading, Grid } from "theme-ui";
 
 import { CloseButton } from "../components/app/CloseButton";
-import Seo from "../components/Seo/Seo";
 import CallToAction from "../components/CallToAction";
+import Seo from "../components/Seo/Seo";
 import { TechListing } from "../components/TechListing/TechListing";
 
 const AboutPage = ({ data }) => {
@@ -71,7 +68,7 @@ const AboutPage = ({ data }) => {
                 <CloseButton
                   sx={{ position: "absolute" }}
                   onClick={() => {
-                    dialog.current?.close();
+                    dialog.current.close();
                     setSelectedTechnology(null);
                   }}
                 />
@@ -163,7 +160,7 @@ const AboutPage = ({ data }) => {
           <TechListing
             technologies={technologies}
             onClick={(technology) => {
-              dialog.current?.showModal();
+              dialog.current.showModal();
               setSelectedTechnology(technology);
             }}
           />

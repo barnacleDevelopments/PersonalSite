@@ -1,9 +1,8 @@
 /** @jsx jsx */
-import { jsx } from "theme-ui";
 import { graphql } from "gatsby";
+import { jsx , Box, Text, Grid, Heading } from "theme-ui";
 
 import PostCard from "../components/PostCard/PostCard";
-import { Box, Text, Grid, Heading } from "theme-ui";
 import Seo from "../components/Seo/Seo";
 
 const AllPostsPage = ({ data }) => {
