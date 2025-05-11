@@ -1,10 +1,10 @@
 /** @jsx jsx */
-import { Link, Paragraph, jsx } from "theme-ui";
 import { graphql } from "gatsby";
-import { Box, Heading } from "theme-ui";
+import { Link, Paragraph, jsx , Box, Heading } from "theme-ui";
+
 import CallToAction from "../components/CallToAction";
-import Seo from "../components/Seo/Seo";
 import ProjectCard from "../components/ProjectCard/ProjectCard";
+import Seo from "../components/Seo/Seo";
 
 const ProjectsPage = ({ data }) => {
   const projects = data.allMdx.edges.map(
