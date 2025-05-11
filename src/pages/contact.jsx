@@ -1,14 +1,14 @@
 /** @jsx jsx */
-import { jsx } from "theme-ui";
-import * as yup from "yup";
+import { faCopy } from "@fortawesome/free-regular-svg-icons";
+import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useState, useEffect, useMemo, useCallback } from "react";
 import { useForm } from "react-hook-form";
-import {
+import { jsx ,
   Box,
-  Grid,
   Flex,
   Button,
+  Grid,
   Heading,
   Text,
   Input,
@@ -16,10 +16,11 @@ import {
   Link,
   Paragraph,
 } from "theme-ui";
-import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
-import Seo from "../components/Seo/Seo";
-import { faCopy } from "@fortawesome/free-regular-svg-icons";
+import * as yup from "yup";
+
 import PageLoader from "../components/PageLoader/PageLoader";
+import Seo from "../components/Seo/Seo";
+
 
 const SubmitFailed = () => (
   <Flex
@@ -248,7 +249,7 @@ const ContactPage = () => {
                   />
                   {errors.email && (
                     <Text sx={{ color: "red", mb: 3, display: "block" }}>
-                      {errors.email?.message}
+                      {errors.email.message}
                     </Text>
                   )}
                 </Box>
@@ -268,7 +269,7 @@ const ContactPage = () => {
                   />
                   {errors.subject && (
                     <Text sx={{ color: "red", mb: 3, display: "block" }}>
-                      {errors.subject?.message}
+                      {errors.subject.message}
                     </Text>
                   )}
                 </Box>
@@ -291,7 +292,7 @@ const ContactPage = () => {
                   ></Textarea>
                   {errors.message && (
                     <Text sx={{ color: "red", mb: 3, display: "block" }}>
-                      {errors.message?.message}
+                      {errors.message.message}
                     </Text>
                   )}
                 </Box>

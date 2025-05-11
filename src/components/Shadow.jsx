@@ -17,7 +17,7 @@ const Shadow = ({ children }) => {
     }}>
       {children}
     </Flex >
-  )
-}
+  );
+};
 
 export default Shadow;

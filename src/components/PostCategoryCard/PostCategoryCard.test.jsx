@@ -17,5 +17,5 @@ describe("PostCategoryCard", () => {
     "href",
     "/blog/test-category"
     );
-  })
+  });
 });

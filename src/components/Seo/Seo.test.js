@@ -1,7 +1,7 @@
 import React from "react";
 import Seo from "./Seo.jsx";
 import { render, waitFor } from "@testing-library/react";
-import metaData from "../../../gatsby-config.js"
+import metaData from "../../../gatsby-config.js";
 
 jest.mock('@reach/router');
 jest.mock("gatsby", () => ({
@@ -46,7 +46,7 @@ jest.mock("gatsby", () => ({
             },
         }
     }))
-}))
+}));
 
 describe("SEO", () => {
     it("renders the SEO component with the correct default values", async () => {
@@ -198,5 +198,5 @@ describe("SEO", () => {
             expect(twitterImage).toHaveAttribute("content", `${metaData.siteMetadata.siteUrl}${customImage}`);
             expect(keywords).toHaveAttribute("content", customKeywords.join(","));
         });
-    })
-})
+    });
+});

@@ -5,7 +5,7 @@ import { graphql } from "gatsby";
 // Components
 import { StaticImage } from "gatsby-plugin-image";
 import { Text, Button, Flex, Box, Grid, Link, Heading } from "theme-ui";
-import Seo from "../components/Seo/Seo"
+import Seo from "../components/Seo/Seo";
 import Loader from "../components/Loader";
 import PostCard from "../components/PostCard/PostCard";
 import CallToAction from "../components/CallToAction";

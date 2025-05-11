@@ -4,7 +4,7 @@ import { graphql } from "gatsby";
 
 import { Heading, Box, Text, Grid, Link, Button } from "theme-ui";
 
-import Seo from "../components/Seo/Seo"
+import Seo from "../components/Seo/Seo";
 import PostCard from "../components/PostCard/PostCard";
 
 const CategoryPage = ({ data }) => {

@@ -1,15 +1,15 @@
 /** @jsx jsx */
-import { Button, jsx, Link, Heading, Box, Flex, Text } from "theme-ui";
+import { MDXProvider } from "@mdx-js/react";
 import { graphql } from "gatsby";
 import { DateTime } from "luxon";
-import { MDXProvider } from "@mdx-js/react";
 import PropTypes from "prop-types";
+import { Button, jsx, Link, Heading, Box, Flex, Text } from "theme-ui";
 
 import Seo from "../components/Seo/Seo";
 import globalCodes from "../short-codes";
 
 function HorizontalImages({ children }) {
-  const imageComponents = children.filter((x) => x.type === "span")
+  const imageComponents = children.filter((x) => x.type === "span");
   return (
     <Flex sx={{ gap: 3 }}>
       {imageComponents.map((x, index) => (
@@ -34,9 +34,9 @@ const BlogPostPage = ({ data, children }) => {
     <Box>
       <Seo
         title={`Post - ${node.frontmatter.title}`}
-        keywords={node.frontmatter?.keywords.split(",")}
+        keywords={node.frontmatter.keywords.split(",")}
         description={node.excerpt}
-        image={node.frontmatter.thumbnail?.childImageSharp.original.src}
+        image={node.frontmatter.thumbnail.childImageSharp.original.src}
       ></Seo>
       <Flex
         sx={{

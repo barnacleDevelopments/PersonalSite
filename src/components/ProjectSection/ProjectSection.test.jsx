@@ -2,7 +2,7 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import { ProjectSection } from "./ProjectSection";
 
-jest.mock("gatsby-plugin-image")
+jest.mock("gatsby-plugin-image");
 
 // TODO need to find out how to mock the image alignment
 describe("ProjectSection", () => {

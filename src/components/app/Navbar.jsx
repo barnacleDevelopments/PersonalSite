@@ -1,9 +1,9 @@
 /** @jsx jsx */
-import { jsx } from "theme-ui";
 import { StaticImage } from "gatsby-plugin-image";
 import { useState, useEffect } from "react";
+import { jsx , Box, Flex, NavLink, Link } from "theme-ui";
+
 import SideNav from "./SideNav";
-import { Box, Flex, NavLink, Link } from "theme-ui";
 
 const Navbar = () => {
   const [pageStatus] = useState("");
@@ -16,8 +16,10 @@ const Navbar = () => {
     if (window.scrollY < 20) {
       setIsScrolledTop(true);
     } else {
+
       setIsScrolledTop(false);
     }
+
   };
 
   const getPath = () => {
@@ -123,7 +125,7 @@ const Navbar = () => {
           )}
           <Box
             sx={hamburgerStyles}
-            onClick={(e) => {
+            onClick={() => {
               setSideNavOpen(true);
               disableScroll();
             }}
