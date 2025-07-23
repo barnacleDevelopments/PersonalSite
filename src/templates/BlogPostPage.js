@@ -25,7 +25,38 @@ HorizontalImages.propTypes = {
   children: PropTypes.array.isRequired,
 };
 
-const shortCodes = {...globalCodes, HorizontalImages };
+const shortCodes = { ...globalCodes, HorizontalImages };
+
+const styles = {
+  container: {
+    margin: '0 auto',
+    marginBottom: '5',
+    width: ['90%', '80%', '70%'],
+  },
+  header: {
+    width: ['100%'],
+    m: '0 auto !important',
+    pt: 5,
+    minHeight: '300px',
+    flexDirection: 'column',
+    bg: 'primary',
+    justifyContent: 'center',
+    alignItems: 'center',
+    color: 'white',
+    textAlign: 'center',
+    px: 2,
+    pb: 3,
+  },
+  heading: {
+    wordWrap: 'wrap',
+    textAlign: 'center',
+    mb: 3,
+    color: 'white',
+  },
+  dateText: {
+    color: 'white',
+  },
+};
 
 const BlogPostPage = ({ data, children }) => {
   const { mdx: node } = data;
@@ -38,40 +69,15 @@ const BlogPostPage = ({ data, children }) => {
         description={node.excerpt}
         image={node.frontmatter.thumbnail.childImageSharp.original.src}
       ></Seo>
-      <Flex
-        sx={{
-          width: ["100%"],
-          m: "0 auto !important",
-          pt: 5,
-          minHeight: "300px",
-          flexDirection: "column",
-          bg: "primary",
-          justifyContent: "center",
-          alignItems: "center",
-          color: "white",
-          textAlign: "center",
-          px: 2,
-          pb: 3,
-        }}
-      >
-        <Heading
-          as="h1"
-          variant="hero"
-          sx={{ wordWrap: "wrap", textAlign: "center", mb: 3, color: "white" }}
-        >
+      <Flex sx={styles.header}>
+        <Heading as="h1" variant="hero" sx={styles.heading}>
           {node.frontmatter.title}
         </Heading>
-        <Text variant="regular" sx={{ color: "white" }}>
+        <Text variant="regular" sx={styles.dateText}>
           {DateTime.fromISO(node.frontmatter.date).toFormat("MMM d, yyyy")}
         </Text>
       </Flex>
-      <Box
-        sx={{
-          margin: "0 auto",
-          marginBottom: 5,
-          width: ["90%", "80%", "70%"],
-        }}
-      >
+      <Box sx={styles.container}>
         <MDXProvider components={shortCodes}>{children}</MDXProvider>
         <Box sx={{ textAlign: "center" }}>
           <Link href="/blog">
