@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { graphql } from "gatsby";
 import { StaticImage } from "gatsby-plugin-image";
-import { jsx , Text, Button, Flex, Box, Grid, Link, Heading } from "theme-ui";
+import { jsx, Text, Button, Flex, Box, Grid, Link, Heading } from "theme-ui";
 
 import BookCard from "../components/BookCard/BookCard";
 import CallToAction from "../components/CallToAction";
@@ -9,6 +9,118 @@ import Loader from "../components/Loader";
 import PostCard from "../components/PostCard/PostCard";
 import ProjectCard from "../components/ProjectCard/ProjectCard";
 import Seo from "../components/Seo/Seo";
+
+import React, { useEffect, useState } from "react";
+
+const SweatWidget = () => {
+  const [balance, setBalance] = useState(0);
+  const [transactions, setTransactions] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const WALLET_ADDRESS = "sweat-relayer.near"; // Replace with your NEAR wallet
+  const NEARBLOCKS_API_KEY = "58CC3656CB82410A8BBADA80A8405458"; // Ensure you have this in your environment variables
+
+  // Fetch $SWEAT balance
+  const fetchBalance = async () => {
+    try {
+      const res = await fetch(
+        `https://api.nearblocks.io/v1/account/${WALLET_ADDRESS}/tokens`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${NEARBLOCKS_API_KEY}`, // Make sure this is set
+            "Content-Type": "application/json",
+          },
+        },
+      );
+
+      if (!res.ok) {
+        throw new Error(`API error: ${res.status}`);
+      }
+
+      const data = await res.json();
+
+      // Find SWEAT token by contract name
+      const sweat = data.balances.find((b) => b.contract === "token.sweat");
+
+      // Convert to human-readable format (18 decimals)
+      const humanReadable = sweat ? Number(sweat.amount) / 1e18 : 0;
+
+      setBalance(humanReadable);
+    } catch (error) {
+      console.error("Balance fetch error:", error);
+      setBalance(null);
+    }
+  };
+
+  // Fetch last 5 transactions involving $SWEAT
+  const fetchTransactions = async () => {
+    try {
+      const res = await fetch(
+        `https://api.nearblocks.io/v1/account/txns?account=${WALLET_ADDRESS}&limit=10`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${NEARBLOCKS_API_KEY}`, // Ensure you have this in your environment variables
+          },
+        },
+      );
+      const data = await res.json();
+      const sweatTxs = data.txns
+        .filter((tx) => tx.receiver === "token.sweat")
+        .slice(0, 5);
+      setTransactions(sweatTxs);
+    } catch (error) {
+      console.error("Transactions fetch error:", error);
+    }
+  };
+
+  useEffect(() => {
+    const loadData = async () => {
+      setLoading(true);
+      await fetchBalance();
+      //await fetchTransactions();
+      setLoading(false);
+    };
+    loadData();
+  }, []);
+
+  return (
+    <div className="max-w-md p-4 bg-white shadow-xl rounded-2xl border border-gray-100">
+      <h2 className="text-xl font-bold mb-4 text-purple-700">
+        💧 $SWEAT Tracker
+      </h2>
+      {loading ? (
+        <p className="text-gray-500">Loading...</p>
+      ) : (
+        <>
+          <p className="text-lg mb-2">
+            Wallet: <span className="font-mono text-sm">{WALLET_ADDRESS}</span>
+          </p>
+          <p className="text-2xl font-semibold text-green-600 mb-4">
+            Balance: {balance.toFixed(2)} SWEAT
+          </p>
+          <h3 className="text-md font-semibold mb-2">Last Transactions:</h3>
+          <ul className="text-sm text-gray-700 space-y-1">
+            {transactions.map((tx) => (
+              <li key={tx.hash} className="border-b pb-1">
+                <a
+                  href={`https://nearblocks.io/txns/${tx.hash}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-blue-500 underline"
+                >
+                  {tx.hash.slice(0, 10)}...
+                </a>{" "}
+                on {new Date(tx.block_timestamp).toLocaleDateString()}
+              </li>
+            ))}
+          </ul>
+        </>
+      )}
+    </div>
+  );
+};
 
 const IndexPage = ({ data }) => {
   const posts = data.blogPosts.edges
@@ -213,6 +325,7 @@ const IndexPage = ({ data }) => {
           />
         </Box>
       </Box>
+      <SweatWidget />
     </Box>
   );
 };
