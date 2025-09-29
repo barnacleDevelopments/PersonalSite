@@ -3,7 +3,6 @@
 This repository contains two projects:
 
 - Main GatsbyJs Project
-- Smart Contract Project (developed with Hardhat)
 
 ## GatsbyJS Project
 
