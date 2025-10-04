@@ -1,8 +1,9 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui";
+import { Link } from "gatsby";
 
 // Components
-import { Text, Flex, Button, Link, Heading } from "theme-ui";
+import { Text, Flex, Button, Heading } from "theme-ui";
 
 function PostCategoryCard({ title, content, link }) {
   return (
@@ -23,7 +24,7 @@ function PostCategoryCard({ title, content, link }) {
       <Text variant="regular" sx={{ color: "white", mb: 4 }}>
         {content}
       </Text>
-      <Link href={link} sx={{ textDecoration: "none", color: "white" }}>
+      <Link to={link} sx={{ textDecoration: "none", color: "white" }}>
         <Button sx={{ display: "block" }}>Read</Button>
       </Link>
     </Flex>

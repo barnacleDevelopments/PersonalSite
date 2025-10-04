@@ -2,9 +2,10 @@
 import { jsx } from "theme-ui";
 import { GatsbyImage } from "gatsby-plugin-image";
 import { getImage } from "gatsby-plugin-image";
+import { Link } from "gatsby";
 
 // Components
-import { Heading, Card, Text, Button, Box, Grid, Link } from "theme-ui";
+import { Heading, Card, Text, Button, Box, Grid } from "theme-ui";
 
 // markup
 const PostCard = ({ post, postContent }) => {
@@ -67,7 +68,7 @@ const PostCard = ({ post, postContent }) => {
             {postContent}
           </Text>
           <Box>
-            <Link href={`${post.slug}`}>
+            <Link to={`${post.slug}`}>
               <Button
                 variant="secondary"
                 sx={{ mt: 3 }}

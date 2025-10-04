@@ -1,8 +1,9 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui";
+import { Link } from "gatsby";
 
 // Components
-import { Heading, Text, Button, Box, Link, Flex } from "theme-ui";
+import { Heading, Text, Button, Box, Flex } from "theme-ui";
 
 const CallToAction = ({ title, content, buttonText, pageLink }) => {
   return (
@@ -25,7 +26,7 @@ const CallToAction = ({ title, content, buttonText, pageLink }) => {
         {content}
       </Text>
       <Box sx={{ mt: 4 }}>
-        <Link href={pageLink}>
+        <Link to={pageLink}>
           <Button variant="primary">{buttonText}</Button>
         </Link>
       </Box>

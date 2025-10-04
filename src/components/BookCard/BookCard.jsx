@@ -1,17 +1,17 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui";
-import { Link } from "theme-ui";
+import { Link } from "gatsby";
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
 
 export default function BookCard({ book }) {
   const image = getImage(book.image);
   return (
     <Link
+      to={book.url}
       sx={{
         width: "150px",
         flex: "0 0 auto",
       }}
-      href={book.url}
     >
       <GatsbyImage
         sx={{
