@@ -1,7 +1,8 @@
 /** @jsx jsx */
 import { StaticImage } from "gatsby-plugin-image";
 import { useState, useEffect, useRef, memo } from "react";
-import { jsx, Box, Flex, NavLink, Link } from "theme-ui";
+import { jsx, Box, Flex, NavLink } from "theme-ui";
+import { Link } from "gatsby";
 
 import SideNav from "./SideNav";
 
@@ -68,24 +69,35 @@ const Navbar = () => {
           }}
         >
           <Box sx={{ display: ["none", "block"], color: "white" }}>
-            <NavLink
-              variant="nav"
+            <Link
+              to="/blog"
               sx={{
                 mr: 3,
-                color: !isScrolledTop ? "#30362F" : null,
+                color: !isScrolledTop ? "#30362F" : "white",
+                textDecoration: "none",
+                fontWeight: "bold",
+                "&:hover": {
+                  textDecoration: "underline",
+                }
               }}
-              href="/blog"
             >
               Blog
-            </NavLink>
-            <NavLink
-              sx={{ color: !isScrolledTop ? "#30362F" : null }}
-              href="/contact"
+            </Link>
+            <Link
+              to="/contact"
+              sx={{
+                color: !isScrolledTop ? "#30362F" : "white",
+                textDecoration: "none",
+                fontWeight: "bold",
+                "&:hover": {
+                  textDecoration: "underline",
+                }
+              }}
             >
               Contact
-            </NavLink>
+            </Link>
           </Box>
-          <Link sx={{ width: "60px" }} href="/">
+          <Link to="/" sx={{ width: "60px" }}>
             <Box className="nav-triangle"></Box>
             <Box sx={{ filter: isScrolledTop ? "none" : "brightness(0)" }}>
               <StaticImage alt="logo" src="../../images/logo.png" />
@@ -98,7 +110,6 @@ const Navbar = () => {
               setSideNavOpen(true);
               disableScroll();
             }}
-            href="/"
           >
             <div
               sx={{
@@ -120,21 +131,33 @@ const Navbar = () => {
             ></div>
           </Box>
           <Box sx={{ display: ["none", "block"], color: "white" }}>
-            <NavLink
+            <Link
+              to="/projects"
               sx={{
                 mr: 3,
-                color: !isScrolledTop ? "#30362F" : null,
+                color: !isScrolledTop ? "#30362F" : "white",
+                textDecoration: "none",
+                fontWeight: "bold",
+                "&:hover": {
+                  textDecoration: "underline",
+                }
               }}
-              href="/projects"
             >
               Projects
-            </NavLink>
-            <NavLink
-              sx={{ color: !isScrolledTop ? "#30362F" : null }}
-              href="/about"
+            </Link>
+            <Link
+              to="/about"
+              sx={{
+                color: !isScrolledTop ? "#30362F" : "white",
+                textDecoration: "none",
+                fontWeight: "bold",
+                "&:hover": {
+                  textDecoration: "underline",
+                }
+              }}
             >
               About
-            </NavLink>
+            </Link>
           </Box>
         </Box>
       </Flex>

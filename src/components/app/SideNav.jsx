@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui";
-import { Box, Link, Flex, NavLink } from "theme-ui";
+import { Box, Flex } from "theme-ui";
+import { Link } from "gatsby";
 import { StaticImage } from "gatsby-plugin-image";
 import { CloseButton } from "./CloseButton";
 
@@ -30,7 +31,7 @@ const SideNav = ({ isOpen, setSideNavOpen, enableScrollFunc }) => {
             alignItems: "center",
           }}
         >
-          <Link sx={{ color: "primary", width: "60px" }} href="/">
+          <Link to="/" sx={{ color: "primary", width: "60px" }}>
             <StaticImage alt="logo" src="../../images/logo_2.png" />
           </Link>
           <CloseButton
@@ -53,21 +54,76 @@ const SideNav = ({ isOpen, setSideNavOpen, enableScrollFunc }) => {
             a: { mb: 3 },
           }}
         >
-          <NavLink variant="mobileNav" href="/">
+          <Link
+            to="/"
+            sx={{
+              color: "primary",
+              textDecoration: "none",
+              fontSize: 4,
+              fontWeight: "bold",
+              "&:hover": {
+                textDecoration: "underline",
+              }
+            }}
+          >
             Home
-          </NavLink>
-          <NavLink variant="mobileNav" href="/posts">
+          </Link>
+          <Link
+            to="/blog"
+            sx={{
+              color: "primary",
+              textDecoration: "none",
+              fontSize: 4,
+              fontWeight: "bold",
+              "&:hover": {
+                textDecoration: "underline",
+              }
+            }}
+          >
             Blog
-          </NavLink>
-          <NavLink variant="mobileNav" href="/contact">
+          </Link>
+          <Link
+            to="/contact"
+            sx={{
+              color: "primary",
+              textDecoration: "none",
+              fontSize: 4,
+              fontWeight: "bold",
+              "&:hover": {
+                textDecoration: "underline",
+              }
+            }}
+          >
             Contact
-          </NavLink>
-          <NavLink variant="mobileNav" href="/projects">
+          </Link>
+          <Link
+            to="/projects"
+            sx={{
+              color: "primary",
+              textDecoration: "none",
+              fontSize: 4,
+              fontWeight: "bold",
+              "&:hover": {
+                textDecoration: "underline",
+              }
+            }}
+          >
             Projects
-          </NavLink>
-          <NavLink variant="mobileNav" href="/about">
+          </Link>
+          <Link
+            to="/about"
+            sx={{
+              color: "primary",
+              textDecoration: "none",
+              fontSize: 4,
+              fontWeight: "bold",
+              "&:hover": {
+                textDecoration: "underline",
+              }
+            }}
+          >
             About
-          </NavLink>
+          </Link>
         </Flex>
       </Box>
     </Flex>

@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui";
-import { Box, Link, Text, Grid, Button, Flex } from "theme-ui";
+import { Box, Link as ThemeLink, Text, Grid, Button, Flex } from "theme-ui";
+import { Link } from "gatsby";
 import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
 import { faLinkedin, faInstagram } from "@fortawesome/free-brands-svg-icons";
 
@@ -13,14 +14,14 @@ const Footer = () => {
           <Text variant="small" sx={{ color: "white" }}>
             Please get in touch.
           </Text>
-          <Link sx={{ display: "block", mt: 3 }} href="/contact">
+          <Link to="/contact" sx={{ display: "block", mt: 3 }}>
             <Button variant="secondary">Let's Go!</Button>
           </Link>
         </Box>
         <Box sx={{ textAlign: "center" }}>
           <h4 sx={{ mb: 3, color: "white" }}>Media</h4>
           <Flex sx={{ flexDirection: "column", alignItems: "center" }}>
-            <Link
+            <ThemeLink
               target="_blank"
               href="https://www.linkedin.com/in/devin-dev-d-63008412b"
               sx={{ mb: 2, width: "max-content", svg: { fontSize: "1.2em" } }}
@@ -31,8 +32,8 @@ const Footer = () => {
                 {" "}
                 Linkdin
               </Text>
-            </Link>
-            <Link
+            </ThemeLink>
+            <ThemeLink
               target="_blank"
               href="https://www.instagram.com/devindavis732/"
               sx={{ mb: 2, width: "max-content", svg: { fontSize: "1.2em" } }}
@@ -43,37 +44,65 @@ const Footer = () => {
                 {" "}
                 Instagram
               </Text>
-            </Link>
+            </ThemeLink>
           </Flex>
         </Box>
         <Box sx={{ textAlign: "center" }}>
           <h4 sx={{ mb: 3, color: "white" }}>Navigation</h4>
           <Flex as="nav" sx={{ flexDirection: "column", alignItems: "center" }}>
             <Link
-              sx={{ mb: 2, width: "max-content" }}
-              href="/"
-              variant="footer"
+              to="/"
+              sx={{
+                mb: 2,
+                width: "max-content",
+                color: "white",
+                textDecoration: "none",
+                "&:hover": {
+                  textDecoration: "underline",
+                }
+              }}
             >
               Home
             </Link>
             <Link
-              sx={{ mb: 2, width: "max-content" }}
-              href="/contact"
-              variant="footer"
+              to="/contact"
+              sx={{
+                mb: 2,
+                width: "max-content",
+                color: "white",
+                textDecoration: "none",
+                "&:hover": {
+                  textDecoration: "underline",
+                }
+              }}
             >
               Contact
             </Link>
             <Link
-              sx={{ mb: 2, width: "max-content" }}
-              href="/projects"
-              variant="footer"
+              to="/projects"
+              sx={{
+                mb: 2,
+                width: "max-content",
+                color: "white",
+                textDecoration: "none",
+                "&:hover": {
+                  textDecoration: "underline",
+                }
+              }}
             >
               Projects
             </Link>
             <Link
-              sx={{ mb: 2, width: "max-content" }}
-              href="/about"
-              variant="footer"
+              to="/about"
+              sx={{
+                mb: 2,
+                width: "max-content",
+                color: "white",
+                textDecoration: "none",
+                "&:hover": {
+                  textDecoration: "underline",
+                }
+              }}
             >
               About
             </Link>
