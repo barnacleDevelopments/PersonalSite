@@ -47,18 +47,18 @@ With this in mind, think back to the job market numbers mentioned earlier. A sig
 
 ## Learn to Love what you do and explore topics that interest you
 
-Being a software developer is a really intersting and inspiring proffesion. Through pursuing it you gain the ability to use a set of tools to build some amazing things. There are so many different direction you can take a limiting yourself to a subset of the industry won't help keep you motivated and relevant for long.
+Being a software developer is a really interesting and inspiring profession. Through pursuing it you gain the ability to use a set of tools to build some amazing things. There are so many different direction you can take a limiting yourself to a subset of the industry won't help keep you motivated and relevant for long.
 
-A good example of this is sticking to Front-End developement and not exploring Back-End developerment. If you take the time to learn and understand both of these sectors, you become a more well rounded developer. Even if you specialize in one or the other, having a good understandnig of both can make you a better team player.
+A good example of this is sticking to Front-End development and not exploring Back-End development. If you take the time to learn and understand both of these sectors, you become a more well rounded developer. Even if you specialize in one or the other, having a good understanding of both can make you a better team player.
 
 ## Find your niche
 
-Another thing that all developers should eventually do is find their Niche. This mean finding a way for you to standout from other developers. If you have a skillset that is different from the magority you become even more valueable.
+Another thing that all developers should eventually do is find their Niche. This means finding a way for you to stand out from other developers. If you have a skillset that is different from the majority you become even more valuable.
 
 ## Have a Positive Attitude and Don't be Afraid to not Know something
 
-Having a positve attitude is so important. If you have met anyone with a positve attiude they gleem with light. Those types of people are easy hires because they show motivation and exitement. If you are too serious or trying to br perfect you won't come accross as being genuine.
+Having a positive attitude is so important. If you have met anyone with a positive attitude they gleam with light. Those types of people are easy hires because they show motivation and excitement. If you are too serious or trying to be perfect you won't come across as being genuine.
 
 # Conclusion
 
-The job market is evolving, but there's no need for panic. Staying relevant as a developer involves a growth mindset, a focus on problem-solving, and developing the right skills. By doing this, you'll be well-positioned for the opportunities that lie ahead./
+The job market is evolving, but there's no need for panic. Staying relevant as a developer involves a growth mindset, a focus on problem-solving, and developing the right skills. By doing this, you'll be well-positioned for the opportunities that lie ahead.

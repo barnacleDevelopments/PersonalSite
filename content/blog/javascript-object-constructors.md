@@ -34,7 +34,7 @@ Now now the bird object also contains the *numLegs* property.
 
 ## Object constructors
 
-Dot notation is used in object constructors as well, however it is done by reference using the *this* key word. Let’s take a look at a constructor function.
+Dot notation is used in object constructors as well, however it is done by reference using the *this* keyword. Let’s take a look at a constructor function.
 
 ```javascript
 let Bird = function () {
@@ -48,7 +48,7 @@ console.log(brownBird.numLegs);
 // output: 2
 ```
 
-The *brownBird* variable contains the function Bird function. The *this* key word is referencing the variable *br*own*Bird* which is then provided the key value pairs defined in the *Bird* function(object constructor). To visualize this, imagine the *this* keyword is the *brownBird* variable. It’s setting a new property just like it would using regular dot notation. It’s important to understand that the brownBird variable contains a function but also consider that functions are also objects. This means you can access certain properties defined inside of them. Pretty neat right!
+The *brownBird* variable contains the function Bird function. The *this* keyword is referencing the variable *brownBird* which is then provided the key value pairs defined in the *Bird* function (object constructor). To visualize this, imagine the *this* keyword is the *brownBird* variable. It’s setting a new property just like it would using regular dot notation. It’s important to understand that the brownBird variable contains a function but also consider that functions are also objects. This means you can access certain properties defined inside of them. Pretty neat right!
 
 The *Bird* function can also be changed to also include parameters to define dynamic values of the properties defined within the function.
 

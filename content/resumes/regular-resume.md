@@ -11,21 +11,21 @@ title: Contract Resume
 - Implemented and enhanced 9 core features for the BrewersInsight platform using Angular, C#, .NET, CosmosDB, and Azure services like Event Grid, Service Bus, and API Management. Notably, developed the Planning and Forecasting feature over 8 months, modifying a Gantt chart UI library to include conflict detection, resolution logic, and inventory material shortage calculations.
 - Designed and deployed IoT device data ingestion and distribution APIs/UIs leveraging Node.js, Express, HTMX, CosmosDB, and authoring OpenAPI specs.
 - Collaborated with development teams and product managers to translate business requirements into technical solutions.
-- Mentored and on-boarded 2 new developers and had them up to speed within a few weeks.
+- Mentored and onboarded 2 new developers and had them up to speed within a few weeks.
 - Ensured reliability through rigorous testing.
-- Authored detailed documentation to simplify on-boarding and enhance technical knowledge sharing.
+- Authored detailed documentation to simplify onboarding and enhance technical knowledge sharing.
 - Updated IoT device Python script to upload sensor data to Azure for storage and processing.
 
 ### immediaC – Full Stack Web Developer 2022 – 2023
 
 - Developed an internal video conferencing platform using the Vonage API and Vue.js, ensuring seamless functionality across both mobile and desktop. The most challenging aspect involved optimizing responsive video feeds for varying screen sizes.
 - Integrated Moneris payment systems into multiple e-commerce platforms utilizing C# and .NET.
-- Implemented CMS solutions for client websites for easy content management utlizing C# and .NET.
+- Implemented CMS solutions for client websites for easy content management utilizing C# and .NET.
 - Freelance – Full Stack Web Developer 2020 - current
 - Developed Resson Aerospace company website utilizing GatsbyJS and Netlify CMS in collaboration with UI designer.
 - Developed Terraform scripts to declaratively deploy Azure resources for an IoT-based oil and gas company, reducing provisioning time by over 90% and improving infrastructure consistency.
 - Personal Projects – Full Stack Web Developer 2020 - current
-- Personal Portfolio Webiste written in GatsbyJS.
+- Personal Portfolio Website written in GatsbyJS.
 - Azure Kubernetes Service Flux deployment.
 - Developing a feedback framework utilizing, React, Solidity, Chainlink services, Arweave, Hardhat, Web3.js, Ethers.js and Alchemy.
 - Developed hangboard workout tracker utilizing Digital Ocean droplets, C# .NET and React Native.

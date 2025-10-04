@@ -36,7 +36,7 @@ This protocol was primarily implemented to prevent cross site scripting attacks.
 
 ### Example:
 
-One type of XSS attack named “Stored XSS” occurs when a form is submitted. Let us say an attacker visits your blog, signs up for an account, and posts a comment on one of your articles. Further, they decide to imbed a script inside their comment. Consequently, that comment is appended to your website using innerHTML thus allowing the script to be imbedded in your page. This could do all kinds of no good, therefore should be avoided.
+One type of XSS attack named “Stored XSS” occurs when a form is submitted. Let us say an attacker visits your blog, signs up for an account, and posts a comment on one of your articles. Further, they decide to embed a script inside their comment. Consequently, that comment is appended to your website using innerHTML thus allowing the script to be embedded in your page. This could do all kinds of no good, therefore should be avoided.
 
 ## The difference between CORS & CSP
 
@@ -46,11 +46,11 @@ Cross Origin Resource Sharing (CORS) is another HTTP header that can be confused
 
 CORS is enforced by the servers and not the browser. With that in mind, let us say we have blog website that uses an Application User Interface (API) to retrieve its posts. When the blog page (origin A) requests data from the API (origin B), the API sends back an Access-Control-Allow-Origin header with the allowed origins. If it matches the origin of the request, the response will also include the requested resource. However, if the origin is not permitted to access the resource, the server's response would not contain the request resource.
 
-NOw CSP is enforced by the browser and not the server. Instead of acting as a gate like CORS, CSP behaves like a wall preventing any unwanted resources from running in the browser through a particular web-page. So if a web-page contains a JavaScript script that is not part of the CSP it will simply not to run. All in all, CORS is concerned with the origin of requests and CSP is concerned with the trustworthiness of a resource.
+Now, CSP is enforced by the browser and not the server. Instead of acting as a gate like CORS, CSP behaves like a wall preventing any unwanted resources from running in the browser through a particular web-page. So if a web-page contains a JavaScript script that is not part of the CSP it will simply not run. All in all, CORS is concerned with the origin of requests and CSP is concerned with the trustworthiness of a resource.
 
 ## Configuring CSP
 
-Configuring a CSP policy is different for every cite, therefore careful attention should be made to insure proper implementation. To add a policy developers must use multiple directives which specify the type and location of particular resources. A list of directives can be found at netsparker’s website but here are few examples:
+Configuring a CSP policy is different for every site, therefore careful attention should be made to ensure proper implementation. To add a policy developers must use multiple directives which specify the type and location of particular resources. A list of directives can be found at netsparker’s website but here are a few examples:
 
 - object-src
 
@@ -68,7 +68,7 @@ As you can see each directive name specifies a resource type. These resources co
 
 ## Implementing Directives
 
-There are few different ways of implementing a CSP policy. Here are a few.
+There are a few different ways of implementing a CSP policy. Here are a few ways:
 
 ### Meta Tag Method
 

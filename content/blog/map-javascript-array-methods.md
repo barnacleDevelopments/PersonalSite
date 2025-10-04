@@ -8,12 +8,12 @@ category: programming
 ---
 
 The .map() function is used to iterate over an array to apply a function to
-each of it’s elements much like the forEach() method. The primary difference
+each of its elements, much like the forEach() method. The primary difference
 between these two methods is that the .map() function returns a completely new
 array containing the modified elements while the .forEach() method only
-modifies the array it is currently applied to. For sake of example, the
-function bellow will return a new array containing each number in the “numbers
-array” multiplied by two.
+modifies the array it is currently applied to. For the sake of example, the
+function below will return a new array containing each number in the "numbers
+array" multiplied by two.
 
 ```javascript
 var numbers = [1, 2, 3, 4];

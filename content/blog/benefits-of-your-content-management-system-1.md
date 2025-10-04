@@ -22,7 +22,7 @@ Another great case would be for a company that has regular announcements on thei
 
 ## For whom is a CMS for? 
 
-Not every business needs a CMS. Some business just wants a simple landing page to give them an online presence and do not have product or service listings. However, there are less obvious and beneficial use cases for CMSs. The most advantageous part of having a CMS is to enable a content strategy.
+Not every business needs a CMS. Some businesses just want a simple landing page to give them an online presence and do not have product or service listings. However, there are less obvious and beneficial use cases for CMSs. The most advantageous part of having a CMS is to enable a content strategy.
 
 A content strategy is a vital part of any business website to increase its traffic. If you would like to learn more about them, I wrote an article on why you need a [Web Content Strategy](/posts/web-content-strategies). In short, they increase your website's utility to customers by giving them a reason to visit your website. Without a content strategy, visitors have little reason to visit or return to your website. Trust me, this will pay in dividends through increasing conversion rates to your website.
 

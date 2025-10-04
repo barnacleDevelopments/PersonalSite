@@ -20,19 +20,19 @@ Before delving into prototypes, it is important that you understand multiple con
 
 - What are objects and how to use an object constructor.
 
-- What are differences between a function and a method.
+- What are the differences between a function and a method.
 
 - The primitive values of JavaScript.
 
 - A general grasp of the “this” keyword.
 
-## What do prototype do?
+## What do prototypes do?
 
-Prototypes are used to provide *universal functionality* in JavaScript. This universal functionality is called *inheritance*. Inheritance is a concept used in many object oriented programming languages and is implemented many different ways. In JavaScript it is achieved using prototypes. Without prototypes you could not use methods like **split** or **forEach.** With that brief introduction out of the way, lets first explain inheritance so that we can better understand its implementation in JavaScript.
+Prototypes are used to provide *universal functionality* in JavaScript. This universal functionality is called *inheritance*. Inheritance is a concept used in many object oriented programming languages and is implemented many different ways. In JavaScript it is achieved using prototypes. Without prototypes you could not use methods like **split** or **forEach.** With that brief introduction out of the way, let's first explain inheritance so that we can better understand its implementation in JavaScript.
 
 ## Inheritance
 
-Inheritance allows for methods and properties of objects to be shared. To provide more clarity, imagine we have a family of people; consequently, each member of that family share the same last name. That last name was passed on over generations therefore must have originated from the first person using it. For an example, let us translate this family tree to code by creating a new constructor called SmithFamilyMember.
+Inheritance allows for methods and properties of objects to be shared. To provide more clarity, imagine we have a family of people; consequently, each member of that family shares the same last name. That last name was passed on over generations therefore must have originated from the first person using it. For example, let us translate this family tree to code by creating a new constructor called SmithFamilyMember.
 
 ### Example:
 

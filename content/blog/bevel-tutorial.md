@@ -7,21 +7,21 @@ category: hyperledger
 draft: true
 ---
 
-I started learning about Hyperledger Bevel and I wanted to provide a all in one tutorial covering a basic development setup. I'll later write a tutorial for a production setup which I will link to here.
+I started learning about Hyperledger Bevel and I wanted to provide an all-in-one tutorial covering a basic development setup. I'll later write a tutorial for a production setup which I will link to here.
 
 ## What is Bevel?
 
-Hyperledger Bevel is a deployment framework for permissioned blockchains. It's aim is to facilitate the process of complex production deployments for frameworks like Hyperledger Fabric. One of the main stunting factors effecting the adoption of permissioned blockchains is that they are inhrently difficult to deploy and manage. Any effort to make this deployment process easier will be nessisary to increase adoption.
+Hyperledger Bevel is a deployment framework for permissioned blockchains. Its aim is to facilitate the process of complex production deployments for frameworks like Hyperledger Fabric. One of the main stunting factors affecting the adoption of permissioned blockchains is that they are inherently difficult to deploy and manage. Any effort to make this deployment process easier will be necessary to increase adoption.
 
 ## What is this Tutorial for?
 
-This tutorial is quick and dirty reference for setting up a local development environment with Bevel. If you want to setup your environment on a VM The documentation provided by Hyperledger is thorough and I recommend going through it. For those who don't want to navigate multiple different pages to get a development environment setup, I have created this tutorial. I will leave links throughout to different resources so that you can learn how Bevel works. Your welcome!
+This tutorial is quick and dirty reference for setting up a local development environment with Bevel. If you want to setup your environment on a VM The documentation provided by Hyperledger is thorough and I recommend going through it. For those who don't want to navigate multiple different pages to get a development environment setup, I have created this tutorial. I will leave links throughout to different resources so that you can learn how Bevel works. You're welcome!
 
 ## Step 1: Setup Virtual Machine with Minikube
 
 1. Download ISO for Ubuntu 20.04.
 
-2. Download Virtual Box or a prefered virtual environment.
+2. Download Virtual Box or a preferred virtual environment.
 
 3. Setup a machine with 16gb of ram, 8 vcpu and public IP address (so you can access your Kubernetes Cluster from your host machine).
 
@@ -29,7 +29,7 @@ This tutorial is quick and dirty reference for setting up a local development en
 
 ### Step a: Setup a project directory
 
-1. This is the directory what we will be working out of going forward. I have named in `bevel-sample-project` but your can name it whatever you want.
+1. This is the directory that we will be working out of going forward. I have named it `bevel-sample-project` but you can name it whatever you want.
 
 ```bash
 mkdir bevel-sample-project/bin
@@ -104,7 +104,7 @@ minikube start --memory 12000 --cpus 4 --kubernetes-version=1.23.1 --apiserver-i
 
 ## Step d: Fork Bevel
 
-1. The bevel respository contains all the nessisary files for you to work with Bevel
+1. The bevel repository contains all the necessary files for you to work with Bevel
 
 ```bash
 git clone https://github.com/hyperledger-bevel/bevel
