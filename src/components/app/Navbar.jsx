@@ -1,44 +1,28 @@
 /** @jsx jsx */
 import { StaticImage } from "gatsby-plugin-image";
-import { useState, useEffect } from "react";
-import { jsx , Box, Flex, NavLink, Link } from "theme-ui";
+import { useState, useEffect, useRef, memo } from "react";
+import { jsx, Box, Flex, NavLink, Link } from "theme-ui";
 
 import SideNav from "./SideNav";
 
 const Navbar = () => {
-  const [pageStatus] = useState("");
-  const [navTextColorScrolled, setNavTextColorScrolled] = useState("");
-  const [navScrollColor, setNavScrollColor] = useState("");
   const [isScrolledTop, setIsScrolledTop] = useState(true);
   const [sideNavOpen, setSideNavOpen] = useState(false);
+  const scrollTimeoutRef = useRef(null);
 
   const styleNavBar = () => {
-    if (window.scrollY < 20) {
-      setIsScrolledTop(true);
-    } else {
-
-      setIsScrolledTop(false);
+    if (scrollTimeoutRef.current) {
+      return;
     }
 
-  };
-
-  const getPath = () => {
-    let path = typeof window !== "undefined" ? window.location.pathname : "";
-    return path.replaceAll("/", "");
-  };
-
-  const getTextScrolled = (path) => {
-    switch (path) {
-      default:
-        return "#30362F";
-    }
-  };
-
-  const getScrollColor = (path) => {
-    switch (path) {
-      default:
-        return "#ffffff";
-    }
+    scrollTimeoutRef.current = setTimeout(() => {
+      if (window.scrollY < 20) {
+        setIsScrolledTop(true);
+      } else {
+        setIsScrolledTop(false);
+      }
+      scrollTimeoutRef.current = null;
+    }, 16);
   };
 
   function disableScroll() {
@@ -54,18 +38,13 @@ const Navbar = () => {
   }
 
   useEffect(() => {
-    const path = getPath();
-
-    const scrollColor = getScrollColor(path);
-    const textColorScrolled = getTextScrolled(path);
-
-    setNavScrollColor(scrollColor);
-    setNavTextColorScrolled(textColorScrolled);
-
-    window.addEventListener("scroll", styleNavBar);
+    window.addEventListener("scroll", styleNavBar, { passive: true });
 
     return function removeScrollListener() {
       window.removeEventListener("scroll", styleNavBar);
+      if (scrollTimeoutRef.current) {
+        clearTimeout(scrollTimeoutRef.current);
+      }
     };
   }, []);
 
@@ -73,7 +52,7 @@ const Navbar = () => {
     <Box as="nav" sx={nav}>
       <Flex
         sx={navWrapper}
-        style={{ backgroundColor: !isScrolledTop ? navScrollColor : null }}
+        style={{ backgroundColor: !isScrolledTop ? "#ffffff" : null }}
       >
         <SideNav
           isOpen={sideNavOpen}
@@ -93,36 +72,26 @@ const Navbar = () => {
               variant="nav"
               sx={{
                 mr: 3,
-                color: !isScrolledTop ? navTextColorScrolled : null,
+                color: !isScrolledTop ? "#30362F" : null,
               }}
               href="/blog"
             >
               Blog
             </NavLink>
             <NavLink
-              sx={{ color: !isScrolledTop ? navTextColorScrolled : null }}
+              sx={{ color: !isScrolledTop ? "#30362F" : null }}
               href="/contact"
             >
               Contact
             </NavLink>
           </Box>
-          {isScrolledTop ? (
-            <Link sx={{ width: "60px" }} href="/">
-              <Box className="nav-triangle"></Box>
-              <Box>
-                <StaticImage alt="logo" src="../../images/logo.png" />
-              </Box>
-              <Box className="nav-triangle"></Box>
-            </Link>
-          ) : (
-            <Link sx={{ width: "60px" }} href="/">
-              <Box className="nav-triangle"></Box>
-              <Box>
-                <StaticImage alt="logo" src="../../images/logo_2.png" />
-              </Box>
-              <Box className="nav-triangle"></Box>
-            </Link>
-          )}
+          <Link sx={{ width: "60px" }} href="/">
+            <Box className="nav-triangle"></Box>
+            <Box sx={{ filter: isScrolledTop ? "none" : "brightness(0)" }}>
+              <StaticImage alt="logo" src="../../images/logo.png" />
+            </Box>
+            <Box className="nav-triangle"></Box>
+          </Link>
           <Box
             sx={hamburgerStyles}
             onClick={() => {
@@ -134,25 +103,19 @@ const Navbar = () => {
             <div
               sx={{
                 ...hamburderPatty,
-                backgroundColor: isScrolledTop
-                  ? navScrollColor
-                  : navTextColorScrolled,
+                backgroundColor: isScrolledTop ? "#ffffff" : "#30362F",
               }}
             ></div>
             <div
               sx={{
                 ...hamburderPatty,
-                backgroundColor: isScrolledTop
-                  ? navScrollColor
-                  : navTextColorScrolled,
+                backgroundColor: isScrolledTop ? "#ffffff" : "#30362F",
               }}
             ></div>
             <div
               sx={{
                 ...hamburderPatty,
-                backgroundColor: isScrolledTop
-                  ? navScrollColor
-                  : navTextColorScrolled,
+                backgroundColor: isScrolledTop ? "#ffffff" : "#30362F",
               }}
             ></div>
           </Box>
@@ -160,14 +123,14 @@ const Navbar = () => {
             <NavLink
               sx={{
                 mr: 3,
-                color: !isScrolledTop ? navTextColorScrolled : null,
+                color: !isScrolledTop ? "#30362F" : null,
               }}
               href="/projects"
             >
               Projects
             </NavLink>
             <NavLink
-              sx={{ color: !isScrolledTop ? navTextColorScrolled : null }}
+              sx={{ color: !isScrolledTop ? "#30362F" : null }}
               href="/about"
             >
               About
@@ -175,20 +138,6 @@ const Navbar = () => {
           </Box>
         </Box>
       </Flex>
-      {pageStatus && isScrolledTop && (
-        <Box
-          sx={{
-            width: "100%",
-            left: 0,
-            backgroundColor: "orange",
-            fontWeight: "bold",
-            textAlign: "center",
-            p: 2,
-          }}
-        >
-          {pageStatus}
-        </Box>
-      )}
     </Box>
   );
 };
@@ -230,4 +179,4 @@ const hamburderPatty = {
   backgroundColor: "white",
 };
 
-export default Navbar;
+export default memo(Navbar);
