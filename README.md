@@ -2,11 +2,7 @@
 
 A modern portfolio website built with GatsbyJS, featuring blog posts, project showcases, and MDX content management. This site showcases full-stack development, DevOps, and blockchain expertise.
 
-<<<<<<< HEAD
-- Main GatsbyJs Project
-=======
 ## 🚀 Quick Start
->>>>>>> 2b63803 (update readme and claude code setup)
 
 ### Prerequisites
 
