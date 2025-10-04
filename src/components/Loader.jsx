@@ -1,11 +1,14 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, memo } from "react";
 import { Box } from "@theme-ui/components";
 
 const Loader = () => {
   const heroBtnBackgroundRef = useRef();
+  const intervalRef = useRef();
+  const timeoutsRef = useRef([]);
 
-  const animateHeroBtnBack = (el) => {
-    const sticks = el.children;
+  useEffect(() => {
+    const sticks = heroBtnBackgroundRef.current?.children;
+    if (!sticks) return;
 
     const expandStick = (el) => {
       el.style.height = `100%`;
@@ -17,51 +20,35 @@ const Loader = () => {
       el.style.backgroundColor = `#508991`;
     };
 
-    const animateSticks = () => {
-      let stickState = false;
-      setInterval(() => {
-        stickState ? (stickState = false) : (stickState = true);
-        if (stickState) {
-          setTimeout(() => {
-            expandStick(sticks[0]);
-            setTimeout(() => {
-              expandStick(sticks[1]);
-              setTimeout(() => {
-                expandStick(sticks[2]);
-                setTimeout(() => {
-                  expandStick(sticks[3]);
-                  setTimeout(() => {
-                    expandStick(sticks[4]);
-                  }, 400);
-                }, 300);
-              }, 200);
-            }, 100);
-          }, 0);
-        } else {
-          setTimeout(() => {
-            shrinkStick(sticks[0]);
-            setTimeout(() => {
-              shrinkStick(sticks[1]);
-              setTimeout(() => {
-                shrinkStick(sticks[2]);
-                setTimeout(() => {
-                  shrinkStick(sticks[3]);
-                  setTimeout(() => {
-                    shrinkStick(sticks[4]);
-                  }, 400);
-                }, 300);
-              }, 200);
-            }, 100);
-          }, 0);
-        }
-      }, 1400);
-    };
-    animateSticks();
-  };
+    let stickState = false;
 
-  useEffect(() => {
-    animateHeroBtnBack(heroBtnBackgroundRef.current);
-  });
+    const animateSticks = () => {
+      stickState = !stickState;
+
+      const delays = [0, 100, 200, 300, 400];
+      const stickAction = stickState ? expandStick : shrinkStick;
+
+      delays.forEach((delay, index) => {
+        const timeout = setTimeout(() => {
+          if (sticks[index]) {
+            stickAction(sticks[index]);
+          }
+        }, delay);
+        timeoutsRef.current.push(timeout);
+      });
+    };
+
+    animateSticks();
+    intervalRef.current = setInterval(animateSticks, 1400);
+
+    return () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+      }
+      timeoutsRef.current.forEach(timeout => clearTimeout(timeout));
+      timeoutsRef.current = [];
+    };
+  }, []);
   return (
     <Box
       sx={{
@@ -88,4 +75,4 @@ const Loader = () => {
   );
 };
 
-export default Loader;
+export default memo(Loader);
