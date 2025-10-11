@@ -3,6 +3,7 @@ import { MDXProvider, useMDXComponents } from "@mdx-js/react";
 import { useThemedStylesWithMdx } from "@theme-ui/mdx";
 import Prism from "@theme-ui/prism";
 import { jsx, ThemeUIProvider } from "theme-ui";
+import React from "react";
 
 import Footer from "./Footer.jsx";
 import Navbar from "./Navbar.jsx";
@@ -23,7 +24,7 @@ const Layout = ({ children }) => {
     <ThemeUIProvider theme={theme}>
       <MDXProvider components={componentsWithStyles}>
         <Navbar />
-        <main>{children}</main>
+        <main sx={{ paddingTop: "60px" }}>{children}</main>
         <Footer />
       </MDXProvider>
     </ThemeUIProvider>

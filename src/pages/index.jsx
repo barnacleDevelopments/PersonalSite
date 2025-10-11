@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { graphql } from "gatsby";
 import { StaticImage } from "gatsby-plugin-image";
-import { jsx , Text, Button, Flex, Box, Grid, Link, Heading } from "theme-ui";
+import { jsx, Text, Button, Flex, Box, Grid, Link, Heading } from "theme-ui";
 
 import BookCard from "../components/BookCard/BookCard";
 import CallToAction from "../components/CallToAction";
@@ -37,7 +37,6 @@ const IndexPage = ({ data }) => {
           bg: "primary",
           pt: 5,
           pb: 5,
-          mt: "60px",
           width: "100%",
           textTransform: "uppercase",
         }}

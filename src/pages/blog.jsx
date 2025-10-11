@@ -2,11 +2,10 @@
 import { faRssSquare } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
 import { graphql } from "gatsby";
-import { jsx , Box, Flex, Text, Grid, Heading } from "theme-ui";
+import { jsx, Box, Flex, Text, Grid, Heading } from "theme-ui";
 
 import PostCategoryCard from "../components/PostCategoryCard/PostCategoryCard";
 import Seo from "../components/Seo/Seo";
-
 
 const dailyDevUrl = "https://app.daily.dev/devdeveloper";
 const dailyDevImgUrl =
@@ -22,10 +21,10 @@ const BlogPage = ({ data }) => {
         sx={{
           margin: "0 auto",
           width: ["90%", "80%", "70%"],
-          my: 6,
+          my: 5,
         }}
       >
-        <Flex sx={{ mt: 6, mb: 5 }}>
+        <Flex sx={{ mb: 5 }}>
           <Box>
             <Heading as="h1" variant="hero">
               Blog

@@ -1,10 +1,29 @@
 /** @jsx jsx */
 import { graphql } from "gatsby";
-import { Link, Paragraph, jsx , Box, Heading } from "theme-ui";
+import { Link, Paragraph, jsx, Box, Heading } from "theme-ui";
 
 import CallToAction from "../components/CallToAction";
 import ProjectCard from "../components/ProjectCard/ProjectCard";
 import Seo from "../components/Seo/Seo";
+
+const keywords = [
+  "Devin Davis",
+  "full-stack developer portfolio",
+  "web development projects",
+  "innovative web solutions",
+  "creative web design",
+  "frontend development",
+  "backend development",
+  "JavaScript frameworks",
+  "React projects",
+  "Angular projects",
+  "Vue.js projects",
+  "full-stack development",
+  "web application development",
+  "developer portfolio",
+  "software development",
+  "collaboration opportunities",
+];
 
 const ProjectsPage = ({ data }) => {
   const projects = data.allMdx.edges.map(
@@ -20,31 +39,13 @@ const ProjectsPage = ({ data }) => {
       <Seo
         title="Projects"
         description={`Explore the portfolio of Devin Davis, a results-oriented full-stack developer showcasing web solutions and creative designs. Let's connect to collaborate or discuss new opportunities.`}
-        keywords={[
-          "Devin Davis",
-          "full-stack developer portfolio",
-          "web development projects",
-          "innovative web solutions",
-          "creative web design",
-          "frontend development",
-          "backend development",
-          "JavaScript frameworks",
-          "React projects",
-          "Angular projects",
-          "Vue.js projects",
-          "full-stack development",
-          "web application development",
-          "developer portfolio",
-          "software development",
-          "collaboration opportunities",
-        ]}
+        keywords={keywords}
       />
       <Box
         sx={{
           margin: "0 auto",
           width: ["90%", "80%", "70%"],
-          mt: "60px",
-          my: 6,
+          my: 5,
         }}
       >
         <Box as="section" sx={{ mb: 5 }}>

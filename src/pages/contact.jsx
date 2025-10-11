@@ -4,7 +4,8 @@ import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useState, useEffect, useMemo, useCallback } from "react";
 import { useForm } from "react-hook-form";
-import { jsx ,
+import {
+  jsx,
   Box,
   Flex,
   Button,
@@ -20,7 +21,6 @@ import * as yup from "yup";
 
 import PageLoader from "../components/PageLoader/PageLoader";
 import Seo from "../components/Seo/Seo";
-
 
 const SubmitFailed = () => (
   <Flex
@@ -44,7 +44,6 @@ const SubmitFailed = () => (
 );
 
 const SubmitSuccess = () => {
-
   const copyPGP = useCallback(async () => {
     const response = await fetch("/pgp-key.asc");
     if (!response.ok) {
@@ -190,14 +189,13 @@ const ContactPage = () => {
         sx={{
           width: ["90%", "80%", "70%"],
           mx: "auto",
-          my: 6,
+          my: 5,
         }}
       >
         {!isSubmitted && (
           <Box
             sx={{
               margin: "0 auto",
-              mt: 6,
               mb: 4,
             }}
           >

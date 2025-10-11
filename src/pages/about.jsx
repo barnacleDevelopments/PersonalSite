@@ -2,7 +2,7 @@
 import { graphql } from "gatsby";
 import { StaticImage } from "gatsby-plugin-image";
 import { useRef, useState } from "react";
-import { Link, Paragraph, jsx, Flex , Box, Heading, Grid } from "theme-ui";
+import { Box, Flex, Grid, Heading, jsx, Link, Paragraph } from "theme-ui";
 
 import { CloseButton } from "../components/app/CloseButton";
 import CallToAction from "../components/CallToAction";
@@ -91,7 +91,7 @@ const AboutPage = ({ data }) => {
         sx={{
           margin: "0 auto",
           width: ["90%", "80%", "70%"],
-          my: 6,
+          my: 5,
         }}
       >
         <Heading as="h1" variant="hero">
