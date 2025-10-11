@@ -8,6 +8,7 @@ import { CloseButton } from "../components/app/CloseButton";
 import CallToAction from "../components/CallToAction";
 import Seo from "../components/Seo/Seo";
 import { TechListing } from "../components/TechListing/TechListing";
+import ProjectDialog from "../components/dialogs/ProjectDialog";
 
 const AboutPage = ({ data }) => {
   const dialog = useRef(null);
@@ -40,52 +41,6 @@ const AboutPage = ({ data }) => {
 
   return (
     <Box>
-      <dialog
-        style={{ position: "fixed", zIndex: 10000, padding: 0 }}
-        ref={dialog}
-      >
-        {selectedTechnology && (
-          <Box
-            sx={{
-              borderColor: "white",
-              borderRadius: 4,
-              backgroundColor: "white",
-              p: 4,
-            }}
-          >
-            <Box>
-              <Flex
-                sx={{
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                  gap: 3,
-                  mb: 3,
-                }}
-              >
-                <Heading sx={{ mb: 0 }} variant="subheading2">
-                  {selectedTechnology.name} - Projects
-                </Heading>
-                <CloseButton
-                  sx={{ position: "absolute" }}
-                  onClick={() => {
-                    dialog.current.close();
-                    setSelectedTechnology(null);
-                  }}
-                />
-              </Flex>
-              <ul>
-                {selectedTechnology.projects.map((project) => {
-                  return (
-                    <li key={project.title} sx={{ mb: 2 }}>
-                      <Link href={project.slug}>{project.title}</Link>
-                    </li>
-                  );
-                })}
-              </ul>
-            </Box>
-          </Box>
-        )}
-      </dialog>
       <Seo title="About" />
       <Box
         sx={{
@@ -172,6 +127,11 @@ const AboutPage = ({ data }) => {
           pageLink={"/projects"}
         />
       </Box>
+      <ProjectDialog
+        ref={dialog}
+        title={selectedTechnology?.name}
+        projects={selectedTechnology?.projects}
+      />
     </Box>
   );
 };
