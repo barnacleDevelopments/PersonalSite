@@ -1,8 +1,8 @@
 /** @jsx jsx */
-import { graphql } from "gatsby";
+import { graphql, Link as GatsbyLink } from "gatsby";
 import { StaticImage } from "gatsby-plugin-image";
 import { useRef, useState } from "react";
-import { Box, Flex, Grid, Heading, jsx, Link, Paragraph } from "theme-ui";
+import { Box, Flex, Grid, Heading, jsx, Paragraph } from "theme-ui";
 
 import { CloseButton } from "../components/app/CloseButton";
 import CallToAction from "../components/CallToAction";
@@ -80,8 +80,17 @@ const AboutPage = ({ data }) => {
               just about anything I can get my hands on. Naturally, if you don't
               see me at the office, I'm probably at the local bouldering gym.
               Hearing people talk about their passions fires me up.{" "}
-              <Link href="/contact">Please reach out</Link>; I'm always up for a
-              chat!{" "}
+              <GatsbyLink
+                to="/contact"
+                sx={{
+                  color: "orange",
+                  textDecoration: "none",
+                  "&:hover": { textDecoration: "underline" },
+                }}
+              >
+                Please reach out
+              </GatsbyLink>
+              ; I'm always up for a chat!{" "}
             </Paragraph>
           </Box>
         </Grid>

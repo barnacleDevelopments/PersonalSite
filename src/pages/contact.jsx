@@ -4,6 +4,7 @@ import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useState, useEffect, useMemo, useCallback } from "react";
 import { useForm } from "react-hook-form";
+import { Link as GatsbyLink } from "gatsby";
 import {
   jsx,
   Box,
@@ -36,9 +37,9 @@ const SubmitFailed = () => (
       <Text variant="regular" sx={{ my: 3, display: "block" }}>
         We couldn't send your email.
       </Text>
-      <Link href="/contact">
+      <GatsbyLink to="/contact">
         <Button>Try Again</Button>
-      </Link>
+      </GatsbyLink>
     </Box>
   </Flex>
 );
@@ -92,9 +93,9 @@ const SubmitSuccess = () => {
             icon={faCopy}
           />
         </Button>
-        <Link href="/">
+        <GatsbyLink to="/">
           <Button variant="primary">Back Home</Button>
-        </Link>
+        </GatsbyLink>
       </Box>
     </Flex>
   );
@@ -307,10 +308,21 @@ const ContactPage = () => {
             </Box>
             <Box sx={{ mb: 3 }}>
               <Paragraph>
-                I’m a{" "}
-                <Link variant="text" target="_blank" href="/about">
+                I'm a{" "}
+                <GatsbyLink
+                  to="/about"
+                  sx={{
+                    color: "blue",
+                    fontWeight: "bold",
+                    textDecoration: "underline",
+                    "&:hover": {
+                      color: "#E07A5F",
+                      textDecoration: "underline",
+                    },
+                  }}
+                >
                   results-oriented Full Stack Web Developer
-                </Link>
+                </GatsbyLink>
                 . Whether you have a project idea, need a technical
                 collaborator, or just want to connect, I’d love to hear from
                 you. Connect with me on{" "}
@@ -350,9 +362,20 @@ const ContactPage = () => {
                 Explore how I’ve helped businesses and teams bring their ideas
                 to life. My portfolio highlights my versatility and commitment
                 to delivering high-quality results.{" "}
-                <Link variant="text" target="_blank" href="/projects">
+                <GatsbyLink
+                  to="/projects"
+                  sx={{
+                    color: "blue",
+                    fontWeight: "bold",
+                    textDecoration: "underline",
+                    "&:hover": {
+                      color: "#E07A5F",
+                      textDecoration: "underline",
+                    },
+                  }}
+                >
                   View my portfolio
-                </Link>{" "}
+                </GatsbyLink>{" "}
                 and reach out to discuss your next project!
               </Paragraph>
             </Box>

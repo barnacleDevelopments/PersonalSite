@@ -1,7 +1,7 @@
 /** @jsx jsx */
-import { graphql } from "gatsby";
+import { graphql, Link as GatsbyLink } from "gatsby";
 import { StaticImage } from "gatsby-plugin-image";
-import { jsx, Text, Button, Flex, Box, Grid, Link, Heading } from "theme-ui";
+import { jsx, Text, Button, Flex, Box, Grid, Heading } from "theme-ui";
 
 import BookCard from "../components/BookCard/BookCard";
 import CallToAction from "../components/CallToAction";
@@ -74,9 +74,9 @@ const IndexPage = ({ data }) => {
                     top: "0px",
                   }}
                 >
-                  <Link href="/contact">
+                  <GatsbyLink to="/contact">
                     <Button variant="primary">Let's Chat</Button>
-                  </Link>
+                  </GatsbyLink>
                 </Flex>
                 <Loader />
               </Box>
@@ -132,16 +132,38 @@ const IndexPage = ({ data }) => {
                   professional experience in designing, developing, and
                   maintaining dynamic web applications. My expertise spans a
                   wide range of web technologies. I have a{" "}
-                  <Link variant="text" href="/about">
+                  <GatsbyLink
+                    to="/about"
+                    sx={{
+                      color: "blue",
+                      fontWeight: "bold",
+                      textDecoration: "underline",
+                      "&:hover": {
+                        color: "#E07A5F",
+                        textDecoration: "underline",
+                      },
+                    }}
+                  >
                     strong record
-                  </Link>{" "}
+                  </GatsbyLink>{" "}
                   of collaborating with cross-functional teams to deliver
                   innovative solutions while translating complex business needs
                   into functional, user-friendly software. If you're interested
                   in working together, feel free to{" "}
-                  <Link variant="text" href="/contact">
+                  <GatsbyLink
+                    to="/contact"
+                    sx={{
+                      color: "blue",
+                      fontWeight: "bold",
+                      textDecoration: "underline",
+                      "&:hover": {
+                        color: "#E07A5F",
+                        textDecoration: "underline",
+                      },
+                    }}
+                  >
                     reach out
-                  </Link>
+                  </GatsbyLink>
                   !
                 </Text>
               </Box>

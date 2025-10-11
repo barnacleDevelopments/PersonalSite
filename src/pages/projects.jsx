@@ -1,6 +1,6 @@
 /** @jsx jsx */
-import { graphql } from "gatsby";
-import { Link, Paragraph, jsx, Box, Heading } from "theme-ui";
+import { graphql, Link as GatsbyLink } from "gatsby";
+import { Paragraph, jsx, Box, Heading } from "theme-ui";
 
 import CallToAction from "../components/CallToAction";
 import ProjectCard from "../components/ProjectCard/ProjectCard";
@@ -55,9 +55,20 @@ const ProjectsPage = ({ data }) => {
           <Paragraph variant="large">
             Discover a selection of my latest projects. If you're interested in
             collaboration or want to learn more, feel free to{" "}
-            <Link variant="text" href="/contact">
+            <GatsbyLink
+              to="/contact"
+              sx={{
+                color: "blue",
+                fontWeight: "bold",
+                textDecoration: "underline",
+                "&:hover": {
+                  color: "#E07A5F",
+                  textDecoration: "underline",
+                },
+              }}
+            >
               contact me
-            </Link>
+            </GatsbyLink>
             .
           </Paragraph>
         </Box>

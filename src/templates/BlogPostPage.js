@@ -1,9 +1,9 @@
 /** @jsx jsx */
 import { MDXProvider } from "@mdx-js/react";
-import { graphql } from "gatsby";
+import { graphql, Link as GatsbyLink } from "gatsby";
 import { DateTime } from "luxon";
 import PropTypes from "prop-types";
-import { Button, jsx, Link, Heading, Box, Flex, Text } from "theme-ui";
+import { Button, jsx, Heading, Box, Flex, Text } from "theme-ui";
 
 import Seo from "../components/Seo/Seo";
 import globalCodes from "../short-codes";
@@ -74,9 +74,9 @@ const BlogPostPage = ({ data, children }) => {
       >
         <MDXProvider components={shortCodes}>{children}</MDXProvider>
         <Box sx={{ textAlign: "center" }}>
-          <Link href="/blog">
+          <GatsbyLink to="/blog">
             <Button>Read More Articles</Button>
-          </Link>
+          </GatsbyLink>
         </Box>
       </Box>
     </Box>

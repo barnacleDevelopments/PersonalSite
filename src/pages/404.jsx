@@ -12,7 +12,7 @@ const NotFoundPage = () => {
       }}
     >
       <h1>Oups! This page does not exist!</h1>
-      <Link href="/">Go Back Home</Link>
+      <Link to="/">Go Back Home</Link>
     </Box>
   );
 };

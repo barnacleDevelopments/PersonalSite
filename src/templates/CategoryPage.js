@@ -1,8 +1,8 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui";
-import { graphql } from "gatsby";
+import { graphql, Link as GatsbyLink } from "gatsby";
 
-import { Heading, Box, Text, Grid, Link, Button } from "theme-ui";
+import { Heading, Box, Text, Grid, Button } from "theme-ui";
 
 import Seo from "../components/Seo/Seo";
 import PostCard from "../components/PostCard/PostCard";
@@ -69,9 +69,9 @@ const CategoryPage = ({ data }) => {
           ) : (
             <Box sx={{ height: "80vh" }}>
               <h1 sx={{ mb: 3 }}>Nothing here for now... check in later!</h1>
-              <Link href="/blog">
+              <GatsbyLink to="/blog">
                 <Button>Go Back</Button>
-              </Link>
+              </GatsbyLink>
             </Box>
           )}
         </Grid>
