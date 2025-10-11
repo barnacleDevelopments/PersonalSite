@@ -141,6 +141,29 @@ module.exports = {
       },
     },
     {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        path: `${__dirname}/locales`,
+        name: `locale`,
+      },
+    },
+    {
+      resolve: `gatsby-plugin-react-i18next`,
+      options: {
+        localeJsonSourceName: `locale`,
+        languages: [`en`, `fr`],
+        defaultLanguage: `en`,
+        siteUrl: `https://devdeveloper.ca`,
+        i18nextOptions: {
+          interpolation: {
+            escapeValue: false,
+          },
+          keySeparator: '.',
+          nsSeparator: false,
+        },
+      },
+    },
+    {
       resolve: "gatsby-plugin-theme-ui",
       options: {
         preset: require(`${__dirname}/src/theme/theme.js`),

@@ -1,0 +1,95 @@
+{
+  "nav": {
+    "blog": "Blog",
+    "contact": "Contact",
+    "projects": "Projects",
+    "about": "About"
+  },
+  "home": {
+    "hero": "Dev the Developer",
+    "tagline": "I transform problems into thoughtful, scalable solutions",
+    "letsChat": "Let's Chat",
+    "heyThere": "Hey there!",
+    "intro": "Hey! My name is Devin, but you can call me Dev. I'm a results-oriented Full Stack Web Developer with 4 years of professional experience in designing, developing, and maintaining dynamic web applications. My expertise spans a wide range of web technologies. I have a",
+    "strongRecord": "strong record",
+    "introContinued": "of collaborating with cross-functional teams to deliver innovative solutions while translating complex business needs into functional, user-friendly software. If you're interested in working together, feel free to",
+    "reachOut": "reach out",
+    "recentPosts": "Recent Posts",
+    "recentProjects": "Recent Projects",
+    "readingList": "Reading List",
+    "cta": {
+      "title": "Let's Work Together",
+      "content": "I'm an pasionate developer who is always trying to master new skills and be of service to those I work with.",
+      "button": "Learn how I can help"
+    }
+  },
+  "about": {
+    "title": "A Little More About Me",
+    "intro": "The software field stands out due to the incredible people I've met and the amazing teams we've built. Our field encompasses many disciplines, and it's inspiring how we co-operate to achieve extraordinary outcomes. I thrive in collaborative environments, embracing teamwork to help businesses realize their software solutions using the latest web technologies. The challenge of technology and its potential to enable new possibilities draws me into this ever-expanding field. Whether building a solution, gaining deep knowledge on a subject, or increasing my proficiency, I am constantly learning. If you couldn't tell, I like to climb just about anything I can get my hands on. Naturally, if you don't see me at the office, I'm probably at the local bouldering gym. Hearing people talk about their passions fires me up.",
+    "pleaseReachOut": "Please reach out",
+    "alwaysUpForChat": "I'm always up for a chat!",
+    "techExperience": "Technology Experience",
+    "techDescription": "I have a wide range of experience with different technologies. Most of my experience is in the JavaScript and .NET Core ecosystems. I also have experience within DevOps more specificaly in the Azure ecosystem. I adapt quickly to the technology stack required for a project and don't limit myself to my current domain of experience.",
+    "clickSkillPrompt": "Try clicking on a skill to view projects where I have used it",
+    "cta": {
+      "title": "Checkout Some of my Projects",
+      "content": "Every project I take on I take ownership of.",
+      "button": "Let's Go!"
+    }
+  },
+  "projects": {
+    "title": "Projects",
+    "description": "Discover a selection of my latest projects. If you're interested in collaboration or want to learn more, feel free to",
+    "contactMe": "contact me",
+    "cta": {
+      "title": "Interested in collaborating?",
+      "content": "I'd love to hear from you and explore how we can work together.",
+      "button": "Get in Touch"
+    }
+  },
+  "contact": {
+    "title": "Let's Talk About You",
+    "subtitle": "Please reach out. I'd love to help you reach your goals!",
+    "form": {
+      "email": "Email Address...",
+      "subject": "Subject...",
+      "message": "Message...",
+      "send": "SEND"
+    },
+    "intro": "I'm a",
+    "introTitle": "results-oriented Full Stack Web Developer",
+    "introContinued": ". Whether you have a project idea, need a technical collaborator, or just want to connect, I'd love to hear from you. Connect with me on",
+    "linkedin": "LinkedIn",
+    "or": "or use my",
+    "contactForm": "contact form",
+    "getBackShortly": "—I'll get back to you shortly.",
+    "availability": "Availability",
+    "availabilityText": "I'm currently open to new opportunities! Whether you need a freelance developer to bring your project to life or a full-time professional to join your team, let's connect.",
+    "checkOutWork": "Check Out My Work",
+    "checkOutWorkText": "Explore how I've helped businesses and teams bring their ideas to life. My portfolio highlights my versatility and commitment to delivering high-quality results.",
+    "viewPortfolio": "View my portfolio",
+    "viewPortfolioContinued": "and reach out to discuss your next project!",
+    "success": {
+      "title": "Thank you for the email!",
+      "message": "I'll be in touch with you shortly.",
+      "pgpPrompt": "Copy my public PGP key to ensure I can securely email you.",
+      "learnPGP": "Learn more about PGP",
+      "copyPGP": "Copy PGP",
+      "backHome": "Back Home"
+    },
+    "failed": {
+      "title": "Oups!",
+      "message": "We couldn't send your email.",
+      "tryAgain": "Try Again"
+    }
+  },
+  "blog": {
+    "readMore": "Read More Articles",
+    "goBack": "Go Back",
+    "nothingHere": "Nothing here for now... check in later!"
+  },
+  "notFound": {
+    "title": "Oups! This page does not exist!",
+    "goBack": "Go Back Home"
+  }
+}

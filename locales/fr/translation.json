@@ -1,0 +1,95 @@
+{
+  "nav": {
+    "blog": "Blog",
+    "contact": "Contact",
+    "projects": "Projets",
+    "about": "À Propos"
+  },
+  "home": {
+    "hero": "Dev le Développeur",
+    "tagline": "Je transforme les problèmes en solutions réfléchies et évolutives",
+    "letsChat": "Discutons",
+    "heyThere": "Bonjour!",
+    "intro": "Salut! Je m'appelle Devin, mais vous pouvez m'appeler Dev. Je suis un développeur Web Full Stack axé sur les résultats avec 4 ans d'expérience professionnelle dans la conception, le développement et la maintenance d'applications Web dynamiques. Mon expertise couvre un large éventail de technologies Web. J'ai un",
+    "strongRecord": "solide parcours",
+    "introContinued": "de collaboration avec des équipes interfonctionnelles pour fournir des solutions innovantes tout en traduisant des besoins commerciaux complexes en logiciels fonctionnels et conviviaux. Si vous êtes intéressé à travailler ensemble, n'hésitez pas à",
+    "reachOut": "me contacter",
+    "recentPosts": "Articles Récents",
+    "recentProjects": "Projets Récents",
+    "readingList": "Liste de Lecture",
+    "cta": {
+      "title": "Travaillons Ensemble",
+      "content": "Je suis un développeur passionné qui essaie toujours de maîtriser de nouvelles compétences et d'être au service de ceux avec qui je travaille.",
+      "button": "Découvrez comment je peux aider"
+    }
+  },
+  "about": {
+    "title": "Un Peu Plus Sur Moi",
+    "intro": "Le domaine du logiciel se distingue par les personnes incroyables que j'ai rencontrées et les équipes extraordinaires que nous avons construites. Notre domaine englobe de nombreuses disciplines, et c'est inspirant de voir comment nous coopérons pour atteindre des résultats extraordinaires. Je m'épanouis dans des environnements collaboratifs, en adoptant le travail d'équipe pour aider les entreprises à réaliser leurs solutions logicielles en utilisant les dernières technologies Web. Le défi de la technologie et son potentiel pour permettre de nouvelles possibilités m'attirent dans ce domaine en constante expansion. Que ce soit pour construire une solution, acquérir des connaissances approfondies sur un sujet ou augmenter ma compétence, j'apprends constamment. Si vous ne pouviez pas le dire, j'aime grimper à peu près tout ce sur quoi je peux mettre la main. Naturellement, si vous ne me voyez pas au bureau, je suis probablement à la salle d'escalade locale. Entendre les gens parler de leurs passions me motive.",
+    "pleaseReachOut": "N'hésitez pas à me contacter",
+    "alwaysUpForChat": "Je suis toujours disponible pour discuter!",
+    "techExperience": "Expérience Technologique",
+    "techDescription": "J'ai une large expérience avec différentes technologies. La plupart de mon expérience se situe dans les écosystèmes JavaScript et .NET Core. J'ai également de l'expérience en DevOps, plus spécifiquement dans l'écosystème Azure. Je m'adapte rapidement à la pile technologique requise pour un projet et ne me limite pas à mon domaine d'expérience actuel.",
+    "clickSkillPrompt": "Essayez de cliquer sur une compétence pour voir les projets où je l'ai utilisée",
+    "cta": {
+      "title": "Découvrez Certains de Mes Projets",
+      "content": "Chaque projet que j'entreprends, j'en prends la responsabilité.",
+      "button": "Allons-y!"
+    }
+  },
+  "projects": {
+    "title": "Projets",
+    "description": "Découvrez une sélection de mes derniers projets. Si vous êtes intéressé par une collaboration ou souhaitez en savoir plus, n'hésitez pas à",
+    "contactMe": "me contacter",
+    "cta": {
+      "title": "Intéressé par une collaboration?",
+      "content": "J'aimerais avoir de vos nouvelles et explorer comment nous pouvons travailler ensemble.",
+      "button": "Prenez Contact"
+    }
+  },
+  "contact": {
+    "title": "Parlons de Vous",
+    "subtitle": "N'hésitez pas à me contacter. J'aimerais vous aider à atteindre vos objectifs!",
+    "form": {
+      "email": "Adresse e-mail...",
+      "subject": "Sujet...",
+      "message": "Message...",
+      "send": "ENVOYER"
+    },
+    "intro": "Je suis un",
+    "introTitle": "développeur Web Full Stack axé sur les résultats",
+    "introContinued": ". Que vous ayez une idée de projet, besoin d'un collaborateur technique ou simplement envie de vous connecter, j'aimerais avoir de vos nouvelles. Connectez-vous avec moi sur",
+    "linkedin": "LinkedIn",
+    "or": "ou utilisez mon",
+    "contactForm": "formulaire de contact",
+    "getBackShortly": "—je vous répondrai sous peu.",
+    "availability": "Disponibilité",
+    "availabilityText": "Je suis actuellement ouvert à de nouvelles opportunités! Que vous ayez besoin d'un développeur freelance pour donner vie à votre projet ou d'un professionnel à temps plein pour rejoindre votre équipe, connectons-nous.",
+    "checkOutWork": "Découvrez Mon Travail",
+    "checkOutWorkText": "Explorez comment j'ai aidé les entreprises et les équipes à donner vie à leurs idées. Mon portfolio met en évidence ma polyvalence et mon engagement à fournir des résultats de haute qualité.",
+    "viewPortfolio": "Voir mon portfolio",
+    "viewPortfolioContinued": "et contactez-moi pour discuter de votre prochain projet!",
+    "success": {
+      "title": "Merci pour l'e-mail!",
+      "message": "Je vous contacterai sous peu.",
+      "pgpPrompt": "Copiez ma clé PGP publique pour garantir que je peux vous envoyer un e-mail en toute sécurité.",
+      "learnPGP": "En savoir plus sur PGP",
+      "copyPGP": "Copier PGP",
+      "backHome": "Retour à l'Accueil"
+    },
+    "failed": {
+      "title": "Oups!",
+      "message": "Nous n'avons pas pu envoyer votre e-mail.",
+      "tryAgain": "Réessayer"
+    }
+  },
+  "blog": {
+    "readMore": "Lire Plus d'Articles",
+    "goBack": "Retour",
+    "nothingHere": "Rien ici pour le moment... revenez plus tard!"
+  },
+  "notFound": {
+    "title": "Oups! Cette page n'existe pas!",
+    "goBack": "Retour à l'Accueil"
+  }
+}

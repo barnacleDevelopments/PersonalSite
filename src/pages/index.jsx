@@ -1,5 +1,6 @@
 /** @jsx jsx */
 import { graphql, Link as GatsbyLink } from "gatsby";
+import { useTranslation } from "gatsby-plugin-react-i18next";
 import { StaticImage } from "gatsby-plugin-image";
 import { jsx, Text, Button, Flex, Box, Grid, Heading } from "theme-ui";
 
@@ -11,6 +12,8 @@ import ProjectCard from "../components/ProjectCard/ProjectCard";
 import Seo from "../components/Seo/Seo";
 
 const IndexPage = ({ data }) => {
+  const { t } = useTranslation();
+
   const posts = data.blogPosts.edges
     .filter((_, index) => index < 4)
     .map(({ node }) => ({
@@ -44,10 +47,10 @@ const IndexPage = ({ data }) => {
         <Flex sx={styles.hero}>
           <Box>
             <Heading as="h1" variant="hero" color="white">
-              Dev the Developer
+              {t('home.hero')}
             </Heading>
             <Text variant="regular" color="white ">
-              I transform problems into thoughtful, scalable solutions
+              {t('home.tagline')}
             </Text>
           </Box>
           <Box
@@ -75,7 +78,7 @@ const IndexPage = ({ data }) => {
                   }}
                 >
                   <GatsbyLink to="/contact">
-                    <Button variant="primary">Let's Chat</Button>
+                    <Button variant="primary">{t('home.letsChat')}</Button>
                   </GatsbyLink>
                 </Flex>
                 <Loader />
@@ -124,14 +127,10 @@ const IndexPage = ({ data }) => {
                 }}
               >
                 <Heading as="h2" variant="subheading1">
-                  Hey there!
+                  {t('home.heyThere')}
                 </Heading>
                 <Text variant="regular">
-                  Hey! My name is Devin, but you can call me Dev. I'm a
-                  results-oriented Full Stack Web Developer with 4 years of
-                  professional experience in designing, developing, and
-                  maintaining dynamic web applications. My expertise spans a
-                  wide range of web technologies. I have a{" "}
+                  {t('home.intro')}{" "}
                   <GatsbyLink
                     to="/about"
                     sx={{
@@ -144,12 +143,9 @@ const IndexPage = ({ data }) => {
                       },
                     }}
                   >
-                    strong record
+                    {t('home.strongRecord')}
                   </GatsbyLink>{" "}
-                  of collaborating with cross-functional teams to deliver
-                  innovative solutions while translating complex business needs
-                  into functional, user-friendly software. If you're interested
-                  in working together, feel free to{" "}
+                  {t('home.introContinued')}{" "}
                   <GatsbyLink
                     to="/contact"
                     sx={{
@@ -162,7 +158,7 @@ const IndexPage = ({ data }) => {
                       },
                     }}
                   >
-                    reach out
+                    {t('home.reachOut')}
                   </GatsbyLink>
                   !
                 </Text>
@@ -172,7 +168,7 @@ const IndexPage = ({ data }) => {
         </Box>
         <Box as="section" sx={{ mt: 3 }}>
           <Heading as="h3" variant="subheading1">
-            Recent Posts
+            {t('home.recentPosts')}
           </Heading>
           <Grid
             sx={{
@@ -193,7 +189,7 @@ const IndexPage = ({ data }) => {
         </Box>
         <Box as="section" sx={{ mt: 3 }}>
           <Heading as="h3" variant="subheading1">
-            Recent Projects
+            {t('home.recentProjects')}
           </Heading>
           <Grid
             sx={{
@@ -210,7 +206,7 @@ const IndexPage = ({ data }) => {
         </Box>
         <Box as="section" sx={{ mb: 4 }}>
           <Heading as="h3" variant="subheading1">
-            Reading List
+            {t('home.readingList')}
           </Heading>
           <Flex
             sx={{
@@ -225,11 +221,9 @@ const IndexPage = ({ data }) => {
         </Box>
         <Box sx={{ mb: 4 }} as="section">
           <CallToAction
-            title={"Let's Work Together"}
-            content={
-              "I'm an pasionate developer who is always trying to master new skills and be of service to those I work with."
-            }
-            buttonText={"Learn how I can help"}
+            title={t('home.cta.title')}
+            content={t('home.cta.content')}
+            buttonText={t('home.cta.button')}
             pageLink={"/about"}
           />
         </Box>
@@ -258,7 +252,16 @@ const styles = {
 };
 
 export const landingPageQuery = graphql`
-  query LandingPageQuery {
+  query LandingPageQuery($language: String!) {
+    locales: allLocale(filter: {language: {eq: $language}}) {
+      edges {
+        node {
+          ns
+          data
+          language
+        }
+      }
+    }
     blogPosts: allMdx(
       filter: {
         frontmatter: { draft: { eq: false } }

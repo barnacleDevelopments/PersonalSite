@@ -1,8 +1,8 @@
 /** @jsx jsx */
 import { StaticImage } from "gatsby-plugin-image";
 import { useState, useEffect, useRef, memo } from "react";
-import { jsx, Box, Flex, NavLink } from "theme-ui";
-import { Link } from "gatsby";
+import { jsx, Box, Flex } from "theme-ui";
+import { Link, useI18next } from "gatsby-plugin-react-i18next";
 
 import SideNav from "./SideNav";
 
@@ -10,6 +10,12 @@ const Navbar = () => {
   const [isScrolledTop, setIsScrolledTop] = useState(true);
   const [sideNavOpen, setSideNavOpen] = useState(false);
   const scrollTimeoutRef = useRef(null);
+
+  // Get i18next context with proper fallbacks
+  const i18nContext = useI18next();
+  const languages = ["en", "fr"]; // Always show both languages
+  const originalPath = i18nContext?.originalPath || "/";
+  const language = i18nContext?.language || "en";
 
   const styleNavBar = () => {
     if (scrollTimeoutRef.current) {
@@ -49,6 +55,16 @@ const Navbar = () => {
     };
   }, []);
 
+  const linkStyle = {
+    mr: 3,
+    color: !isScrolledTop ? "#30362F" : "white",
+    textDecoration: "none",
+    fontWeight: "bold",
+    "&:hover": {
+      textDecoration: "underline",
+    },
+  };
+
   return (
     <Box as="nav" sx={nav}>
       <Flex
@@ -68,36 +84,22 @@ const Navbar = () => {
             alignItems: "center",
           }}
         >
-          <Box sx={{ display: ["none", "block"], color: "white" }}>
-            <Link
-              to="/blog"
-              sx={{
-                mr: 3,
-                color: !isScrolledTop ? "#30362F" : "white",
-                textDecoration: "none",
-                fontWeight: "bold",
-                "&:hover": {
-                  textDecoration: "underline",
-                }
-              }}
-            >
+          <Box
+            sx={{
+              display: ["none", "flex"],
+              alignItems: "center",
+              color: "white",
+              gap: 3,
+            }}
+          >
+            <Link to="/blog" sx={linkStyle} language={language}>
               Blog
             </Link>
-            <Link
-              to="/contact"
-              sx={{
-                color: !isScrolledTop ? "#30362F" : "white",
-                textDecoration: "none",
-                fontWeight: "bold",
-                "&:hover": {
-                  textDecoration: "underline",
-                }
-              }}
-            >
+            <Link to="/contact" sx={linkStyle} language={language}>
               Contact
             </Link>
           </Box>
-          <Link to="/" sx={{ width: "60px" }}>
+          <Link to="/" sx={{ width: "60px" }} language={language}>
             <Box className="nav-triangle"></Box>
             <Box sx={{ filter: isScrolledTop ? "none" : "brightness(0)" }}>
               <StaticImage alt="logo" src="../../images/logo.png" />
@@ -130,34 +132,51 @@ const Navbar = () => {
               }}
             ></div>
           </Box>
-          <Box sx={{ display: ["none", "block"], color: "white" }}>
-            <Link
-              to="/projects"
-              sx={{
-                mr: 3,
-                color: !isScrolledTop ? "#30362F" : "white",
-                textDecoration: "none",
-                fontWeight: "bold",
-                "&:hover": {
-                  textDecoration: "underline",
-                }
-              }}
-            >
+          <Box
+            sx={{
+              display: ["none", "flex"],
+              alignItems: "center",
+              color: "white",
+              gap: 3,
+            }}
+          >
+            <Link to="/projects" sx={linkStyle} language={language}>
               Projects
             </Link>
-            <Link
-              to="/about"
-              sx={{
-                color: !isScrolledTop ? "#30362F" : "white",
-                textDecoration: "none",
-                fontWeight: "bold",
-                "&:hover": {
-                  textDecoration: "underline",
-                }
-              }}
-            >
+            <Link to="/about" sx={linkStyle} language={language}>
               About
             </Link>
+            <Box sx={{ display: "flex", gap: 2, ml: 2 }}>
+              {languages.map((lng) => (
+                <Link
+                  key={lng}
+                  to={originalPath}
+                  language={lng}
+                  sx={{
+                    color: !isScrolledTop ? "#30362F" : "white",
+                    textDecoration: "none",
+                    fontWeight: language === lng ? "bold" : "normal",
+                    fontSize: "0.9em",
+                    textTransform: "uppercase",
+                    padding: "4px 8px",
+                    borderRadius: "4px",
+                    backgroundColor:
+                      language === lng
+                        ? isScrolledTop
+                          ? "rgba(255,255,255,0.2)"
+                          : "rgba(48,54,47,0.1)"
+                        : "transparent",
+                    "&:hover": {
+                      backgroundColor: isScrolledTop
+                        ? "rgba(255,255,255,0.3)"
+                        : "rgba(48,54,47,0.2)",
+                    },
+                  }}
+                >
+                  {lng}
+                </Link>
+              ))}
+            </Box>
           </Box>
         </Box>
       </Flex>
