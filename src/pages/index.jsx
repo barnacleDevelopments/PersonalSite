@@ -2,6 +2,7 @@
 import { graphql, Link as GatsbyLink } from "gatsby";
 import { StaticImage } from "gatsby-plugin-image";
 import { jsx, Text, Button, Flex, Box, Grid, Heading } from "theme-ui";
+import { useState } from "react";
 
 import BookCard from "../components/BookCard/BookCard";
 import CallToAction from "../components/CallToAction";
@@ -11,6 +12,8 @@ import ProjectCard from "../components/ProjectCard/ProjectCard";
 import Seo from "../components/Seo/Seo";
 
 const IndexPage = ({ data }) => {
+  const [bookFilter, setBookFilter] = useState("all");
+
   const posts = data.blogPosts.edges
     .filter((_, index) => index < 4)
     .map(({ node }) => ({
@@ -19,10 +22,16 @@ const IndexPage = ({ data }) => {
       excerpt: node.excerpt,
     }));
 
-  const books = data.books.edges.map(({ node }) => ({
+  const allBooks = data.books.edges.map(({ node }) => ({
     ...node.frontmatter,
     ...node.fields,
   }));
+
+  const books = allBooks.filter((book) => {
+    if (bookFilter === "read") return book.read === true;
+    if (bookFilter === "unread") return !book.read;
+    return true;
+  });
 
   const projects = data.projects.edges.map(({ node }) => ({
     ...node.frontmatter,
@@ -209,19 +218,63 @@ const IndexPage = ({ data }) => {
           </Grid>
         </Box>
         <Box as="section" sx={{ mb: 4 }}>
-          <Heading as="h3" variant="subheading1">
-            Reading List
-          </Heading>
           <Flex
             sx={{
-              gap: 3,
-              overflowX: "scroll",
+              justifyContent: "space-between",
+              alignItems: "center",
+              mb: 3,
+              flexWrap: "wrap",
+              gap: 2,
             }}
           >
-            {books.map((book) => (
-              <BookCard key={book.title} book={book} />
-            ))}
+            <Heading as="h3" variant="subheading1" sx={{ mb: 0 }}>
+              Reading List
+            </Heading>
+            <Flex sx={{ gap: 2 }}>
+              <Button
+                variant={bookFilter === "all" ? "toggleActive" : "toggleInactive"}
+                onClick={() => setBookFilter("all")}
+              >
+                All
+              </Button>
+              <Button
+                variant={bookFilter === "read" ? "toggleActive" : "toggleInactive"}
+                onClick={() => setBookFilter("read")}
+              >
+                Read
+              </Button>
+              <Button
+                variant={bookFilter === "unread" ? "toggleActive" : "toggleInactive"}
+                onClick={() => setBookFilter("unread")}
+              >
+                Unread
+              </Button>
+            </Flex>
           </Flex>
+          {books.length > 0 ? (
+            <Flex
+              sx={{
+                gap: 3,
+                overflowX: "scroll",
+              }}
+            >
+              {books.map((book) => (
+                <BookCard key={book.title} book={book} />
+              ))}
+            </Flex>
+          ) : (
+            <Box
+              sx={{
+                textAlign: "center",
+                py: 4,
+                color: "primary",
+              }}
+            >
+              <Text variant="regular">
+                No {bookFilter === "read" ? "read" : "unread"} books to display.
+              </Text>
+            </Box>
+          )}
         </Box>
         <Box sx={{ mb: 4 }} as="section">
           <CallToAction
@@ -332,6 +385,7 @@ export const landingPageQuery = graphql`
           frontmatter {
             title
             url
+            read
             image {
               childImageSharp {
                 gatsbyImageData
