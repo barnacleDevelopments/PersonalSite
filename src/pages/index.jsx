@@ -251,30 +251,40 @@ const IndexPage = ({ data }) => {
               </Button>
             </Flex>
           </Flex>
-          {books.length > 0 ? (
-            <Flex
-              sx={{
-                gap: 3,
-                overflowX: "scroll",
-              }}
-            >
-              {books.map((book) => (
-                <BookCard key={book.title} book={book} />
-              ))}
-            </Flex>
-          ) : (
-            <Box
-              sx={{
-                textAlign: "center",
-                py: 4,
-                color: "primary",
-              }}
-            >
-              <Text variant="regular">
-                No {bookFilter === "read" ? "read" : "unread"} books to display.
-              </Text>
-            </Box>
-          )}
+          <Box
+            sx={{
+              minHeight: "250px",
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
+            {books.length > 0 ? (
+              <Flex
+                sx={{
+                  gap: 3,
+                  overflowX: "scroll",
+                  width: "100%",
+                }}
+              >
+                {books.map((book) => (
+                  <BookCard key={book.title} book={book} />
+                ))}
+              </Flex>
+            ) : (
+              <Box
+                sx={{
+                  textAlign: "center",
+                  width: "100%",
+                  py: 4,
+                  color: "primary",
+                }}
+              >
+                <Text variant="regular">
+                  No {bookFilter === "read" ? "read" : "unread"} books to display.
+                </Text>
+              </Box>
+            )}
+          </Box>
         </Box>
         <Box sx={{ mb: 4 }} as="section">
           <CallToAction
