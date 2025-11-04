@@ -2,9 +2,8 @@
 import { graphql, Link as GatsbyLink } from "gatsby";
 import { StaticImage } from "gatsby-plugin-image";
 import { useRef, useState } from "react";
-import { Box, Flex, Grid, Heading, jsx, Paragraph } from "theme-ui";
+import { Box, Grid, Heading, jsx, Paragraph } from "theme-ui";
 
-import { CloseButton } from "../components/app/CloseButton";
 import CallToAction from "../components/CallToAction";
 import Seo from "../components/Seo/Seo";
 import { TechListing } from "../components/TechListing/TechListing";
