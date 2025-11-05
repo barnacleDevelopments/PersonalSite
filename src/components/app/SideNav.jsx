@@ -6,6 +6,11 @@ import { StaticImage } from "gatsby-plugin-image";
 import { CloseButton } from "./CloseButton";
 
 const SideNav = ({ isOpen, setSideNavOpen, enableScrollFunc }) => {
+  const handleLinkClick = () => {
+    setSideNavOpen(false);
+    enableScrollFunc();
+  };
+
   return (
     <Flex
       sx={{
@@ -31,7 +36,7 @@ const SideNav = ({ isOpen, setSideNavOpen, enableScrollFunc }) => {
             alignItems: "center",
           }}
         >
-          <Link to="/" sx={{ color: "primary", width: "60px" }}>
+          <Link to="/" sx={{ color: "primary", width: "60px" }} onClick={handleLinkClick}>
             <StaticImage alt="logo" src="../../images/logo_2.png" />
           </Link>
           <CloseButton
@@ -65,6 +70,7 @@ const SideNav = ({ isOpen, setSideNavOpen, enableScrollFunc }) => {
                 textDecoration: "underline",
               }
             }}
+            onClick={handleLinkClick}
           >
             Home
           </Link>
@@ -79,6 +85,7 @@ const SideNav = ({ isOpen, setSideNavOpen, enableScrollFunc }) => {
                 textDecoration: "underline",
               }
             }}
+            onClick={handleLinkClick}
           >
             Blog
           </Link>
@@ -93,6 +100,7 @@ const SideNav = ({ isOpen, setSideNavOpen, enableScrollFunc }) => {
                 textDecoration: "underline",
               }
             }}
+            onClick={handleLinkClick}
           >
             Contact
           </Link>
@@ -107,6 +115,7 @@ const SideNav = ({ isOpen, setSideNavOpen, enableScrollFunc }) => {
                 textDecoration: "underline",
               }
             }}
+            onClick={handleLinkClick}
           >
             Projects
           </Link>
@@ -121,6 +130,7 @@ const SideNav = ({ isOpen, setSideNavOpen, enableScrollFunc }) => {
                 textDecoration: "underline",
               }
             }}
+            onClick={handleLinkClick}
           >
             About
           </Link>

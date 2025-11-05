@@ -232,19 +232,25 @@ const IndexPage = ({ data }) => {
             </Heading>
             <Flex sx={{ gap: 2 }}>
               <Button
-                variant={bookFilter === "all" ? "toggleActive" : "toggleInactive"}
+                variant={
+                  bookFilter === "all" ? "toggleActive" : "toggleInactive"
+                }
                 onClick={() => setBookFilter("all")}
               >
                 All
               </Button>
               <Button
-                variant={bookFilter === "read" ? "toggleActive" : "toggleInactive"}
+                variant={
+                  bookFilter === "read" ? "toggleActive" : "toggleInactive"
+                }
                 onClick={() => setBookFilter("read")}
               >
                 Read
               </Button>
               <Button
-                variant={bookFilter === "unread" ? "toggleActive" : "toggleInactive"}
+                variant={
+                  bookFilter === "unread" ? "toggleActive" : "toggleInactive"
+                }
                 onClick={() => setBookFilter("unread")}
               >
                 Unread
@@ -280,7 +286,8 @@ const IndexPage = ({ data }) => {
                 }}
               >
                 <Text variant="regular">
-                  No {bookFilter === "read" ? "read" : "unread"} books to display.
+                  No {bookFilter === "read" ? "read" : "unread"} books to
+                  display.
                 </Text>
               </Box>
             )}

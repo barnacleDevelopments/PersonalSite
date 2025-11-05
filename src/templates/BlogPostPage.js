@@ -25,7 +25,7 @@ HorizontalImages.propTypes = {
   children: PropTypes.array.isRequired,
 };
 
-const shortCodes = {...globalCodes, HorizontalImages };
+const shortCodes = { ...globalCodes, HorizontalImages };
 
 const BlogPostPage = ({ data, children }) => {
   const { mdx: node } = data;
