@@ -13,7 +13,8 @@
       "isbn": "urn:uuid:bd6b12a5-02a3-4980-ad4e-32440bbc6f3d",
       "cover_image_url": "https://covers.openlibrary.org/b/isbn/urn:uuid:bd6b12a5-02a3-4980-ad4e-32440bbc6f3d-L.jpg",
       "cover_urls": {
-        "google_books": "https://books.google.com/books/content?id=&printsec=frontcover&img=1&zoom=1&isbn=urn:uuid:bd6b12a502a34980ad4e32440bbc6f3d"
+        "open_library": "https://covers.openlibrary.org/b/isbn/urn:uuid:bd6b12a5-02a3-4980-ad4e-32440bbc6f3d-L.jpg",
+        "google_books": "https://books.google.com/books/content?id=&printsec=frontcover&img=1&zoom=1&isbn=urn:uuid:bd6b12a5-02a3-4980-ad4e-32440bbc6f3d"
       }
     },
     {
@@ -29,6 +30,7 @@
       "isbn": "9780135956977",
       "cover_image_url": "https://covers.openlibrary.org/b/isbn/9780135956977-L.jpg",
       "cover_urls": {
+        "open_library": "https://covers.openlibrary.org/b/isbn/9780135956977-L.jpg",
         "google_books": "https://books.google.com/books/content?id=&printsec=frontcover&img=1&zoom=1&isbn=9780135956977"
       }
     },
@@ -45,7 +47,8 @@
       "isbn": "2be6df96-9d4d-41a2-a09e-673c84692993",
       "cover_image_url": "https://covers.openlibrary.org/b/isbn/2be6df96-9d4d-41a2-a09e-673c84692993-L.jpg",
       "cover_urls": {
-        "google_books": "https://books.google.com/books/content?id=&printsec=frontcover&img=1&zoom=1&isbn=2be6df969d4d41a2a09e673c84692993"
+        "open_library": "https://covers.openlibrary.org/b/isbn/2be6df96-9d4d-41a2-a09e-673c84692993-L.jpg",
+        "google_books": "https://books.google.com/books/content?id=&printsec=frontcover&img=1&zoom=1&isbn=2be6df96-9d4d-41a2-a09e-673c84692993"
       }
     },
     {
@@ -61,8 +64,10 @@
       "isbn": "9780771051562",
       "cover_image_url": "https://covers.openlibrary.org/b/isbn/9780771051562-L.jpg",
       "cover_urls": {
+        "open_library": "https://covers.openlibrary.org/b/isbn/9780771051562-L.jpg",
         "google_books": "https://books.google.com/books/content?id=&printsec=frontcover&img=1&zoom=1&isbn=9780771051562"
-      }
+      },
+      "goodreads_url": "https://www.goodreads.com/book/show/57126089/reviews?reviewFilters=eyJhZnRlciI6Ik1qVTFMREUzTlRNek1UTXpNRE16TlRrIn0%3D"
     },
     {
       "id": "file:///mnt/onboard/art_of_postgre_sql.epub",
@@ -77,8 +82,8 @@
       "isbn": "978-1-949-95036-6",
       "cover_image_url": "https://covers.openlibrary.org/b/isbn/978-1-949-95036-6-L.jpg",
       "cover_urls": {
-        "open_library": "https://covers.openlibrary.org/b/id/14541150-L.jpg",
-        "google_books": "https://books.google.com/books/content?id=&printsec=frontcover&img=1&zoom=1&isbn=9781949950366"
+        "open_library": "https://covers.openlibrary.org/b/isbn/978-1-949-95036-6-L.jpg",
+        "google_books": "https://books.google.com/books/content?id=&printsec=frontcover&img=1&zoom=1&isbn=978-1-949-95036-6"
       }
     },
     {
@@ -106,9 +111,10 @@
       "isbn": "9780199218462",
       "cover_image_url": "https://covers.openlibrary.org/b/isbn/9780199218462-L.jpg",
       "cover_urls": {
-        "open_library": "https://covers.openlibrary.org/b/id/2333795-L.jpg",
+        "open_library": "https://covers.openlibrary.org/b/isbn/9780199218462-L.jpg",
         "google_books": "https://books.google.com/books/content?id=&printsec=frontcover&img=1&zoom=1&isbn=9780199218462"
-      }
+      },
+      "goodreads_url": "https://www.goodreads.com/book/show/770989/reviews?reviewFilters=eyJhZnRlciI6Ik1UVXhMREUyTnpRME1qQTJNakUyT1RnIn0%3D"
     },
     {
       "id": "file:///mnt/onboard/Salt, Fat, Acid, Heat_ Mastering the Elements of Good Cooking by Samin Nosrat.epub",
@@ -123,9 +129,10 @@
       "isbn": "9781476753850",
       "cover_image_url": "https://covers.openlibrary.org/b/isbn/9781476753850-L.jpg",
       "cover_urls": {
-        "open_library": "https://covers.openlibrary.org/b/id/10396450-L.jpg",
+        "open_library": "https://covers.openlibrary.org/b/isbn/9781476753850-L.jpg",
         "google_books": "https://books.google.com/books/content?id=&printsec=frontcover&img=1&zoom=1&isbn=9781476753850"
-      }
+      },
+      "goodreads_url": "https://www.goodreads.com/book/show/34374423/reviews?reviewFilters=eyJhZnRlciI6Ik9EQXhMREUyT0RjNU9ERXlPRFEzTlRnIn0%3D"
     },
     {
       "id": "file:///mnt/onboard/Bioshock Artbook HighRES.pdf",
@@ -147,7 +154,7 @@
       "finished_date": "2025-10-24T16:01:29.902",
       "isbn": "https://leanpub.com/thekubernetesbook",
       "cover_urls": {
-        "google_books": "https://books.google.com/books/content?id=&printsec=frontcover&img=1&zoom=1&isbn=https://leanpub.com/thekubernetesbook"
+        "open_library": "https://covers.openlibrary.org/b/isbn/https://leanpub.com/thekubernetesbook-L.jpg"
       }
     },
     {
@@ -156,9 +163,9 @@
       "finished_date": "2025-10-23T23:39:03.520",
       "isbn": "urn:uuid:229a2fb3-df20-40c6-9cf9-d4d11223666c",
       "cover_urls": {
-        "google_books": "https://books.google.com/books/content?id=&printsec=frontcover&img=1&zoom=1&isbn=urn:uuid:229a2fb3df2040c69cf9d4d11223666c"
+        "open_library": "https://covers.openlibrary.org/b/isbn/urn:uuid:229a2fb3-df20-40c6-9cf9-d4d11223666c-L.jpg"
       }
     }
   ],
-  "last_updated": "2025-11-06T10:53:48.795375"
+  "last_updated": "2025-11-06T11:32:13.747983"
 }
