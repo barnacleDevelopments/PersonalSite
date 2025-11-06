@@ -41,6 +41,7 @@ module.exports = {
   },
   plugins: [
     "gatsby-plugin-sitemap",
+    "gatsby-transformer-json",
     {
       resolve: `gatsby-plugin-feed`,
       options: {
@@ -167,7 +168,7 @@ module.exports = {
         directives: {
           "script-src": `'self' 'unsafe-inline' data: www.google-analytics.com`,
           "style-src": `'self' 'unsafe-inline' fonts.googleapis.com fonts.gstatic.com`,
-          "img-src": `'self' data: www.google-analytics.com api.daily.dev`,
+          "img-src": `'self' data: www.google-analytics.com api.daily.dev covers.openlibrary.org books.google.com`,
           "font-src": `'self' data: fonts.gstatic.com`,
           "connect-src": "'self'",
           "frame-src": `'self' player.vimeo.com`,

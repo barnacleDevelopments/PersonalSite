@@ -22,10 +22,22 @@ const IndexPage = ({ data }) => {
       excerpt: node.excerpt,
     }));
 
-  const allBooks = data.books.edges.map(({ node }) => ({
-    ...node.frontmatter,
-    ...node.fields,
-  }));
+  const readingProgressData = data.readingProgress?.nodes?.[0] || {};
+  const currentlyReading = readingProgressData.currently_reading || [];
+  const recentlyFinished = readingProgressData.recently_finished || [];
+
+  const allBooks = [
+    ...currentlyReading.map((book) => ({
+      ...book,
+      read: false,
+      image: book.cover_urls?.open_library || book.cover_image_url,
+    })),
+    ...recentlyFinished.map((book) => ({
+      ...book,
+      read: true,
+      image: book.cover_urls?.open_library,
+    })),
+  ];
 
   const books = allBooks.filter((book) => {
     if (bookFilter === "read") return book.read === true;
@@ -390,24 +402,34 @@ export const landingPageQuery = graphql`
       }
     }
 
-    books: allMdx(
-      filter: { internal: { contentFilePath: { regex: "/content/books/" } } }
-      sort: { frontmatter: { date: DESC } }
-    ) {
-      edges {
-        node {
-          fields {
-            slug
+    readingProgress: allContentJson {
+      nodes {
+        currently_reading {
+          id
+          title
+          author
+          publisher
+          description
+          last_read
+          progress_percent
+          read_status
+          cover_image_id
+          isbn
+          cover_image_url
+          goodreads_url
+          cover_urls {
+            open_library
+            google_books
           }
-          frontmatter {
-            title
-            url
-            read
-            image {
-              childImageSharp {
-                gatsbyImageData
-              }
-            }
+        }
+        recently_finished {
+          title
+          author
+          finished_date
+          isbn
+          goodreads_url
+          cover_urls {
+            open_library
           }
         }
       }

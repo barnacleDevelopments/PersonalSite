@@ -2,6 +2,43 @@ const { createFilePath } = require("gatsby-source-filesystem");
 require("dotenv").config();
 const path = require("path");
 
+exports.createSchemaCustomization = ({ actions }) => {
+  const { createTypes } = actions;
+  const typeDefs = `
+    type ContentJsonCurrently_reading {
+      id: String
+      title: String
+      author: String
+      publisher: String
+      description: String
+      last_read: Date
+      progress_percent: Int
+      read_status: Int
+      cover_image_id: String
+      isbn: String
+      cover_image_url: String
+      goodreads_url: String
+      cover_urls: ContentJsonCurrently_readingCover_urls
+    }
+    type ContentJsonCurrently_readingCover_urls {
+      open_library: String
+      google_books: String
+    }
+    type ContentJsonRecently_finished {
+      title: String
+      author: String
+      finished_date: Date
+      isbn: String
+      goodreads_url: String
+      cover_urls: ContentJsonRecently_finishedCover_urls
+    }
+    type ContentJsonRecently_finishedCover_urls {
+      open_library: String
+    }
+  `;
+  createTypes(typeDefs);
+};
+
 exports.createPages = async ({ actions, graphql }) => {
   const { createPage } = actions;
 
