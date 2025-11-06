@@ -1,0 +1,168 @@
+{
+  "currently_reading": [
+    {
+      "id": "file:///mnt/onboard/mastering-emacs-v5.epub",
+      "title": "Mastering Emacs",
+      "author": "Mickey Petersen",
+      "publisher": null,
+      "description": null,
+      "last_read": "2025-11-05T20:55:47Z",
+      "progress_percent": 76,
+      "read_status": 1,
+      "cover_image_id": "file____mnt_onboard_mastering-emacs-v5_epub",
+      "isbn": "urn:uuid:bd6b12a5-02a3-4980-ad4e-32440bbc6f3d",
+      "cover_image_url": "https://covers.openlibrary.org/b/isbn/urn:uuid:bd6b12a5-02a3-4980-ad4e-32440bbc6f3d-L.jpg",
+      "cover_urls": {
+        "open_library": "https://covers.openlibrary.org/b/isbn/urn:uuid:bd6b12a5-02a3-4980-ad4e-32440bbc6f3d-L.jpg",
+        "google_books": "https://books.google.com/books/content?id=&printsec=frontcover&img=1&zoom=1&isbn=urn:uuid:bd6b12a5-02a3-4980-ad4e-32440bbc6f3d"
+      }
+    },
+    {
+      "id": "file:///mnt/onboard/The Pragmatic Programmer - Your Journey to Mastery, 20th Anniversary Edition.epub",
+      "title": "The Pragmatic Programmer: your journey to mastery, 20th Anniversary Edition, 2nd Edition",
+      "author": "Andrew Hunt",
+      "publisher": null,
+      "description": "<span><div><blockquote><p>\"One of the most significant books in my life.\" <i>—Obie Fernandez, Author,</i> The Rails Way<br/><br/>\"Twenty years ago, the first edition of The Pragmatic Programmer completely changed the trajectory of my career. This new edition could do the same for yours.\" <i>—Mike Cohn, Author of</i> Succeeding with Agile<i>,</i> Agile Estimating and Planning<i>, and</i> User Stories Applied<br/><br/>\". . . filled with practical advice, both technical and professional, that will serve you and your projects well for years to come.\" <i>—Andrea Goulet, CEO, Corgibytes, Founder, LegacyCode.Rocks</i><br/><br/>\". . . lightning does strike twice, and this book is proof.\" <i>—VM (Vicky) Brasseur, Director of Open Source Strategy, Juniper Networks</i></p></blockquote><p><i><b>The Pragmatic Programmer</b></i> is one of those rare tech books you'll read, re-read, and read again over the years. Whether you're new to the field or an experienced practitioner, you'll come away with fresh insights each and every time.<br/><br/>Dave Thomas and Andy Hunt wrote the first edition of this influential book in 1999 to help their clients create better software and rediscover the joy of coding. These lessons have helped a generation of programmers examine the very essence of software development, independent of any particular language, framework, or methodology, and the Pragmatic philosophy has spawned hundreds of books, screencasts, and audio books, as well as thousands of careers and success stories.<br/><br/>Now, twenty years later, this new edition re-examines what it means to be a modern programmer. Topics range from personal responsibility and career development to architectural techniques for keeping your code flexible and easy to adapt and reuse. Read this book, and you'll learn how to:</p><ul><li>Fight software rot</li><li>Learn continuously</li><li>Avoid the trap of duplicating knowledge</li><li>Write flexible, dynamic, and adaptable code</li><li>Harness the power of basic tools</li><li>Avoid programming by coincidence</li><li>Learn real requirements</li><li>Solve the underlying problems of concurrent code</li><li>Guard against security vulnerabilities</li><li>Build teams of Pragmatic Programmers</li><li>Take responsibility for your work and career</li><li>Test ruthlessly and effectively, including property-based testing</li><li>Implement the Pragmatic Starter Kit</li><li>Delight your users</li></ul><p>Written as a series of self-contained sections and filled with classic and fresh anecdotes, thoughtful examples, and interesting analogies, <i><b>The Pragmatic Programmer</b></i> illustrates the best approaches and major pitfalls of many different aspects of software development. Whether you're a new coder, an experienced programmer, or a manager responsible for software projects, use these lessons daily, and you'll quickly see improvements in personal productivity, accuracy, and job satisfaction. You'll learn skills and develop habits and attitudes that form the foundation for long-term success in your career.<br/><br/>You'll become a Pragmatic Programmer.</p><p><i>Register your book for convenient access to downloads, updates, and/or corrections as they become available. See inside book for details.</i></p></div></span>",
+      "last_read": "2025-11-03T22:37:08Z",
+      "progress_percent": 43,
+      "read_status": 1,
+      "cover_image_id": "file____mnt_onboard_The_Pragmatic_Programmer_-_Your_Journey_to_Mastery,_20th_Anniversary_Edition_epub",
+      "isbn": "9780135956977",
+      "cover_image_url": "https://covers.openlibrary.org/b/isbn/9780135956977-L.jpg",
+      "cover_urls": {
+        "open_library": "https://covers.openlibrary.org/b/isbn/9780135956977-L.jpg",
+        "google_books": "https://books.google.com/books/content?id=&printsec=frontcover&img=1&zoom=1&isbn=9780135956977"
+      }
+    },
+    {
+      "id": "file:///mnt/onboard/BioShock - Rapture - John Shirley.epub",
+      "title": "BioShock - Rapture",
+      "author": "John Shirley",
+      "publisher": null,
+      "description": "<span id=\"freeText11136047867175723462\" style=\"\">After barely surviving a\n plane crash, a man lands in icy uncharted waters and discovers an \nundersea city called Rapture, a failed utopia created by Andrew Ryan, a \nman who looked to embrace a world surrounding the objectivist ideals of \nAyn Rand. His chosen bunkered down in this underwater city and embraced \ngenetic engineering before the city descended into pure anarchy. Power \nand greed have run amok and the city has succumbed to civil war. Now one\n lone man must navigate through this underwater hell on earth, to save \nthe lives of those that need to be saved. The only question is who \nreally deserves to survive this maniacal debacle of science gone mad.</span>",
+      "last_read": "2025-10-31T23:13:06Z",
+      "progress_percent": 3,
+      "read_status": 1,
+      "cover_image_id": "file____mnt_onboard_BioShock_-_Rapture_-_John_Shirley_epub",
+      "isbn": "2be6df96-9d4d-41a2-a09e-673c84692993",
+      "cover_image_url": "https://covers.openlibrary.org/b/isbn/2be6df96-9d4d-41a2-a09e-673c84692993-L.jpg",
+      "cover_urls": {
+        "open_library": "https://covers.openlibrary.org/b/isbn/2be6df96-9d4d-41a2-a09e-673c84692993-L.jpg",
+        "google_books": "https://books.google.com/books/content?id=&printsec=frontcover&img=1&zoom=1&isbn=2be6df96-9d4d-41a2-a09e-673c84692993"
+      }
+    },
+    {
+      "id": "file:///mnt/onboard/Values_ Building a Better World for All by Mark Carney.epub",
+      "title": "Values",
+      "author": "Mark Carney",
+      "publisher": null,
+      "description": "<b><b>A bold and urgent argument by economist and former bank governor Mark Carney on the radical, foundational change that is required if we are to build an economy and society based not on market values but on human values.</b></b><br>Our world is full of fault lines&#8212;growing inequality in income and opportunity; systemic racism; health and economic crises from a global pandemic; mistrust of experts; the existential threat of climate change; deep threats to employment in a digital economy with robotics on the rise. These fundamental problems and others like them, argues Mark Carney, stem from a common crisis in values. Drawing on the turmoil of the past decade, Mark Carney shows how \"market economies\" have evolved into \"market societies\" where price determines the value of everything. <br> When we think about what we, as individuals, value most highly, we might list fairness, health, the protection of our rights, economic security from poverty, the preservation of natural...",
+      "last_read": "2025-10-31T22:31:32Z",
+      "progress_percent": 1,
+      "read_status": 1,
+      "cover_image_id": "file____mnt_onboard_Values__Building_a_Better_World_for_All_by_Mark_Carney_epub",
+      "isbn": "9780771051562",
+      "cover_image_url": "https://covers.openlibrary.org/b/isbn/9780771051562-L.jpg",
+      "cover_urls": {
+        "open_library": "https://covers.openlibrary.org/b/isbn/9780771051562-L.jpg",
+        "google_books": "https://books.google.com/books/content?id=&printsec=frontcover&img=1&zoom=1&isbn=9780771051562"
+      }
+    },
+    {
+      "id": "file:///mnt/onboard/art_of_postgre_sql.epub",
+      "title": "The Art Of PostgreSQL",
+      "author": "Dimitri Fontaine",
+      "publisher": null,
+      "description": null,
+      "last_read": "2025-10-31T22:30:27Z",
+      "progress_percent": 5,
+      "read_status": 1,
+      "cover_image_id": "file____mnt_onboard_art_of_postgre_sql_epub",
+      "isbn": "978-1-949-95036-6",
+      "cover_image_url": "https://covers.openlibrary.org/b/isbn/978-1-949-95036-6-L.jpg",
+      "cover_urls": {
+        "open_library": "https://covers.openlibrary.org/b/isbn/978-1-949-95036-6-L.jpg",
+        "google_books": "https://books.google.com/books/content?id=&printsec=frontcover&img=1&zoom=1&isbn=978-1-949-95036-6"
+      }
+    },
+    {
+      "id": "file:///mnt/onboard/Q4_2025 Quarterly Letter (1).pdf",
+      "title": "Q4/2025 Quarterly Letter",
+      "author": null,
+      "publisher": null,
+      "description": null,
+      "last_read": "2025-10-28T14:19:25Z",
+      "progress_percent": 99,
+      "read_status": 2,
+      "cover_image_id": "file____mnt_onboard_Q4_2025_Quarterly_Letter_(1)_pdf",
+      "isbn": null
+    },
+    {
+      "id": "file:///mnt/onboard/Game Theory_ A Very Short Introduction by Ken Binmore.epub",
+      "title": "Game Theory: A Very Short Introduction",
+      "author": "K. G. Binmore",
+      "publisher": null,
+      "description": "SUMMARY:\nGames are everywhere: Drivers maneuvering in heavy traffic are playing a driving game. Bargain hunters bidding on eBay are playing an auctioning game. The supermarket's price for corn flakes is decided by playing an economic game. This Very Short Introduction offers a succinct tour of the fascinating world of game theory, a ground-breaking field that analyzes how to play games in a rational way. Ken Binmore, a renowned game theorist, explains the theory in a way that is both entertaining and non-mathematical yet also deeply insightful, revealing how game theory can shed light on everything from social gatherings, to ethical decision-making, to successful card-playing strategies, to calculating the sex ratio among bees. With mini-biographies of many fascinating, and occasionally eccentric, founders of the subject--including John Nash, subject of the movie A Beautiful Mind--this book offers a concise overview of a cutting-edge field that has seen spectacular successes in evolutionary biology and economics, and is beginning to revolutionize other disciplines from psychology to political science.",
+      "last_read": "2025-10-24T15:53:30Z",
+      "progress_percent": 5,
+      "read_status": 1,
+      "cover_image_id": "file____mnt_onboard_Game_Theory__A_Very_Short_Introduction_by_Ken_Binmore_epub",
+      "isbn": "9780199218462",
+      "cover_image_url": "https://covers.openlibrary.org/b/isbn/9780199218462-L.jpg",
+      "cover_urls": {
+        "open_library": "https://covers.openlibrary.org/b/isbn/9780199218462-L.jpg",
+        "google_books": "https://books.google.com/books/content?id=&printsec=frontcover&img=1&zoom=1&isbn=9780199218462"
+      }
+    },
+    {
+      "id": "file:///mnt/onboard/Salt, Fat, Acid, Heat_ Mastering the Elements of Good Cooking by Samin Nosrat.epub",
+      "title": "Salt, Fat, Acid, Heat",
+      "author": "Samin Nosrat",
+      "publisher": null,
+      "description": "A visionary new master class in cooking that distills decades of professional experience into just four simple elements, from the woman declared \"America's next great cooking teacher\" by Alice Waters.<BR>In the tradition of <i>The Joy of Cooking</i> and <i>How to Cook Everything</i> comes <i>Salt, Fat, Acid, Heat</i>, an ambitious new approach to cooking by a major new culinary voice. Chef and writer Samin Nosrat has taught everyone from professional chefs to middle school kids to author Michael Pollan to cook using her revolutionary, yet simple, philosophy. Master the use of just four elements&#8212;Salt, which enhances flavor; Fat, which delivers flavor and generates texture; Acid, which balances flavor; and Heat, which ultimately determines the texture of food&#8212;and anything you cook will be delicious. By explaining the hows and whys of good cooking, <i>Salt, Fat, Acid, Heat</i> will teach and inspire a new generation of cooks how to confidently make better decisions in the...",
+      "last_read": "2025-10-24T15:50:28Z",
+      "progress_percent": 8,
+      "read_status": 1,
+      "cover_image_id": "file____mnt_onboard_Salt,_Fat,_Acid,_Heat__Mastering_the_Elements_of_Good_Cooking_by_Samin_Nosrat_epub",
+      "isbn": "9781476753850",
+      "cover_image_url": "https://covers.openlibrary.org/b/isbn/9781476753850-L.jpg",
+      "cover_urls": {
+        "open_library": "https://covers.openlibrary.org/b/isbn/9781476753850-L.jpg",
+        "google_books": "https://books.google.com/books/content?id=&printsec=frontcover&img=1&zoom=1&isbn=9781476753850"
+      }
+    },
+    {
+      "id": "file:///mnt/onboard/Bioshock Artbook HighRES.pdf",
+      "title": "Bioshock Artbook HighRES",
+      "author": null,
+      "publisher": null,
+      "description": null,
+      "last_read": "2025-10-24T01:27:37Z",
+      "progress_percent": 37,
+      "read_status": 1,
+      "cover_image_id": "file____mnt_onboard_Bioshock_Artbook_HighRES_pdf",
+      "isbn": null
+    }
+  ],
+  "recently_finished": [
+    {
+      "title": "The Kubernetes Book",
+      "author": "Nigel Poulton",
+      "finished_date": "2025-10-24T16:01:29.902",
+      "isbn": "https://leanpub.com/thekubernetesbook",
+      "cover_urls": {
+        "open_library": "https://covers.openlibrary.org/b/isbn/https://leanpub.com/thekubernetesbook-L.jpg"
+      }
+    },
+    {
+      "title": "Sapiens: A Brief History of Humankind",
+      "author": "Yuval Noah Harari",
+      "finished_date": "2025-10-23T23:39:03.520",
+      "isbn": "urn:uuid:229a2fb3-df20-40c6-9cf9-d4d11223666c",
+      "cover_urls": {
+        "open_library": "https://covers.openlibrary.org/b/isbn/urn:uuid:229a2fb3-df20-40c6-9cf9-d4d11223666c-L.jpg"
+      }
+    }
+  ],
+  "last_updated": "2025-11-06T10:40:45.124409"
+}
