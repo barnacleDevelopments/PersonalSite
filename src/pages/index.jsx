@@ -30,7 +30,10 @@ const IndexPage = ({ data }) => {
     ...currentlyReading.map((book) => ({
       ...book,
       read: false,
-      image: book.cover_urls?.open_library || book.cover_urls?.google_books || book.cover_image_url,
+      image:
+        book.cover_urls?.open_library ||
+        book.cover_urls?.google_books ||
+        book.cover_image_url,
     })),
     ...recentlyFinished.map((book) => ({
       ...book,
@@ -415,22 +418,12 @@ export const landingPageQuery = graphql`
           read_status
           cover_image_id
           isbn
-          cover_image_url
-          goodreads_url
-          cover_urls {
-            open_library
-            google_books
-          }
         }
         recently_finished {
           title
           author
           finished_date
           isbn
-          goodreads_url
-          cover_urls {
-            open_library
-          }
         }
       }
     }
