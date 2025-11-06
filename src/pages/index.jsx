@@ -10,6 +10,7 @@ import Loader from "../components/Loader";
 import PostCard from "../components/PostCard/PostCard";
 import ProjectCard from "../components/ProjectCard/ProjectCard";
 import Seo from "../components/Seo/Seo";
+import Tooltip from "../components/Tooltip/Tooltip";
 
 const IndexPage = ({ data }) => {
   const [bookFilter, setBookFilter] = useState("all");
@@ -254,9 +255,12 @@ const IndexPage = ({ data }) => {
               gap: 2,
             }}
           >
-            <Heading as="h3" variant="subheading1" sx={{ mb: 0 }}>
-              Reading List
-            </Heading>
+            <Flex sx={{ alignItems: "center", gap: 2 }}>
+              <Heading as="h3" variant="subheading1" sx={{ mb: 0 }}>
+                Reading List
+              </Heading>
+              <Tooltip text="Books are synced from my Kobo e-reader. Covers are extracted from EPUBs and reading progress is updated automatically." />
+            </Flex>
             <Flex sx={{ gap: 2 }}>
               <Button
                 variant={
@@ -295,8 +299,23 @@ const IndexPage = ({ data }) => {
               <Flex
                 sx={{
                   gap: 3,
-                  overflowX: "scroll",
+                  overflowX: "auto",
+                  overflowY: "hidden",
                   width: "100%",
+                  "&::-webkit-scrollbar": {
+                    height: "8px",
+                  },
+                  "&::-webkit-scrollbar-track": {
+                    background: "muted",
+                    borderRadius: "4px",
+                  },
+                  "&::-webkit-scrollbar-thumb": {
+                    background: "primary",
+                    borderRadius: "4px",
+                    "&:hover": {
+                      background: "text",
+                    },
+                  },
                 }}
               >
                 {books.map((book) => (
