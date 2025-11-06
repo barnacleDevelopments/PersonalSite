@@ -11,7 +11,7 @@ jest.mock("gatsby", () => ({
       siteMetadata: {
         defaultLang: "en",
         siteUrl: "https://devdeveloper.ca",
-        defaultTitle: "Devin Davis | Full-Stack Developer & Devops Engineer",
+        defaultTitle: "Devin Davis | Full-Stack Engineer",
         github: "https://github.com/barnacleDevelopments",
         linkedin: "https://www.linkedin.com/in/devin-dev-d-63008412b/",
         metaImage: {
@@ -20,7 +20,7 @@ jest.mock("gatsby", () => ({
           height: 110,
         },
         defaultDescription:
-          "Explore the professional portfolio of Devin Davis, a results-oriented Full-Stack Web Engineer.",
+          "Explore the professional portfolio of Devin Davis, a results-oriented Full-Stack Engineer.",
         defaultKeywords: [
           "Web development",
           "Full-stack Web developer",

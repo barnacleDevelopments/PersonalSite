@@ -6,7 +6,7 @@ module.exports = {
   siteMetadata: {
     lang: "en",
     siteUrl: "https://devdeveloper.ca",
-    title: "Devin Davis | Full-Stack Developer & Devops Engineer",
+    title: "Devin Davis | Full-Stack Engineer",
     github: "https://github.com/barnacleDevelopments",
     linkedin: "https://www.linkedin.com/in/devin-dev-d-63008412b/",
     image: {
@@ -15,7 +15,7 @@ module.exports = {
       height: 110,
     },
     description:
-      "Explore the professional portfolio of Devin Davis, a results-oriented Full-Stack Web Engineer.",
+      "Explore the professional portfolio of Devin Davis, a results-oriented Full-Stack Engineer.",
     keywords: [
       "Web development",
       "Full-stack Web developer",
