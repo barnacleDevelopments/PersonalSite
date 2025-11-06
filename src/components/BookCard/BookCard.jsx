@@ -12,6 +12,9 @@ export default function BookCard({ book }) {
     setImageError(true);
   };
 
+  // Get progress percentage (default to 0 for finished books)
+  const progress = book.progress_percent || (book.read ? 100 : 0);
+
   return (
     <div
       sx={{
@@ -88,6 +91,43 @@ export default function BookCard({ book }) {
           }}
         >
           Read
+        </div>
+      )}
+      {/* Progress bar */}
+      {!book.read && progress > 0 && (
+        <div
+          sx={{
+            marginTop: 2,
+          }}
+        >
+          <div
+            sx={{
+              width: "100%",
+              height: "6px",
+              backgroundColor: "muted",
+              borderRadius: "3px",
+              overflow: "hidden",
+            }}
+          >
+            <div
+              sx={{
+                width: `${progress}%`,
+                height: "100%",
+                backgroundColor: "primary",
+                transition: "width 0.3s ease",
+              }}
+            />
+          </div>
+          <div
+            sx={{
+              fontSize: 0,
+              color: "text",
+              textAlign: "center",
+              marginTop: 1,
+            }}
+          >
+            {Math.round(progress)}%
+          </div>
         </div>
       )}
     </div>

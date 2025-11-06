@@ -130,7 +130,7 @@ def extract_cover_from_epub(epub_path):
 
     return None
 
-def extract_reading_data(db_path, kobo_root=None, copy_covers_to=None):
+def extract_reading_data(db_path, kobo_root=None, copy_covers_to=None, collection_filter=None):
     """
     Extract currently reading books and progress from Kobo database
 
@@ -138,7 +138,7 @@ def extract_reading_data(db_path, kobo_root=None, copy_covers_to=None):
         db_path: Path to KoboReader.sqlite
         kobo_root: Root directory of Kobo device (for finding cover images)
         copy_covers_to: Directory to copy cover images to (optional)
-        verify_images: Whether to verify cover image URLs are valid (default: False, slower)
+        collection_filter: Only include books from this collection/shelf (optional)
     """
     conn = sqlite3.connect(db_path)
     conn.row_factory = sqlite3.Row
@@ -150,29 +150,57 @@ def extract_reading_data(db_path, kobo_root=None, copy_covers_to=None):
         covers_dir.mkdir(parents=True, exist_ok=True)
     
     # Query for books with reading progress (excluding Instapaper/web articles)
-    query = """
-    SELECT DISTINCT
-        c.ContentID,
-        c.Title,
-        c.Attribution as Author,
-        c.Publisher,
-        c.Description,
-        c.DateLastRead,
-        c.___PercentRead as PercentRead,
-        c.ReadStatus,
-        c.___ExpirationStatus as ExpirationStatus,
-        c.ImageId,
-        c.ISBN
-    FROM content c
-    WHERE c.ContentType = 6  -- Books only (not chapters)
-        AND c.BookTitle IS NULL  -- Main book entry, not chapters
-        AND c.___PercentRead > 0  -- Only books that have been started
-        AND c.___PercentRead < 100  -- Currently reading (not finished)
-        AND c.ContentID LIKE 'file://%'  -- Only local files (excludes web articles with numeric IDs)
-    ORDER BY c.DateLastRead DESC
-    """
-    
-    cursor.execute(query)
+    if collection_filter:
+        # Filter by collection/shelf
+        query = """
+        SELECT DISTINCT
+            c.ContentID,
+            c.Title,
+            c.Attribution as Author,
+            c.Publisher,
+            c.Description,
+            c.DateLastRead,
+            c.___PercentRead as PercentRead,
+            c.ReadStatus,
+            c.___ExpirationStatus as ExpirationStatus,
+            c.ImageId,
+            c.ISBN
+        FROM content c
+        INNER JOIN ShelfContent sc ON c.ContentID = sc.ContentId
+        INNER JOIN Shelf s ON sc.ShelfName = s.InternalName
+        WHERE c.ContentType = 6  -- Books only (not chapters)
+            AND c.BookTitle IS NULL  -- Main book entry, not chapters
+            AND c.___PercentRead > 0  -- Only books that have been started
+            AND c.___PercentRead < 100  -- Currently reading (not finished)
+            AND c.ContentID LIKE 'file://%'  -- Only local files (excludes web articles with numeric IDs)
+            AND (s.Name = ? OR s.InternalName = ?)  -- Filter by collection name
+        ORDER BY c.DateLastRead DESC
+        """
+        cursor.execute(query, (collection_filter, collection_filter))
+    else:
+        # No filter - get all books
+        query = """
+        SELECT DISTINCT
+            c.ContentID,
+            c.Title,
+            c.Attribution as Author,
+            c.Publisher,
+            c.Description,
+            c.DateLastRead,
+            c.___PercentRead as PercentRead,
+            c.ReadStatus,
+            c.___ExpirationStatus as ExpirationStatus,
+            c.ImageId,
+            c.ISBN
+        FROM content c
+        WHERE c.ContentType = 6  -- Books only (not chapters)
+            AND c.BookTitle IS NULL  -- Main book entry, not chapters
+            AND c.___PercentRead > 0  -- Only books that have been started
+            AND c.___PercentRead < 100  -- Currently reading (not finished)
+            AND c.ContentID LIKE 'file://%'  -- Only local files (excludes web articles with numeric IDs)
+        ORDER BY c.DateLastRead DESC
+        """
+        cursor.execute(query)
     books = []
     
     for row in cursor.fetchall():
@@ -206,32 +234,51 @@ def extract_reading_data(db_path, kobo_root=None, copy_covers_to=None):
 
         if cover_filename:
             book['cover_image'] = cover_filename
-        elif row['ISBN']:
-            # Provide Open Library cover URL as fallback
-            book['cover_image_url'] = f"https://covers.openlibrary.org/b/isbn/{row['ISBN']}-L.jpg"
-        
+
         books.append(book)
     
     # Query for finished books (last 10, excluding Instapaper/web articles)
-    finished_query = """
-    SELECT DISTINCT
-        c.ContentID,
-        c.Title,
-        c.Attribution as Author,
-        c.DateLastRead,
-        c.___PercentRead as PercentRead,
-        c.ISBN,
-        c.ImageId
-    FROM content c
-    WHERE c.ContentType = 6
-        AND c.BookTitle IS NULL
-        AND c.___PercentRead = 100
-        AND c.ContentID LIKE 'file://%'  -- Only local files (excludes web articles with numeric IDs)
-    ORDER BY c.DateLastRead DESC
-    LIMIT 10
-    """
-    
-    cursor.execute(finished_query)
+    if collection_filter:
+        finished_query = """
+        SELECT DISTINCT
+            c.ContentID,
+            c.Title,
+            c.Attribution as Author,
+            c.DateLastRead,
+            c.___PercentRead as PercentRead,
+            c.ISBN,
+            c.ImageId
+        FROM content c
+        INNER JOIN ShelfContent sc ON c.ContentID = sc.ContentId
+        INNER JOIN Shelf s ON sc.ShelfName = s.InternalName
+        WHERE c.ContentType = 6
+            AND c.BookTitle IS NULL
+            AND c.___PercentRead = 100
+            AND c.ContentID LIKE 'file://%'  -- Only local files (excludes web articles with numeric IDs)
+            AND (s.Name = ? OR s.InternalName = ?)  -- Filter by collection name
+        ORDER BY c.DateLastRead DESC
+        LIMIT 10
+        """
+        cursor.execute(finished_query, (collection_filter, collection_filter))
+    else:
+        finished_query = """
+        SELECT DISTINCT
+            c.ContentID,
+            c.Title,
+            c.Attribution as Author,
+            c.DateLastRead,
+            c.___PercentRead as PercentRead,
+            c.ISBN,
+            c.ImageId
+        FROM content c
+        WHERE c.ContentType = 6
+            AND c.BookTitle IS NULL
+            AND c.___PercentRead = 100
+            AND c.ContentID LIKE 'file://%'  -- Only local files (excludes web articles with numeric IDs)
+        ORDER BY c.DateLastRead DESC
+        LIMIT 10
+        """
+        cursor.execute(finished_query)
     finished_books = []
     
     for row in cursor.fetchall():
@@ -329,7 +376,7 @@ def process_cover(image_id, content_id, kobo_root, copy_to, title, isbn=None):
 
 def main():
     import argparse
-    
+
     parser = argparse.ArgumentParser(
         description='Extract reading progress from Kobo database with optional cover extraction'
     )
@@ -337,7 +384,8 @@ def main():
     parser.add_argument('output', help='Output JSON file path')
     parser.add_argument('--kobo-root', help='Root directory of Kobo device (for finding covers)', default=None)
     parser.add_argument('--copy-covers', help='Directory to copy cover images to', default=None)
-    
+    parser.add_argument('--collection', help='Only include books from this collection/shelf name', default=None)
+
     args = parser.parse_args()
     
     if not Path(args.database).exists():
@@ -353,15 +401,19 @@ def main():
             print(f"Inferred Kobo root directory: {kobo_root}")
     
     try:
+        if args.collection:
+            print(f"Filtering books by collection: '{args.collection}'")
+
         data = extract_reading_data(
             args.database,
             kobo_root,
             args.copy_covers,
+            args.collection,
         )
 
         with open(args.output, 'w', encoding='utf-8') as f:
             json.dump(data, f, indent=2, ensure_ascii=False)
-        
+
         print(f"Successfully exported reading data to {args.output}")
         print(f"Currently reading: {len(data['currently_reading'])} books")
         print(f"Recently finished: {len(data['recently_finished'])} books")

@@ -34,7 +34,7 @@ const IndexPage = ({ data }) => {
 
   const allBooks = [
     ...currentlyReading.map((book) => {
-      // Try to find local cover first
+      // Try to find local cover
       let coverImage = null;
       if (book.cover_image) {
         const coverName = book.cover_image.replace(/\.[^/.]+$/, ''); // Remove extension
@@ -44,13 +44,13 @@ const IndexPage = ({ data }) => {
       return {
         ...book,
         read: false,
-        image: coverImage || book.cover_image_url,
+        image: coverImage,
       };
     }),
     ...recentlyFinished.map((book) => ({
       ...book,
       read: true,
-      image: book.cover_urls?.open_library || book.cover_urls?.google_books,
+      image: null, // No covers for finished books
     })),
   ];
 
@@ -431,7 +431,6 @@ export const landingPageQuery = graphql`
           cover_image_id
           isbn
           cover_image
-          cover_image_url
         }
         recently_finished {
           title

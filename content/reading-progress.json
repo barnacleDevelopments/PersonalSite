@@ -27,32 +27,6 @@
       "cover_image": "isbn_9780135956977.jpg"
     },
     {
-      "id": "file:///mnt/onboard/BioShock - Rapture - John Shirley.epub",
-      "title": "BioShock - Rapture",
-      "author": "John Shirley",
-      "publisher": null,
-      "description": "<span id=\"freeText11136047867175723462\" style=\"\">After barely surviving a\n plane crash, a man lands in icy uncharted waters and discovers an \nundersea city called Rapture, a failed utopia created by Andrew Ryan, a \nman who looked to embrace a world surrounding the objectivist ideals of \nAyn Rand. His chosen bunkered down in this underwater city and embraced \ngenetic engineering before the city descended into pure anarchy. Power \nand greed have run amok and the city has succumbed to civil war. Now one\n lone man must navigate through this underwater hell on earth, to save \nthe lives of those that need to be saved. The only question is who \nreally deserves to survive this maniacal debacle of science gone mad.</span>",
-      "last_read": "2025-10-31T23:13:06Z",
-      "progress_percent": 3,
-      "read_status": 1,
-      "cover_image_id": "file____mnt_onboard_BioShock_-_Rapture_-_John_Shirley_epub",
-      "isbn": "2be6df96-9d4d-41a2-a09e-673c84692993",
-      "cover_image": "bioshock_-_rapture.jpg"
-    },
-    {
-      "id": "file:///mnt/onboard/Values_ Building a Better World for All by Mark Carney.epub",
-      "title": "Values",
-      "author": "Mark Carney",
-      "publisher": null,
-      "description": "<b><b>A bold and urgent argument by economist and former bank governor Mark Carney on the radical, foundational change that is required if we are to build an economy and society based not on market values but on human values.</b></b><br>Our world is full of fault lines&#8212;growing inequality in income and opportunity; systemic racism; health and economic crises from a global pandemic; mistrust of experts; the existential threat of climate change; deep threats to employment in a digital economy with robotics on the rise. These fundamental problems and others like them, argues Mark Carney, stem from a common crisis in values. Drawing on the turmoil of the past decade, Mark Carney shows how \"market economies\" have evolved into \"market societies\" where price determines the value of everything. <br> When we think about what we, as individuals, value most highly, we might list fairness, health, the protection of our rights, economic security from poverty, the preservation of natural...",
-      "last_read": "2025-10-31T22:31:32Z",
-      "progress_percent": 1,
-      "read_status": 1,
-      "cover_image_id": "file____mnt_onboard_Values__Building_a_Better_World_for_All_by_Mark_Carney_epub",
-      "isbn": "9780771051562",
-      "cover_image": "isbn_9780771051562.jpg"
-    },
-    {
       "id": "file:///mnt/onboard/art_of_postgre_sql.epub",
       "title": "The Art Of PostgreSQL",
       "author": "Dimitri Fontaine",
@@ -66,18 +40,6 @@
       "cover_image": "isbn_978-1-949-95036-6.jpg"
     },
     {
-      "id": "file:///mnt/onboard/Q4_2025 Quarterly Letter (1).pdf",
-      "title": "Q4/2025 Quarterly Letter",
-      "author": null,
-      "publisher": null,
-      "description": null,
-      "last_read": "2025-10-28T14:19:25Z",
-      "progress_percent": 99,
-      "read_status": 2,
-      "cover_image_id": "file____mnt_onboard_Q4_2025_Quarterly_Letter_(1)_pdf",
-      "isbn": null
-    },
-    {
       "id": "file:///mnt/onboard/Game Theory_ A Very Short Introduction by Ken Binmore.epub",
       "title": "Game Theory: A Very Short Introduction",
       "author": "K. G. Binmore",
@@ -89,31 +51,6 @@
       "cover_image_id": "file____mnt_onboard_Game_Theory__A_Very_Short_Introduction_by_Ken_Binmore_epub",
       "isbn": "9780199218462",
       "cover_image": "isbn_9780199218462.jpg"
-    },
-    {
-      "id": "file:///mnt/onboard/Salt, Fat, Acid, Heat_ Mastering the Elements of Good Cooking by Samin Nosrat.epub",
-      "title": "Salt, Fat, Acid, Heat",
-      "author": "Samin Nosrat",
-      "publisher": null,
-      "description": "A visionary new master class in cooking that distills decades of professional experience into just four simple elements, from the woman declared \"America's next great cooking teacher\" by Alice Waters.<BR>In the tradition of <i>The Joy of Cooking</i> and <i>How to Cook Everything</i> comes <i>Salt, Fat, Acid, Heat</i>, an ambitious new approach to cooking by a major new culinary voice. Chef and writer Samin Nosrat has taught everyone from professional chefs to middle school kids to author Michael Pollan to cook using her revolutionary, yet simple, philosophy. Master the use of just four elements&#8212;Salt, which enhances flavor; Fat, which delivers flavor and generates texture; Acid, which balances flavor; and Heat, which ultimately determines the texture of food&#8212;and anything you cook will be delicious. By explaining the hows and whys of good cooking, <i>Salt, Fat, Acid, Heat</i> will teach and inspire a new generation of cooks how to confidently make better decisions in the...",
-      "last_read": "2025-10-24T15:50:28Z",
-      "progress_percent": 8,
-      "read_status": 1,
-      "cover_image_id": "file____mnt_onboard_Salt,_Fat,_Acid,_Heat__Mastering_the_Elements_of_Good_Cooking_by_Samin_Nosrat_epub",
-      "isbn": "9781476753850",
-      "cover_image": "isbn_9781476753850.jpg"
-    },
-    {
-      "id": "file:///mnt/onboard/Bioshock Artbook HighRES.pdf",
-      "title": "Bioshock Artbook HighRES",
-      "author": null,
-      "publisher": null,
-      "description": null,
-      "last_read": "2025-10-24T01:27:37Z",
-      "progress_percent": 37,
-      "read_status": 1,
-      "cover_image_id": "file____mnt_onboard_Bioshock_Artbook_HighRES_pdf",
-      "isbn": null
     }
   ],
   "recently_finished": [
@@ -122,13 +59,7 @@
       "author": "Nigel Poulton",
       "finished_date": "2025-10-24T16:01:29.902",
       "isbn": "https://leanpub.com/thekubernetesbook"
-    },
-    {
-      "title": "Sapiens: A Brief History of Humankind",
-      "author": "Yuval Noah Harari",
-      "finished_date": "2025-10-23T23:39:03.520",
-      "isbn": "urn:uuid:229a2fb3-df20-40c6-9cf9-d4d11223666c"
     }
   ],
-  "last_updated": "2025-11-06T13:46:06.163934"
+  "last_updated": "2025-11-06T13:59:20.172846"
 }
