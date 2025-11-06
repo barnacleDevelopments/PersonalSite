@@ -20,7 +20,7 @@ jest.mock("gatsby", () => ({
                     height: 110,
                 },
                 defaultDescription:
-                    "Explore the professional portfolio of Devin Davis, a results-oriented Full-Stack Web Developer specializing Devops and Blockchain.",
+                    "Explore the professional portfolio of Devin Davis, a results-oriented Full-Stack Web Developer specializing in Devops.",
                 defaultKeywords: [
                     "Web development",
                     "Full-stack Web developer",
@@ -31,14 +31,7 @@ jest.mock("gatsby", () => ({
                     "Next.Js",
                     "Front-end",
                     "Back-end",
-                    "Smart contract",
-                    "Blockchain",
                     "Devops engineer",
-                    "DApp development",
-                    "Decentralized applications",
-                    "Web3 development",
-                    "Smart contracts",
-                    "Blockchain technology",
                     "API integration",
                     "CI/CD pipelines",
                     "Devin Davis portfolio",

@@ -166,12 +166,10 @@ const ContactPage = () => {
     <Box>
       <Seo
         title="Contact"
-        description="Contact Devin Davis, a Full Stack Web Developer specializing in Web2 and Web3. Discuss your project or collaborate today. Open to freelance and full-time roles!"
+        description="Contact Devin Davis, a Full Stack Web Developer. Discuss your project or collaborate today. Open to freelance and full-time roles!"
         keywords={[
           "Full Stack Web Developer",
           "Devin S. Davis",
-          "Web2 Development",
-          "Web3 Solutions",
           "Contact Devin S. Davis",
           "Freelance Developer",
           "Contractor",
@@ -182,7 +180,6 @@ const ContactPage = () => {
           "Hire a Web Developer",
           "Technical Solutions Expert",
           "Custom Web Solutions",
-          "Blockchain Development",
           "Web Developer Portfolio",
         ]}
       />
