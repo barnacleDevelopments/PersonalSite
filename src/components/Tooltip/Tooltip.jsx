@@ -1,9 +1,23 @@
 /** @jsx jsx */
 import { jsx, Box, Text } from "theme-ui";
+import { useState } from "react";
 
 export default function Tooltip({ text }) {
+  const [isVisible, setIsVisible] = useState(false);
+
+  const handleToggle = () => {
+    setIsVisible(!isVisible);
+  };
+
+  const handleClickOutside = (e) => {
+    if (!e.target.closest(".tooltip-container")) {
+      setIsVisible(false);
+    }
+  };
+
   return (
     <Box
+      className="tooltip-container"
       sx={{
         position: "relative",
         display: "inline-block",
@@ -12,6 +26,8 @@ export default function Tooltip({ text }) {
           visibility: "visible",
         },
       }}
+      onClick={handleToggle}
+      onMouseLeave={() => setIsVisible(false)}
     >
       <Box
         sx={{
@@ -26,7 +42,17 @@ export default function Tooltip({ text }) {
           justifyContent: "center",
           fontSize: "12px",
           fontWeight: "bold",
-          cursor: "help",
+          cursor: "pointer",
+          userSelect: "none",
+        }}
+        role="button"
+        aria-label="More information"
+        tabIndex={0}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            handleToggle();
+          }
         }}
       >
         ?
@@ -43,12 +69,13 @@ export default function Tooltip({ text }) {
           padding: 3,
           borderRadius: "8px",
           fontSize: 1,
-          width: "280px",
-          opacity: 0,
-          visibility: "hidden",
+          width: ["260px", "280px"],
+          opacity: isVisible ? 1 : 0,
+          visibility: isVisible ? "visible" : "hidden",
           transition: "opacity 0.2s ease, visibility 0.2s ease",
           zIndex: 1000,
           boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+          pointerEvents: isVisible ? "auto" : "none",
           "&::after": {
             content: '""',
             position: "absolute",
