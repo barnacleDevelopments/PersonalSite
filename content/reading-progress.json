@@ -11,11 +11,7 @@
       "read_status": 1,
       "cover_image_id": "file____mnt_onboard_mastering-emacs-v5_epub",
       "isbn": "urn:uuid:bd6b12a5-02a3-4980-ad4e-32440bbc6f3d",
-      "cover_image_url": "https://covers.openlibrary.org/b/isbn/urn:uuid:bd6b12a5-02a3-4980-ad4e-32440bbc6f3d-L.jpg",
-      "cover_urls": {
-        "open_library": "https://covers.openlibrary.org/b/isbn/urn:uuid:bd6b12a5-02a3-4980-ad4e-32440bbc6f3d-L.jpg",
-        "google_books": "https://books.google.com/books/content?id=&printsec=frontcover&img=1&zoom=1&isbn=urn:uuid:bd6b12a5-02a3-4980-ad4e-32440bbc6f3d"
-      }
+      "cover_image_url": "https://covers.openlibrary.org/b/isbn/urn:uuid:bd6b12a5-02a3-4980-ad4e-32440bbc6f3d-L.jpg"
     },
     {
       "id": "file:///mnt/onboard/The Pragmatic Programmer - Your Journey to Mastery, 20th Anniversary Edition.epub",
@@ -28,11 +24,7 @@
       "read_status": 1,
       "cover_image_id": "file____mnt_onboard_The_Pragmatic_Programmer_-_Your_Journey_to_Mastery,_20th_Anniversary_Edition_epub",
       "isbn": "9780135956977",
-      "cover_image_url": "https://covers.openlibrary.org/b/isbn/9780135956977-L.jpg",
-      "cover_urls": {
-        "open_library": "https://covers.openlibrary.org/b/isbn/9780135956977-L.jpg",
-        "google_books": "https://books.google.com/books/content?id=&printsec=frontcover&img=1&zoom=1&isbn=9780135956977"
-      }
+      "cover_image_url": "https://covers.openlibrary.org/b/isbn/9780135956977-L.jpg"
     },
     {
       "id": "file:///mnt/onboard/BioShock - Rapture - John Shirley.epub",
@@ -45,11 +37,7 @@
       "read_status": 1,
       "cover_image_id": "file____mnt_onboard_BioShock_-_Rapture_-_John_Shirley_epub",
       "isbn": "2be6df96-9d4d-41a2-a09e-673c84692993",
-      "cover_image_url": "https://covers.openlibrary.org/b/isbn/2be6df96-9d4d-41a2-a09e-673c84692993-L.jpg",
-      "cover_urls": {
-        "open_library": "https://covers.openlibrary.org/b/isbn/2be6df96-9d4d-41a2-a09e-673c84692993-L.jpg",
-        "google_books": "https://books.google.com/books/content?id=&printsec=frontcover&img=1&zoom=1&isbn=2be6df96-9d4d-41a2-a09e-673c84692993"
-      }
+      "cover_image_url": "https://covers.openlibrary.org/b/isbn/2be6df96-9d4d-41a2-a09e-673c84692993-L.jpg"
     },
     {
       "id": "file:///mnt/onboard/Values_ Building a Better World for All by Mark Carney.epub",
@@ -62,12 +50,7 @@
       "read_status": 1,
       "cover_image_id": "file____mnt_onboard_Values__Building_a_Better_World_for_All_by_Mark_Carney_epub",
       "isbn": "9780771051562",
-      "cover_image_url": "https://covers.openlibrary.org/b/isbn/9780771051562-L.jpg",
-      "cover_urls": {
-        "open_library": "https://covers.openlibrary.org/b/isbn/9780771051562-L.jpg",
-        "google_books": "https://books.google.com/books/content?id=&printsec=frontcover&img=1&zoom=1&isbn=9780771051562"
-      },
-      "goodreads_url": "https://www.goodreads.com/book/show/57126089/reviews?reviewFilters=eyJhZnRlciI6Ik1qVTFMREUzTlRNek1UTXpNRE16TlRrIn0%3D"
+      "cover_image_url": "https://covers.openlibrary.org/b/isbn/9780771051562-L.jpg"
     },
     {
       "id": "file:///mnt/onboard/art_of_postgre_sql.epub",
@@ -80,11 +63,7 @@
       "read_status": 1,
       "cover_image_id": "file____mnt_onboard_art_of_postgre_sql_epub",
       "isbn": "978-1-949-95036-6",
-      "cover_image_url": "https://covers.openlibrary.org/b/isbn/978-1-949-95036-6-L.jpg",
-      "cover_urls": {
-        "open_library": "https://covers.openlibrary.org/b/isbn/978-1-949-95036-6-L.jpg",
-        "google_books": "https://books.google.com/books/content?id=&printsec=frontcover&img=1&zoom=1&isbn=978-1-949-95036-6"
-      }
+      "cover_image_url": "https://covers.openlibrary.org/b/isbn/978-1-949-95036-6-L.jpg"
     },
     {
       "id": "file:///mnt/onboard/Q4_2025 Quarterly Letter (1).pdf",
@@ -109,12 +88,7 @@
       "read_status": 1,
       "cover_image_id": "file____mnt_onboard_Game_Theory__A_Very_Short_Introduction_by_Ken_Binmore_epub",
       "isbn": "9780199218462",
-      "cover_image_url": "https://covers.openlibrary.org/b/isbn/9780199218462-L.jpg",
-      "cover_urls": {
-        "open_library": "https://covers.openlibrary.org/b/isbn/9780199218462-L.jpg",
-        "google_books": "https://books.google.com/books/content?id=&printsec=frontcover&img=1&zoom=1&isbn=9780199218462"
-      },
-      "goodreads_url": "https://www.goodreads.com/book/show/770989/reviews?reviewFilters=eyJhZnRlciI6Ik1UVXhMREUyTnpRME1qQTJNakUyT1RnIn0%3D"
+      "cover_image_url": "https://covers.openlibrary.org/b/isbn/9780199218462-L.jpg"
     },
     {
       "id": "file:///mnt/onboard/Salt, Fat, Acid, Heat_ Mastering the Elements of Good Cooking by Samin Nosrat.epub",
@@ -127,12 +101,7 @@
       "read_status": 1,
       "cover_image_id": "file____mnt_onboard_Salt,_Fat,_Acid,_Heat__Mastering_the_Elements_of_Good_Cooking_by_Samin_Nosrat_epub",
       "isbn": "9781476753850",
-      "cover_image_url": "https://covers.openlibrary.org/b/isbn/9781476753850-L.jpg",
-      "cover_urls": {
-        "open_library": "https://covers.openlibrary.org/b/isbn/9781476753850-L.jpg",
-        "google_books": "https://books.google.com/books/content?id=&printsec=frontcover&img=1&zoom=1&isbn=9781476753850"
-      },
-      "goodreads_url": "https://www.goodreads.com/book/show/34374423/reviews?reviewFilters=eyJhZnRlciI6Ik9EQXhMREUyT0RjNU9ERXlPRFEzTlRnIn0%3D"
+      "cover_image_url": "https://covers.openlibrary.org/b/isbn/9781476753850-L.jpg"
     },
     {
       "id": "file:///mnt/onboard/Bioshock Artbook HighRES.pdf",
@@ -152,20 +121,14 @@
       "title": "The Kubernetes Book",
       "author": "Nigel Poulton",
       "finished_date": "2025-10-24T16:01:29.902",
-      "isbn": "https://leanpub.com/thekubernetesbook",
-      "cover_urls": {
-        "open_library": "https://covers.openlibrary.org/b/isbn/https://leanpub.com/thekubernetesbook-L.jpg"
-      }
+      "isbn": "https://leanpub.com/thekubernetesbook"
     },
     {
       "title": "Sapiens: A Brief History of Humankind",
       "author": "Yuval Noah Harari",
       "finished_date": "2025-10-23T23:39:03.520",
-      "isbn": "urn:uuid:229a2fb3-df20-40c6-9cf9-d4d11223666c",
-      "cover_urls": {
-        "open_library": "https://covers.openlibrary.org/b/isbn/urn:uuid:229a2fb3-df20-40c6-9cf9-d4d11223666c-L.jpg"
-      }
+      "isbn": "urn:uuid:229a2fb3-df20-40c6-9cf9-d4d11223666c"
     }
   ],
-  "last_updated": "2025-11-06T11:32:13.747983"
+  "last_updated": "2025-11-06T12:14:49.308063"
 }
