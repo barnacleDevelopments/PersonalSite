@@ -11,7 +11,7 @@
       "read_status": 1,
       "cover_image_id": "file____mnt_onboard_mastering-emacs-v5_epub",
       "isbn": "urn:uuid:bd6b12a5-02a3-4980-ad4e-32440bbc6f3d",
-      "cover_image_url": "https://covers.openlibrary.org/b/isbn/urn:uuid:bd6b12a5-02a3-4980-ad4e-32440bbc6f3d-L.jpg"
+      "cover_image": "mastering_emacs.jpg"
     },
     {
       "id": "file:///mnt/onboard/The Pragmatic Programmer - Your Journey to Mastery, 20th Anniversary Edition.epub",
@@ -24,7 +24,7 @@
       "read_status": 1,
       "cover_image_id": "file____mnt_onboard_The_Pragmatic_Programmer_-_Your_Journey_to_Mastery,_20th_Anniversary_Edition_epub",
       "isbn": "9780135956977",
-      "cover_image_url": "https://covers.openlibrary.org/b/isbn/9780135956977-L.jpg"
+      "cover_image": "isbn_9780135956977.jpg"
     },
     {
       "id": "file:///mnt/onboard/BioShock - Rapture - John Shirley.epub",
@@ -37,7 +37,7 @@
       "read_status": 1,
       "cover_image_id": "file____mnt_onboard_BioShock_-_Rapture_-_John_Shirley_epub",
       "isbn": "2be6df96-9d4d-41a2-a09e-673c84692993",
-      "cover_image_url": "https://covers.openlibrary.org/b/isbn/2be6df96-9d4d-41a2-a09e-673c84692993-L.jpg"
+      "cover_image": "bioshock_-_rapture.jpg"
     },
     {
       "id": "file:///mnt/onboard/Values_ Building a Better World for All by Mark Carney.epub",
@@ -50,7 +50,7 @@
       "read_status": 1,
       "cover_image_id": "file____mnt_onboard_Values__Building_a_Better_World_for_All_by_Mark_Carney_epub",
       "isbn": "9780771051562",
-      "cover_image_url": "https://covers.openlibrary.org/b/isbn/9780771051562-L.jpg"
+      "cover_image": "isbn_9780771051562.jpg"
     },
     {
       "id": "file:///mnt/onboard/art_of_postgre_sql.epub",
@@ -63,7 +63,7 @@
       "read_status": 1,
       "cover_image_id": "file____mnt_onboard_art_of_postgre_sql_epub",
       "isbn": "978-1-949-95036-6",
-      "cover_image_url": "https://covers.openlibrary.org/b/isbn/978-1-949-95036-6-L.jpg"
+      "cover_image": "isbn_978-1-949-95036-6.jpg"
     },
     {
       "id": "file:///mnt/onboard/Q4_2025 Quarterly Letter (1).pdf",
@@ -88,7 +88,7 @@
       "read_status": 1,
       "cover_image_id": "file____mnt_onboard_Game_Theory__A_Very_Short_Introduction_by_Ken_Binmore_epub",
       "isbn": "9780199218462",
-      "cover_image_url": "https://covers.openlibrary.org/b/isbn/9780199218462-L.jpg"
+      "cover_image": "isbn_9780199218462.jpg"
     },
     {
       "id": "file:///mnt/onboard/Salt, Fat, Acid, Heat_ Mastering the Elements of Good Cooking by Samin Nosrat.epub",
@@ -101,7 +101,7 @@
       "read_status": 1,
       "cover_image_id": "file____mnt_onboard_Salt,_Fat,_Acid,_Heat__Mastering_the_Elements_of_Good_Cooking_by_Samin_Nosrat_epub",
       "isbn": "9781476753850",
-      "cover_image_url": "https://covers.openlibrary.org/b/isbn/9781476753850-L.jpg"
+      "cover_image": "isbn_9781476753850.jpg"
     },
     {
       "id": "file:///mnt/onboard/Bioshock Artbook HighRES.pdf",
@@ -130,5 +130,5 @@
       "isbn": "urn:uuid:229a2fb3-df20-40c6-9cf9-d4d11223666c"
     }
   ],
-  "last_updated": "2025-11-06T12:14:49.308063"
+  "last_updated": "2025-11-06T13:46:06.163934"
 }

@@ -26,15 +26,27 @@ const IndexPage = ({ data }) => {
   const currentlyReading = readingProgressData.currently_reading || [];
   const recentlyFinished = readingProgressData.recently_finished || [];
 
+  // Create a map of book covers by filename (without extension)
+  const bookCoverMap = {};
+  data.bookCovers?.nodes?.forEach((cover) => {
+    bookCoverMap[cover.name] = cover.childImageSharp;
+  });
+
   const allBooks = [
-    ...currentlyReading.map((book) => ({
-      ...book,
-      read: false,
-      image:
-        book.cover_urls?.open_library ||
-        book.cover_urls?.google_books ||
-        book.cover_image_url,
-    })),
+    ...currentlyReading.map((book) => {
+      // Try to find local cover first
+      let coverImage = null;
+      if (book.cover_image) {
+        const coverName = book.cover_image.replace(/\.[^/.]+$/, ''); // Remove extension
+        coverImage = bookCoverMap[coverName] || null;
+      }
+
+      return {
+        ...book,
+        read: false,
+        image: coverImage || book.cover_image_url,
+      };
+    }),
     ...recentlyFinished.map((book) => ({
       ...book,
       read: true,
@@ -418,12 +430,24 @@ export const landingPageQuery = graphql`
           read_status
           cover_image_id
           isbn
+          cover_image
+          cover_image_url
         }
         recently_finished {
           title
           author
           finished_date
           isbn
+        }
+      }
+    }
+
+    bookCovers: allFile(filter: { sourceInstanceName: { eq: "images" }, relativeDirectory: { eq: "book-covers" } }) {
+      nodes {
+        relativePath
+        name
+        childImageSharp {
+          gatsbyImageData(width: 150, height: 225, placeholder: BLURRED)
         }
       }
     }

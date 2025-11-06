@@ -40,36 +40,94 @@ def get_isbn_from_content_id(content_id):
     return match.group(1) if match else None
 
 def extract_cover_from_epub(epub_path):
-    """Extract cover image from EPUB file"""
+    """Extract cover image from EPUB file using proper EPUB structure parsing"""
+    import os.path
+
     try:
-        with zipfile.ZipFile(epub_path, 'r') as epub:
-            # Try to find cover image in common locations
-            namelist = epub.namelist()
-            
-            # Look for common cover filenames
-            cover_candidates = [
-                name for name in namelist 
-                if any(x in name.lower() for x in ['cover', 'jacket']) 
-                and name.lower().endswith(('.jpg', '.jpeg', '.png'))
-            ]
-            
-            if cover_candidates:
-                # Get the first match
-                cover_data = epub.read(cover_candidates[0])
-                return cover_data
-            
-            # Try parsing OPF file for cover reference
-            opf_files = [name for name in namelist if name.endswith('.opf')]
-            if opf_files:
-                opf_content = epub.read(opf_files[0]).decode('utf-8')
-                # This is simplified - a full implementation would parse the OPF properly
-                if 'cover' in opf_content.lower():
-                    # Could parse more thoroughly here
-                    pass
-                    
+        with zipfile.ZipFile(epub_path, 'r') as z:
+            # Step 1: Read container.xml to find the OPF file location
+            try:
+                container_xml = z.read("META-INF/container.xml")
+                container_tree = ET.fromstring(container_xml)
+                rootfile_path = container_tree.find(".//{urn:oasis:names:tc:opendocument:xmlns:container}rootfile").get("full-path")
+            except Exception as e:
+                print(f"  Could not read container.xml: {e}")
+                return None
+
+            # Step 2: Read the OPF file
+            try:
+                opf_content = z.read(rootfile_path)
+                opf_tree = ET.fromstring(opf_content)
+            except Exception as e:
+                print(f"  Could not read OPF file: {e}")
+                return None
+
+            # Step 3: Try multiple methods to find the cover
+            cover_path = None
+
+            # Method 1: EPUB 2.0 - Look for <meta name="cover" content="..."/>
+            try:
+                cover_meta = opf_tree.find(".//{http://www.idpf.org/2007/opf}metadata/{http://www.idpf.org/2007/opf}meta[@name='cover']")
+                if cover_meta is not None:
+                    cover_id = cover_meta.get("content")
+                    # Find the manifest item with this ID
+                    cover_item = opf_tree.find(f".//{'{http://www.idpf.org/2007/opf}'}manifest/{'{http://www.idpf.org/2007/opf}'}item[@id='{cover_id}']")
+                    if cover_item is not None:
+                        cover_href = cover_item.get("href")
+                        # Resolve relative path - handle URL encoding
+                        import urllib.parse
+                        cover_href = urllib.parse.unquote(cover_href)
+                        cover_path = os.path.join(os.path.dirname(rootfile_path), cover_href)
+                        print(f"  Found cover via EPUB 2.0 metadata: {cover_path}")
+            except Exception as e:
+                print(f"  EPUB 2.0 method failed: {e}")
+
+            # Method 2: EPUB 3.0 - Look for properties="cover-image"
+            if not cover_path:
+                try:
+                    cover_item = opf_tree.find(".//{http://www.idpf.org/2007/opf}manifest/{http://www.idpf.org/2007/opf}item[@properties='cover-image']")
+                    if cover_item is not None:
+                        cover_href = cover_item.get("href")
+                        # Resolve relative path - handle URL encoding
+                        import urllib.parse
+                        cover_href = urllib.parse.unquote(cover_href)
+                        cover_path = os.path.join(os.path.dirname(rootfile_path), cover_href)
+                        print(f"  Found cover via EPUB 3.0 properties: {cover_path}")
+                except Exception as e:
+                    print(f"  EPUB 3.0 method failed: {e}")
+
+            # Method 3: Fallback - Look for common cover filenames
+            if not cover_path:
+                namelist = z.namelist()
+                cover_candidates = [
+                    name for name in namelist
+                    if any(x in name.lower() for x in ['cover'])
+                    and name.lower().endswith(('.jpg', '.jpeg', '.png', '.gif'))
+                    and not name.startswith('__MACOSX')
+                ]
+                if cover_candidates:
+                    # Sort to prefer images in root or images directory
+                    cover_candidates.sort(key=lambda x: (x.count('/'), len(x)))
+                    cover_path = cover_candidates[0]
+                    print(f"  Found cover via filename search: {cover_path}")
+
+            # Step 4: Extract the cover image
+            if cover_path:
+                try:
+                    # Normalize path separators
+                    cover_path = cover_path.replace('\\', '/')
+                    cover_data = z.read(cover_path)
+                    return cover_data
+                except Exception as e:
+                    print(f"  Could not read cover file '{cover_path}': {e}")
+                    return None
+            else:
+                print(f"  No cover found in EPUB")
+                return None
+
     except Exception as e:
-        print(f"Error extracting cover from {epub_path}: {e}")
-    
+        print(f"  Error extracting cover from {epub_path}: {e}")
+
     return None
 
 def extract_reading_data(db_path, kobo_root=None, copy_covers_to=None):
@@ -133,15 +191,19 @@ def extract_reading_data(db_path, kobo_root=None, copy_covers_to=None):
         
         # Try to process cover image if we have paths
         cover_filename = None
-        if row['ImageId'] and kobo_root:
+        if kobo_root and copy_covers_to:
+            print(f"\nProcessing: {row['Title'][:50]}")
+            print(f"  ImageId: {row['ImageId']}")
+            print(f"  ContentID: {row['ContentID'][:80]}...")
             cover_filename = process_cover(
-                row['ImageId'], 
-                row['ContentID'], 
-                kobo_root, 
+                row['ImageId'],
+                row['ContentID'],
+                kobo_root,
                 copy_covers_to,
-                row['Title']
+                row['Title'],
+                row['ISBN']
             )
-        
+
         if cover_filename:
             book['cover_image'] = cover_filename
         elif row['ISBN']:
@@ -190,50 +252,79 @@ def extract_reading_data(db_path, kobo_root=None, copy_covers_to=None):
         'last_updated': datetime.now().isoformat()
     }
 
-def process_cover(image_id, content_id, kobo_root, copy_to, title):
+def process_cover(image_id, content_id, kobo_root, copy_to, title, isbn=None):
     """
     Process cover image from Kobo device
-    
+
     Returns: filename if successful, None otherwise
     """
     kobo_path = Path(kobo_root)
-    
+
+    # Generate a clean filename based on title or ISBN
+    if isbn and isbn.startswith('978'):
+        # Use ISBN for filename if available
+        safe_filename = f"isbn_{isbn}"
+    else:
+        # Use sanitized title
+        safe_title = "".join(c for c in title if c.isalnum() or c in (' ', '-', '_')).rstrip()
+        safe_filename = safe_title[:50].replace(' ', '_').lower()
+
     # Kobo stores covers in multiple possible locations
     possible_paths = []
-    
+
     if image_id:
         # Try .kobo/images/ directory with ImageId
         images_dir = kobo_path / '.kobo' / 'images'
+        print(f"  Checking images dir: {images_dir} (exists: {images_dir.exists()})")
         if images_dir.exists():
             # ImageId might be a full path or just an identifier
             image_id_clean = image_id.replace('file://', '').split('/')[-1]
             possible_paths.append(images_dir / f"{image_id_clean}.jpg")
             possible_paths.append(images_dir / f"{image_id_clean}.png")
-    
+            print(f"  Looking for: {image_id_clean}.jpg or .png")
+
     # Try to find EPUB and extract cover from it
     if content_id and 'file://' in content_id:
+        # Extract the filename from the ContentID
+        # ContentID format: file:///mnt/onboard/filename.epub
+        # But on the host system, it's at /kobo_root/filename.epub
         epub_path = content_id.replace('file://', '')
-        epub_full_path = kobo_path / epub_path.lstrip('/')
+
+        # Strip the /mnt/onboard prefix which is Kobo's internal mount point
+        if epub_path.startswith('/mnt/onboard/'):
+            epub_path = epub_path.replace('/mnt/onboard/', '')
+
+        # Now construct the full path relative to kobo_root
+        epub_full_path = kobo_path / epub_path
+        print(f"  EPUB path: {epub_full_path}")
+        print(f"  EPUB exists: {epub_full_path.exists()}")
+
         if epub_full_path.exists() and epub_full_path.suffix.lower() in ['.epub', '.kepub']:
+            print(f"  Attempting to extract cover from EPUB...")
             cover_data = extract_cover_from_epub(epub_full_path)
             if cover_data and copy_to:
                 # Save extracted cover
-                safe_title = "".join(c for c in title if c.isalnum() or c in (' ', '-', '_')).rstrip()
-                cover_filename = f"{safe_title[:50]}_cover.jpg"
+                cover_filename = f"{safe_filename}.jpg"
                 cover_path = Path(copy_to) / cover_filename
                 with open(cover_path, 'wb') as f:
                     f.write(cover_data)
+                print(f"  ✓ Extracted cover from EPUB: {cover_filename}")
                 return cover_filename
-    
+            else:
+                print(f"  ✗ Could not extract cover from EPUB")
+
     # Try copying from known locations
+    print(f"  Checking {len(possible_paths)} possible paths...")
     for path in possible_paths:
+        print(f"    Checking: {path} (exists: {path.exists()})")
         if path.exists() and copy_to:
-            safe_title = "".join(c for c in title if c.isalnum() or c in (' ', '-', '_')).rstrip()
-            cover_filename = f"{safe_title[:50]}_cover{path.suffix}"
+            cover_filename = f"{safe_filename}{path.suffix}"
             dest_path = Path(copy_to) / cover_filename
             shutil.copy(path, dest_path)
+            print(f"  ✓ Copied cover from Kobo images: {cover_filename}")
             return cover_filename
-    
+
+    print(f"  ✗ No cover found for this book")
     return None
 
 def main():
