@@ -34,15 +34,16 @@ import urllib.request
 from pathlib import Path
 from datetime import datetime
 from xml.etree import ElementTree as ET
+from io import BytesIO
 
-def verify_image_url(url, timeout=5, check_size=False):
+def verify_image_url(url, timeout=5, check_dimensions=False):
     """
     Verify that an image URL is accessible and returns a valid image
 
     Args:
         url: Image URL to verify
         timeout: Request timeout in seconds
-        check_size: If True, also check image dimensions
+        check_dimensions: If True, download and check actual image dimensions
 
     Returns:
         True if image is accessible and meets quality standards, False otherwise
@@ -58,14 +59,45 @@ def verify_image_url(url, timeout=5, check_size=False):
             if response.status != 200 or 'image' not in content_type.lower():
                 return False
 
-            # If size checking is enabled, verify the image isn't tiny
-            if check_size:
-                content_length = response.headers.get('Content-Length')
-                if content_length:
-                    size_kb = int(content_length) / 1024
-                    # Reject images smaller than 5KB (likely blank or placeholder)
+            # If dimension checking is enabled, verify the image has proper dimensions
+            if check_dimensions:
+                try:
+                    from PIL import Image
+
+                    # Download and check actual image dimensions
+                    image_data = response.read()
+
+                    # Check file size first
+                    size_kb = len(image_data) / 1024
                     if size_kb < 5:
                         return False
+
+                    # Check image dimensions
+                    image = Image.open(BytesIO(image_data))
+                    width, height = image.size
+
+                    # Reject images that are too small (likely placeholders)
+                    # Most book covers are at least 200x300 pixels
+                    if width < 100 or height < 100:
+                        return False
+
+                    # Reject images with extreme aspect ratios (likely not book covers)
+                    aspect_ratio = width / height
+                    if aspect_ratio < 0.4 or aspect_ratio > 1.5:
+                        return False
+
+                    return True
+
+                except ImportError:
+                    # PIL not available, fall back to file size check
+                    content_length = response.headers.get('Content-Length')
+                    if content_length:
+                        size_kb = int(content_length) / 1024
+                        if size_kb < 5:
+                            return False
+                    return True
+                except Exception as e:
+                    return False
 
             return True
     except Exception as e:
@@ -81,10 +113,10 @@ def get_best_cover_url(isbn, title=None, author=None):
         author: Book author (optional, for fallback searches)
 
     Returns:
-        Best cover URL found, or None
+        Tuple of (best_cover_url, alternative_urls_dict) or (None, {})
     """
     if not isbn:
-        return None
+        return None, {}
 
     # Clean ISBN
     isbn_clean = isbn.replace('-', '').replace(' ', '')
@@ -104,6 +136,7 @@ def get_best_cover_url(isbn, title=None, author=None):
 
     # Try Open Library API to find the best edition
     best_cover = None
+    alternative_urls = {}
 
     for isbn_variant in isbns_to_try:
         try:
@@ -123,10 +156,23 @@ def get_best_cover_url(isbn, title=None, author=None):
                     # Try to get large cover from API data
                     if 'cover' in book_data and 'large' in book_data['cover']:
                         cover_url = book_data['cover']['large']
-                        if verify_image_url(cover_url, check_size=True):
+                        if verify_image_url(cover_url, check_dimensions=True):
                             best_cover = cover_url
                             print(f"  Found quality cover via Open Library API (ISBN: {isbn_variant})")
-                            return best_cover
+                            # Still add Google Books as alternative
+                            alternative_urls['google_books'] = f"https://books.google.com/books/content?id=&printsec=frontcover&img=1&zoom=1&isbn={isbn_variant}"
+                            return best_cover, alternative_urls
+                        else:
+                            print(f"  API cover rejected (too small or bad dimensions)")
+
+                    # Also try medium if large failed
+                    if 'cover' in book_data and 'medium' in book_data['cover']:
+                        cover_url = book_data['cover']['medium']
+                        if verify_image_url(cover_url, check_dimensions=True):
+                            best_cover = cover_url
+                            print(f"  Found quality cover via Open Library API medium (ISBN: {isbn_variant})")
+                            alternative_urls['google_books'] = f"https://books.google.com/books/content?id=&printsec=frontcover&img=1&zoom=1&isbn={isbn_variant}"
+                            return best_cover, alternative_urls
         except Exception as e:
             pass
 
@@ -134,11 +180,15 @@ def get_best_cover_url(isbn, title=None, author=None):
     for isbn_variant in isbns_to_try:
         for size in ['L', 'M']:  # Try Large first, then Medium
             cover_url = f"https://covers.openlibrary.org/b/isbn/{isbn_variant}-{size}.jpg"
-            if verify_image_url(cover_url, check_size=True):
+            if verify_image_url(cover_url, check_dimensions=True):
                 print(f"  Found cover via direct URL (ISBN: {isbn_variant}, size: {size})")
-                return cover_url
+                alternative_urls['google_books'] = f"https://books.google.com/books/content?id=&printsec=frontcover&img=1&zoom=1&isbn={isbn_variant}"
+                return cover_url, alternative_urls
 
-    return None
+    print(f"  All attempts failed - no valid cover found")
+    # Return Google Books as last resort (unverified)
+    google_books_url = f"https://books.google.com/books/content?id=&printsec=frontcover&img=1&zoom=1&isbn={isbn_clean}"
+    return None, {'google_books': google_books_url}
 
 def get_goodreads_url(title, author, isbn=None):
     """
@@ -318,7 +368,7 @@ def extract_reading_data(db_path, kobo_root=None, copy_covers_to=None, fetch_goo
         if row['ISBN']:
             if verify_images:
                 print(f"  Finding best cover for: {row['Title']}")
-                best_cover_url = get_best_cover_url(
+                best_cover_url, alternative_urls = get_best_cover_url(
                     row['ISBN'],
                     row['Title'],
                     row['Author']
@@ -330,8 +380,17 @@ def extract_reading_data(db_path, kobo_root=None, copy_covers_to=None, fetch_goo
                     book['cover_urls']['open_library'] = best_cover_url
                     if not book.get('cover_image_url'):
                         book['cover_image_url'] = best_cover_url
+
+                    # Add alternative URLs
+                    if alternative_urls:
+                        book['cover_urls'].update(alternative_urls)
                 else:
                     print(f"  Warning: No quality cover found for {row['Title']}")
+                    # Still add Google Books as fallback
+                    if alternative_urls:
+                        if 'cover_urls' not in book:
+                            book['cover_urls'] = {}
+                        book['cover_urls'].update(alternative_urls)
             else:
                 # Without verification, use simple ISBN lookup
                 open_library_url = f"https://covers.openlibrary.org/b/isbn/{row['ISBN']}-L.jpg"
@@ -393,7 +452,7 @@ def extract_reading_data(db_path, kobo_root=None, copy_covers_to=None, fetch_goo
         # Find the best cover URL for finished books
         if row['ISBN']:
             if verify_images:
-                best_cover_url = get_best_cover_url(
+                best_cover_url, alternative_urls = get_best_cover_url(
                     row['ISBN'],
                     row['Title'],
                     row['Author']
@@ -403,6 +462,13 @@ def extract_reading_data(db_path, kobo_root=None, copy_covers_to=None, fetch_goo
                     book['cover_urls'] = {
                         'open_library': best_cover_url
                     }
+                    # Add alternative URLs
+                    if alternative_urls:
+                        book['cover_urls'].update(alternative_urls)
+                else:
+                    # Still add Google Books as fallback
+                    if alternative_urls:
+                        book['cover_urls'] = alternative_urls
             else:
                 # Without verification, use simple ISBN lookup
                 open_library_url = f"https://covers.openlibrary.org/b/isbn/{row['ISBN']}-L.jpg"

@@ -30,12 +30,12 @@ const IndexPage = ({ data }) => {
     ...currentlyReading.map((book) => ({
       ...book,
       read: false,
-      image: book.cover_urls?.open_library || book.cover_image_url,
+      image: book.cover_urls?.open_library || book.cover_urls?.google_books || book.cover_image_url,
     })),
     ...recentlyFinished.map((book) => ({
       ...book,
       read: true,
-      image: book.cover_urls?.open_library,
+      image: book.cover_urls?.open_library || book.cover_urls?.google_books,
     })),
   ];
 

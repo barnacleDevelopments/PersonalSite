@@ -13,8 +13,7 @@
       "isbn": "urn:uuid:bd6b12a5-02a3-4980-ad4e-32440bbc6f3d",
       "cover_image_url": "https://covers.openlibrary.org/b/isbn/urn:uuid:bd6b12a5-02a3-4980-ad4e-32440bbc6f3d-L.jpg",
       "cover_urls": {
-        "open_library": "https://covers.openlibrary.org/b/isbn/urn:uuid:bd6b12a5-02a3-4980-ad4e-32440bbc6f3d-L.jpg",
-        "google_books": "https://books.google.com/books/content?id=&printsec=frontcover&img=1&zoom=1&isbn=urn:uuid:bd6b12a5-02a3-4980-ad4e-32440bbc6f3d"
+        "google_books": "https://books.google.com/books/content?id=&printsec=frontcover&img=1&zoom=1&isbn=urn:uuid:bd6b12a502a34980ad4e32440bbc6f3d"
       }
     },
     {
@@ -30,7 +29,6 @@
       "isbn": "9780135956977",
       "cover_image_url": "https://covers.openlibrary.org/b/isbn/9780135956977-L.jpg",
       "cover_urls": {
-        "open_library": "https://covers.openlibrary.org/b/isbn/9780135956977-L.jpg",
         "google_books": "https://books.google.com/books/content?id=&printsec=frontcover&img=1&zoom=1&isbn=9780135956977"
       }
     },
@@ -47,8 +45,7 @@
       "isbn": "2be6df96-9d4d-41a2-a09e-673c84692993",
       "cover_image_url": "https://covers.openlibrary.org/b/isbn/2be6df96-9d4d-41a2-a09e-673c84692993-L.jpg",
       "cover_urls": {
-        "open_library": "https://covers.openlibrary.org/b/isbn/2be6df96-9d4d-41a2-a09e-673c84692993-L.jpg",
-        "google_books": "https://books.google.com/books/content?id=&printsec=frontcover&img=1&zoom=1&isbn=2be6df96-9d4d-41a2-a09e-673c84692993"
+        "google_books": "https://books.google.com/books/content?id=&printsec=frontcover&img=1&zoom=1&isbn=2be6df969d4d41a2a09e673c84692993"
       }
     },
     {
@@ -64,7 +61,6 @@
       "isbn": "9780771051562",
       "cover_image_url": "https://covers.openlibrary.org/b/isbn/9780771051562-L.jpg",
       "cover_urls": {
-        "open_library": "https://covers.openlibrary.org/b/isbn/9780771051562-L.jpg",
         "google_books": "https://books.google.com/books/content?id=&printsec=frontcover&img=1&zoom=1&isbn=9780771051562"
       }
     },
@@ -81,8 +77,8 @@
       "isbn": "978-1-949-95036-6",
       "cover_image_url": "https://covers.openlibrary.org/b/isbn/978-1-949-95036-6-L.jpg",
       "cover_urls": {
-        "open_library": "https://covers.openlibrary.org/b/isbn/978-1-949-95036-6-L.jpg",
-        "google_books": "https://books.google.com/books/content?id=&printsec=frontcover&img=1&zoom=1&isbn=978-1-949-95036-6"
+        "open_library": "https://covers.openlibrary.org/b/id/14541150-L.jpg",
+        "google_books": "https://books.google.com/books/content?id=&printsec=frontcover&img=1&zoom=1&isbn=9781949950366"
       }
     },
     {
@@ -110,7 +106,7 @@
       "isbn": "9780199218462",
       "cover_image_url": "https://covers.openlibrary.org/b/isbn/9780199218462-L.jpg",
       "cover_urls": {
-        "open_library": "https://covers.openlibrary.org/b/isbn/9780199218462-L.jpg",
+        "open_library": "https://covers.openlibrary.org/b/id/2333795-L.jpg",
         "google_books": "https://books.google.com/books/content?id=&printsec=frontcover&img=1&zoom=1&isbn=9780199218462"
       }
     },
@@ -127,7 +123,7 @@
       "isbn": "9781476753850",
       "cover_image_url": "https://covers.openlibrary.org/b/isbn/9781476753850-L.jpg",
       "cover_urls": {
-        "open_library": "https://covers.openlibrary.org/b/isbn/9781476753850-L.jpg",
+        "open_library": "https://covers.openlibrary.org/b/id/10396450-L.jpg",
         "google_books": "https://books.google.com/books/content?id=&printsec=frontcover&img=1&zoom=1&isbn=9781476753850"
       }
     },
@@ -151,7 +147,7 @@
       "finished_date": "2025-10-24T16:01:29.902",
       "isbn": "https://leanpub.com/thekubernetesbook",
       "cover_urls": {
-        "open_library": "https://covers.openlibrary.org/b/isbn/https://leanpub.com/thekubernetesbook-L.jpg"
+        "google_books": "https://books.google.com/books/content?id=&printsec=frontcover&img=1&zoom=1&isbn=https://leanpub.com/thekubernetesbook"
       }
     },
     {
@@ -160,9 +156,9 @@
       "finished_date": "2025-10-23T23:39:03.520",
       "isbn": "urn:uuid:229a2fb3-df20-40c6-9cf9-d4d11223666c",
       "cover_urls": {
-        "open_library": "https://covers.openlibrary.org/b/isbn/urn:uuid:229a2fb3-df20-40c6-9cf9-d4d11223666c-L.jpg"
+        "google_books": "https://books.google.com/books/content?id=&printsec=frontcover&img=1&zoom=1&isbn=urn:uuid:229a2fb3df2040c69cf9d4d11223666c"
       }
     }
   ],
-  "last_updated": "2025-11-06T10:40:45.124409"
+  "last_updated": "2025-11-06T10:53:48.795375"
 }
