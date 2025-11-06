@@ -1,30 +1,79 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui";
-import { Link } from "gatsby";
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
+import { useState } from "react";
 
 export default function BookCard({ book }) {
-  const image = getImage(book.image);
+  const gatsbyImage = getImage(book.image);
+  const isExternalImage = typeof book.image === "string";
+  const [imageError, setImageError] = useState(false);
+
+  const handleImageError = () => {
+    setImageError(true);
+  };
+
+  // Get progress percentage (default to 0 for finished books)
+  const progress = book.progress_percent || (book.read ? 100 : 0);
+
   return (
-    <Link
-      to={book.url}
+    <div
       sx={{
         width: "150px",
         flex: "0 0 auto",
         position: "relative",
       }}
     >
-      <GatsbyImage
-        sx={{
-          width: "100%",
-          border: "2px solid black",
-          borderColor: "primary",
-          borderRadius: 3,
-        }}
-        key={book.title}
-        alt={book.title}
-        image={image}
-      />
+      {isExternalImage && !imageError ? (
+        <img
+          sx={{
+            width: "100%",
+            height: "225px",
+            objectFit: "cover",
+            border: "2px solid black",
+            borderColor: "primary",
+            borderRadius: 3,
+          }}
+          src={book.image}
+          alt={book.title}
+          loading="lazy"
+          onError={handleImageError}
+        />
+      ) : !isExternalImage && gatsbyImage ? (
+        <GatsbyImage
+          sx={{
+            width: "100%",
+            border: "2px solid black",
+            borderColor: "primary",
+            borderRadius: 3,
+          }}
+          key={book.title}
+          alt={book.title}
+          image={gatsbyImage}
+        />
+      ) : (
+        <div
+          sx={{
+            width: "100%",
+            height: "225px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            border: "2px solid black",
+            borderColor: "primary",
+            borderRadius: 3,
+            backgroundColor: "muted",
+            color: "text",
+            textAlign: "center",
+            padding: 2,
+            fontSize: 1,
+          }}
+        >
+          <div>
+            <div sx={{ fontWeight: "bold", mb: 1 }}>{book.title}</div>
+            <div sx={{ fontSize: 0 }}>{book.author}</div>
+          </div>
+        </div>
+      )}
       {book.read && (
         <div
           sx={{
@@ -44,6 +93,43 @@ export default function BookCard({ book }) {
           Read
         </div>
       )}
-    </Link>
+      {/* Progress bar */}
+      {!book.read && progress > 0 && (
+        <div
+          sx={{
+            marginTop: 2,
+          }}
+        >
+          <div
+            sx={{
+              width: "100%",
+              height: "6px",
+              backgroundColor: "muted",
+              borderRadius: "3px",
+              overflow: "hidden",
+            }}
+          >
+            <div
+              sx={{
+                width: `${progress}%`,
+                height: "100%",
+                backgroundColor: "primary",
+                transition: "width 0.3s ease",
+              }}
+            />
+          </div>
+          <div
+            sx={{
+              fontSize: 0,
+              color: "text",
+              textAlign: "center",
+              marginTop: 1,
+            }}
+          >
+            {Math.round(progress)}%
+          </div>
+        </div>
+      )}
+    </div>
   );
 }

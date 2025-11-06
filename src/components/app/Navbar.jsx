@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { StaticImage } from "gatsby-plugin-image";
 import { useState, useEffect, useRef, memo } from "react";
-import { jsx, Box, Flex, NavLink } from "theme-ui";
+import { jsx, Box, Flex } from "theme-ui";
 import { Link } from "gatsby";
 
 import SideNav from "./SideNav";
@@ -78,7 +78,7 @@ const Navbar = () => {
                 fontWeight: "bold",
                 "&:hover": {
                   textDecoration: "underline",
-                }
+                },
               }}
             >
               Blog
@@ -91,7 +91,7 @@ const Navbar = () => {
                 fontWeight: "bold",
                 "&:hover": {
                   textDecoration: "underline",
-                }
+                },
               }}
             >
               Contact
@@ -140,7 +140,7 @@ const Navbar = () => {
                 fontWeight: "bold",
                 "&:hover": {
                   textDecoration: "underline",
-                }
+                },
               }}
             >
               Projects
@@ -153,7 +153,7 @@ const Navbar = () => {
                 fontWeight: "bold",
                 "&:hover": {
                   textDecoration: "underline",
-                }
+                },
               }}
             >
               About

@@ -41,6 +41,7 @@ module.exports = {
   },
   plugins: [
     "gatsby-plugin-sitemap",
+    "gatsby-transformer-json",
     {
       resolve: `gatsby-plugin-feed`,
       options: {

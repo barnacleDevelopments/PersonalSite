@@ -10,6 +10,7 @@ import Loader from "../components/Loader";
 import PostCard from "../components/PostCard/PostCard";
 import ProjectCard from "../components/ProjectCard/ProjectCard";
 import Seo from "../components/Seo/Seo";
+import Tooltip from "../components/Tooltip/Tooltip";
 
 const IndexPage = ({ data }) => {
   const [bookFilter, setBookFilter] = useState("all");
@@ -22,10 +23,37 @@ const IndexPage = ({ data }) => {
       excerpt: node.excerpt,
     }));
 
-  const allBooks = data.books.edges.map(({ node }) => ({
-    ...node.frontmatter,
-    ...node.fields,
-  }));
+  const readingProgressData = data.readingProgress?.nodes?.[0] || {};
+  const currentlyReading = readingProgressData.currently_reading || [];
+  const recentlyFinished = readingProgressData.recently_finished || [];
+
+  // Create a map of book covers by filename (without extension)
+  const bookCoverMap = {};
+  data.bookCovers?.nodes?.forEach((cover) => {
+    bookCoverMap[cover.name] = cover.childImageSharp;
+  });
+
+  const allBooks = [
+    ...currentlyReading.map((book) => {
+      // Try to find local cover
+      let coverImage = null;
+      if (book.cover_image) {
+        const coverName = book.cover_image.replace(/\.[^/.]+$/, ''); // Remove extension
+        coverImage = bookCoverMap[coverName] || null;
+      }
+
+      return {
+        ...book,
+        read: false,
+        image: coverImage,
+      };
+    }),
+    ...recentlyFinished.map((book) => ({
+      ...book,
+      read: true,
+      image: null, // No covers for finished books
+    })),
+  ];
 
   const books = allBooks.filter((book) => {
     if (bookFilter === "read") return book.read === true;
@@ -227,9 +255,12 @@ const IndexPage = ({ data }) => {
               gap: 2,
             }}
           >
-            <Heading as="h3" variant="subheading1" sx={{ mb: 0 }}>
-              Reading List
-            </Heading>
+            <Flex sx={{ alignItems: "center", gap: 2 }}>
+              <Heading as="h3" variant="subheading1" sx={{ mb: 0 }}>
+                Reading List
+              </Heading>
+              <Tooltip text="Books are synced from my Kobo e-reader. Covers are extracted from EPUBs and reading progress is updated automatically." />
+            </Flex>
             <Flex sx={{ gap: 2 }}>
               <Button
                 variant={
@@ -268,8 +299,23 @@ const IndexPage = ({ data }) => {
               <Flex
                 sx={{
                   gap: 3,
-                  overflowX: "scroll",
+                  overflowX: "auto",
+                  overflowY: "hidden",
                   width: "100%",
+                  "&::-webkit-scrollbar": {
+                    height: "8px",
+                  },
+                  "&::-webkit-scrollbar-track": {
+                    background: "muted",
+                    borderRadius: "4px",
+                  },
+                  "&::-webkit-scrollbar-thumb": {
+                    background: "primary",
+                    borderRadius: "4px",
+                    "&:hover": {
+                      background: "text",
+                    },
+                  },
                 }}
               >
                 {books.map((book) => (
@@ -390,25 +436,36 @@ export const landingPageQuery = graphql`
       }
     }
 
-    books: allMdx(
-      filter: { internal: { contentFilePath: { regex: "/content/books/" } } }
-      sort: { frontmatter: { date: DESC } }
-    ) {
-      edges {
-        node {
-          fields {
-            slug
-          }
-          frontmatter {
-            title
-            url
-            read
-            image {
-              childImageSharp {
-                gatsbyImageData
-              }
-            }
-          }
+    readingProgress: allContentJson {
+      nodes {
+        currently_reading {
+          id
+          title
+          author
+          publisher
+          description
+          last_read
+          progress_percent
+          read_status
+          cover_image_id
+          isbn
+          cover_image
+        }
+        recently_finished {
+          title
+          author
+          finished_date
+          isbn
+        }
+      }
+    }
+
+    bookCovers: allFile(filter: { sourceInstanceName: { eq: "images" }, relativeDirectory: { eq: "book-covers" } }) {
+      nodes {
+        relativePath
+        name
+        childImageSharp {
+          gatsbyImageData(width: 150, height: 225, placeholder: BLURRED)
         }
       }
     }
