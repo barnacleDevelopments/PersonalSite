@@ -96,7 +96,6 @@ Understanding prototypes helps you write better JavaScript.
 Available categories (must match exactly):
 - `programming`
 - `web development`
-- `blockchain`
 - `devops`
 - `career`
 
