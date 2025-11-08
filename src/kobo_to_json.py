@@ -14,6 +14,7 @@ Features:
     - Open Library API integration for official cover art
 
 Example:
+sudo python3 src/kobo_to_json.py /media/devindavis/KOBOeReader/.kobo/KoboReader.sqlite content/reading-progress.json --copy-covers static/assets/book-covers --collection "Career"
 """
 
 import sqlite3
