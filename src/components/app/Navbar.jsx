@@ -1,8 +1,8 @@
+import { Link } from "gatsby";
 /** @jsx jsx */
 import { StaticImage } from "gatsby-plugin-image";
-import { useState, useEffect, useRef, memo } from "react";
-import { jsx, Box, Flex } from "theme-ui";
-import { Link } from "gatsby";
+import { memo, useCallback, useEffect, useRef, useState } from "react";
+import { Box, Flex } from "theme-ui";
 
 import SideNav from "./SideNav";
 
@@ -11,7 +11,7 @@ const Navbar = () => {
   const [sideNavOpen, setSideNavOpen] = useState(false);
   const scrollTimeoutRef = useRef(null);
 
-  const styleNavBar = () => {
+  const styleNavBar = useCallback(() => {
     if (scrollTimeoutRef.current) {
       return;
     }
@@ -24,18 +24,18 @@ const Navbar = () => {
       }
       scrollTimeoutRef.current = null;
     }, 16);
-  };
+  }, []);
 
   function disableScroll() {
-    var x = window.scrollX;
-    var y = window.scrollY;
-    window.onscroll = function () {
+    const x = window.scrollX;
+    const y = window.scrollY;
+    window.onscroll = () => {
       window.scrollTo(x, y);
     };
   }
 
   function enableScroll() {
-    window.onscroll = function () {};
+    window.onscroll = () => {};
   }
 
   useEffect(() => {
@@ -47,7 +47,7 @@ const Navbar = () => {
         clearTimeout(scrollTimeoutRef.current);
       }
     };
-  }, []);
+  }, [styleNavBar]);
 
   return (
     <Box as="nav" sx={nav}>
@@ -98,11 +98,11 @@ const Navbar = () => {
             </Link>
           </Box>
           <Link to="/" sx={{ width: "60px" }}>
-            <Box className="nav-triangle"></Box>
+            <Box className="nav-triangle" />
             <Box sx={{ filter: isScrolledTop ? "none" : "brightness(0)" }}>
               <StaticImage alt="logo" src="../../images/logo.png" />
             </Box>
-            <Box className="nav-triangle"></Box>
+            <Box className="nav-triangle" />
           </Link>
           <Box
             sx={hamburgerStyles}
@@ -116,19 +116,19 @@ const Navbar = () => {
                 ...hamburderPatty,
                 backgroundColor: isScrolledTop ? "#ffffff" : "#30362F",
               }}
-            ></div>
+            />
             <div
               sx={{
                 ...hamburderPatty,
                 backgroundColor: isScrolledTop ? "#ffffff" : "#30362F",
               }}
-            ></div>
+            />
             <div
               sx={{
                 ...hamburderPatty,
                 backgroundColor: isScrolledTop ? "#ffffff" : "#30362F",
               }}
-            ></div>
+            />
           </Box>
           <Box sx={{ display: ["none", "block"], color: "white" }}>
             <Link

@@ -2,12 +2,11 @@
 import { MDXProvider, useMDXComponents } from "@mdx-js/react";
 import { useThemedStylesWithMdx } from "@theme-ui/mdx";
 import Prism from "@theme-ui/prism";
-import { jsx, ThemeUIProvider } from "theme-ui";
-import React from "react";
+import { ThemeUIProvider } from "theme-ui";
 
+import theme from "../../theme/theme";
 import Footer from "./Footer.jsx";
 import Navbar from "./Navbar.jsx";
-import theme from "../../theme/theme";
 
 import "../../css/reset.css";
 

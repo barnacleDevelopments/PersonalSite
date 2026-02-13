@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx, Box, Flex } from "theme-ui";
+import { Box, Flex } from "theme-ui";
 
 export function CloseButton({ onClick, sx }) {
   return (
@@ -24,7 +24,7 @@ export function CloseButton({ onClick, sx }) {
           transform: "rotate(45deg)",
           position: "absolute",
         }}
-      ></Box>
+      />
       <Box
         sx={{
           bg: "primary",
@@ -33,7 +33,7 @@ export function CloseButton({ onClick, sx }) {
           transform: "rotate(-45deg)",
           position: "absolute",
         }}
-      ></Box>
+      />
     </Flex>
   );
 }

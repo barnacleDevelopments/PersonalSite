@@ -1,7 +1,7 @@
+import { Link } from "gatsby";
 /** @jsx jsx */
 import { forwardRef } from "react";
-import { Box, Flex, Heading, jsx } from "theme-ui";
-import { Link } from "gatsby";
+import { Box, Flex, Heading } from "theme-ui";
 import { CloseButton } from "../app/CloseButton";
 
 const ProjectDialog = forwardRef(({ title, projects }, ref) => {

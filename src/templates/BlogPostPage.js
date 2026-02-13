@@ -1,9 +1,9 @@
 /** @jsx jsx */
 import { MDXProvider } from "@mdx-js/react";
-import { graphql, Link as GatsbyLink } from "gatsby";
+import { Link as GatsbyLink, graphql } from "gatsby";
 import { DateTime } from "luxon";
 import PropTypes from "prop-types";
-import { Button, jsx, Heading, Box, Flex, Text } from "theme-ui";
+import { Box, Button, Flex, Heading, Text } from "theme-ui";
 
 import Seo from "../components/Seo/Seo";
 import globalCodes from "../short-codes";
@@ -13,6 +13,7 @@ function HorizontalImages({ children }) {
   return (
     <Flex sx={{ gap: 3 }}>
       {imageComponents.map((x, index) => (
+        // biome-ignore lint/suspicious/noArrayIndexKey: static image list with stable order
         <Box key={index} sx={{ flex: 1 }}>
           {x}
         </Box>
@@ -37,7 +38,7 @@ const BlogPostPage = ({ data, children }) => {
         keywords={node.frontmatter.keywords.split(",")}
         description={node.excerpt}
         image={node.frontmatter.thumbnail.childImageSharp.original.src}
-      ></Seo>
+      />
       <Flex
         sx={{
           width: ["100%"],

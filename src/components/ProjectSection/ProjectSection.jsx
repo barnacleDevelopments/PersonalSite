@@ -1,6 +1,5 @@
 /** @jsx jsx */
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
-import { jsx } from "theme-ui";
 import { Box, Grid } from "theme-ui";
 
 const sectionWrapperStyle = {
@@ -19,7 +18,11 @@ export function ProjectSection({
   const isLeftAligned = alignment === "left";
 
   return (
-    <Box as="section" aria-label="Project Section" sx={{ ...sectionWrapperStyle }}>
+    <Box
+      as="section"
+      aria-label="Project Section"
+      sx={{ ...sectionWrapperStyle }}
+    >
       <Grid columns={[1, 2]} sx={{ alignItems: "center", gap: 5 }}>
         <Box
           sx={{

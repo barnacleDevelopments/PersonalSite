@@ -1,7 +1,6 @@
-import React from "react";
-import Seo from "./Seo.jsx";
 import { render, waitFor } from "@testing-library/react";
 import metaData from "../../../gatsby-config.js";
+import Seo from "./Seo.jsx";
 
 jest.mock("@reach/router");
 jest.mock("gatsby", () => ({
@@ -15,7 +14,7 @@ jest.mock("gatsby", () => ({
         github: "https://github.com/barnacleDevelopments",
         linkedin: "https://www.linkedin.com/in/devin-dev-d-63008412b/",
         metaImage: {
-          src: `assets/logo_2.png`,
+          src: "assets/logo_2.png",
           width: 110,
           height: 110,
         },

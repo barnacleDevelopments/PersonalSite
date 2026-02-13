@@ -1,7 +1,7 @@
 import ImageWrapper from "./components/ImageWrapper/ImageWrapper";
 
 const globalCodes = {
-  ImageWrapper
+  ImageWrapper,
 };
 
 export default globalCodes;

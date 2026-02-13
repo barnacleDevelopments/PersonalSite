@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, memo } from "react";
 import { Box } from "@theme-ui/components";
+import { memo, useEffect, useRef } from "react";
 
 const Loader = () => {
   const heroBtnBackgroundRef = useRef();
@@ -11,13 +11,13 @@ const Loader = () => {
     if (!sticks) return;
 
     const expandStick = (el) => {
-      el.style.height = `100%`;
-      el.style.backgroundColor = `#9d8189`;
+      el.style.height = "100%";
+      el.style.backgroundColor = "#9d8189";
     };
 
     const shrinkStick = (el) => {
-      el.style.height = `0%`;
-      el.style.backgroundColor = `#508991`;
+      el.style.height = "0%";
+      el.style.backgroundColor = "#508991";
     };
 
     let stickState = false;
@@ -45,7 +45,9 @@ const Loader = () => {
       if (intervalRef.current) {
         clearInterval(intervalRef.current);
       }
-      timeoutsRef.current.forEach(timeout => clearTimeout(timeout));
+      for (const timeout of timeoutsRef.current) {
+        clearTimeout(timeout);
+      }
       timeoutsRef.current = [];
     };
   }, []);
@@ -66,11 +68,11 @@ const Loader = () => {
       }}
       ref={heroBtnBackgroundRef}
     >
-      <Box style={{ height: 10, backgroundColor: `#508991` }} />
-      <Box style={{ height: 50, backgroundColor: `#508991` }} />
-      <Box style={{ height: 80, backgroundColor: `#508991` }} />
-      <Box style={{ height: 50, backgroundColor: `#508991` }} />
-      <Box style={{ height: 10, backgroundColor: `#508991` }} />
+      <Box style={{ height: 10, backgroundColor: "#508991" }} />
+      <Box style={{ height: 50, backgroundColor: "#508991" }} />
+      <Box style={{ height: 80, backgroundColor: "#508991" }} />
+      <Box style={{ height: 50, backgroundColor: "#508991" }} />
+      <Box style={{ height: 10, backgroundColor: "#508991" }} />
     </Box>
   );
 };

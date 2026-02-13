@@ -1,6 +1,6 @@
 /** @jsx jsx */
-import { graphql, Link as GatsbyLink } from "gatsby";
-import { Paragraph, jsx, Box, Heading } from "theme-ui";
+import { Link as GatsbyLink, graphql } from "gatsby";
+import { Box, Heading, Paragraph } from "theme-ui";
 
 import CallToAction from "../components/CallToAction";
 import ProjectCard from "../components/ProjectCard/ProjectCard";

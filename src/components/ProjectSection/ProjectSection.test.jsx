@@ -1,4 +1,3 @@
-import React from "react";
 import { render, screen } from "@testing-library/react";
 import { ProjectSection } from "./ProjectSection";
 
@@ -18,7 +17,7 @@ describe("ProjectSection", () => {
         imageAlt="Test Image"
       >
         <p>Test</p>
-      </ProjectSection>
+      </ProjectSection>,
     );
 
     const image = screen.getByAltText("Test Image");

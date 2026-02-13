@@ -1,10 +1,10 @@
-import React from "react";
-import { render, screen, fireEvent } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import { getImage } from "gatsby-plugin-image";
 import { TechListing } from "./TechListing";
 
 // Mock GatsbyImage
 jest.mock("gatsby-plugin-image", () => ({
+  // biome-ignore lint/a11y/useAltText: alt is passed through props
   GatsbyImage: ({ image, alt, ...props }) => (
     <img src={image?.src} alt={alt} {...props} />
   ),
@@ -30,10 +30,10 @@ describe("TechListing", () => {
   it("renders tech names and images without onClick", () => {
     render(<TechListing technologies={mockTechnologies} descriptive={true} />);
 
-    mockTechnologies.forEach((tech) => {
+    for (const tech of mockTechnologies) {
       expect(screen.getByAltText(tech.name)).toBeInTheDocument();
       expect(screen.getByText(tech.name)).toBeInTheDocument();
-    });
+    }
   });
 
   it("renders tech items with buttons when onClick is provided", () => {
@@ -46,19 +46,19 @@ describe("TechListing", () => {
       />,
     );
 
-    mockTechnologies.forEach((tech) => {
+    for (const tech of mockTechnologies) {
       const item = screen.getByText(tech.name);
       fireEvent.click(item);
       expect(handleClick).toHaveBeenCalledWith(tech);
-    });
+    }
   });
 
   it("does not show names when descriptive is false", () => {
     render(<TechListing technologies={mockTechnologies} descriptive={false} />);
 
-    mockTechnologies.forEach((tech) => {
+    for (const tech of mockTechnologies) {
       expect(screen.queryByText(tech.name)).not.toBeInTheDocument();
       expect(screen.getByAltText(tech.name)).toBeInTheDocument();
-    });
+    }
   });
 });

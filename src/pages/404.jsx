@@ -1,5 +1,4 @@
 import { Link } from "gatsby";
-import * as React from "react";
 import { Box } from "theme-ui";
 
 const NotFoundPage = () => {

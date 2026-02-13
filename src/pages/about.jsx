@@ -1,8 +1,8 @@
 /** @jsx jsx */
-import { graphql, Link as GatsbyLink } from "gatsby";
+import { Link as GatsbyLink, graphql } from "gatsby";
 import { StaticImage } from "gatsby-plugin-image";
 import { useRef, useState } from "react";
-import { Box, Grid, Heading, jsx, Paragraph } from "theme-ui";
+import { Box, Grid, Heading, Paragraph } from "theme-ui";
 
 import CallToAction from "../components/CallToAction";
 import Seo from "../components/Seo/Seo";
@@ -16,11 +16,11 @@ const AboutPage = ({ data }) => {
   const allProjects = data.allMdx.edges;
 
   const technologyMap = new Map();
-  allProjects.forEach(({ node }) => {
+  for (const { node } of allProjects) {
     const { title, technologies } = node.frontmatter;
     const { slug } = node.fields;
 
-    technologies.forEach((tech) => {
+    for (const tech of technologies) {
       if (!technologyMap.has(tech.name)) {
         technologyMap.set(tech.name, {
           image: tech.image,
@@ -29,8 +29,8 @@ const AboutPage = ({ data }) => {
         });
       }
       technologyMap.get(tech.name).projects.push({ title, slug });
-    });
-  });
+    }
+  }
 
   const technologies = Array.from(technologyMap, ([name, data]) => ({
     name,

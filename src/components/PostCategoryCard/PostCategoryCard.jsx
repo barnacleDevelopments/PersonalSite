@@ -1,9 +1,7 @@
-/** @jsx jsx */
-import { jsx } from "theme-ui";
 import { Link } from "gatsby";
 
 // Components
-import { Text, Flex, Button, Heading } from "theme-ui";
+import { Button, Flex, Heading, Text } from "theme-ui";
 
 function PostCategoryCard({ title, content, link }) {
   return (

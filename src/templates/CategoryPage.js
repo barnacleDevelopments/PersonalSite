@@ -1,11 +1,9 @@
-/** @jsx jsx */
-import { jsx } from "theme-ui";
-import { graphql, Link as GatsbyLink } from "gatsby";
+import { Link as GatsbyLink, graphql } from "gatsby";
 
-import { Heading, Box, Text, Grid, Button } from "theme-ui";
+import { Box, Button, Grid, Heading, Text } from "theme-ui";
 
-import Seo from "../components/Seo/Seo";
 import PostCard from "../components/PostCard/PostCard";
+import Seo from "../components/Seo/Seo";
 
 const CategoryPage = ({ data }) => {
   const pageData = data.allMdx.edges;
@@ -46,11 +44,11 @@ const CategoryPage = ({ data }) => {
               .split("-")
               .map(
                 (w) =>
-                  w.charAt(0).toUpperCase() + w.slice(1).toLowerCase() + " ",
+                  `${w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()} `,
               )}
             Posts
           </Heading>
-          <Text variant="large" sx={{ textAlign: "center" }}></Text>
+          <Text variant="large" sx={{ textAlign: "center" }} />
         </Box>
         <Grid
           sx={{
@@ -60,11 +58,17 @@ const CategoryPage = ({ data }) => {
           columns={[1]}
         >
           {pageData.length > 0 ? (
-            pageData.map(({ node }, index) => {
+            pageData.map(({ node }) => {
               const post = node.frontmatter;
               const excerpt = node.excerpt;
               post.slug = node.fields.slug;
-              return <PostCard key={index} post={post} postContent={excerpt} />;
+              return (
+                <PostCard
+                  key={node.fields.slug}
+                  post={post}
+                  postContent={excerpt}
+                />
+              );
             })
           ) : (
             <Box sx={{ height: "80vh" }}>

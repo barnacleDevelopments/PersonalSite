@@ -1,9 +1,7 @@
-/** @jsx jsx */
-import { jsx } from "theme-ui";
 import { Link } from "gatsby";
 
 // Components
-import { Heading, Text, Button, Box, Flex } from "theme-ui";
+import { Box, Button, Flex, Heading, Text } from "theme-ui";
 
 const CallToAction = ({ title, content, buttonText, pageLink }) => {
   return (

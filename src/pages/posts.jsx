@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { graphql } from "gatsby";
-import { jsx , Box, Text, Grid, Heading } from "theme-ui";
+import { Box, Grid, Heading, Text } from "theme-ui";
 
 import PostCard from "../components/PostCard/PostCard";
 import Seo from "../components/Seo/Seo";
@@ -10,7 +10,7 @@ const AllPostsPage = ({ data }) => {
 
   return (
     <Box>
-      <Seo title="Blog"></Seo>
+      <Seo title="Blog" />
       <Box
         sx={{
           margin: "0 auto",
@@ -34,11 +34,17 @@ const AllPostsPage = ({ data }) => {
           gap={3}
           columns={[1]}
         >
-          {pageData.map(({ node }, index) => {
+          {pageData.map(({ node }) => {
             const post = node.frontmatter;
             const excerpt = node.excerpt;
             post.slug = node.fields.slug;
-            return <PostCard key={index} post={post} postContent={excerpt} />;
+            return (
+              <PostCard
+                key={node.fields.slug}
+                post={post}
+                postContent={excerpt}
+              />
+            );
           })}
         </Grid>
       </Box>

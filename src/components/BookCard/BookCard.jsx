@@ -1,5 +1,3 @@
-/** @jsx jsx */
-import { jsx } from "theme-ui";
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import { useState } from "react";
 

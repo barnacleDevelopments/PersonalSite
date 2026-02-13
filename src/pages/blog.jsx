@@ -2,7 +2,7 @@
 import { faRssSquare } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
 import { graphql } from "gatsby";
-import { jsx, Box, Flex, Text, Grid, Heading } from "theme-ui";
+import { Box, Flex, Grid, Heading, Text } from "theme-ui";
 
 import PostCategoryCard from "../components/PostCategoryCard/PostCategoryCard";
 import Seo from "../components/Seo/Seo";
@@ -70,7 +70,7 @@ const BlogPage = ({ data }) => {
             <PostCategoryCard
               key={category}
               title={category.split("-").map((w) => {
-                return w.charAt(0).toUpperCase() + w.slice(1) + " ";
+                return `${w.charAt(0).toUpperCase() + w.slice(1)} `;
               })}
               link={category}
             />

@@ -1,9 +1,7 @@
-/** @jsx jsx */
-import { jsx } from "theme-ui";
-import { Box, Link as ThemeLink, Text, Grid, Button, Flex } from "theme-ui";
-import { Link } from "gatsby";
+import { faInstagram, faLinkedin } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
-import { faLinkedin, faInstagram } from "@fortawesome/free-brands-svg-icons";
+import { Link } from "gatsby";
+import { Box, Button, Flex, Grid, Text, Link as ThemeLink } from "theme-ui";
 
 const Footer = () => {
   return (
@@ -59,7 +57,7 @@ const Footer = () => {
                 textDecoration: "none",
                 "&:hover": {
                   textDecoration: "underline",
-                }
+                },
               }}
             >
               Home
@@ -73,7 +71,7 @@ const Footer = () => {
                 textDecoration: "none",
                 "&:hover": {
                   textDecoration: "underline",
-                }
+                },
               }}
             >
               Contact
@@ -87,7 +85,7 @@ const Footer = () => {
                 textDecoration: "none",
                 "&:hover": {
                   textDecoration: "underline",
-                }
+                },
               }}
             >
               Projects
@@ -101,7 +99,7 @@ const Footer = () => {
                 textDecoration: "none",
                 "&:hover": {
                   textDecoration: "underline",
-                }
+                },
               }}
             >
               About

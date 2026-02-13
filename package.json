@@ -4,16 +4,17 @@
   "private": true,
   "description": "Dev's Portfoio Website",
   "author": "Devin",
-  "keywords": [
-    "gatsby"
-  ],
+  "keywords": ["gatsby"],
   "scripts": {
     "develop": "gatsby develop",
     "start": "gatsby develop",
     "build": "gatsby build",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
-    "test": "jest"
+    "test": "jest",
+    "biome:lint": "biome check src",
+    "biome:fix": "biome check --write --unsafe src",
+    "prepare": "husky"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.7.2",
@@ -53,17 +54,18 @@
     "yup": "^1.6.1"
   },
   "devDependencies": {
-    "@eslint/js": "^9.24.0",
+    "@biomejs/biome": "^1.9.4",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.3.0",
     "babel-jest": "^29.7.0",
     "babel-preset-gatsby": "^3.14.0",
-    "eslint": "^9.26.0",
-    "eslint-plugin-import": "^2.31.0",
-    "eslint-plugin-react": "^7.37.5",
-    "globals": "^16.0.0",
+    "husky": "^9.1.7",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^29.7.0",
-    "jest-environment-jsdom": "^29.7.0"
+    "jest-environment-jsdom": "^29.7.0",
+    "lint-staged": "^16.2.7"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,css,json}": ["biome check --write"]
   }
 }

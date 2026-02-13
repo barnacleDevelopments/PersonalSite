@@ -1,13 +1,12 @@
-import React from "react";
+import { useLocation } from "@reach/router";
+import { graphql, useStaticQuery } from "gatsby";
 import PropTypes from "prop-types";
 import { Helmet } from "react-helmet";
-import { useLocation } from "@reach/router";
-import { useStaticQuery, graphql } from "gatsby";
 
 // SEO Component Resource: https://www.gatsbyjs.com/docs/add-seo-component/
 
 const Seo = ({ title, description, image, lang, keywords, children }) => {
-  const { pathname = '/' } = useLocation() || {};
+  const { pathname = "/" } = useLocation() || {};
   const { site } = useStaticQuery(query);
   const {
     defaultTitle,
@@ -17,7 +16,7 @@ const Seo = ({ title, description, image, lang, keywords, children }) => {
     metaImage,
     siteUrl,
     github,
-    linkedin
+    linkedin,
   } = site.siteMetadata;
 
   const seo = {
@@ -35,7 +34,7 @@ const Seo = ({ title, description, image, lang, keywords, children }) => {
   return (
     <Helmet>
       {children}
-      <html lang={seo.lang}/>
+      <html lang={seo.lang} />
       <title>{seo.title}</title>
       <meta name="description" content={seo.description} />
       <meta name="github" content={github} />

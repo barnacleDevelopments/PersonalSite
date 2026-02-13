@@ -1,6 +1,6 @@
-/** @jsx jsx */
-import { jsx, Box } from "theme-ui";
 import PropTypes from "prop-types";
+/** @jsx jsx */
+import { Box } from "theme-ui";
 
 export const Section = ({ children }) => {
   return (

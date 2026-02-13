@@ -1,10 +1,9 @@
+import { Link } from "gatsby";
 /** @jsx jsx */
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
-import { jsx } from "theme-ui";
-import { Link } from "gatsby";
 
 // Components
-import { Card, Text, Button, Flex, Box, Heading } from "theme-ui";
+import { Box, Button, Card, Flex, Heading, Text } from "theme-ui";
 import { TechListing } from "../TechListing/TechListing";
 
 const ProjectCard = ({ project }) => {

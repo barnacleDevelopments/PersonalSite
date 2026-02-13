@@ -1,7 +1,6 @@
 /** @jsx jsx */
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
-import { jsx } from "theme-ui";
-import { Flex, Button } from "theme-ui";
+import { Button, Flex } from "theme-ui";
 
 export function TechListing({ technologies, onClick, descriptive = true }) {
   return (

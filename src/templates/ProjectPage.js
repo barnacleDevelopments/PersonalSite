@@ -1,13 +1,11 @@
-/** @jsx jsx */
-import { jsx } from "theme-ui";
-import { graphql } from "gatsby";
-import { Box, Flex, Button, Heading, Text } from "theme-ui";
 import { MDXProvider } from "@mdx-js/react";
-import CallToAction from "../components/CallToAction";
+import { graphql } from "gatsby";
 import { DateTime } from "luxon";
+import { Box, Button, Flex, Heading, Text } from "theme-ui";
+import CallToAction from "../components/CallToAction";
 import { ProjectSection } from "../components/ProjectSection/ProjectSection";
-import { TechListing } from "../components/TechListing/TechListing";
 import Seo from "../components/Seo/Seo";
+import { TechListing } from "../components/TechListing/TechListing";
 import globalCodes from "../short-codes";
 
 const shortCodes = { ...globalCodes, ProjectSection, TechListing };
@@ -21,7 +19,7 @@ function ProjectPage({ data, children }) {
         title={node.frontmatter.title}
         keywords={node.frontmatter.keywords.split(",")}
         image={node.frontmatter.image1.childImageSharp.original.src}
-      ></Seo>
+      />
       <Flex sx={pageWrapper}>
         <Heading as="h1" variant="hero" color="white">
           {node.frontmatter.title}

@@ -1,8 +1,6 @@
-/** @jsx jsx */
-import { jsx } from "theme-ui";
-import { Box, Flex } from "theme-ui";
 import { Link } from "gatsby";
 import { StaticImage } from "gatsby-plugin-image";
+import { Box, Flex } from "theme-ui";
 import { CloseButton } from "./CloseButton";
 
 const SideNav = ({ isOpen, setSideNavOpen, enableScrollFunc }) => {
@@ -36,7 +34,11 @@ const SideNav = ({ isOpen, setSideNavOpen, enableScrollFunc }) => {
             alignItems: "center",
           }}
         >
-          <Link to="/" sx={{ color: "primary", width: "60px" }} onClick={handleLinkClick}>
+          <Link
+            to="/"
+            sx={{ color: "primary", width: "60px" }}
+            onClick={handleLinkClick}
+          >
             <StaticImage alt="logo" src="../../images/logo_2.png" />
           </Link>
           <CloseButton
@@ -68,7 +70,7 @@ const SideNav = ({ isOpen, setSideNavOpen, enableScrollFunc }) => {
               fontWeight: "bold",
               "&:hover": {
                 textDecoration: "underline",
-              }
+              },
             }}
             onClick={handleLinkClick}
           >
@@ -83,7 +85,7 @@ const SideNav = ({ isOpen, setSideNavOpen, enableScrollFunc }) => {
               fontWeight: "bold",
               "&:hover": {
                 textDecoration: "underline",
-              }
+              },
             }}
             onClick={handleLinkClick}
           >
@@ -98,7 +100,7 @@ const SideNav = ({ isOpen, setSideNavOpen, enableScrollFunc }) => {
               fontWeight: "bold",
               "&:hover": {
                 textDecoration: "underline",
-              }
+              },
             }}
             onClick={handleLinkClick}
           >
@@ -113,7 +115,7 @@ const SideNav = ({ isOpen, setSideNavOpen, enableScrollFunc }) => {
               fontWeight: "bold",
               "&:hover": {
                 textDecoration: "underline",
-              }
+              },
             }}
             onClick={handleLinkClick}
           >
@@ -128,7 +130,7 @@ const SideNav = ({ isOpen, setSideNavOpen, enableScrollFunc }) => {
               fontWeight: "bold",
               "&:hover": {
                 textDecoration: "underline",
-              }
+              },
             }}
             onClick={handleLinkClick}
           >

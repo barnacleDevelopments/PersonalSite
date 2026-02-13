@@ -1,8 +1,6 @@
-// https://testing-library.com/docs/queries/
-import React from "react";
 import { render, screen } from "@testing-library/react";
-import ProjectCard from "./ProjectCard";
 import { TechListing } from "../TechListing/TechListing";
+import ProjectCard from "./ProjectCard";
 
 jest.mock("../TechListing/TechListing");
 jest.mock("gatsby-plugin-image");

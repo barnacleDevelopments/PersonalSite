@@ -1,11 +1,9 @@
-/** @jsx jsx */
-import { jsx } from "theme-ui";
+import { Link } from "gatsby";
 import { GatsbyImage } from "gatsby-plugin-image";
 import { getImage } from "gatsby-plugin-image";
-import { Link } from "gatsby";
 
 // Components
-import { Heading, Card, Text, Button, Box, Grid } from "theme-ui";
+import { Box, Button, Card, Grid, Heading, Text } from "theme-ui";
 
 // markup
 const PostCard = ({ post, postContent }) => {

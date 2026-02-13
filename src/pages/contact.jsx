@@ -2,21 +2,20 @@
 import { faCopy } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useState, useEffect, useMemo, useCallback } from "react";
-import { useForm } from "react-hook-form";
 import { Link as GatsbyLink } from "gatsby";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { useForm } from "react-hook-form";
 import {
-  jsx,
   Box,
-  Flex,
   Button,
+  Flex,
   Grid,
   Heading,
-  Text,
   Input,
-  Textarea,
   Link,
   Paragraph,
+  Text,
+  Textarea,
 } from "theme-ui";
 import * as yup from "yup";
 
@@ -130,37 +129,35 @@ const ContactPage = () => {
     setFocus("email");
     setIsFormHighlighted(true);
     window.scrollTo(0, 200);
-  });
+  }, [setFocus]);
 
-  const encode = useCallback((data) => {
-    return Object.keys(data)
-      .map(
-        (key) => encodeURIComponent(key) + "=" + encodeURIComponent(data[key]),
-      )
-      .join("&");
-  });
+  const onSubmit = useCallback(async (data) => {
+    const encode = (formData) => {
+      return Object.keys(formData)
+        .map(
+          (key) =>
+            `${encodeURIComponent(key)}=${encodeURIComponent(formData[key])}`,
+        )
+        .join("&");
+    };
 
-  const onSubmit = useCallback(
-    async (data) => {
-      const response = await fetch("/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: encode({
-          "form-name": "Contact Form",
-          ...data,
-        }),
-      });
+    const response = await fetch("/contact", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: encode({
+        "form-name": "Contact Form",
+        ...data,
+      }),
+    });
 
-      if (response.ok) {
-        setIsPostSuccessful(true);
-      }
-    },
-    [setIsPostSuccessful],
-  );
+    if (response.ok) {
+      setIsPostSuccessful(true);
+    }
+  }, []);
 
   useEffect(() => {
     setFocus("email");
-  }, [setFocus, highlightContactForm]);
+  }, [setFocus]);
 
   return (
     <Box>
@@ -285,7 +282,7 @@ const ContactPage = () => {
                     {...register("message")}
                     type="text"
                     placeholder="Message..."
-                  ></Textarea>
+                  />
                   {errors.message && (
                     <Text sx={{ color: "red", mb: 3, display: "block" }}>
                       {errors.message.message}

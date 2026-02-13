@@ -1,4 +1,3 @@
-import React from "react";
 import { render, screen } from "@testing-library/react";
 import PostCategoryCard from "../PostCategoryCard/PostCategoryCard";
 
@@ -14,8 +13,8 @@ describe("PostCategoryCard", () => {
     expect(screen.getByText("Test Category")).toBeInTheDocument();
     expect(screen.getByText("This is a test content.")).toBeInTheDocument();
     expect(screen.getByRole("link", { name: /read/i })).toHaveAttribute(
-    "href",
-    "/blog/test-category"
+      "href",
+      "/blog/test-category",
     );
   });
 });

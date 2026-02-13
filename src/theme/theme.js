@@ -114,8 +114,8 @@ module.exports = {
       fontWeight: 800,
     },
     img: {
-      marginBottom: "1px"
-    }
+      marginBottom: "1px",
+    },
   },
   headings: {
     h1: {

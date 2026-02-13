@@ -1,6 +1,6 @@
-/** @jsx jsx */
-import { jsx, Box, Text } from "theme-ui";
 import { useState } from "react";
+/** @jsx jsx */
+import { Box, Text } from "theme-ui";
 
 export default function Tooltip({ text }) {
   const [isVisible, setIsVisible] = useState(false);
@@ -9,7 +9,7 @@ export default function Tooltip({ text }) {
     setIsVisible(!isVisible);
   };
 
-  const handleClickOutside = (e) => {
+  const _handleClickOutside = (e) => {
     if (!e.target.closest(".tooltip-container")) {
       setIsVisible(false);
     }
@@ -29,13 +29,15 @@ export default function Tooltip({ text }) {
       onClick={handleToggle}
       onMouseLeave={() => setIsVisible(false)}
     >
-      <Box
+      <button
+        type="button"
         sx={{
           width: "20px",
           height: "20px",
           borderRadius: "50%",
           border: "2px solid",
           borderColor: "primary",
+          backgroundColor: "transparent",
           color: "primary",
           display: "flex",
           alignItems: "center",
@@ -44,19 +46,12 @@ export default function Tooltip({ text }) {
           fontWeight: "bold",
           cursor: "pointer",
           userSelect: "none",
+          padding: 0,
         }}
-        role="button"
         aria-label="More information"
-        tabIndex={0}
-        onKeyDown={(e) => {
-          if (e.key === "Enter" || e.key === " ") {
-            e.preventDefault();
-            handleToggle();
-          }
-        }}
       >
         ?
-      </Box>
+      </button>
       <Box
         className="tooltip"
         sx={{
