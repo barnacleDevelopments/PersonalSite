@@ -1,32 +1,139 @@
-import { useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import { Box, Text } from "theme-ui";
 
-export default function Tooltip({ text }) {
+export default function Tooltip({ text, variant = "dark" }) {
+  const isLight = variant === "light";
   const [isVisible, setIsVisible] = useState(false);
+  const [position, setPosition] = useState({
+    horizontal: "center",
+    vertical: "top",
+  });
+  const containerRef = useRef(null);
+  const tooltipRef = useRef(null);
 
-  const handleToggle = () => {
-    setIsVisible(!isVisible);
+  const calculatePosition = useCallback(() => {
+    if (!containerRef.current) return;
+
+    const rect = containerRef.current.getBoundingClientRect();
+    const tooltipWidth = 280;
+    const tooltipHeight = 100;
+    const padding = 16;
+
+    let horizontal = "center";
+    let vertical = "top";
+
+    // Check horizontal position
+    const spaceLeft = rect.left;
+    const spaceRight = window.innerWidth - rect.right;
+
+    if (spaceRight < tooltipWidth / 2 + padding) {
+      horizontal = "right";
+    } else if (spaceLeft < tooltipWidth / 2 + padding) {
+      horizontal = "left";
+    }
+
+    // Check vertical position
+    const spaceTop = rect.top;
+    if (spaceTop < tooltipHeight + padding) {
+      vertical = "bottom";
+    }
+
+    setPosition({ horizontal, vertical });
+  }, []);
+
+  const handleShow = useCallback(() => {
+    calculatePosition();
+    setIsVisible(true);
+  }, [calculatePosition]);
+
+  const handleHide = useCallback(() => {
+    setIsVisible(false);
+  }, []);
+
+  const handleToggle = useCallback(() => {
+    if (!isVisible) {
+      calculatePosition();
+    }
+    setIsVisible((prev) => !prev);
+  }, [isVisible, calculatePosition]);
+
+  const getTooltipStyles = () => {
+    const base = {
+      position: "absolute",
+      backgroundColor: "primary",
+      color: "white",
+      padding: 3,
+      borderRadius: "8px",
+      fontSize: 1,
+      width: ["260px", "280px"],
+      opacity: isVisible ? 1 : 0,
+      visibility: isVisible ? "visible" : "hidden",
+      transition: "opacity 0.2s ease, visibility 0.2s ease",
+      zIndex: 1000,
+      boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+      pointerEvents: isVisible ? "auto" : "none",
+    };
+
+    // Vertical positioning
+    if (position.vertical === "top") {
+      base.bottom = "calc(100% + 8px)";
+    } else {
+      base.top = "calc(100% + 8px)";
+    }
+
+    // Horizontal positioning
+    if (position.horizontal === "center") {
+      base.left = "50%";
+      base.transform = "translateX(-50%)";
+    } else if (position.horizontal === "right") {
+      base.right = 0;
+    } else {
+      base.left = 0;
+    }
+
+    return base;
   };
 
-  const _handleClickOutside = (e) => {
-    if (!e.target.closest(".tooltip-container")) {
-      setIsVisible(false);
+  const getArrowStyles = () => {
+    const base = {
+      content: '""',
+      position: "absolute",
+      border: "6px solid transparent",
+    };
+
+    // Vertical positioning
+    if (position.vertical === "top") {
+      base.top = "100%";
+      base.borderTopColor = "primary";
+    } else {
+      base.bottom = "100%";
+      base.borderBottomColor = "primary";
     }
+
+    // Horizontal positioning
+    if (position.horizontal === "center") {
+      base.left = "50%";
+      base.transform = "translateX(-50%)";
+    } else if (position.horizontal === "right") {
+      base.right = "10px";
+    } else {
+      base.left = "10px";
+    }
+
+    return base;
   };
 
   return (
     <Box
+      ref={containerRef}
       className="tooltip-container"
       sx={{
         position: "relative",
         display: "inline-block",
-        "&:hover .tooltip": {
-          opacity: 1,
-          visibility: "visible",
-        },
       }}
+      onMouseEnter={handleShow}
+      onMouseLeave={handleHide}
       onClick={handleToggle}
-      onMouseLeave={() => setIsVisible(false)}
     >
       <button
         type="button"
@@ -35,9 +142,9 @@ export default function Tooltip({ text }) {
           height: "20px",
           borderRadius: "50%",
           border: "2px solid",
-          borderColor: "primary",
+          borderColor: isLight ? "white" : "primary",
           backgroundColor: "transparent",
-          color: "primary",
+          color: isLight ? "white" : "primary",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
@@ -46,39 +153,21 @@ export default function Tooltip({ text }) {
           cursor: "pointer",
           userSelect: "none",
           padding: 0,
+          opacity: isLight ? 0.7 : 1,
+          "&:hover": {
+            opacity: 1,
+          },
         }}
         aria-label="More information"
       >
         ?
       </button>
       <Box
+        ref={tooltipRef}
         className="tooltip"
         sx={{
-          position: "absolute",
-          bottom: "calc(100% + 8px)",
-          left: "50%",
-          transform: "translateX(-50%)",
-          backgroundColor: "primary",
-          color: "white",
-          padding: 3,
-          borderRadius: "8px",
-          fontSize: 1,
-          width: ["260px", "280px"],
-          opacity: isVisible ? 1 : 0,
-          visibility: isVisible ? "visible" : "hidden",
-          transition: "opacity 0.2s ease, visibility 0.2s ease",
-          zIndex: 1000,
-          boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-          pointerEvents: isVisible ? "auto" : "none",
-          "&::after": {
-            content: '""',
-            position: "absolute",
-            top: "100%",
-            left: "50%",
-            transform: "translateX(-50%)",
-            border: "6px solid transparent",
-            borderTopColor: "primary",
-          },
+          ...getTooltipStyles(),
+          "&::after": getArrowStyles(),
         }}
       >
         <Text sx={{ fontSize: 1, lineHeight: 1.4 }}>{text}</Text>

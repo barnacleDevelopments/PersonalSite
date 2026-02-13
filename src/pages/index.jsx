@@ -76,6 +76,7 @@ const IndexPage = ({ data }) => {
           pb: 5,
           width: "100%",
           textTransform: "uppercase",
+          position: "relative",
         }}
       >
         <Flex sx={styles.hero}>
@@ -121,6 +122,19 @@ const IndexPage = ({ data }) => {
             </Flex>
           </Box>
         </Flex>
+        <Box
+          sx={{
+            position: "absolute",
+            bottom: 2,
+            right: 3,
+            textTransform: "none",
+          }}
+        >
+          <Tooltip
+            variant="light"
+            text="This site is statically generated and served at the edge."
+          />
+        </Box>
       </Box>
       <Box
         sx={{
