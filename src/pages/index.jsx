@@ -13,364 +13,365 @@ import Seo from "../components/Seo/Seo";
 import Tooltip from "../components/Tooltip/Tooltip";
 
 const IndexPage = ({ data }) => {
-  const [bookFilter, setBookFilter] = useState("all");
+	const [bookFilter, setBookFilter] = useState("all");
 
-  const posts = data.blogPosts.edges
-    .filter((_, index) => index < 4)
-    .map(({ node }) => ({
-      ...node.frontmatter,
-      ...node.fields,
-      excerpt: node.excerpt,
-    }));
+	const posts = data.blogPosts.edges
+		.filter((_, index) => index < 4)
+		.map(({ node }) => ({
+			...node.frontmatter,
+			...node.fields,
+			excerpt: node.excerpt,
+		}));
 
-  const readingProgressData = data.readingProgress?.nodes?.[0] || {};
-  const currentlyReading = readingProgressData.currently_reading || [];
-  const recentlyFinished = readingProgressData.recently_finished || [];
+	const readingProgressData = data.readingProgress?.nodes?.[0] || {};
+	const currentlyReading = readingProgressData.currently_reading || [];
+	const recentlyFinished = readingProgressData.recently_finished || [];
 
-  // Create a map of book covers by filename (without extension)
-  const bookCoverMap = {};
-  data.bookCovers?.nodes?.forEach((cover) => {
-    bookCoverMap[cover.name] = cover.childImageSharp;
-  });
+	// Create a map of book covers by filename (without extension)
+	const bookCoverMap = {};
+	data.bookCovers?.nodes?.forEach((cover) => {
+		bookCoverMap[cover.name] = cover.childImageSharp;
+	});
 
-  const allBooks = [
-    ...currentlyReading.map((book) => {
-      // Try to find local cover
-      let coverImage = null;
-      if (book.cover_image) {
-        const coverName = book.cover_image.replace(/\.[^/.]+$/, ''); // Remove extension
-        coverImage = bookCoverMap[coverName] || null;
-      }
+	const allBooks = [
+		...currentlyReading.map((book) => {
+			// Try to find local cover
+			let coverImage = null;
+			if (book.cover_image) {
+				const coverName = book.cover_image.replace(/\.[^/.]+$/, ""); // Remove extension
+				coverImage = bookCoverMap[coverName] || null;
+			}
 
-      return {
-        ...book,
-        read: false,
-        image: coverImage,
-      };
-    }),
-    ...recentlyFinished.map((book) => ({
-      ...book,
-      read: true,
-      image: null, // No covers for finished books
-    })),
-  ];
+			return {
+				...book,
+				read: false,
+				image: coverImage,
+			};
+		}),
+		...recentlyFinished.map((book) => ({
+			...book,
+			read: true,
+			image: null, // No covers for finished books
+		})),
+	];
 
-  const books = allBooks.filter((book) => {
-    if (bookFilter === "read") return book.read === true;
-    if (bookFilter === "unread") return !book.read;
-    return true;
-  });
+	const books = allBooks.filter((book) => {
+		if (bookFilter === "read") return book.read === true;
+		if (bookFilter === "unread") return !book.read;
+		return true;
+	});
 
-  const projects = data.projects.edges.map(({ node }) => ({
-    ...node.frontmatter,
-    ...node.fields,
-  }));
+	const projects = data.projects.edges.map(({ node }) => ({
+		...node.frontmatter,
+		...node.fields,
+	}));
 
-  return (
-    <Box>
-      <Seo />
-      <Box
-        sx={{
-          bg: "primary",
-          pt: 5,
-          pb: 5,
-          width: "100%",
-          textTransform: "uppercase",
-        }}
-      >
-        <Flex sx={styles.hero}>
-          <Box>
-            <Heading as="h1" variant="hero" color="white">
-              Dev the Developer
-            </Heading>
-            <Text variant="regular" color="white ">
-              I transform problems into thoughtful, scalable solutions
-            </Text>
-          </Box>
-          <Box
-            sx={{
-              width: ["100%", "100%", "30%"],
-            }}
-          >
-            <Flex sx={{ justifyContent: "center" }}>
-              <Box
-                sx={{
-                  width: "200px",
-                  height: "200px",
-                  position: "relative",
-                }}
-              >
-                <Flex
-                  sx={{
-                    gap: 1,
-                    position: "absolute",
-                    width: "100%",
-                    height: "100%",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    top: "0px",
-                  }}
-                >
-                  <GatsbyLink to="/contact">
-                    <Button variant="primary">Let's Chat</Button>
-                  </GatsbyLink>
-                </Flex>
-                <Loader />
-              </Box>
-            </Flex>
-          </Box>
-        </Flex>
-      </Box>
-      <Box
-        sx={{
-          margin: "0 auto",
-          width: ["90%", "80%", "70%"],
-        }}
-      >
-        <Box
-          as="article"
-          sx={{
-            py: [4],
-          }}
-        >
-          <Grid gap={[1]} columns={[1, 1, 1, 1, "1fr 3fr", "1fr 3fr"]}>
-            <Box
-              sx={{
-                overflow: "hidden",
-                borderRadius: "10px",
-                height: "min-content",
-                width: ["100%", "50%", "50%", "50%", "100%"],
-              }}
-            >
-              <StaticImage
-                style={{ height: "300px" }}
-                src="../images/devin_portrait.jpg"
-                alt="devin portrait"
-              />
-            </Box>
-            <Box
-              sx={{
-                px: [0, 0, 0, 0, 4],
-                pt: [3, 3, 3, 3, 0],
-              }}
-            >
-              <Box
-                sx={{
-                  alignItems: "center",
-                  height: "100%",
-                }}
-              >
-                <Heading as="h2" variant="subheading1">
-                  Hey there!
-                </Heading>
-                <Text variant="regular">
-                  Hey! My name is Devin, but you can call me Dev. I'm a
-                  results-oriented Full Stack Web Developer with 4 years of
-                  professional experience in designing, developing, and
-                  maintaining dynamic web applications. My expertise spans a
-                  wide range of web technologies. I have a{" "}
-                  <GatsbyLink
-                    to="/about"
-                    sx={{
-                      color: "blue",
-                      fontWeight: "bold",
-                      textDecoration: "underline",
-                      "&:hover": {
-                        color: "#E07A5F",
-                        textDecoration: "underline",
-                      },
-                    }}
-                  >
-                    strong record
-                  </GatsbyLink>{" "}
-                  of collaborating with cross-functional teams to deliver
-                  innovative solutions while translating complex business needs
-                  into functional, user-friendly software. If you're interested
-                  in working together, feel free to{" "}
-                  <GatsbyLink
-                    to="/contact"
-                    sx={{
-                      color: "blue",
-                      fontWeight: "bold",
-                      textDecoration: "underline",
-                      "&:hover": {
-                        color: "#E07A5F",
-                        textDecoration: "underline",
-                      },
-                    }}
-                  >
-                    reach out
-                  </GatsbyLink>
-                  !
-                </Text>
-              </Box>
-            </Box>
-          </Grid>
-        </Box>
-        <Box as="section" sx={{ mt: 3 }}>
-          <Heading as="h3" variant="subheading1">
-            Recent Posts
-          </Heading>
-          <Grid
-            sx={{
-              mb: 4,
-              width: "100%",
-            }}
-            gap={3}
-            columns={[1]}
-          >
-            {posts.map((post) => (
-              <PostCard
-                key={post.slug}
-                post={post}
-                postContent={post.excerpt}
-              />
-            ))}
-          </Grid>
-        </Box>
-        <Box as="section" sx={{ mt: 3 }}>
-          <Heading as="h3" variant="subheading1">
-            Recent Projects
-          </Heading>
-          <Grid
-            sx={{
-              mb: 4,
-              width: "100%",
-            }}
-            gap={3}
-            columns={[1]}
-          >
-            {projects.map((project) => (
-              <ProjectCard key={project.slug} project={project} />
-            ))}
-          </Grid>
-        </Box>
-        <Box as="section" sx={{ mb: 4 }}>
-          <Flex
-            sx={{
-              justifyContent: "space-between",
-              alignItems: "center",
-              mb: 3,
-              flexWrap: "wrap",
-              gap: 2,
-            }}
-          >
-            <Flex sx={{ alignItems: "center", gap: 2 }}>
-              <Heading as="h3" variant="subheading1" sx={{ mb: 0 }}>
-                Reading List
-              </Heading>
-              <Tooltip text="Books are synced from my Kobo e-reader. Covers are extracted from EPUBs and reading progress is updated automatically." />
-            </Flex>
-            <Flex sx={{ gap: 2 }}>
-              <Button
-                variant={
-                  bookFilter === "all" ? "toggleActive" : "toggleInactive"
-                }
-                onClick={() => setBookFilter("all")}
-              >
-                All
-              </Button>
-              <Button
-                variant={
-                  bookFilter === "read" ? "toggleActive" : "toggleInactive"
-                }
-                onClick={() => setBookFilter("read")}
-              >
-                Read
-              </Button>
-              <Button
-                variant={
-                  bookFilter === "unread" ? "toggleActive" : "toggleInactive"
-                }
-                onClick={() => setBookFilter("unread")}
-              >
-                Unread
-              </Button>
-            </Flex>
-          </Flex>
-          <Box
-            sx={{
-              minHeight: "250px",
-              display: "flex",
-              alignItems: "center",
-            }}
-          >
-            {books.length > 0 ? (
-              <Flex
-                sx={{
-                  gap: 3,
-                  overflowX: "auto",
-                  overflowY: "hidden",
-                  width: "100%",
-                  "&::-webkit-scrollbar": {
-                    height: "8px",
-                  },
-                  "&::-webkit-scrollbar-track": {
-                    background: "muted",
-                    borderRadius: "4px",
-                  },
-                  "&::-webkit-scrollbar-thumb": {
-                    background: "primary",
-                    borderRadius: "4px",
-                    "&:hover": {
-                      background: "text",
-                    },
-                  },
-                }}
-              >
-                {books.map((book) => (
-                  <BookCard key={book.title} book={book} />
-                ))}
-              </Flex>
-            ) : (
-              <Box
-                sx={{
-                  textAlign: "center",
-                  width: "100%",
-                  py: 4,
-                  color: "primary",
-                }}
-              >
-                <Text variant="regular">
-                  No {bookFilter === "read" ? "read" : "unread"} books to
-                  display.
-                </Text>
-              </Box>
-            )}
-          </Box>
-        </Box>
-        <Box sx={{ mb: 4 }} as="section">
-          <CallToAction
-            title={"Let's Work Together"}
-            content={
-              "I'm an pasionate developer who is always trying to master new skills and be of service to those I work with."
-            }
-            buttonText={"Learn how I can help"}
-            pageLink={"/about"}
-          />
-        </Box>
-      </Box>
-    </Box>
-  );
+	return (
+		<Box>
+			<Seo />
+			<Box
+				sx={{
+					bg: "primary",
+					pt: 5,
+					pb: 5,
+					width: "100%",
+					textTransform: "uppercase",
+				}}
+			>
+				<Flex sx={styles.hero}>
+					<Box>
+						<Heading as="h1" variant="hero" color="white">
+							Dev the Developer
+						</Heading>
+						<Text variant="regular" color="white ">
+							I transform problems into thoughtful, scalable solutions. One move
+							at a time.
+						</Text>
+					</Box>
+					<Box
+						sx={{
+							width: ["100%", "100%", "30%"],
+						}}
+					>
+						<Flex sx={{ justifyContent: "center" }}>
+							<Box
+								sx={{
+									width: "200px",
+									height: "200px",
+									position: "relative",
+								}}
+							>
+								<Flex
+									sx={{
+										gap: 1,
+										position: "absolute",
+										width: "100%",
+										height: "100%",
+										justifyContent: "center",
+										alignItems: "center",
+										top: "0px",
+									}}
+								>
+									<GatsbyLink to="/contact">
+										<Button variant="primary">Let's Chat</Button>
+									</GatsbyLink>
+								</Flex>
+								<Loader />
+							</Box>
+						</Flex>
+					</Box>
+				</Flex>
+			</Box>
+			<Box
+				sx={{
+					margin: "0 auto",
+					width: ["90%", "80%", "70%"],
+				}}
+			>
+				<Box
+					as="article"
+					sx={{
+						py: [4],
+					}}
+				>
+					<Grid gap={[1]} columns={[1, 1, 1, 1, "1fr 3fr", "1fr 3fr"]}>
+						<Box
+							sx={{
+								overflow: "hidden",
+								borderRadius: "10px",
+								height: "min-content",
+								width: ["100%", "50%", "50%", "50%", "100%"],
+							}}
+						>
+							<StaticImage
+								style={{ height: "300px" }}
+								src="../images/devin_portrait.jpg"
+								alt="devin portrait"
+							/>
+						</Box>
+						<Box
+							sx={{
+								px: [0, 0, 0, 0, 4],
+								pt: [3, 3, 3, 3, 0],
+							}}
+						>
+							<Box
+								sx={{
+									alignItems: "center",
+									height: "100%",
+								}}
+							>
+								<Heading as="h2" variant="subheading1">
+									Hey there!
+								</Heading>
+								<Text variant="regular">
+									Hey! My name is Devin, but you can call me Dev. I'm a
+									results-oriented Full Stack Web Developer with 4 years of
+									professional experience in designing, developing, and
+									maintaining dynamic web applications. My expertise spans a
+									wide range of web technologies. I have a{" "}
+									<GatsbyLink
+										to="/about"
+										sx={{
+											color: "blue",
+											fontWeight: "bold",
+											textDecoration: "underline",
+											"&:hover": {
+												color: "#E07A5F",
+												textDecoration: "underline",
+											},
+										}}
+									>
+										strong record
+									</GatsbyLink>{" "}
+									of collaborating with cross-functional teams to deliver
+									innovative solutions while translating complex business needs
+									into functional, user-friendly software. If you're interested
+									in working together, feel free to{" "}
+									<GatsbyLink
+										to="/contact"
+										sx={{
+											color: "blue",
+											fontWeight: "bold",
+											textDecoration: "underline",
+											"&:hover": {
+												color: "#E07A5F",
+												textDecoration: "underline",
+											},
+										}}
+									>
+										reach out
+									</GatsbyLink>
+									!
+								</Text>
+							</Box>
+						</Box>
+					</Grid>
+				</Box>
+				<Box as="section" sx={{ mt: 3 }}>
+					<Heading as="h3" variant="subheading1">
+						Recent Posts
+					</Heading>
+					<Grid
+						sx={{
+							mb: 4,
+							width: "100%",
+						}}
+						gap={3}
+						columns={[1]}
+					>
+						{posts.map((post) => (
+							<PostCard
+								key={post.slug}
+								post={post}
+								postContent={post.excerpt}
+							/>
+						))}
+					</Grid>
+				</Box>
+				<Box as="section" sx={{ mt: 3 }}>
+					<Heading as="h3" variant="subheading1">
+						Recent Projects
+					</Heading>
+					<Grid
+						sx={{
+							mb: 4,
+							width: "100%",
+						}}
+						gap={3}
+						columns={[1]}
+					>
+						{projects.map((project) => (
+							<ProjectCard key={project.slug} project={project} />
+						))}
+					</Grid>
+				</Box>
+				<Box as="section" sx={{ mb: 4 }}>
+					<Flex
+						sx={{
+							justifyContent: "space-between",
+							alignItems: "center",
+							mb: 3,
+							flexWrap: "wrap",
+							gap: 2,
+						}}
+					>
+						<Flex sx={{ alignItems: "center", gap: 2 }}>
+							<Heading as="h3" variant="subheading1" sx={{ mb: 0 }}>
+								Reading List
+							</Heading>
+							<Tooltip text="Books are synced from my Kobo e-reader. Covers are extracted from EPUBs and reading progress is updated automatically." />
+						</Flex>
+						<Flex sx={{ gap: 2 }}>
+							<Button
+								variant={
+									bookFilter === "all" ? "toggleActive" : "toggleInactive"
+								}
+								onClick={() => setBookFilter("all")}
+							>
+								All
+							</Button>
+							<Button
+								variant={
+									bookFilter === "read" ? "toggleActive" : "toggleInactive"
+								}
+								onClick={() => setBookFilter("read")}
+							>
+								Read
+							</Button>
+							<Button
+								variant={
+									bookFilter === "unread" ? "toggleActive" : "toggleInactive"
+								}
+								onClick={() => setBookFilter("unread")}
+							>
+								Unread
+							</Button>
+						</Flex>
+					</Flex>
+					<Box
+						sx={{
+							minHeight: "250px",
+							display: "flex",
+							alignItems: "center",
+						}}
+					>
+						{books.length > 0 ? (
+							<Flex
+								sx={{
+									gap: 3,
+									overflowX: "auto",
+									overflowY: "hidden",
+									width: "100%",
+									"&::-webkit-scrollbar": {
+										height: "8px",
+									},
+									"&::-webkit-scrollbar-track": {
+										background: "muted",
+										borderRadius: "4px",
+									},
+									"&::-webkit-scrollbar-thumb": {
+										background: "primary",
+										borderRadius: "4px",
+										"&:hover": {
+											background: "text",
+										},
+									},
+								}}
+							>
+								{books.map((book) => (
+									<BookCard key={book.title} book={book} />
+								))}
+							</Flex>
+						) : (
+							<Box
+								sx={{
+									textAlign: "center",
+									width: "100%",
+									py: 4,
+									color: "primary",
+								}}
+							>
+								<Text variant="regular">
+									No {bookFilter === "read" ? "read" : "unread"} books to
+									display.
+								</Text>
+							</Box>
+						)}
+					</Box>
+				</Box>
+				<Box sx={{ mb: 4 }} as="section">
+					<CallToAction
+						title={"Let's Work Together"}
+						content={
+							"I'm an pasionate developer who is always trying to master new skills and be of service to those I work with."
+						}
+						buttonText={"Learn how I can help"}
+						pageLink={"/about"}
+					/>
+				</Box>
+			</Box>
+		</Box>
+	);
 };
 
 const styles = {
-  hero: {
-    flexWrap: "wrap",
-    alignItems: "center",
-    justifyContent: [
-      "center",
-      "center",
-      "center",
-      "center",
-      "center",
-      "space-between",
-    ],
-    width: ["90%", "80%", "70%"],
-    margin: "0 auto",
-    textAlign: ["center", "center", "center", "center", "center", "left"],
-    gap: "30px",
-  },
+	hero: {
+		flexWrap: "wrap",
+		alignItems: "center",
+		justifyContent: [
+			"center",
+			"center",
+			"center",
+			"center",
+			"center",
+			"space-between",
+		],
+		width: ["90%", "80%", "70%"],
+		margin: "0 auto",
+		textAlign: ["center", "center", "center", "center", "center", "left"],
+		gap: "30px",
+	},
 };
 
 export const landingPageQuery = graphql`
