@@ -10,6 +10,7 @@ import PostCard from "../components/PostCard/PostCard";
 import ProjectCard from "../components/ProjectCard/ProjectCard";
 import Seo from "../components/Seo/Seo";
 import Tooltip from "../components/Tooltip/Tooltip";
+import { getYearsOfExperience } from "../utils/experience";
 
 const IndexPage = ({ data }) => {
   const [bookFilter, setBookFilter] = useState("all");
@@ -165,10 +166,11 @@ const IndexPage = ({ data }) => {
                 </Heading>
                 <Text variant="regular">
                   Hey! My name is Devin, but you can call me Dev. I'm a
-                  results-oriented Full Stack Web Developer with 4 years of
-                  professional experience in designing, developing, and
-                  maintaining dynamic web applications. My expertise spans a
-                  wide range of web technologies. I have a{" "}
+                  results-oriented Full Stack Web Developer with{" "}
+                  {getYearsOfExperience()} years of professional experience in
+                  designing, developing, and maintaining dynamic web
+                  applications. My expertise spans a wide range of web
+                  technologies. I have a{" "}
                   <GatsbyLink
                     to="/about"
                     sx={{

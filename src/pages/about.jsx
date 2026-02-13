@@ -5,6 +5,7 @@ import { Box, Grid, Heading, Paragraph } from "theme-ui";
 
 import CallToAction from "../components/CallToAction";
 import Seo from "../components/Seo/Seo";
+import SkillsChart from "../components/SkillsChart/SkillsChart";
 import { TechListing } from "../components/TechListing/TechListing";
 import ProjectDialog from "../components/dialogs/ProjectDialog";
 
@@ -126,6 +127,26 @@ const AboutPage = ({ data }) => {
               setSelectedTechnology(technology);
             }}
           />
+        </Box>
+        <Box
+          sx={{
+            px: [0, 3],
+            my: 3,
+            bg: "primary",
+            color: "white",
+            p: 4,
+            borderRadius: "10px",
+          }}
+        >
+          <Heading variant="subheading1" sx={{ color: "white", mb: 2 }}>
+            Projects by Technology
+          </Heading>
+          <Paragraph sx={{ mb: 3 }}>
+            I don't find skill levels particularly measurable, but I want to
+            provide context into where I've used different technologies. My
+            proficiency is based on real project experience.
+          </Paragraph>
+          <SkillsChart technologies={technologies} />
         </Box>
         <CallToAction
           title={"Checkout Some of my Projects"}
