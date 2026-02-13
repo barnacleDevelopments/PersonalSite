@@ -1,0 +1,41 @@
+---
+title: Portfolio Site
+image1: "assets/portfolio-site-1.jpg"
+image2: "assets/portfolio-site-2.jpg"
+image3: "assets/portfolio-site-3.jpg"
+URL: ""
+ENSURL: ""
+githubURL: https://github.com/barnacleDevelopments/PersonalSite
+technologies:
+  - name: "Gatsby"
+    image: "../tech_logos/gatsby.png"
+  - name: "React"
+    image: "../tech_logos/react_icon.png"
+  - name: "JavaScript"
+    image: "../tech_logos/javascript.png"
+  - name: "Netlify"
+    image: "../tech_logos/netlify.png"
+  - name: "NodeJS"
+    image: "../tech_logos/nodejs.png"
+startDate: 2021-08-01T00:00:00.000Z
+endDate:
+status: ongoing
+keywords: portfolio website, gatsby portfolio, react portfolio site, personal website, developer portfolio, netlify deployment, theme-ui styling, mdx blog, Devin Davis
+draft: false
+---
+
+<ProjectSection image={props.pageContext.frontmatter.image1} imageAlt={"Portfolio site homepage"}>
+## Overview
+This is my personal portfolio website where I showcase my projects, share blog posts, and provide information about my professional experience. The site serves as a central hub for my online presence, featuring dynamic content management through MDX, automated reading list syncing from my Kobo e-reader, and a skills visualization based on real project experience.
+</ProjectSection>
+
+<ProjectSection image={props.pageContext.frontmatter.image2} imageAlt={"Portfolio site projects page"} alignment="right">
+## Tech
+The site is built with Gatsby, a React-based static site generator that provides excellent performance and SEO out of the box. I use Theme UI for consistent styling and MDX for content that combines Markdown with React components. The site is deployed on Netlify with automatic builds triggered by git pushes.
+<TechListing technologies={props.pageContext.frontmatter.technologies} />
+</ProjectSection>
+
+<ProjectSection image={props.pageContext.frontmatter.image3} imageAlt={"Portfolio site about page"}>
+## Features
+Key features include a blog with category filtering, project showcases with technology tagging, an automatically calculated years of experience counter, a skills chart showing technology usage across projects, and a reading list that syncs from my Kobo e-reader. The site is fully open source and continuously evolving as I add new projects and content.
+</ProjectSection>
