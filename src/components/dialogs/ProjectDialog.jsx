@@ -1,5 +1,4 @@
 import { Link } from "gatsby";
-/** @jsx jsx */
 import { forwardRef } from "react";
 import { Box, Flex, Heading } from "theme-ui";
 import { CloseButton } from "../app/CloseButton";

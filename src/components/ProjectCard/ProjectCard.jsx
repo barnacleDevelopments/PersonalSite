@@ -1,5 +1,4 @@
 import { Link } from "gatsby";
-/** @jsx jsx */
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
 
 // Components

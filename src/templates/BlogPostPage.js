@@ -1,4 +1,3 @@
-/** @jsx jsx */
 import { MDXProvider } from "@mdx-js/react";
 import { Link as GatsbyLink, graphql } from "gatsby";
 import { DateTime } from "luxon";

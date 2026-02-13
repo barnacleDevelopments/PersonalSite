@@ -1,4 +1,3 @@
-/** @jsx jsx */
 import { Box, Flex } from "theme-ui";
 
 export function CloseButton({ onClick, sx }) {

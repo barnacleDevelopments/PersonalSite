@@ -1,4 +1,3 @@
-/** @jsx jsx */
 import { Link as GatsbyLink, graphql } from "gatsby";
 import { StaticImage } from "gatsby-plugin-image";
 import { useRef, useState } from "react";

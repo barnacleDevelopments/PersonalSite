@@ -19,6 +19,7 @@
     "indentWidth": 2
   },
   "javascript": {
+    "jsxRuntime": "transparent",
     "formatter": {
       "semicolons": "always",
       "quoteStyle": "double"

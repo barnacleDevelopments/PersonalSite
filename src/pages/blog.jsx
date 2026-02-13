@@ -1,4 +1,3 @@
-/** @jsx jsx */
 import { faRssSquare } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
 import { graphql } from "gatsby";

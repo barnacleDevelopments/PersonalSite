@@ -1,5 +1,4 @@
 import { Link } from "gatsby";
-/** @jsx jsx */
 import { StaticImage } from "gatsby-plugin-image";
 import { memo, useCallback, useEffect, useRef, useState } from "react";
 import { Box, Flex } from "theme-ui";

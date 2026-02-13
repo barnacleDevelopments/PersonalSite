@@ -1,5 +1,4 @@
 import { useState } from "react";
-/** @jsx jsx */
 import { Box, Text } from "theme-ui";
 
 export default function Tooltip({ text }) {

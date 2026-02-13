@@ -1,4 +1,3 @@
-/** @jsx jsx */
 import { Link as GatsbyLink, graphql } from "gatsby";
 import { Box, Heading, Paragraph } from "theme-ui";
 

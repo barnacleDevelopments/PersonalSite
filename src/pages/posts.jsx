@@ -1,4 +1,3 @@
-/** @jsx jsx */
 import { graphql } from "gatsby";
 import { Box, Grid, Heading, Text } from "theme-ui";
 

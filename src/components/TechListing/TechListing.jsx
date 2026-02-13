@@ -1,4 +1,3 @@
-/** @jsx jsx */
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import { Button, Flex } from "theme-ui";
 

@@ -1,5 +1,4 @@
 import { Link as GatsbyLink, graphql } from "gatsby";
-
 import { Box, Button, Grid, Heading, Text } from "theme-ui";
 
 import PostCard from "../components/PostCard/PostCard";

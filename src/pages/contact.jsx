@@ -1,4 +1,3 @@
-/** @jsx jsx */
 import { faCopy } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
 import { yupResolver } from "@hookform/resolvers/yup";

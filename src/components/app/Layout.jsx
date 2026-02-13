@@ -1,4 +1,3 @@
-/** @jsx jsx */
 import { MDXProvider, useMDXComponents } from "@mdx-js/react";
 import { useThemedStylesWithMdx } from "@theme-ui/mdx";
 import Prism from "@theme-ui/prism";
