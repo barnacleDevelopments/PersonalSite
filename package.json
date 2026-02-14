@@ -4,9 +4,7 @@
   "private": true,
   "description": "Dev's Portfoio Website",
   "author": "Devin",
-  "keywords": [
-    "gatsby"
-  ],
+  "keywords": ["gatsby"],
   "scripts": {
     "develop": "gatsby develop",
     "start": "gatsby develop",
@@ -14,6 +12,7 @@
     "serve": "gatsby serve",
     "clean": "gatsby clean",
     "test": "jest",
+    "test:e2e": "playwright test",
     "biome:lint": "biome check src",
     "biome:fix": "biome check --write --unsafe src",
     "prepare": "husky"
@@ -60,6 +59,7 @@
   },
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
+    "@playwright/test": "^1.58.2",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.3.0",
     "babel-jest": "^29.7.0",
@@ -71,8 +71,6 @@
     "lint-staged": "^16.2.7"
   },
   "lint-staged": {
-    "*.{js,jsx,ts,tsx,css,json}": [
-      "biome check --write"
-    ]
+    "*.{js,jsx,ts,tsx,css,json}": ["biome check --write"]
   }
 }

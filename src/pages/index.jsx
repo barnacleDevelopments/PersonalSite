@@ -73,6 +73,7 @@ const IndexPage = ({ data }) => {
     <Layout>
       <Seo />
       <Box
+        data-testid="hero"
         sx={{
           bg: "primary",
           pt: 5,
@@ -82,7 +83,17 @@ const IndexPage = ({ data }) => {
           position: "relative",
         }}
       >
-        <Flex sx={styles.hero}>
+        <Flex
+          sx={{
+            flexWrap: ["wrap", "wrap", "nowrap"],
+            alignItems: "center",
+            justifyContent: ["center", "center", "space-between"],
+            width: ["90%", "80%", "70%"],
+            margin: "0 auto",
+            textAlign: ["center", "center", "left"],
+            gap: "30px",
+          }}
+        >
           <Box>
             <Heading as="h1" variant="hero" color="white">
               {t("hero_title")}
@@ -360,25 +371,6 @@ const IndexPage = ({ data }) => {
       </Box>
     </Layout>
   );
-};
-
-const styles = {
-  hero: {
-    flexWrap: "wrap",
-    alignItems: "center",
-    justifyContent: [
-      "center",
-      "center",
-      "center",
-      "center",
-      "center",
-      "space-between",
-    ],
-    width: ["90%", "80%", "70%"],
-    margin: "0 auto",
-    textAlign: ["center", "center", "center", "center", "center", "left"],
-    gap: "30px",
-  },
 };
 
 export const landingPageQuery = graphql`
