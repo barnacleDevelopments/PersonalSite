@@ -20,27 +20,7 @@ import * as yup from "yup";
 
 import PageLoader from "../components/PageLoader/PageLoader";
 import Seo from "../components/Seo/Seo";
-
-const SubmitFailed = () => (
-  <Flex
-    sx={{
-      height: "100%",
-      justifyContent: "center",
-      alignItems: "center",
-      textAlign: "center",
-    }}
-  >
-    <Box textAlign="center">
-      <h2>Oups!</h2>
-      <Text variant="regular" sx={{ my: 3, display: "block" }}>
-        We couldn't send your email.
-      </Text>
-      <GatsbyLink to="/contact">
-        <Button>Try Again</Button>
-      </GatsbyLink>
-    </Box>
-  </Flex>
-);
+import useToast from "../hooks/use-toast";
 
 const SubmitSuccess = () => {
   const copyPGP = useCallback(async () => {
@@ -102,6 +82,7 @@ const SubmitSuccess = () => {
 const ContactPage = () => {
   const [isPostSuccessful, setIsPostSuccessful] = useState(false);
   const [isFormHighlighted, setIsFormHighlighted] = useState(false);
+  const { showToast, Toast } = useToast();
   const schema = useMemo(
     () =>
       yup
@@ -118,7 +99,7 @@ const ContactPage = () => {
     register,
     handleSubmit,
     setFocus,
-    formState: { errors, isSubmitting, isSubmitted, isValid },
+    formState: { errors, isSubmitting },
   } = useForm({
     resolver: yupResolver(schema),
     mode: "onSubmit",
@@ -130,29 +111,38 @@ const ContactPage = () => {
     window.scrollTo(0, 200);
   }, [setFocus]);
 
-  const onSubmit = useCallback(async (data) => {
-    const encode = (formData) => {
-      return Object.keys(formData)
-        .map(
-          (key) =>
-            `${encodeURIComponent(key)}=${encodeURIComponent(formData[key])}`,
-        )
-        .join("&");
-    };
+  const onSubmit = useCallback(
+    async (data) => {
+      const encode = (formData) => {
+        return Object.keys(formData)
+          .map(
+            (key) =>
+              `${encodeURIComponent(key)}=${encodeURIComponent(formData[key])}`,
+          )
+          .join("&");
+      };
 
-    const response = await fetch("/contact", {
-      method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: encode({
-        "form-name": "Contact Form",
-        ...data,
-      }),
-    });
+      try {
+        const response = await fetch("/contact", {
+          method: "POST",
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body: encode({
+            "form-name": "Contact Form",
+            ...data,
+          }),
+        });
 
-    if (response.ok) {
-      setIsPostSuccessful(true);
-    }
-  }, []);
+        if (response.ok) {
+          setIsPostSuccessful(true);
+        } else {
+          showToast("Oups! We couldn't send your email. Please try again.");
+        }
+      } catch {
+        showToast("Oups! We couldn't send your email. Please try again.");
+      }
+    },
+    [showToast],
+  );
 
   useEffect(() => {
     setFocus("email");
@@ -179,6 +169,7 @@ const ContactPage = () => {
           "Web Developer Portfolio",
         ]}
       />
+      {Toast}
       <Box
         sx={{
           width: ["90%", "80%", "70%"],
@@ -186,7 +177,7 @@ const ContactPage = () => {
           my: 5,
         }}
       >
-        {!isSubmitted && (
+        {!isPostSuccessful && (
           <Box
             sx={{
               margin: "0 auto",
@@ -201,7 +192,7 @@ const ContactPage = () => {
             </Paragraph>
           </Box>
         )}
-        {(!isSubmitted || !isValid) && (
+        {!isPostSuccessful && (
           <Grid gap={3} columns={["1fr", "1fr 1fr", "1.5fr 2fr"]}>
             <Box
               sx={{
@@ -375,7 +366,6 @@ const ContactPage = () => {
         )}
         {isSubmitting && !isPostSuccessful && <PageLoader />}
         {isPostSuccessful && <SubmitSuccess />}
-        {!isPostSuccessful && isSubmitted && <SubmitFailed />}
       </Box>
     </Box>
   );
