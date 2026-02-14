@@ -1,0 +1,34 @@
+---
+title: read-later.el
+image1: "assets/read_later.png"
+image2: "assets/read_later_auth.png"
+image3: "assets/read_later_commands.png"
+URL: ""
+ENSURL: ""
+githubURL: https://github.com/barnacleDevelopments/read-later.el
+technologies:
+  - name: "Emacs Lisp"
+    image: "../tech_logos/emacs.png"
+startDate: 2025-10-27T00:00:00.000Z
+endDate:
+status: ongoing
+keywords: emacs, emacs lisp, instapaper, read later, elisp package, bookmark manager, elfeed integration, oauth, Devin Davis
+draft: false
+---
+
+<ProjectSection image={props.pageContext.frontmatter.image1} imageAlt={"read-later.el bookmark list interface"}>
+## Overview
+read-later.el is an Emacs package that integrates Instapaper directly into the editor. It allows saving, organizing, and managing bookmarks without ever leaving Emacs. The package supports both the Instapaper Simple API and the Full API, providing everything from quick URL saving to folder management and highlights. This was my first Emacs package I have developed, and solved a painpoint I had where I wanted to be able to add new articles to instapaper on Emacs using Elfeed to later read on my Kobo e-reader.
+</ProjectSection>
+
+<ProjectSection image={props.pageContext.frontmatter.image2} imageAlt={"read-later.el bookmark operations"} alignment="right">
+## Tech
+The package is written in Emacs Lisp and authenticates with Instapaper using OAuth 1.0 authentication.
+
+<TechListing technologies={props.pageContext.frontmatter.technologies} />
+</ProjectSection>
+
+<ProjectSection image={props.pageContext.frontmatter.image3} imageAlt={"read-later.el elfeed integration"}>
+## Features
+Key features include a tabulated bookmark list with reading progress and tag display, Elfeed RSS reader integration for saving articles directly from feeds, folder and highlight management, and support for multiple installation methods including straight.el, use-package, Spacemacs, and Doom Emacs. The package also ships with full Texinfo documentation.
+</ProjectSection>
