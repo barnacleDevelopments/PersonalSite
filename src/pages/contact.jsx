@@ -36,7 +36,7 @@ const SubmitSuccess = () => {
   return (
     <Flex
       sx={{
-        height: "100%",
+        minHeight: "calc(100vh - 160px)",
         justifyContent: "center",
         alignItems: "center",
         textAlign: "center",
