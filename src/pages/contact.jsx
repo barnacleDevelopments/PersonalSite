@@ -21,16 +21,20 @@ import * as yup from "yup";
 import Seo from "../components/Seo/Seo";
 import useToast from "../hooks/use-toast";
 
-const SubmitSuccess = () => {
+const SubmitSuccess = ({ showToast }) => {
   const copyPGP = useCallback(async () => {
-    const response = await fetch("/pgp-key.asc");
-    if (!response.ok) {
-      throw new Error("Network response was not ok");
+    try {
+      const response = await fetch("/pgp-key.asc");
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      const text = await response.text();
+      await navigator.clipboard.writeText(text);
+      showToast("PGP key copied to clipboard!", "success");
+    } catch {
+      showToast("Failed to copy PGP key. Please try again.");
     }
-    const text = await response.text();
-
-    navigator.clipboard.writeText(text);
-  }, []);
+  }, [showToast]);
 
   return (
     <Flex
@@ -60,10 +64,9 @@ const SubmitSuccess = () => {
             </Link>{" "}
           </Box>
         </Flex>
-        <Button variant="secondary" sx={{ mr: 2 }}>
+        <Button variant="secondary" sx={{ mr: 2 }} onClick={copyPGP}>
           <Text>Copy PGP</Text>
           <Icon
-            onClick={copyPGP}
             sx={{
               ml: 2,
             }}
@@ -364,7 +367,7 @@ const ContactPage = () => {
             </Box>
           </Grid>
         )}
-        {isPostSuccessful && <SubmitSuccess />}
+        {isPostSuccessful && <SubmitSuccess showToast={showToast} />}
       </Box>
     </Box>
   );
