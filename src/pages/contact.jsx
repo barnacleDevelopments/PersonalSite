@@ -121,7 +121,7 @@ const ContactPage = () => {
     formState: { errors, isSubmitting, isSubmitted, isValid },
   } = useForm({
     resolver: yupResolver(schema),
-    mode: "onBlur",
+    mode: "onSubmit",
   });
 
   const highlightContactForm = useCallback(() => {
@@ -293,7 +293,6 @@ const ContactPage = () => {
                   variant="primary"
                   onClick={handleSubmit(onSubmit)}
                   type="submit"
-                  disabled={!isValid}
                 >
                   SEND
                 </Button>
