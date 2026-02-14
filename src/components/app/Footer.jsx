@@ -105,6 +105,20 @@ const Footer = () => {
             >
               {t("nav_about")}
             </Link>
+            <Link
+              to="/climbing"
+              sx={{
+                mb: 2,
+                width: "max-content",
+                color: "white",
+                textDecoration: "none",
+                "&:hover": {
+                  textDecoration: "underline",
+                },
+              }}
+            >
+              {t("nav_climbing")}
+            </Link>
           </Flex>
         </Box>
       </Grid>

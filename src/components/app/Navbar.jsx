@@ -86,6 +86,7 @@ const Navbar = () => {
             <Link
               to="/contact"
               sx={{
+                mr: 3,
                 color: !isScrolledTop ? "#30362F" : "white",
                 textDecoration: "none",
                 fontWeight: "bold",
@@ -95,6 +96,19 @@ const Navbar = () => {
               }}
             >
               {t("nav_contact")}
+            </Link>
+            <Link
+              to="/climbing"
+              sx={{
+                color: !isScrolledTop ? "#30362F" : "white",
+                textDecoration: "none",
+                fontWeight: "bold",
+                "&:hover": {
+                  textDecoration: "underline",
+                },
+              }}
+            >
+              {t("nav_climbing")}
             </Link>
           </Box>
           <Link to="/" sx={{ width: "60px" }}>

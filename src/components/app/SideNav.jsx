@@ -137,6 +137,21 @@ const SideNav = ({ isOpen, setSideNavOpen, enableScrollFunc }) => {
           >
             {t("nav_about")}
           </Link>
+          <Link
+            to="/climbing"
+            sx={{
+              color: "primary",
+              textDecoration: "none",
+              fontSize: 4,
+              fontWeight: "bold",
+              "&:hover": {
+                textDecoration: "underline",
+              },
+            }}
+            onClick={handleLinkClick}
+          >
+            {t("nav_climbing")}
+          </Link>
         </Flex>
       </Box>
     </Flex>
