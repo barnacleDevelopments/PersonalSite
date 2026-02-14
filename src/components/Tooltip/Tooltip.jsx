@@ -212,16 +212,18 @@ export default function Tooltip({ text, variant = "dark" }) {
       >
         ?
       </button>
-      <Box
-        ref={tooltipRef}
-        className="tooltip"
-        sx={{
-          ...getTooltipStyles(),
-          "&::after": getArrowStyles(),
-        }}
-      >
-        <Text sx={{ fontSize: 1, lineHeight: 1.4 }}>{text}</Text>
-      </Box>
+      {buttonRect && (
+        <Box
+          ref={tooltipRef}
+          className="tooltip"
+          sx={{
+            ...getTooltipStyles(),
+            "&::after": getArrowStyles(),
+          }}
+        >
+          <Text sx={{ fontSize: 1, lineHeight: 1.4 }}>{text}</Text>
+        </Box>
+      )}
     </Box>
   );
 }
