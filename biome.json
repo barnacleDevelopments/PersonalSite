@@ -10,6 +10,9 @@
       "correctness": {
         "noUnusedImports": "error",
         "noUnusedVariables": "error"
+      },
+      "style": {
+        "noUnusedTemplateLiteral": "off"
       }
     }
   },
