@@ -136,6 +136,7 @@ const ContactPage = () => {
 
         if (response.ok) {
           setIsPostSuccessful(true);
+          showToast("Email sent successfully!", "success");
         } else {
           showToast("Oups! We couldn't send your email. Please try again.");
         }
