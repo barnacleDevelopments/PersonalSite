@@ -1,11 +1,12 @@
 import { MDXProvider } from "@mdx-js/react";
-import { Link as GatsbyLink, graphql } from "gatsby";
+import { graphql } from "gatsby";
+import { Link } from "gatsby-plugin-react-i18next";
 import { DateTime } from "luxon";
 import PropTypes from "prop-types";
 import { Box, Button, Flex, Heading, Text } from "theme-ui";
 
-import Layout from "../components/app/Layout";
 import Seo from "../components/Seo/Seo";
+import Layout from "../components/app/Layout";
 import globalCodes from "../short-codes";
 
 function HorizontalImages({ children }) {
@@ -75,9 +76,9 @@ const BlogPostPage = ({ data, children }) => {
       >
         <MDXProvider components={shortCodes}>{children}</MDXProvider>
         <Box sx={{ textAlign: "center" }}>
-          <GatsbyLink to="/blog">
+          <Link to="/blog">
             <Button>Read More Articles</Button>
-          </GatsbyLink>
+          </Link>
         </Box>
       </Box>
     </Layout>

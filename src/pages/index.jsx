@@ -1,10 +1,9 @@
-import { Link as GatsbyLink, graphql } from "gatsby";
+import { graphql } from "gatsby";
 import { StaticImage } from "gatsby-plugin-image";
-import { useTranslation } from "gatsby-plugin-react-i18next";
+import { Link, useTranslation } from "gatsby-plugin-react-i18next";
 import { useState } from "react";
 import { Box, Button, Flex, Grid, Heading, Text } from "theme-ui";
 
-import Layout from "../components/app/Layout";
 import BookCard from "../components/BookCard/BookCard";
 import CallToAction from "../components/CallToAction";
 import Loader from "../components/Loader";
@@ -12,6 +11,7 @@ import PostCard from "../components/PostCard/PostCard";
 import ProjectCard from "../components/ProjectCard/ProjectCard";
 import Seo from "../components/Seo/Seo";
 import Tooltip from "../components/Tooltip/Tooltip";
+import Layout from "../components/app/Layout";
 import { getYearsOfExperience } from "../utils/experience";
 
 const IndexPage = ({ data }) => {
@@ -115,9 +115,9 @@ const IndexPage = ({ data }) => {
                     top: "0px",
                   }}
                 >
-                  <GatsbyLink to="/contact">
+                  <Link to="/contact">
                     <Button variant="primary">{t("lets_chat")}</Button>
-                  </GatsbyLink>
+                  </Link>
                 </Flex>
                 <Loader />
               </Box>
@@ -132,10 +132,7 @@ const IndexPage = ({ data }) => {
             textTransform: "none",
           }}
         >
-          <Tooltip
-            variant="light"
-            text={t("tooltip_static_site")}
-          />
+          <Tooltip variant="light" text={t("tooltip_static_site")} />
         </Box>
       </Box>
       <Box
@@ -184,7 +181,7 @@ const IndexPage = ({ data }) => {
                   {t("intro_text_1")}
                   {t("intro_text_years", { years: getYearsOfExperience() })}
                   {t("intro_text_2")}
-                  <GatsbyLink
+                  <Link
                     to="/about"
                     sx={{
                       color: "blue",
@@ -197,9 +194,9 @@ const IndexPage = ({ data }) => {
                     }}
                   >
                     {t("strong_record")}
-                  </GatsbyLink>
+                  </Link>
                   {t("intro_text_3")}
-                  <GatsbyLink
+                  <Link
                     to="/contact"
                     sx={{
                       color: "blue",
@@ -212,7 +209,7 @@ const IndexPage = ({ data }) => {
                     }}
                   >
                     {t("reach_out")}
-                  </GatsbyLink>
+                  </Link>
                   !
                 </Text>
               </Box>
@@ -344,7 +341,9 @@ const IndexPage = ({ data }) => {
                 }}
               >
                 <Text variant="regular">
-                  {bookFilter === "read" ? t("no_read_books") : t("no_unread_books")}
+                  {bookFilter === "read"
+                    ? t("no_read_books")
+                    : t("no_unread_books")}
                 </Text>
               </Box>
             )}

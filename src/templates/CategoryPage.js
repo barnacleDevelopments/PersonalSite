@@ -1,9 +1,10 @@
-import { Link as GatsbyLink, graphql } from "gatsby";
+import { graphql } from "gatsby";
+import { Link } from "gatsby-plugin-react-i18next";
 import { Box, Button, Grid, Heading, Text } from "theme-ui";
 
-import Layout from "../components/app/Layout";
 import PostCard from "../components/PostCard/PostCard";
 import Seo from "../components/Seo/Seo";
+import Layout from "../components/app/Layout";
 
 const CategoryPage = ({ data }) => {
   const pageData = data.allMdx.edges;
@@ -73,9 +74,9 @@ const CategoryPage = ({ data }) => {
           ) : (
             <Box sx={{ height: "80vh" }}>
               <h1 sx={{ mb: 3 }}>Nothing here for now... check in later!</h1>
-              <GatsbyLink to="/blog">
+              <Link to="/blog">
                 <Button>Go Back</Button>
-              </GatsbyLink>
+              </Link>
             </Box>
           )}
         </Grid>

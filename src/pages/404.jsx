@@ -1,9 +1,9 @@
-import { Link, graphql } from "gatsby";
-import { useTranslation } from "gatsby-plugin-react-i18next";
+import { graphql } from "gatsby";
+import { Link, useTranslation } from "gatsby-plugin-react-i18next";
 import { Box, Button, Flex, Heading, Text } from "theme-ui";
 
-import Layout from "../components/app/Layout";
 import Seo from "../components/Seo/Seo";
+import Layout from "../components/app/Layout";
 
 const NotFoundPage = () => {
   const { t } = useTranslation("404");

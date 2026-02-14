@@ -1,10 +1,11 @@
-import { Link as GatsbyLink, graphql } from "gatsby";
+import { graphql } from "gatsby";
+import { Link, useTranslation } from "gatsby-plugin-react-i18next";
 import { Box, Heading, Paragraph } from "theme-ui";
 
-import Layout from "../components/app/Layout";
 import CallToAction from "../components/CallToAction";
 import ProjectCard from "../components/ProjectCard/ProjectCard";
 import Seo from "../components/Seo/Seo";
+import Layout from "../components/app/Layout";
 
 const keywords = [
   "Devin Davis",
@@ -26,6 +27,7 @@ const keywords = [
 ];
 
 const ProjectsPage = ({ data }) => {
+  const { t } = useTranslation("projects");
   const projects = data.allMdx.edges.map(
     ({ node: { fields, frontmatter, excerpt } }) => ({
       ...fields,
@@ -50,12 +52,11 @@ const ProjectsPage = ({ data }) => {
       >
         <Box as="section" sx={{ mb: 5 }}>
           <Heading as="h1" variant="hero">
-            Projects
+            {t("page_title")}
           </Heading>
           <Paragraph variant="large">
-            Discover a selection of my latest projects. If you're interested in
-            collaboration or want to learn more, feel free to{" "}
-            <GatsbyLink
+            {t("page_description_1")}
+            <Link
               to="/contact"
               sx={{
                 color: "blue",
@@ -67,8 +68,8 @@ const ProjectsPage = ({ data }) => {
                 },
               }}
             >
-              contact me
-            </GatsbyLink>
+              {t("page_description_link")}
+            </Link>
             .
           </Paragraph>
         </Box>
@@ -83,11 +84,9 @@ const ProjectsPage = ({ data }) => {
           ))}
         </Box>
         <CallToAction
-          title={"Interested in collaborating?"}
-          content={
-            "I'd love to hear from you and explore how we can work together."
-          }
-          buttonText={"Get in Touch"}
+          title={t("cta_title")}
+          content={t("cta_content")}
+          buttonText={t("cta_button")}
           pageLink={"/contact"}
         />
       </Box>
@@ -135,7 +134,7 @@ export const projectsQuery = graphql`
     }
 
     locales: allLocale(
-      filter: { ns: { in: ["common"] }, language: { eq: $language } }
+      filter: { ns: { in: ["common", "projects"] }, language: { eq: $language } }
     ) {
       edges {
         node {

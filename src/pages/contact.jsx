@@ -1,8 +1,8 @@
 import { faCopy } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Link as GatsbyLink, graphql } from "gatsby";
-import { useTranslation } from "gatsby-plugin-react-i18next";
+import { graphql } from "gatsby";
+import { Link as I18nLink, useTranslation } from "gatsby-plugin-react-i18next";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 import {
@@ -19,8 +19,8 @@ import {
 } from "theme-ui";
 import * as yup from "yup";
 
-import Layout from "../components/app/Layout";
 import Seo from "../components/Seo/Seo";
+import Layout from "../components/app/Layout";
 import useToast from "../hooks/use-toast";
 
 const SubmitSuccess = ({ showToast, t }) => {
@@ -75,9 +75,9 @@ const SubmitSuccess = ({ showToast, t }) => {
             icon={faCopy}
           />
         </Button>
-        <GatsbyLink to="/">
+        <I18nLink to="/">
           <Button variant="primary">{t("success_back_home")}</Button>
-        </GatsbyLink>
+        </I18nLink>
       </Box>
     </Flex>
   );
@@ -299,7 +299,7 @@ const ContactPage = () => {
             <Box sx={{ mb: 3 }}>
               <Paragraph>
                 {t("sidebar_text_1")}
-                <GatsbyLink
+                <I18nLink
                   to="/about"
                   sx={{
                     color: "blue",
@@ -312,7 +312,7 @@ const ContactPage = () => {
                   }}
                 >
                   {t("sidebar_link_text")}
-                </GatsbyLink>
+                </I18nLink>
                 {t("sidebar_text_2")}
                 <Link
                   variant="text"
@@ -338,15 +338,13 @@ const ContactPage = () => {
               <Heading variant="subheading2" sx={{ mt: 3 }}>
                 {t("availability_title")}
               </Heading>
-              <Paragraph>
-                {t("availability_text")}
-              </Paragraph>
+              <Paragraph>{t("availability_text")}</Paragraph>
               <Heading variant="subheading2" sx={{ mt: 3 }}>
                 {t("check_out_work_title")}
               </Heading>
               <Paragraph>
                 {t("check_out_work_text")}
-                <GatsbyLink
+                <I18nLink
                   to="/projects"
                   sx={{
                     color: "blue",
@@ -359,7 +357,7 @@ const ContactPage = () => {
                   }}
                 >
                   {t("view_portfolio")}
-                </GatsbyLink>
+                </I18nLink>
                 {t("check_out_work_suffix")}
               </Paragraph>
             </Box>

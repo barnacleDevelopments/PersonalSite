@@ -1,4 +1,4 @@
-import { Link } from "gatsby";
+import { Link } from "gatsby-plugin-react-i18next";
 
 // Components
 import { Box, Button, Flex, Heading, Text } from "theme-ui";

@@ -1,14 +1,14 @@
-import { Link as GatsbyLink, graphql } from "gatsby";
+import { graphql } from "gatsby";
 import { StaticImage } from "gatsby-plugin-image";
-import { useTranslation } from "gatsby-plugin-react-i18next";
+import { Link, useTranslation } from "gatsby-plugin-react-i18next";
 import { useRef, useState } from "react";
 import { Box, Grid, Heading, Paragraph } from "theme-ui";
 
-import Layout from "../components/app/Layout";
 import CallToAction from "../components/CallToAction";
 import Seo from "../components/Seo/Seo";
 import SkillsChart from "../components/SkillsChart/SkillsChart";
 import { TechListing } from "../components/TechListing/TechListing";
+import Layout from "../components/app/Layout";
 import ProjectDialog from "../components/dialogs/ProjectDialog";
 
 const AboutPage = ({ data }) => {
@@ -70,7 +70,7 @@ const AboutPage = ({ data }) => {
           <Box>
             <Paragraph variant="regular">
               {t("bio_text_1")}
-              <GatsbyLink
+              <Link
                 to="/contact"
                 sx={{
                   color: "orange",
@@ -79,7 +79,7 @@ const AboutPage = ({ data }) => {
                 }}
               >
                 {t("please_reach_out")}
-              </GatsbyLink>
+              </Link>
               {t("bio_text_2")}
             </Paragraph>
           </Box>
@@ -100,10 +100,7 @@ const AboutPage = ({ data }) => {
             </Heading>
             <Paragraph sx={{ mb: 4 }}>
               {t("tech_experience_text")}
-              <b>
-                {t("tech_experience_click_hint")}
-              </b>
-              .
+              <b>{t("tech_experience_click_hint")}</b>.
             </Paragraph>
           </Box>
           <TechListing
@@ -127,9 +124,7 @@ const AboutPage = ({ data }) => {
           <Heading variant="subheading1" sx={{ color: "white", mb: 2 }}>
             {t("projects_by_tech_title")}
           </Heading>
-          <Paragraph sx={{ mb: 3 }}>
-            {t("projects_by_tech_text")}
-          </Paragraph>
+          <Paragraph sx={{ mb: 3 }}>{t("projects_by_tech_text")}</Paragraph>
           <SkillsChart technologies={technologies} />
         </Box>
         <CallToAction

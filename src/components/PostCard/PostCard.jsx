@@ -1,6 +1,6 @@
-import { Link } from "gatsby";
 import { GatsbyImage } from "gatsby-plugin-image";
 import { getImage } from "gatsby-plugin-image";
+import { Link } from "gatsby-plugin-react-i18next";
 
 // Components
 import { Box, Button, Card, Grid, Heading, Text } from "theme-ui";
