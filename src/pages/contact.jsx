@@ -18,7 +18,6 @@ import {
 } from "theme-ui";
 import * as yup from "yup";
 
-import PageLoader from "../components/PageLoader/PageLoader";
 import Seo from "../components/Seo/Seo";
 import useToast from "../hooks/use-toast";
 
@@ -284,8 +283,9 @@ const ContactPage = () => {
                   variant="primary"
                   onClick={handleSubmit(onSubmit)}
                   type="submit"
+                  disabled={isSubmitting}
                 >
-                  SEND
+                  {isSubmitting ? "SENDING..." : "SEND"}
                 </Button>
               </Box>
             </Box>
@@ -364,7 +364,6 @@ const ContactPage = () => {
             </Box>
           </Grid>
         )}
-        {isSubmitting && !isPostSuccessful && <PageLoader />}
         {isPostSuccessful && <SubmitSuccess />}
       </Box>
     </Box>
