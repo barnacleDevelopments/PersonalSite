@@ -1,6 +1,7 @@
 import { graphql } from "gatsby";
 import { Box, Grid, Heading, Text } from "theme-ui";
 
+import Layout from "../components/app/Layout";
 import PostCard from "../components/PostCard/PostCard";
 import Seo from "../components/Seo/Seo";
 
@@ -8,7 +9,7 @@ const AllPostsPage = ({ data }) => {
   const pageData = data.allMdx.edges;
 
   return (
-    <Box>
+    <Layout>
       <Seo title="Blog" />
       <Box
         sx={{
@@ -47,14 +48,14 @@ const AllPostsPage = ({ data }) => {
           })}
         </Grid>
       </Box>
-    </Box>
+    </Layout>
   );
 };
 
 export default AllPostsPage;
 
 export const programmingPostsPageQuery = graphql`
-  query ProgrammingPostsPageQuery {
+  query ProgrammingPostsPageQuery($language: String!) {
     allMdx(
       filter: {
         frontmatter: { draft: { eq: false } }
@@ -77,6 +78,18 @@ export const programmingPostsPageQuery = graphql`
             }
           }
           excerpt(pruneLength: 100)
+        }
+      }
+    }
+
+    locales: allLocale(
+      filter: { ns: { in: ["common"] }, language: { eq: $language } }
+    ) {
+      edges {
+        node {
+          ns
+          data
+          language
         }
       }
     }

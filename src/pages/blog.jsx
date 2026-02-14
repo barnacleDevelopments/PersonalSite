@@ -3,6 +3,7 @@ import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
 import { graphql } from "gatsby";
 import { Box, Flex, Grid, Heading, Text } from "theme-ui";
 
+import Layout from "../components/app/Layout";
 import PostCategoryCard from "../components/PostCategoryCard/PostCategoryCard";
 import Seo from "../components/Seo/Seo";
 
@@ -14,7 +15,7 @@ const BlogPage = ({ data }) => {
   const categories = data.allMdx.distinct;
 
   return (
-    <Box>
+    <Layout>
       <Seo title="Blog" />
       <Box
         sx={{
@@ -76,12 +77,12 @@ const BlogPage = ({ data }) => {
           ))}
         </Grid>
       </Box>
-    </Box>
+    </Layout>
   );
 };
 
 export const pageQuery = graphql`
-  query BlogPageQuery {
+  query BlogPageQuery($language: String!) {
     site {
       siteMetadata {
         siteUrl
@@ -89,6 +90,18 @@ export const pageQuery = graphql`
     }
     allMdx(filter: { frontmatter: { draft: { eq: false } } }) {
       distinct(field: { frontmatter: { category: SELECT } })
+    }
+
+    locales: allLocale(
+      filter: { ns: { in: ["common"] }, language: { eq: $language } }
+    ) {
+      edges {
+        node {
+          ns
+          data
+          language
+        }
+      }
     }
   }
 `;

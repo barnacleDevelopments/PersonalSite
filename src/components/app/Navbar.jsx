@@ -1,11 +1,12 @@
-import { Link } from "gatsby";
 import { StaticImage } from "gatsby-plugin-image";
+import { Link, useTranslation } from "gatsby-plugin-react-i18next";
 import { memo, useCallback, useEffect, useRef, useState } from "react";
 import { Box, Flex } from "theme-ui";
 
 import SideNav from "./SideNav";
 
 const Navbar = () => {
+  const { t } = useTranslation("common");
   const [isScrolledTop, setIsScrolledTop] = useState(true);
   const [sideNavOpen, setSideNavOpen] = useState(false);
   const scrollTimeoutRef = useRef(null);
@@ -80,7 +81,7 @@ const Navbar = () => {
                 },
               }}
             >
-              Blog
+              {t("nav_blog")}
             </Link>
             <Link
               to="/contact"
@@ -93,7 +94,7 @@ const Navbar = () => {
                 },
               }}
             >
-              Contact
+              {t("nav_contact")}
             </Link>
           </Box>
           <Link to="/" sx={{ width: "60px" }}>
@@ -142,7 +143,7 @@ const Navbar = () => {
                 },
               }}
             >
-              Projects
+              {t("nav_projects")}
             </Link>
             <Link
               to="/about"
@@ -155,7 +156,7 @@ const Navbar = () => {
                 },
               }}
             >
-              About
+              {t("nav_about")}
             </Link>
           </Box>
         </Box>

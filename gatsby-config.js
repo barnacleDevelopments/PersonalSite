@@ -36,6 +36,32 @@ module.exports = {
     "gatsby-plugin-sitemap",
     "gatsby-transformer-json",
     {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        path: `${__dirname}/locales`,
+        name: `locale`,
+      },
+    },
+    {
+      resolve: `gatsby-plugin-react-i18next`,
+      options: {
+        localeJsonSourceName: `locale`,
+        languages: [`en`, `fr`],
+        defaultLanguage: `en`,
+        siteUrl: `https://devdeveloper.ca`,
+        trailingSlash: "always",
+        i18nextOptions: {
+          interpolation: {
+            escapeValue: false,
+          },
+          keySeparator: false,
+          nsSeparator: ":",
+          defaultNS: "common",
+          ns: ["common", "navigation", "index", "about", "contact", "404", "posts", "projects", "blog"],
+        },
+      },
+    },
+    {
       resolve: `gatsby-plugin-feed`,
       options: {
         query: `

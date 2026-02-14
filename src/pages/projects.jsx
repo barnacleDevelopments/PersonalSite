@@ -1,6 +1,7 @@
 import { Link as GatsbyLink, graphql } from "gatsby";
 import { Box, Heading, Paragraph } from "theme-ui";
 
+import Layout from "../components/app/Layout";
 import CallToAction from "../components/CallToAction";
 import ProjectCard from "../components/ProjectCard/ProjectCard";
 import Seo from "../components/Seo/Seo";
@@ -34,7 +35,7 @@ const ProjectsPage = ({ data }) => {
   );
 
   return (
-    <Box>
+    <Layout>
       <Seo
         title="Projects"
         description={`Explore the portfolio of Devin Davis, a results-oriented full-stack developer showcasing web solutions and creative designs. Let's connect to collaborate or discuss new opportunities.`}
@@ -90,12 +91,12 @@ const ProjectsPage = ({ data }) => {
           pageLink={"/contact"}
         />
       </Box>
-    </Box>
+    </Layout>
   );
 };
 
 export const projectsQuery = graphql`
-  query ProjectsPageQuery {
+  query ProjectsPageQuery($language: String!) {
     allMdx(
       sort: { frontmatter: { startDate: DESC } }
       filter: {
@@ -129,6 +130,18 @@ export const projectsQuery = graphql`
               }
             }
           }
+        }
+      }
+    }
+
+    locales: allLocale(
+      filter: { ns: { in: ["common"] }, language: { eq: $language } }
+    ) {
+      edges {
+        node {
+          ns
+          data
+          language
         }
       }
     }

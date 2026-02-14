@@ -4,6 +4,7 @@ import { DateTime } from "luxon";
 import PropTypes from "prop-types";
 import { Box, Button, Flex, Heading, Text } from "theme-ui";
 
+import Layout from "../components/app/Layout";
 import Seo from "../components/Seo/Seo";
 import globalCodes from "../short-codes";
 
@@ -31,7 +32,7 @@ const BlogPostPage = ({ data, children }) => {
   const { mdx: node } = data;
 
   return (
-    <Box>
+    <Layout>
       <Seo
         title={`Post - ${node.frontmatter.title}`}
         keywords={node.frontmatter.keywords.split(",")}
@@ -79,7 +80,7 @@ const BlogPostPage = ({ data, children }) => {
           </GatsbyLink>
         </Box>
       </Box>
-    </Box>
+    </Layout>
   );
 };
 
@@ -105,7 +106,7 @@ BlogPostPage.propTypes = {
 };
 
 export const pageQuery = graphql`
-  query PostsByTitle($slug: String!) {
+  query PostsByTitle($slug: String!, $language: String!) {
     site {
       siteMetadata {
         siteUrl
@@ -125,6 +126,18 @@ export const pageQuery = graphql`
         }
       }
       excerpt(pruneLength: 70)
+    }
+
+    locales: allLocale(
+      filter: { ns: { in: ["common"] }, language: { eq: $language } }
+    ) {
+      edges {
+        node {
+          ns
+          data
+          language
+        }
+      }
     }
   }
 `;

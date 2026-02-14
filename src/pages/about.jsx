@@ -1,8 +1,10 @@
 import { Link as GatsbyLink, graphql } from "gatsby";
 import { StaticImage } from "gatsby-plugin-image";
+import { useTranslation } from "gatsby-plugin-react-i18next";
 import { useRef, useState } from "react";
 import { Box, Grid, Heading, Paragraph } from "theme-ui";
 
+import Layout from "../components/app/Layout";
 import CallToAction from "../components/CallToAction";
 import Seo from "../components/Seo/Seo";
 import SkillsChart from "../components/SkillsChart/SkillsChart";
@@ -10,6 +12,7 @@ import { TechListing } from "../components/TechListing/TechListing";
 import ProjectDialog from "../components/dialogs/ProjectDialog";
 
 const AboutPage = ({ data }) => {
+  const { t } = useTranslation("about");
   const dialog = useRef(null);
   const [selectedTechnology, setSelectedTechnology] = useState();
 
@@ -39,7 +42,7 @@ const AboutPage = ({ data }) => {
   }));
 
   return (
-    <Box>
+    <Layout>
       <Seo title="About" />
       <Box
         sx={{
@@ -49,7 +52,7 @@ const AboutPage = ({ data }) => {
         }}
       >
         <Heading as="h1" variant="hero">
-          A Little More About Me
+          {t("page_title")}
         </Heading>
         <Grid sx={{ mb: 4 }} gap={3} columns={["1fr", "1fr 1fr", "1.5fr 2fr"]}>
           <Box
@@ -66,19 +69,7 @@ const AboutPage = ({ data }) => {
           </Box>
           <Box>
             <Paragraph variant="regular">
-              The software field stands out due to the incredible people I've
-              met and the amazing teams we've built. Our field encompasses many
-              disciplines, and it's inspiring how we co-operate to achieve
-              extraordinary outcomes. I thrive in collaborative environments,
-              embracing teamwork to help businesses realize their software
-              solutions using the latest web technologies. The challenge of
-              technology and its potential to enable new possibilities draws me
-              into this ever-expanding field. Whether building a solution,
-              gaining deep knowledge on a subject, or increasing my proficiency,
-              I am constantly learning. If you couldn't tell, I like to climb
-              just about anything I can get my hands on. Naturally, if you don't
-              see me at the office, I'm probably at the local bouldering gym.
-              Hearing people talk about their passions fires me up.{" "}
+              {t("bio_text_1")}
               <GatsbyLink
                 to="/contact"
                 sx={{
@@ -87,9 +78,9 @@ const AboutPage = ({ data }) => {
                   "&:hover": { textDecoration: "underline" },
                 }}
               >
-                Please reach out
+                {t("please_reach_out")}
               </GatsbyLink>
-              ; I'm always up for a chat!{" "}
+              {t("bio_text_2")}
             </Paragraph>
           </Box>
         </Grid>
@@ -105,17 +96,12 @@ const AboutPage = ({ data }) => {
         >
           <Box sx={{ textAlign: "center" }}>
             <Heading variant="subheading1" sx={{ color: "white" }}>
-              Technology Experience
+              {t("tech_experience_title")}
             </Heading>
             <Paragraph sx={{ mb: 4 }}>
-              I have a wide range of experience with different technologies.
-              Most of my experience is in the JavaScript and .NET Core
-              ecosystems. I also have experience within DevOps more specificaly
-              in the Azure ecosystem. I adapt quickly to the technology stack
-              required for a project and don't limit myself to my current domain
-              of experience.{" "}
+              {t("tech_experience_text")}
               <b>
-                Try clicking on a skill to view projects where I have used it
+                {t("tech_experience_click_hint")}
               </b>
               .
             </Paragraph>
@@ -139,19 +125,17 @@ const AboutPage = ({ data }) => {
           }}
         >
           <Heading variant="subheading1" sx={{ color: "white", mb: 2 }}>
-            Projects by Technology
+            {t("projects_by_tech_title")}
           </Heading>
           <Paragraph sx={{ mb: 3 }}>
-            I don't find skill levels particularly measurable, but I want to
-            provide context into where I've used different technologies. My
-            proficiency is based on real project experience.
+            {t("projects_by_tech_text")}
           </Paragraph>
           <SkillsChart technologies={technologies} />
         </Box>
         <CallToAction
-          title={"Checkout Some of my Projects"}
-          content={"Every project I take on I take ownership of."}
-          buttonText={"Let's Go!"}
+          title={t("cta_title")}
+          content={t("cta_content")}
+          buttonText={t("cta_button")}
           pageLink={"/projects"}
         />
       </Box>
@@ -160,12 +144,12 @@ const AboutPage = ({ data }) => {
         title={selectedTechnology?.name}
         projects={selectedTechnology?.projects}
       />
-    </Box>
+    </Layout>
   );
 };
 
 export const aboutPageQuery = graphql`
-  query AboutPageQuery {
+  query AboutPageQuery($language: String!) {
     allMdx(
       filter: {
         internal: { contentFilePath: { regex: "/content/projects/" } }
@@ -188,6 +172,18 @@ export const aboutPageQuery = graphql`
           fields {
             slug
           }
+        }
+      }
+    }
+
+    locales: allLocale(
+      filter: { ns: { in: ["common", "about"] }, language: { eq: $language } }
+    ) {
+      edges {
+        node {
+          ns
+          data
+          language
         }
       }
     }

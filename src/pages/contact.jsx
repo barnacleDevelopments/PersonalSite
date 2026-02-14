@@ -1,7 +1,8 @@
 import { faCopy } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Link as GatsbyLink } from "gatsby";
+import { Link as GatsbyLink, graphql } from "gatsby";
+import { useTranslation } from "gatsby-plugin-react-i18next";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 import {
@@ -18,10 +19,11 @@ import {
 } from "theme-ui";
 import * as yup from "yup";
 
+import Layout from "../components/app/Layout";
 import Seo from "../components/Seo/Seo";
 import useToast from "../hooks/use-toast";
 
-const SubmitSuccess = ({ showToast }) => {
+const SubmitSuccess = ({ showToast, t }) => {
   const copyPGP = useCallback(async () => {
     try {
       const response = await fetch("/pgp-key.asc");
@@ -30,11 +32,11 @@ const SubmitSuccess = ({ showToast }) => {
       }
       const text = await response.text();
       await navigator.clipboard.writeText(text);
-      showToast("PGP key copied to clipboard!", "success");
+      showToast(t("pgp_copy_success"), "success");
     } catch {
-      showToast("Failed to copy PGP key. Please try again.");
+      showToast(t("pgp_copy_error"));
     }
-  }, [showToast]);
+  }, [showToast, t]);
 
   return (
     <Flex
@@ -47,25 +49,25 @@ const SubmitSuccess = ({ showToast }) => {
     >
       <Box textAlign="center">
         <Heading variant="large" sx={{ mb: 3 }}>
-          Thank you for the email!
+          {t("success_title")}
         </Heading>
         <Text variant="regular" sx={{ my: 3, display: "block" }}>
           {" "}
-          I'll be in touch with you shortly.
+          {t("success_subtitle")}
         </Text>
         <Flex sx={{ gap: 3, alignItems: "center", mb: 3 }}>
           <Box>
-            {"Copy my public PGP key to ensure I can securely email you."}{" "}
+            {t("success_pgp_text")}{" "}
             <Link
               variant="text"
               href="https://www.fortinet.com/resources/cyberglossary/pgp-encryption"
             >
-              Learn more about PGP
+              {t("success_pgp_learn")}
             </Link>{" "}
           </Box>
         </Flex>
         <Button variant="secondary" sx={{ mr: 2 }} onClick={copyPGP}>
-          <Text>Copy PGP</Text>
+          <Text>{t("success_pgp_button")}</Text>
           <Icon
             sx={{
               ml: 2,
@@ -74,7 +76,7 @@ const SubmitSuccess = ({ showToast }) => {
           />
         </Button>
         <GatsbyLink to="/">
-          <Button variant="primary">Back Home</Button>
+          <Button variant="primary">{t("success_back_home")}</Button>
         </GatsbyLink>
       </Box>
     </Flex>
@@ -82,6 +84,7 @@ const SubmitSuccess = ({ showToast }) => {
 };
 
 const ContactPage = () => {
+  const { t } = useTranslation("contact");
   const [isPostSuccessful, setIsPostSuccessful] = useState(false);
   const [isFormHighlighted, setIsFormHighlighted] = useState(false);
   const { showToast, Toast } = useToast();
@@ -136,15 +139,15 @@ const ContactPage = () => {
 
         if (response.ok) {
           setIsPostSuccessful(true);
-          showToast("Email sent successfully!", "success");
+          showToast(t("email_sent_success"), "success");
         } else {
-          showToast("Oups! We couldn't send your email. Please try again.");
+          showToast(t("email_sent_error"));
         }
       } catch {
-        showToast("Oups! We couldn't send your email. Please try again.");
+        showToast(t("email_sent_error"));
       }
     },
-    [showToast],
+    [showToast, t],
   );
 
   useEffect(() => {
@@ -152,7 +155,7 @@ const ContactPage = () => {
   }, [setFocus]);
 
   return (
-    <Box>
+    <Layout>
       <Seo
         title="Contact"
         description="Contact Devin Davis, a Full Stack Web Developer. Discuss your project or collaborate today. Open to freelance and full-time roles!"
@@ -188,10 +191,10 @@ const ContactPage = () => {
             }}
           >
             <Heading as="h1" variant="hero">
-              Let's Talk About You
+              {t("page_title")}
             </Heading>
             <Paragraph sx={{ my: 3, display: "block" }} variant="large">
-              Please reach out. I'd love to help you reach your goals!
+              {t("page_subtitle")}
             </Paragraph>
           </Box>
         )}
@@ -231,7 +234,7 @@ const ContactPage = () => {
                     name="email"
                     {...register("email")}
                     type="text"
-                    placeholder="Email Address..."
+                    placeholder={t("placeholder_email")}
                   />
                   {errors.email && (
                     <Text sx={{ color: "red", mb: 3, display: "block" }}>
@@ -251,7 +254,7 @@ const ContactPage = () => {
                     name="subject"
                     {...register("subject")}
                     type="text"
-                    placeholder="Subject..."
+                    placeholder={t("placeholder_subject")}
                   />
                   {errors.subject && (
                     <Text sx={{ color: "red", mb: 3, display: "block" }}>
@@ -274,7 +277,7 @@ const ContactPage = () => {
                     name="message"
                     {...register("message")}
                     type="text"
-                    placeholder="Message..."
+                    placeholder={t("placeholder_message")}
                   />
                   {errors.message && (
                     <Text sx={{ color: "red", mb: 3, display: "block" }}>
@@ -289,13 +292,13 @@ const ContactPage = () => {
                   type="submit"
                   disabled={isSubmitting}
                 >
-                  {isSubmitting ? "SENDING..." : "SEND"}
+                  {isSubmitting ? t("button_sending") : t("button_send")}
                 </Button>
               </Box>
             </Box>
             <Box sx={{ mb: 3 }}>
               <Paragraph>
-                I'm a{" "}
+                {t("sidebar_text_1")}
                 <GatsbyLink
                   to="/about"
                   sx={{
@@ -308,19 +311,17 @@ const ContactPage = () => {
                     },
                   }}
                 >
-                  results-oriented Full Stack Web Developer
+                  {t("sidebar_link_text")}
                 </GatsbyLink>
-                . Whether you have a project idea, need a technical
-                collaborator, or just want to connect, I’d love to hear from
-                you. Connect with me on{" "}
+                {t("sidebar_text_2")}
                 <Link
                   variant="text"
                   target="_blank"
                   href="https://www.linkedin.com/in/devin-dev-d-63008412b"
                 >
                   LinkedIn
-                </Link>{" "}
-                or use my{" "}
+                </Link>
+                {t("sidebar_text_3")}
                 <Link
                   sx={{
                     color: "blue",
@@ -330,25 +331,21 @@ const ContactPage = () => {
                   }}
                   onClick={highlightContactForm}
                 >
-                  contact form
+                  {t("sidebar_contact_form")}
                 </Link>
-                —I’ll get back to you shortly.
+                {t("sidebar_text_4")}
               </Paragraph>
               <Heading variant="subheading2" sx={{ mt: 3 }}>
-                Availability
+                {t("availability_title")}
               </Heading>
               <Paragraph>
-                I’m currently open to new opportunities! Whether you need a
-                freelance developer to bring your project to life or a full-time
-                professional to join your team, let’s connect.
+                {t("availability_text")}
               </Paragraph>
               <Heading variant="subheading2" sx={{ mt: 3 }}>
-                Check Out My Work
+                {t("check_out_work_title")}
               </Heading>
               <Paragraph>
-                Explore how I’ve helped businesses and teams bring their ideas
-                to life. My portfolio highlights my versatility and commitment
-                to delivering high-quality results.{" "}
+                {t("check_out_work_text")}
                 <GatsbyLink
                   to="/projects"
                   sx={{
@@ -361,17 +358,33 @@ const ContactPage = () => {
                     },
                   }}
                 >
-                  View my portfolio
-                </GatsbyLink>{" "}
-                and reach out to discuss your next project!
+                  {t("view_portfolio")}
+                </GatsbyLink>
+                {t("check_out_work_suffix")}
               </Paragraph>
             </Box>
           </Grid>
         )}
-        {isPostSuccessful && <SubmitSuccess showToast={showToast} />}
+        {isPostSuccessful && <SubmitSuccess showToast={showToast} t={t} />}
       </Box>
-    </Box>
+    </Layout>
   );
 };
+
+export const contactPageQuery = graphql`
+  query ContactPageQuery($language: String!) {
+    locales: allLocale(
+      filter: { ns: { in: ["common", "contact"] }, language: { eq: $language } }
+    ) {
+      edges {
+        node {
+          ns
+          data
+          language
+        }
+      }
+    }
+  }
+`;
 
 export default ContactPage;

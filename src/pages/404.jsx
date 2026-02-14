@@ -1,11 +1,15 @@
-import { Link } from "gatsby";
+import { Link, graphql } from "gatsby";
+import { useTranslation } from "gatsby-plugin-react-i18next";
 import { Box, Button, Flex, Heading, Text } from "theme-ui";
 
+import Layout from "../components/app/Layout";
 import Seo from "../components/Seo/Seo";
 
 const NotFoundPage = () => {
+  const { t } = useTranslation("404");
+
   return (
-    <Box>
+    <Layout>
       <Seo title="Page Not Found | Dev the Developer" />
       <Box
         sx={{
@@ -37,7 +41,7 @@ const NotFoundPage = () => {
             404
           </Text>
           <Heading as="h1" variant="hero" color="white" sx={{ mb: 0 }}>
-            Page Not Found
+            {t("page_title")}
           </Heading>
         </Flex>
       </Box>
@@ -50,8 +54,7 @@ const NotFoundPage = () => {
         }}
       >
         <Text variant="regular" sx={{ maxWidth: "500px", mx: "auto" }}>
-          Oops! The page you're looking for doesn't exist or has been moved.
-          Let's get you back on track.
+          {t("description")}
         </Text>
         <Flex
           sx={{
@@ -63,18 +66,34 @@ const NotFoundPage = () => {
           }}
         >
           <Link to="/">
-            <Button variant="primary">Go Home</Button>
+            <Button variant="primary">{t("go_home")}</Button>
           </Link>
           <Link to="/blog">
-            <Button variant="secondary">Read the Blog</Button>
+            <Button variant="secondary">{t("read_blog")}</Button>
           </Link>
           <Link to="/contact">
-            <Button variant="secondary">Contact Me</Button>
+            <Button variant="secondary">{t("contact_me")}</Button>
           </Link>
         </Flex>
       </Box>
-    </Box>
+    </Layout>
   );
 };
+
+export const notFoundPageQuery = graphql`
+  query NotFoundPageQuery($language: String!) {
+    locales: allLocale(
+      filter: { ns: { in: ["common", "404"] }, language: { eq: $language } }
+    ) {
+      edges {
+        node {
+          ns
+          data
+          language
+        }
+      }
+    }
+  }
+`;
 
 export default NotFoundPage;

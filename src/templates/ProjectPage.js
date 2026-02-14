@@ -4,6 +4,7 @@ import { DateTime } from "luxon";
 import { Box, Button, Flex, Heading, Text } from "theme-ui";
 import CallToAction from "../components/CallToAction";
 import { ProjectSection } from "../components/ProjectSection/ProjectSection";
+import Layout from "../components/app/Layout";
 import Seo from "../components/Seo/Seo";
 import { TechListing } from "../components/TechListing/TechListing";
 import globalCodes from "../short-codes";
@@ -14,7 +15,7 @@ function ProjectPage({ data, children }) {
   const { mdx: node } = data;
 
   return (
-    <Box>
+    <Layout>
       <Seo
         title={node.frontmatter.title}
         keywords={node.frontmatter.keywords.split(",")}
@@ -66,7 +67,7 @@ function ProjectPage({ data, children }) {
           pageLink="/projects"
         />
       </Box>
-    </Box>
+    </Layout>
   );
 }
 
@@ -85,7 +86,7 @@ const pageWrapper = {
 };
 
 export const pageQuery = graphql`
-  query ProjectBySlug($slug: String!) {
+  query ProjectBySlug($slug: String!, $language: String!) {
     mdx(fields: { slug: { eq: $slug } }) {
       frontmatter {
         title
@@ -100,6 +101,18 @@ export const pageQuery = graphql`
               src
             }
           }
+        }
+      }
+    }
+
+    locales: allLocale(
+      filter: { ns: { in: ["common"] }, language: { eq: $language } }
+    ) {
+      edges {
+        node {
+          ns
+          data
+          language
         }
       }
     }

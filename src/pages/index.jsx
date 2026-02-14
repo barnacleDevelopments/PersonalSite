@@ -1,8 +1,10 @@
 import { Link as GatsbyLink, graphql } from "gatsby";
 import { StaticImage } from "gatsby-plugin-image";
+import { useTranslation } from "gatsby-plugin-react-i18next";
 import { useState } from "react";
 import { Box, Button, Flex, Grid, Heading, Text } from "theme-ui";
 
+import Layout from "../components/app/Layout";
 import BookCard from "../components/BookCard/BookCard";
 import CallToAction from "../components/CallToAction";
 import Loader from "../components/Loader";
@@ -13,6 +15,7 @@ import Tooltip from "../components/Tooltip/Tooltip";
 import { getYearsOfExperience } from "../utils/experience";
 
 const IndexPage = ({ data }) => {
+  const { t } = useTranslation("index");
   const [bookFilter, setBookFilter] = useState("all");
 
   const posts = data.blogPosts.edges
@@ -67,7 +70,7 @@ const IndexPage = ({ data }) => {
   }));
 
   return (
-    <Box>
+    <Layout>
       <Seo />
       <Box
         sx={{
@@ -82,11 +85,10 @@ const IndexPage = ({ data }) => {
         <Flex sx={styles.hero}>
           <Box>
             <Heading as="h1" variant="hero" color="white">
-              Dev the Developer
+              {t("hero_title")}
             </Heading>
             <Text variant="regular" color="white ">
-              I transform problems into thoughtful, scalable solutions. One move
-              at a time.
+              {t("hero_subtitle")}
             </Text>
           </Box>
           <Box
@@ -114,7 +116,7 @@ const IndexPage = ({ data }) => {
                   }}
                 >
                   <GatsbyLink to="/contact">
-                    <Button variant="primary">Let's Chat</Button>
+                    <Button variant="primary">{t("lets_chat")}</Button>
                   </GatsbyLink>
                 </Flex>
                 <Loader />
@@ -132,7 +134,7 @@ const IndexPage = ({ data }) => {
         >
           <Tooltip
             variant="light"
-            text="This site is statically generated and served at the edge."
+            text={t("tooltip_static_site")}
           />
         </Box>
       </Box>
@@ -176,15 +178,12 @@ const IndexPage = ({ data }) => {
                 }}
               >
                 <Heading as="h2" variant="subheading1">
-                  Hey there!
+                  {t("hey_there")}
                 </Heading>
                 <Text variant="regular">
-                  Hey! My name is Devin, but you can call me Dev. I'm a
-                  results-oriented Full Stack Web Developer with{" "}
-                  {getYearsOfExperience()} years of professional experience in
-                  designing, developing, and maintaining dynamic web
-                  applications. My expertise spans a wide range of web
-                  technologies. I have a{" "}
+                  {t("intro_text_1")}
+                  {t("intro_text_years", { years: getYearsOfExperience() })}
+                  {t("intro_text_2")}
                   <GatsbyLink
                     to="/about"
                     sx={{
@@ -197,12 +196,9 @@ const IndexPage = ({ data }) => {
                       },
                     }}
                   >
-                    strong record
-                  </GatsbyLink>{" "}
-                  of collaborating with cross-functional teams to deliver
-                  innovative solutions while translating complex business needs
-                  into functional, user-friendly software. If you're interested
-                  in working together, feel free to{" "}
+                    {t("strong_record")}
+                  </GatsbyLink>
+                  {t("intro_text_3")}
                   <GatsbyLink
                     to="/contact"
                     sx={{
@@ -215,7 +211,7 @@ const IndexPage = ({ data }) => {
                       },
                     }}
                   >
-                    reach out
+                    {t("reach_out")}
                   </GatsbyLink>
                   !
                 </Text>
@@ -225,7 +221,7 @@ const IndexPage = ({ data }) => {
         </Box>
         <Box as="section" sx={{ mt: 3 }}>
           <Heading as="h3" variant="subheading1">
-            Recent Posts
+            {t("recent_posts")}
           </Heading>
           <Grid
             sx={{
@@ -246,7 +242,7 @@ const IndexPage = ({ data }) => {
         </Box>
         <Box as="section" sx={{ mt: 3 }}>
           <Heading as="h3" variant="subheading1">
-            Recent Projects
+            {t("recent_projects")}
           </Heading>
           <Grid
             sx={{
@@ -273,9 +269,9 @@ const IndexPage = ({ data }) => {
           >
             <Flex sx={{ alignItems: "center", gap: 2 }}>
               <Heading as="h3" variant="subheading1" sx={{ mb: 0 }}>
-                Reading List
+                {t("reading_list")}
               </Heading>
-              <Tooltip text="Books are synced from my Kobo e-reader. Covers are extracted from EPUBs and reading progress is updated automatically." />
+              <Tooltip text={t("reading_list_tooltip")} />
             </Flex>
             <Flex sx={{ gap: 2 }}>
               <Button
@@ -284,7 +280,7 @@ const IndexPage = ({ data }) => {
                 }
                 onClick={() => setBookFilter("all")}
               >
-                All
+                {t("filter_all")}
               </Button>
               <Button
                 variant={
@@ -292,7 +288,7 @@ const IndexPage = ({ data }) => {
                 }
                 onClick={() => setBookFilter("read")}
               >
-                Read
+                {t("filter_read")}
               </Button>
               <Button
                 variant={
@@ -300,7 +296,7 @@ const IndexPage = ({ data }) => {
                 }
                 onClick={() => setBookFilter("unread")}
               >
-                Unread
+                {t("filter_unread")}
               </Button>
             </Flex>
           </Flex>
@@ -348,8 +344,7 @@ const IndexPage = ({ data }) => {
                 }}
               >
                 <Text variant="regular">
-                  No {bookFilter === "read" ? "read" : "unread"} books to
-                  display.
+                  {bookFilter === "read" ? t("no_read_books") : t("no_unread_books")}
                 </Text>
               </Box>
             )}
@@ -357,16 +352,14 @@ const IndexPage = ({ data }) => {
         </Box>
         <Box sx={{ mb: 4 }} as="section">
           <CallToAction
-            title={"Let's Work Together"}
-            content={
-              "I'm an pasionate developer who is always trying to master new skills and be of service to those I work with."
-            }
-            buttonText={"Learn how I can help"}
+            title={t("cta_title")}
+            content={t("cta_content")}
+            buttonText={t("cta_button")}
             pageLink={"/about"}
           />
         </Box>
       </Box>
-    </Box>
+    </Layout>
   );
 };
 
@@ -390,7 +383,7 @@ const styles = {
 };
 
 export const landingPageQuery = graphql`
-  query LandingPageQuery {
+  query LandingPageQuery($language: String!) {
     blogPosts: allMdx(
       filter: {
         frontmatter: { draft: { eq: false } }
@@ -482,6 +475,18 @@ export const landingPageQuery = graphql`
         name
         childImageSharp {
           gatsbyImageData(width: 150, height: 225, placeholder: BLURRED)
+        }
+      }
+    }
+
+    locales: allLocale(
+      filter: { ns: { in: ["common", "index"] }, language: { eq: $language } }
+    ) {
+      edges {
+        node {
+          ns
+          data
+          language
         }
       }
     }

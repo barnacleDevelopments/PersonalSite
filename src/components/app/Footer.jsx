@@ -1,23 +1,24 @@
 import { faInstagram, faLinkedin } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
-import { Link } from "gatsby";
+import { Link, useTranslation } from "gatsby-plugin-react-i18next";
 import { Box, Button, Flex, Grid, Text, Link as ThemeLink } from "theme-ui";
 
 const Footer = () => {
+  const { t } = useTranslation("common");
   return (
     <footer>
       <Grid sx={{ bg: "primary", pb: 4 }} columns={[1, null, 3]}>
         <Box sx={{ textAlign: "center" }}>
-          <h4 sx={{ mb: 3, color: "white" }}>Contact Me</h4>
+          <h4 sx={{ mb: 3, color: "white" }}>{t("footer_contact_title")}</h4>
           <Text variant="small" sx={{ color: "white" }}>
-            Please get in touch.
+            {t("footer_contact_text")}
           </Text>
           <Link to="/contact" sx={{ display: "block", mt: 3 }}>
-            <Button variant="secondary">Let's Go!</Button>
+            <Button variant="secondary">{t("footer_contact_button")}</Button>
           </Link>
         </Box>
         <Box sx={{ textAlign: "center" }}>
-          <h4 sx={{ mb: 3, color: "white" }}>Media</h4>
+          <h4 sx={{ mb: 3, color: "white" }}>{t("footer_media_title")}</h4>
           <Flex sx={{ flexDirection: "column", alignItems: "center" }}>
             <ThemeLink
               target="_blank"
@@ -28,7 +29,7 @@ const Footer = () => {
               <Icon icon={faLinkedin} />
               <Text sx={{ color: "white", ml: 1 }} variant="small">
                 {" "}
-                Linkdin
+                LinkedIn
               </Text>
             </ThemeLink>
             <ThemeLink
@@ -46,7 +47,7 @@ const Footer = () => {
           </Flex>
         </Box>
         <Box sx={{ textAlign: "center" }}>
-          <h4 sx={{ mb: 3, color: "white" }}>Navigation</h4>
+          <h4 sx={{ mb: 3, color: "white" }}>{t("footer_nav_title")}</h4>
           <Flex as="nav" sx={{ flexDirection: "column", alignItems: "center" }}>
             <Link
               to="/"
@@ -60,7 +61,7 @@ const Footer = () => {
                 },
               }}
             >
-              Home
+              {t("nav_home")}
             </Link>
             <Link
               to="/contact"
@@ -74,7 +75,7 @@ const Footer = () => {
                 },
               }}
             >
-              Contact
+              {t("nav_contact")}
             </Link>
             <Link
               to="/projects"
@@ -88,7 +89,7 @@ const Footer = () => {
                 },
               }}
             >
-              Projects
+              {t("nav_projects")}
             </Link>
             <Link
               to="/about"
@@ -102,7 +103,7 @@ const Footer = () => {
                 },
               }}
             >
-              About
+              {t("nav_about")}
             </Link>
           </Flex>
         </Box>

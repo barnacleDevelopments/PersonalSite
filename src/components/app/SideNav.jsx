@@ -1,9 +1,10 @@
-import { Link } from "gatsby";
 import { StaticImage } from "gatsby-plugin-image";
+import { Link, useTranslation } from "gatsby-plugin-react-i18next";
 import { Box, Flex } from "theme-ui";
 import { CloseButton } from "./CloseButton";
 
 const SideNav = ({ isOpen, setSideNavOpen, enableScrollFunc }) => {
+  const { t } = useTranslation("common");
   const handleLinkClick = () => {
     setSideNavOpen(false);
     enableScrollFunc();
@@ -74,7 +75,7 @@ const SideNav = ({ isOpen, setSideNavOpen, enableScrollFunc }) => {
             }}
             onClick={handleLinkClick}
           >
-            Home
+            {t("nav_home")}
           </Link>
           <Link
             to="/blog"
@@ -89,7 +90,7 @@ const SideNav = ({ isOpen, setSideNavOpen, enableScrollFunc }) => {
             }}
             onClick={handleLinkClick}
           >
-            Blog
+            {t("nav_blog")}
           </Link>
           <Link
             to="/contact"
@@ -104,7 +105,7 @@ const SideNav = ({ isOpen, setSideNavOpen, enableScrollFunc }) => {
             }}
             onClick={handleLinkClick}
           >
-            Contact
+            {t("nav_contact")}
           </Link>
           <Link
             to="/projects"
@@ -119,7 +120,7 @@ const SideNav = ({ isOpen, setSideNavOpen, enableScrollFunc }) => {
             }}
             onClick={handleLinkClick}
           >
-            Projects
+            {t("nav_projects")}
           </Link>
           <Link
             to="/about"
@@ -134,7 +135,7 @@ const SideNav = ({ isOpen, setSideNavOpen, enableScrollFunc }) => {
             }}
             onClick={handleLinkClick}
           >
-            About
+            {t("nav_about")}
           </Link>
         </Flex>
       </Box>

@@ -1,6 +1,7 @@
 import { Link as GatsbyLink, graphql } from "gatsby";
 import { Box, Button, Grid, Heading, Text } from "theme-ui";
 
+import Layout from "../components/app/Layout";
 import PostCard from "../components/PostCard/PostCard";
 import Seo from "../components/Seo/Seo";
 
@@ -9,7 +10,7 @@ const CategoryPage = ({ data }) => {
   const postCategory = pageData[0]?.node.frontmatter.category;
 
   return (
-    <Box>
+    <Layout>
       <Seo
         title={postCategory}
         keywords={[
@@ -79,14 +80,14 @@ const CategoryPage = ({ data }) => {
           )}
         </Grid>
       </Box>
-    </Box>
+    </Layout>
   );
 };
 
 export default CategoryPage;
 
 export const pageQuery = graphql`
-  query PostsByCategoryQuery($category: String!) {
+  query PostsByCategoryQuery($category: String!, $language: String!) {
     allMdx(
       filter: {
         frontmatter: { draft: { eq: false }, category: { eq: $category } }
@@ -108,6 +109,18 @@ export const pageQuery = graphql`
               }
             }
           }
+        }
+      }
+    }
+
+    locales: allLocale(
+      filter: { ns: { in: ["common"] }, language: { eq: $language } }
+    ) {
+      edges {
+        node {
+          ns
+          data
+          language
         }
       }
     }
