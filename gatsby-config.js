@@ -50,6 +50,7 @@ module.exports = {
         defaultLanguage: `en`,
         siteUrl: `https://devdeveloper.ca`,
         trailingSlash: "always",
+        redirect: process.env.NODE_ENV !== "development",
         i18nextOptions: {
           interpolation: {
             escapeValue: false,
@@ -57,7 +58,17 @@ module.exports = {
           keySeparator: false,
           nsSeparator: ":",
           defaultNS: "common",
-          ns: ["common", "navigation", "index", "about", "contact", "404", "posts", "projects", "blog"],
+          ns: [
+            "common",
+            "navigation",
+            "index",
+            "about",
+            "contact",
+            "404",
+            "posts",
+            "projects",
+            "blog",
+          ],
         },
       },
     },
