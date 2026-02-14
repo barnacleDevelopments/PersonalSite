@@ -1,15 +1,9 @@
-import { faRssSquare } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
 import { graphql } from "gatsby";
 import { Box, Flex, Grid, Heading, Text } from "theme-ui";
 
-import Layout from "../components/app/Layout";
 import PostCategoryCard from "../components/PostCategoryCard/PostCategoryCard";
 import Seo from "../components/Seo/Seo";
-
-const dailyDevUrl = "https://app.daily.dev/devdeveloper";
-const dailyDevImgUrl =
-  "https://api.daily.dev/devcards/v2/cXKKpBu9O.png?type=default&r=6yz";
+import Layout from "../components/app/Layout";
 
 const BlogPage = ({ data }) => {
   const categories = data.allMdx.distinct;
@@ -35,29 +29,7 @@ const BlogPage = ({ data }) => {
               what I'm learning. This is an archive of my blog posts. Feel free
               to take a gander!
             </Text>
-            <Box
-              sx={{
-                mt: 3,
-                backgroundColor: "primary",
-                width: "min-content",
-                borderRadius: 5,
-                padding: 2,
-              }}
-            >
-              <a target="_blanc" href="/rss.xml">
-                <Icon
-                  icon={faRssSquare}
-                  size="2x"
-                  sx={{
-                    color: "orange",
-                  }}
-                />
-              </a>
-            </Box>
           </Box>
-          <a sx={{ display: ["none", "block"] }} href={dailyDevUrl}>
-            <img src={dailyDevImgUrl} width="250" alt="Devin's Dev Card" />
-          </a>
         </Flex>
         <Grid
           sx={{
