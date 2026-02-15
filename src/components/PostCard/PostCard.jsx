@@ -2,10 +2,8 @@ import { GatsbyImage } from "gatsby-plugin-image";
 import { getImage } from "gatsby-plugin-image";
 import { Link } from "gatsby-plugin-react-i18next";
 
-// Components
 import { Box, Button, Card, Grid, Heading, Text } from "theme-ui";
 
-// markup
 const PostCard = ({ post, postContent }) => {
   const cardImage = getImage(post.thumbnail);
 
@@ -49,11 +47,15 @@ const PostCard = ({ post, postContent }) => {
               overflow: "hidden",
               height: "38px",
               color: "white",
+              mb: 0,
             }}
           >
             {post.title}
           </Heading>
-          <Text variant="regular" sx={{ color: "white" }}>
+          <Text
+            variant="regular"
+            sx={{ color: "white", mb: 2, display: "block", fontWeight: "bold" }}
+          >
             {post.date}
           </Text>
           <Text
