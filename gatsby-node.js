@@ -1,6 +1,29 @@
 const { createFilePath } = require("gatsby-source-filesystem");
 require("dotenv").config();
-const path = require("path");
+const path = require("node:path");
+
+async function fetchCommits(githubURL) {
+  try {
+    const { pathname } = new URL(githubURL);
+    const parts = pathname.replace(/^\//, "").split("/");
+    if (parts.length < 2) return [];
+    const [owner, repo] = parts;
+    const res = await fetch(
+      `https://api.github.com/repos/${owner}/${repo}/commits?per_page=5`,
+    );
+    if (!res.ok) return [];
+    const data = await res.json();
+    return data.map((c) => ({
+      sha: c.sha,
+      message: c.commit.message.split("\n")[0],
+      author: c.commit.author.name,
+      date: c.commit.author.date,
+      url: c.html_url,
+    }));
+  } catch {
+    return [];
+  }
+}
 
 exports.createSchemaCustomization = ({ actions }) => {
   const { createTypes } = actions;
@@ -43,6 +66,8 @@ exports.createPages = async ({ actions, graphql }) => {
   }
 
   async function genProjectPage(node, project) {
+    const githubURL = node.frontmatter.githubURL;
+    const commits = githubURL ? await fetchCommits(githubURL) : [];
     createPage({
       path: node.fields.slug,
       component: `${path.resolve(`./src/templates/ProjectPage.js`)}?__contentFilePath=${node.internal.contentFilePath}`,
@@ -50,6 +75,7 @@ exports.createPages = async ({ actions, graphql }) => {
         frontmatter: node.frontmatter,
         title: project.title,
         slug: node.fields.slug,
+        commits,
       },
     });
   }
@@ -80,6 +106,7 @@ exports.createPages = async ({ actions, graphql }) => {
             frontmatter {
               title
               draft
+              githubURL
               image1 {
                 childImageSharp {
                   gatsbyImageData
@@ -115,14 +142,14 @@ exports.createPages = async ({ actions, graphql }) => {
       }
     }
   `)
-    .then((result) => {
+    .then(async (result) => {
       if (result.errors) {
         Promise.reject(result.errors);
       }
-      result.data.allMdx.edges.forEach(({ node }) => {
+      for (const { node } of result.data.allMdx.edges) {
         const project = node.frontmatter;
-        genProjectPage(node, project);
-      });
+        await genProjectPage(node, project);
+      }
     })
     .catch((error) =>
       console.log("Error occured while generating project pages", error),
@@ -144,9 +171,9 @@ exports.createPages = async ({ actions, graphql }) => {
       Promise.reject(result.errors);
     }
 
-    result.data.allMdx.distinct.forEach((category) => {
+    for (const category of result.data.allMdx.distinct) {
       genCategoryPage(category);
-    });
+    }
   });
 
   const postsResult = graphql(`
@@ -175,16 +202,14 @@ exports.createPages = async ({ actions, graphql }) => {
     }
   `).then((result) => {
     if (result.errors) {
-      Promise.reject(results.errors);
+      Promise.reject(result.errors);
     }
-    result.data.allMdx.edges
-      .filter(({ node }) => {
-        return !node.frontmatter.draft;
-      })
-      .forEach(({ node }) => {
+    for (const { node } of result.data.allMdx.edges) {
+      if (!node.frontmatter.draft) {
         const post = node.frontmatter;
         genPostPage(node, post);
-      });
+      }
+    }
   });
 
   return Promise.allSettled([categoryResult, postsResult, projectsResult]);

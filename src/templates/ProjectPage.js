@@ -4,6 +4,7 @@ import { useTranslation } from "gatsby-plugin-react-i18next";
 import { DateTime } from "luxon";
 import { Box, Button, Flex, Heading, Text } from "theme-ui";
 import CallToAction from "../components/CallToAction";
+import CommitLog from "../components/CommitLog/CommitLog";
 import { ProjectSection } from "../components/ProjectSection/ProjectSection";
 import Seo from "../components/Seo/Seo";
 import { TechListing } from "../components/TechListing/TechListing";
@@ -12,9 +13,10 @@ import globalCodes from "../short-codes";
 
 const shortCodes = { ...globalCodes, ProjectSection, TechListing };
 
-function ProjectPage({ data, children }) {
+function ProjectPage({ data, children, pageContext }) {
   const { t } = useTranslation("common");
   const { mdx: node } = data;
+  const { commits } = pageContext;
 
   return (
     <Layout>
@@ -23,69 +25,89 @@ function ProjectPage({ data, children }) {
         keywords={node.frontmatter.keywords.split(",")}
         image={node.frontmatter.image1?.childImageSharp?.original?.src}
       />
-      <Flex sx={pageWrapper}>
-        <Heading as="h1" variant="hero" color="white">
-          {node.frontmatter.title}
-        </Heading>
-        <Text
+      <Box sx={pageWrapper}>
+        <Flex
           sx={{
-            my: 2,
-            fontSize: 3,
+            width: ["90%", "85%", "80%"],
+            mx: "auto",
+            flexDirection: ["column", "column", "row"],
+            alignItems: ["center", "center", "center"],
+            justifyContent: "center",
+            gap: [4, 4, 5],
           }}
         >
-          {DateTime.fromISO(node.frontmatter.startDate).toFormat("MMM d, yyyy")}
-        </Text>
-        {(node.frontmatter.status === "ongoing" ||
-          node.frontmatter.status === "complete") && (
-          <Box
-            sx={{
-              bg: node.frontmatter.status === "ongoing" ? "orange" : "#81B29A",
-              color: "white",
-              fontWeight: "bold",
-              fontSize: 1,
-              px: 3,
-              py: 1,
-              borderRadius: "20px",
-              mt: 1,
-              display: "inline-block",
-            }}
-          >
-            {node.frontmatter.status === "ongoing"
-              ? t("status_in_progress")
-              : t("status_complete")}
+          <Box sx={{ textAlign: "center", flex: 1 }}>
+            <Heading as="h1" variant="hero" color="white">
+              {node.frontmatter.title}
+            </Heading>
+            <Text
+              sx={{
+                my: 2,
+                fontSize: 3,
+                display: "block",
+              }}
+            >
+              {DateTime.fromISO(node.frontmatter.startDate).toFormat(
+                "MMM d, yyyy",
+              )}
+            </Text>
+            {(node.frontmatter.status === "ongoing" ||
+              node.frontmatter.status === "complete") && (
+              <Box
+                sx={{
+                  bg:
+                    node.frontmatter.status === "ongoing"
+                      ? "orange"
+                      : "#81B29A",
+                  color: "white",
+                  fontWeight: "bold",
+                  fontSize: 1,
+                  px: 3,
+                  py: 1,
+                  borderRadius: "20px",
+                  mt: 1,
+                  display: "inline-block",
+                }}
+              >
+                {node.frontmatter.status === "ongoing"
+                  ? t("status_in_progress")
+                  : t("status_complete")}
+              </Box>
+            )}
+            <Box>
+              {" "}
+              {node.frontmatter.URL && (
+                <a target="_blanc" href={node.frontmatter.URL}>
+                  <Button mt={3} variant="primary" mr={2}>
+                    View
+                  </Button>
+                </a>
+              )}{" "}
+              {node.frontmatter.githubURL ? (
+                <a
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href={node.frontmatter.githubURL}
+                >
+                  <Button mt={3} variant="primary">
+                    GitHub Repo
+                  </Button>
+                </a>
+              ) : (
+                <Button
+                  mt={3}
+                  variant="primary"
+                  disabled
+                  title="Source code is not publicly available"
+                >
+                  GitHub Repo
+                </Button>
+              )}
+            </Box>
           </Box>
-        )}
-        <Box>
-          {" "}
-          {node.frontmatter.URL && (
-            <a target="_blanc" href={node.frontmatter.URL}>
-              <Button mt={3} variant="primary" mr={2}>
-                View
-              </Button>
-            </a>
-          )}{" "}
-          {node.frontmatter.githubURL ? (
-            <a
-              target="_blank"
-              rel="noopener noreferrer"
-              href={node.frontmatter.githubURL}
-            >
-              <Button mt={3} variant="primary">
-                GitHub Repo
-              </Button>
-            </a>
-          ) : (
-            <Button
-              mt={3}
-              variant="primary"
-              disabled
-              title="Source code is not publicly available"
-            >
-              GitHub Repo
-            </Button>
-          )}
-        </Box>
-      </Flex>
+          {commits && commits.length > 0 && <CommitLog commits={commits} />}
+        </Flex>
+      </Box>
       <Box
         sx={{
           width: ["90%", "80%", "70%"],
@@ -112,12 +134,8 @@ const pageWrapper = {
   pt: "100px",
   pb: 5,
   minHeight: "300px",
-  flexDirection: "column",
   bg: "primary",
-  justifyContent: "center",
-  alignItems: "center",
   color: "white",
-  textAlign: "center",
 };
 
 export const pageQuery = graphql`
