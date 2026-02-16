@@ -1,17 +1,19 @@
 import { MDXProvider } from "@mdx-js/react";
 import { graphql } from "gatsby";
+import { useTranslation } from "gatsby-plugin-react-i18next";
 import { DateTime } from "luxon";
 import { Box, Button, Flex, Heading, Text } from "theme-ui";
 import CallToAction from "../components/CallToAction";
 import { ProjectSection } from "../components/ProjectSection/ProjectSection";
-import Layout from "../components/app/Layout";
 import Seo from "../components/Seo/Seo";
 import { TechListing } from "../components/TechListing/TechListing";
+import Layout from "../components/app/Layout";
 import globalCodes from "../short-codes";
 
 const shortCodes = { ...globalCodes, ProjectSection, TechListing };
 
 function ProjectPage({ data, children }) {
+  const { t } = useTranslation("common");
   const { mdx: node } = data;
 
   return (
@@ -33,6 +35,26 @@ function ProjectPage({ data, children }) {
         >
           {DateTime.fromISO(node.frontmatter.startDate).toFormat("MMM d, yyyy")}
         </Text>
+        {(node.frontmatter.status === "ongoing" ||
+          node.frontmatter.status === "complete") && (
+          <Box
+            sx={{
+              bg: node.frontmatter.status === "ongoing" ? "orange" : "#81B29A",
+              color: "white",
+              fontWeight: "bold",
+              fontSize: 1,
+              px: 3,
+              py: 1,
+              borderRadius: "20px",
+              mt: 1,
+              display: "inline-block",
+            }}
+          >
+            {node.frontmatter.status === "ongoing"
+              ? t("status_in_progress")
+              : t("status_complete")}
+          </Box>
+        )}
         <Box>
           {" "}
           {node.frontmatter.URL && (
@@ -94,6 +116,7 @@ export const pageQuery = graphql`
         endDate
         URL
         githubURL
+        status
         keywords
         image1 {
           childImageSharp {

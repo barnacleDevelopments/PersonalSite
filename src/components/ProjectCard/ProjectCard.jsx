@@ -1,11 +1,12 @@
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
-import { Link } from "gatsby-plugin-react-i18next";
+import { Link, useTranslation } from "gatsby-plugin-react-i18next";
 
 // Components
 import { Box, Button, Card, Flex, Heading, Text } from "theme-ui";
 import { TechListing } from "../TechListing/TechListing";
 
 const ProjectCard = ({ project }) => {
+  const { t } = useTranslation("common");
   return (
     <Card
       variant="primary"
@@ -19,6 +20,27 @@ const ProjectCard = ({ project }) => {
         mb: 3,
       }}
     >
+      {(project.status === "ongoing" || project.status === "complete") && (
+        <Box
+          sx={{
+            position: "absolute",
+            top: 2,
+            right: 2,
+            bg: project.status === "ongoing" ? "orange" : "#81B29A",
+            color: "white",
+            fontWeight: "bold",
+            fontSize: 0,
+            px: 2,
+            py: 1,
+            borderRadius: "20px",
+            zIndex: 1,
+          }}
+        >
+          {project.status === "ongoing"
+            ? t("status_in_progress")
+            : t("status_complete")}
+        </Box>
+      )}
       <Flex
         sx={{
           bg: "primary",

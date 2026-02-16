@@ -9,5 +9,8 @@
   "footer_contact_text": "Please get in touch.",
   "footer_contact_button": "Let's Go!",
   "footer_media_title": "Media",
-  "footer_nav_title": "Navigation"
+  "footer_nav_title": "Navigation",
+  "filter_all": "All",
+  "status_in_progress": "In Progress",
+  "status_complete": "Complete"
 }

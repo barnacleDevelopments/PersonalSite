@@ -6,6 +6,7 @@ import { Box, Button, Flex, Grid, Heading, Text } from "theme-ui";
 
 import BookCard from "../components/BookCard/BookCard";
 import CallToAction from "../components/CallToAction";
+import FilterBar from "../components/FilterBar";
 import Loader from "../components/Loader";
 import PostCard from "../components/PostCard/PostCard";
 import ProjectCard from "../components/ProjectCard/ProjectCard";
@@ -281,32 +282,15 @@ const IndexPage = ({ data }) => {
               </Heading>
               <Tooltip text={t("reading_list_tooltip")} />
             </Flex>
-            <Flex sx={{ gap: 2 }}>
-              <Button
-                variant={
-                  bookFilter === "all" ? "toggleActive" : "toggleInactive"
-                }
-                onClick={() => setBookFilter("all")}
-              >
-                {t("filter_all")}
-              </Button>
-              <Button
-                variant={
-                  bookFilter === "read" ? "toggleActive" : "toggleInactive"
-                }
-                onClick={() => setBookFilter("read")}
-              >
-                {t("filter_read")}
-              </Button>
-              <Button
-                variant={
-                  bookFilter === "unread" ? "toggleActive" : "toggleInactive"
-                }
-                onClick={() => setBookFilter("unread")}
-              >
-                {t("filter_unread")}
-              </Button>
-            </Flex>
+            <FilterBar
+              options={[
+                { value: "all", label: t("filter_all") },
+                { value: "read", label: t("filter_read") },
+                { value: "unread", label: t("filter_unread") },
+              ]}
+              active={bookFilter}
+              onChange={setBookFilter}
+            />
           </Flex>
           <Box
             sx={{

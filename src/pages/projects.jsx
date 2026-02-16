@@ -1,8 +1,10 @@
 import { graphql } from "gatsby";
 import { Link, useTranslation } from "gatsby-plugin-react-i18next";
+import { useState } from "react";
 import { Box, Heading, Paragraph } from "theme-ui";
 
 import CallToAction from "../components/CallToAction";
+import FilterBar from "../components/FilterBar";
 import ProjectCard from "../components/ProjectCard/ProjectCard";
 import Seo from "../components/Seo/Seo";
 import Layout from "../components/app/Layout";
@@ -27,14 +29,21 @@ const keywords = [
 ];
 
 const ProjectsPage = ({ data }) => {
-  const { t } = useTranslation("projects");
-  const projects = data.allMdx.edges.map(
+  const { t } = useTranslation(["projects", "common"]);
+  const [statusFilter, setStatusFilter] = useState("all");
+  const allProjects = data.allMdx.edges.map(
     ({ node: { fields, frontmatter, excerpt } }) => ({
       ...fields,
       ...frontmatter,
       excerpt,
     }),
   );
+
+  const projects = allProjects.filter((project) => {
+    if (statusFilter === "ongoing") return project.status === "ongoing";
+    if (statusFilter === "complete") return project.status === "complete";
+    return true;
+  });
 
   return (
     <Layout>
@@ -73,10 +82,20 @@ const ProjectsPage = ({ data }) => {
             .
           </Paragraph>
         </Box>
+        <FilterBar
+          options={[
+            { value: "all", label: t("common:filter_all") },
+            { value: "ongoing", label: t("common:status_in_progress") },
+            { value: "complete", label: t("common:status_complete") },
+          ]}
+          active={statusFilter}
+          onChange={setStatusFilter}
+        />
         <Box
           as="section"
           sx={{
             mb: 3,
+            mt: 3,
           }}
         >
           {projects.map((project) => (
@@ -117,6 +136,7 @@ export const projectsQuery = graphql`
                 gatsbyImageData
               }
             }
+            status
             technologies {
               name
               image {
