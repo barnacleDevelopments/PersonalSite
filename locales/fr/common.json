@@ -12,5 +12,8 @@
   "footer_nav_title": "Navigation",
   "filter_all": "Tous",
   "status_in_progress": "En cours",
-  "status_complete": "Terminé"
+  "status_complete": "Terminé",
+  "build_status_live": "En ligne",
+  "build_status_building": "En construction",
+  "build_status_error": "Erreur"
 }

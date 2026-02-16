@@ -3,6 +3,7 @@ import { Link, useTranslation } from "gatsby-plugin-react-i18next";
 import { memo, useCallback, useEffect, useRef, useState } from "react";
 import { Box, Flex } from "theme-ui";
 
+import BuildStatus from "../BuildStatus/BuildStatus";
 import SideNav from "./SideNav";
 
 const Navbar = () => {
@@ -144,7 +145,13 @@ const Navbar = () => {
               }}
             />
           </Box>
-          <Box sx={{ display: ["none", "block"], color: "white" }}>
+          <Flex
+            sx={{
+              display: ["none", "flex"],
+              alignItems: "center",
+              color: "white",
+            }}
+          >
             <Link
               to="/projects"
               sx={{
@@ -172,7 +179,8 @@ const Navbar = () => {
             >
               {t("nav_about")}
             </Link>
-          </Box>
+            <BuildStatus isScrolledTop={isScrolledTop} />
+          </Flex>
         </Box>
       </Flex>
     </Box>

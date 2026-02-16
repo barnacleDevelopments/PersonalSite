@@ -1,6 +1,7 @@
 import { StaticImage } from "gatsby-plugin-image";
 import { Link, useTranslation } from "gatsby-plugin-react-i18next";
 import { Box, Flex } from "theme-ui";
+import BuildStatus from "../BuildStatus/BuildStatus";
 import { CloseButton } from "./CloseButton";
 
 const SideNav = ({ isOpen, setSideNavOpen, enableScrollFunc }) => {
@@ -153,6 +154,7 @@ const SideNav = ({ isOpen, setSideNavOpen, enableScrollFunc }) => {
             {t("nav_climbing")}
           </Link>
         </Flex>
+        <BuildStatus isScrolledTop={false} />
       </Box>
     </Flex>
   );
