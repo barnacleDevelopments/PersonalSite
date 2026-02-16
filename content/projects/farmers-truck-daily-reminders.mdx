@@ -1,0 +1,33 @@
+---
+title: "Farmers Truck: Daily Reminders"
+URL: "https://map.farmerstruck.com/"
+ENSURL: ""
+githubURL: ""
+technologies:
+  - name: "Typescript"
+    image: "../tech_logos/typescript.png"
+  - name: "NodeJS"
+    image: "../tech_logos/nodejs.png"
+startDate: 2025-07-01T00:00:00.000Z
+endDate:
+status: complete
+keywords: daily market reminders, email notifications, Supabase edge functions, timezone-aware scheduling, RRule recurrence, Resend email, farmers market notifications, subscriber management, idempotent email delivery, GitHub Actions cron, Devin Davis
+draft: false
+---
+
+<ProjectSection> 
+## Overview
+This feature adds a timezone-aware daily email reminder system to the Farmers Truck Map. Subscribers receive a morning notification at 7 AM in their market's local timezone with details about that day's market stop, including the address, operating hours, and a direct link for directions. The system supports two subscription modes: logged-in users toggle reminders in their profile, while visitors can sign up with just an email address through a verification flow.
+</ProjectSection>
+
+<ProjectSection>
+## Tech
+The backend runs as a Supabase edge function triggered hourly by a GitHub Actions cron job. Each hour, the function checks which markets fall within the 7–8 AM window for their timezone, then uses the RRule library to determine if the market is scheduled for that calendar date. Emails are sent through Resend with personalized HTML templates built with React Email. An idempotency log in the database prevents duplicate sends, and Sentry tracks any delivery failures.
+
+<TechListing technologies={props.pageContext.frontmatter.technologies} />
+</ProjectSection>
+
+<ProjectSection> 
+## Features
+Key features include a multi-level subscriber system that merges account-based preferences with email-verified signups, operator notification emails that summarize how many subscribers were reached, one-click unsubscribe support from within the email, and a real-time subscriber count displayed on market cards. The frontend provides a dashboard where users can view all their active notifications, see upcoming market dates, and manage their subscription preferences.
+</ProjectSection>

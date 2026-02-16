@@ -1,0 +1,38 @@
+---
+title: Farmers Truck Map
+image1: "assets/farmers-truck-map-1.png"
+image2: "assets/farmers-truck-map-2.png"
+image3: "assets/farmers-truck-map-3.png"
+URL: "https://map.farmerstruck.com/"
+ENSURL: ""
+githubURL: ""
+technologies:
+  - name: "React"
+    image: "../tech_logos/react_icon.png"
+  - name: "Typescript"
+    image: "../tech_logos/typescript.png"
+  - name: "NodeJS"
+    image: "../tech_logos/nodejs.png"
+startDate: 2025-08-05T00:00:00.000Z
+endDate:
+status: complete
+keywords: farmers truck map, food desert overlay, USDA food access, Google Maps, GeoJSON, React, TypeScript, Supabase, IndexedDB, food truck locator, LILA data visualization, map overlay, Devin Davis
+draft: false
+---
+
+<ProjectSection image={props.pageContext.frontmatter.image1} imageAlt={"Farmers Truck Map with food desert overlay"}>
+## Overview
+Farmers Truck Map is a React application that helps users locate farmers markets and mobile food trucks on an interactive Google Map. A key feature is the food desert overlay, which visualizes USDA Food Access Research Atlas data to highlight areas with limited access to affordable and nutritious food. The overlay renders census tract polygons directly on the map, allowing operators to identify underserved communities and strategically plan their market stops.
+</ProjectSection>
+
+<ProjectSection image={props.pageContext.frontmatter.image2} imageAlt={"Map settings overlay with LILA toggle switches"} alignment="right">
+## Tech
+The map is built with the Google Maps JavaScript API and uses a custom hook architecture to separate concerns. Food desert data is fetched as GeoJSON from a Supabase edge function and rendered on the map's Data layer. A multi-level caching strategy using in-memory state and IndexedDB with a 7-day TTL keeps the experience fast after the initial load. State boundaries are pre-loaded from OpenStreetMap's Nominatim API in batches to respect rate limits.
+
+<TechListing technologies={props.pageContext.frontmatter.technologies} />
+</ProjectSection>
+
+<ProjectSection image={props.pageContext.frontmatter.image3} imageAlt={"Food desert polygons rendered on the map"}>
+## Map Overlay
+The overlay system uses four USDA LILA (Low Income Low Access) measures that users can toggle independently: vehicle access, half-mile/10-mile, 1-mile/10-mile, and 1-mile/20-mile thresholds. When a user pans the map, the app detects the current state via reverse geocoding and dynamically loads the corresponding GeoJSON data. Census tracts matching the enabled filters are drawn as amber polygons on the map. Race conditions and redundant network requests are handled through refs and loading state tracking, while a blue state border outline provides visual feedback during data loads.
+</ProjectSection>

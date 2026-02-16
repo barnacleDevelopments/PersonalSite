@@ -21,7 +21,7 @@ function ProjectPage({ data, children }) {
       <Seo
         title={node.frontmatter.title}
         keywords={node.frontmatter.keywords.split(",")}
-        image={node.frontmatter.image1.childImageSharp.original.src}
+        image={node.frontmatter.image1?.childImageSharp?.original?.src}
       />
       <Flex sx={pageWrapper}>
         <Heading as="h1" variant="hero" color="white">
@@ -64,12 +64,25 @@ function ProjectPage({ data, children }) {
               </Button>
             </a>
           )}{" "}
-          {node.frontmatter.githubURL && (
-            <a target="_blanc" href={node.frontmatter.githubURL}>
+          {node.frontmatter.githubURL ? (
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              href={node.frontmatter.githubURL}
+            >
               <Button mt={3} variant="primary">
                 GitHub Repo
               </Button>
             </a>
+          ) : (
+            <Button
+              mt={3}
+              variant="primary"
+              disabled
+              title="Source code is not publicly available"
+            >
+              GitHub Repo
+            </Button>
           )}
         </Box>
       </Flex>

@@ -16,32 +16,38 @@ export function ProjectSection({
 }) {
   const isLeftAligned = alignment === "left";
 
+  const hasImage = image && getImage(image);
+
   return (
     <Box
       as="section"
       aria-label="Project Section"
       sx={{ ...sectionWrapperStyle }}
     >
-      <Grid columns={[1, 2]} sx={{ alignItems: "center", gap: 5 }}>
-        <Box
-          sx={{
-            order: [2, isLeftAligned ? 1 : 2],
-          }}
-        >
-          {children}
-        </Box>
-        <Box
-          sx={{
-            order: [1, isLeftAligned ? 2 : 1],
-          }}
-        >
-          <GatsbyImage
-            placeholder="blurred"
-            image={getImage(image)}
-            alt={imageAlt}
-          />
-        </Box>
-      </Grid>
+      {hasImage ? (
+        <Grid columns={[1, 2]} sx={{ alignItems: "center", gap: 5 }}>
+          <Box
+            sx={{
+              order: [2, isLeftAligned ? 1 : 2],
+            }}
+          >
+            {children}
+          </Box>
+          <Box
+            sx={{
+              order: [1, isLeftAligned ? 2 : 1],
+            }}
+          >
+            <GatsbyImage
+              placeholder="blurred"
+              image={hasImage}
+              alt={imageAlt}
+            />
+          </Box>
+        </Grid>
+      ) : (
+        <Box>{children}</Box>
+      )}
     </Box>
   );
 }

@@ -101,20 +101,22 @@ const ProjectCard = ({ project }) => {
             </Link>
           </Box>
         </Box>
-        <Box
-          sx={{
-            maxWidth: "400px",
-            maxHeight: "200px",
-            borderRadius: 10,
-            overflow: "hidden",
-          }}
-        >
-          <GatsbyImage
-            placeholder="blurred"
-            image={getImage(project.image1)}
-            alt={"image 1"}
-          />
-        </Box>
+        {project.image1 && (
+          <Box
+            sx={{
+              maxWidth: "400px",
+              maxHeight: "200px",
+              borderRadius: 10,
+              overflow: "hidden",
+            }}
+          >
+            <GatsbyImage
+              placeholder="blurred"
+              image={getImage(project.image1)}
+              alt={"image 1"}
+            />
+          </Box>
+        )}
       </Flex>
     </Card>
   );
