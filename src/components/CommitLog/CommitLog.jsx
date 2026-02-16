@@ -1,4 +1,5 @@
-import { Box, Heading, Link, Text } from "theme-ui";
+import { useState } from "react";
+import { Box, Flex, Heading, Link, Text } from "theme-ui";
 
 function timeAgo(dateString) {
   const now = new Date();
@@ -27,8 +28,7 @@ function timeAgo(dateString) {
 const wrapperStyles = {
   bg: "rgba(255, 255, 255, 0.08)",
   borderRadius: 8,
-  p: 3,
-  width: ["100%", "100%", "320px"],
+  width: "100%",
   flexShrink: 0,
   overflowY: "auto",
   scrollbarWidth: "thin",
@@ -47,57 +47,82 @@ const wrapperStyles = {
 };
 
 export default function CommitLog({ commits }) {
+  const [open, setOpen] = useState(false);
+
   return (
     <Box sx={wrapperStyles}>
-      <Heading
-        as="h3"
-        sx={{ fontSize: 1, mb: 2, color: "orange", fontStyle: "normal" }}
+      <Flex
+        onClick={() => setOpen(!open)}
+        sx={{
+          justifyContent: "space-between",
+          alignItems: "center",
+          cursor: "pointer",
+          p: 3,
+          userSelect: "none",
+        }}
       >
-        Recent Commits
-      </Heading>
-      <Box as="ul" sx={{ listStyle: "none", p: 0, m: 0 }}>
-        {commits.map((commit) => (
-          <Box
-            as="li"
-            key={commit.sha}
-            sx={{
-              py: 2,
-              borderBottom: "1px solid rgba(255,255,255,0.1)",
-              "&:last-child": { borderBottom: "none" },
-            }}
-          >
-            <Link
-              href={commit.url}
-              target="_blank"
-              rel="noopener noreferrer"
+        <Heading
+          as="h3"
+          sx={{ fontSize: 1, color: "orange", fontStyle: "normal", m: 0 }}
+        >
+          Recent Commits
+        </Heading>
+        <Text
+          sx={{
+            color: "orange",
+            fontSize: 1,
+            transform: open ? "rotate(180deg)" : "rotate(0deg)",
+            transition: "transform 0.2s ease",
+          }}
+        >
+          ▼
+        </Text>
+      </Flex>
+      {open && (
+        <Box as="ul" sx={{ listStyle: "none", p: 0, m: 0, px: 3, pb: 3 }}>
+          {commits.map((commit) => (
+            <Box
+              as="li"
+              key={commit.sha}
               sx={{
-                fontSize: 0,
-                color: "white",
-                fontWeight: "bold",
-                mb: 1,
-                overflow: "hidden",
-                textOverflow: "ellipsis",
-                whiteSpace: "wrap",
-                display: "block",
-                textDecoration: "none",
-                "&:hover": { color: "orange" },
+                py: 2,
+                borderBottom: "1px solid rgba(255,255,255,0.1)",
+                "&:last-child": { borderBottom: "none" },
               }}
             >
-              {commit.message}
-            </Link>
-            <Text
-              sx={{
-                fontSize: 0,
-                color: "rgba(255,255,255,0.5)",
-                display: "block",
-                mt: 1,
-              }}
-            >
-              {commit.author} &middot; {timeAgo(commit.date)}
-            </Text>
-          </Box>
-        ))}
-      </Box>
+              <Link
+                href={commit.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                sx={{
+                  fontSize: 0,
+                  color: "white",
+                  fontWeight: "bold",
+                  mb: 1,
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                  whiteSpace: "wrap",
+                  display: "block",
+                  textDecoration: "none",
+                  "&:hover": { color: "orange" },
+                }}
+              >
+                {commit.message}
+              </Link>
+              <Text
+                sx={{
+                  fontSize: 0,
+                  color: "rgba(255,255,255,0.5)",
+                  display: "block",
+                  mt: 1,
+                }}
+              >
+                {commit.author} &middot; {timeAgo(commit.date)}
+              </Text>
+            </Box>
+          ))}
+        </Box>
+      )}
     </Box>
   );
 }

@@ -30,8 +30,8 @@ function ProjectPage({ data, children, pageContext }) {
           sx={{
             width: ["90%", "85%", "80%"],
             mx: "auto",
-            flexDirection: ["column", "column", "row"],
-            alignItems: ["center", "center", "center"],
+            flexDirection: "column",
+            alignItems: "center",
             justifyContent: "center",
             gap: [4, 4, 5],
           }}
