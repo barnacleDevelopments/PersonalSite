@@ -14,7 +14,7 @@ Features:
     - Open Library API integration for official cover art
 
 Example:
-sudo python3 src/kobo_to_json.py /media/devindavis/KOBOeReader/.kobo/KoboReader.sqlite content/reading-progress.json --copy-covers static/assets/book-covers --collection "Career"
+sudo python3 scripts/kobo_to_json.py /media/devindavis/KOBOeReader/.kobo/KoboReader.sqlite content/reading-progress.json --copy-covers static/assets/book-covers --collection "Career"
 """
 
 import sqlite3
@@ -171,9 +171,7 @@ def extract_reading_data(db_path, kobo_root=None, copy_covers_to=None, collectio
         INNER JOIN Shelf s ON sc.ShelfName = s.InternalName
         WHERE c.ContentType = 6  -- Books only (not chapters)
             AND c.BookTitle IS NULL  -- Main book entry, not chapters
-            AND c.___PercentRead > 0  -- Only books that have been started
             AND c.___PercentRead < 100  -- Currently reading (not finished)
-            AND c.ContentID LIKE 'file://%'  -- Only local files (excludes web articles with numeric IDs)
             AND (s.Name = ? OR s.InternalName = ?)  -- Filter by collection name
         ORDER BY c.DateLastRead DESC
         """
@@ -196,9 +194,7 @@ def extract_reading_data(db_path, kobo_root=None, copy_covers_to=None, collectio
         FROM content c
         WHERE c.ContentType = 6  -- Books only (not chapters)
             AND c.BookTitle IS NULL  -- Main book entry, not chapters
-            AND c.___PercentRead > 0  -- Only books that have been started
             AND c.___PercentRead < 100  -- Currently reading (not finished)
-            AND c.ContentID LIKE 'file://%'  -- Only local files (excludes web articles with numeric IDs)
         ORDER BY c.DateLastRead DESC
         """
         cursor.execute(query)
@@ -230,7 +226,8 @@ def extract_reading_data(db_path, kobo_root=None, copy_covers_to=None, collectio
                 kobo_root,
                 copy_covers_to,
                 row['Title'],
-                row['ISBN']
+                row['ISBN'],
+                row['Author']
             )
 
         if cover_filename:
@@ -255,7 +252,6 @@ def extract_reading_data(db_path, kobo_root=None, copy_covers_to=None, collectio
         WHERE c.ContentType = 6
             AND c.BookTitle IS NULL
             AND c.___PercentRead = 100
-            AND c.ContentID LIKE 'file://%'  -- Only local files (excludes web articles with numeric IDs)
             AND (s.Name = ? OR s.InternalName = ?)  -- Filter by collection name
         ORDER BY c.DateLastRead DESC
         LIMIT 10
@@ -275,7 +271,6 @@ def extract_reading_data(db_path, kobo_root=None, copy_covers_to=None, collectio
         WHERE c.ContentType = 6
             AND c.BookTitle IS NULL
             AND c.___PercentRead = 100
-            AND c.ContentID LIKE 'file://%'  -- Only local files (excludes web articles with numeric IDs)
         ORDER BY c.DateLastRead DESC
         LIMIT 10
         """
@@ -300,7 +295,108 @@ def extract_reading_data(db_path, kobo_root=None, copy_covers_to=None, collectio
         'last_updated': datetime.now().isoformat()
     }
 
-def process_cover(image_id, content_id, kobo_root, copy_to, title, isbn=None):
+def _openlibrary_fetch(url):
+    """Fetch image from a URL, returning bytes if it looks like a real cover."""
+    try:
+        req = urllib.request.Request(url, headers={"User-Agent": "KoboToJson/1.0"})
+        with urllib.request.urlopen(req, timeout=10) as resp:
+            if resp.status == 200:
+                data = resp.read()
+                if len(data) > 1000:
+                    return data
+                print(f"  Open Library returned placeholder image, skipping")
+    except Exception as e:
+        print(f"  Open Library fetch failed: {e}")
+    return None
+
+
+def fetch_cover_from_openlibrary(isbn=None, title=None, author=None):
+    """Fetch cover image from Open Library using ISBN or title+author search.
+
+    Returns image bytes if successful, None otherwise.
+    """
+    # Try ISBN first (most reliable)
+    if isbn:
+        url = f"https://covers.openlibrary.org/b/isbn/{isbn}-L.jpg?default=false"
+        print(f"  Trying Open Library cover by ISBN: {url}")
+        data = _openlibrary_fetch(url)
+        if data:
+            return data
+
+    # Fall back to searching by title+author
+    if title:
+        params = {"title": title}
+        if author:
+            params["author"] = author
+        params["limit"] = "1"
+        search_url = f"https://openlibrary.org/search.json?{urllib.parse.urlencode(params)}"
+        print(f"  Searching Open Library by title/author: {title} / {author}")
+        try:
+            req = urllib.request.Request(search_url, headers={"User-Agent": "KoboToJson/1.0"})
+            with urllib.request.urlopen(req, timeout=10) as resp:
+                results = json.loads(resp.read())
+                docs = results.get("docs", [])
+                if docs:
+                    cover_id = docs[0].get("cover_i")
+                    if cover_id:
+                        cover_url = f"https://covers.openlibrary.org/b/id/{cover_id}-L.jpg"
+                        print(f"  Found cover ID {cover_id}, fetching...")
+                        data = _openlibrary_fetch(cover_url)
+                        if data:
+                            return data
+                    else:
+                        print(f"  Search matched but no cover available")
+                else:
+                    print(f"  No search results found")
+        except Exception as e:
+            print(f"  Open Library search failed: {e}")
+
+    return None
+
+
+def _build_kobo_image_index(kobo_root):
+    """Build an index mapping ImageId prefixes to cover file paths in .kobo-images/.
+
+    Kobo stores covers in .kobo-images/{d1}/{d2}/{ImageId} - {variant}.parsed
+    using an internal hashing scheme for d1/d2. We scan once and index by ImageId prefix.
+    """
+    images_dir = Path(kobo_root) / '.kobo-images'
+    index = {}
+    if not images_dir.exists():
+        return index
+    for d1 in images_dir.iterdir():
+        if not d1.is_dir():
+            continue
+        for d2 in d1.iterdir():
+            if not d2.is_dir():
+                continue
+            for f in d2.iterdir():
+                # Filename format: "{ImageId} - {variant}.parsed"
+                name = f.name
+                sep = name.find(' - ')
+                if sep == -1:
+                    continue
+                file_image_id = name[:sep]
+                if file_image_id not in index:
+                    index[file_image_id] = []
+                index[file_image_id].append(f)
+    return index
+
+
+# Module-level cache so we only scan once per run
+_kobo_image_index = None
+
+
+def _get_kobo_image_index(kobo_root):
+    global _kobo_image_index
+    if _kobo_image_index is None:
+        print("Building Kobo image index...")
+        _kobo_image_index = _build_kobo_image_index(kobo_root)
+        print(f"  Indexed {len(_kobo_image_index)} cover image IDs")
+    return _kobo_image_index
+
+
+def process_cover(image_id, content_id, kobo_root, copy_to, title, isbn=None, author=None):
     """
     Process cover image from Kobo device
 
@@ -313,26 +409,30 @@ def process_cover(image_id, content_id, kobo_root, copy_to, title, isbn=None):
         # Use ISBN for filename if available
         safe_filename = f"isbn_{isbn}"
     else:
-        # Use sanitized title
-        safe_title = "".join(c for c in title if c.isalnum() or c in (' ', '-', '_')).rstrip()
+        # Use sanitized title — normalize whitespace first so non-breaking spaces etc. become underscores
+        import re
+        normalized = re.sub(r'\s+', ' ', title).strip()
+        safe_title = "".join(c for c in normalized if c.isalnum() or c in (' ', '-', '_')).rstrip()
         safe_filename = safe_title[:50].replace(' ', '_').lower()
 
-    # Kobo stores covers in multiple possible locations
-    possible_paths = []
-
+    # Check Kobo's .kobo-images/ cache (covers stored as .parsed files)
     if image_id:
-        # Try .kobo/images/ directory with ImageId
-        images_dir = kobo_path / '.kobo' / 'images'
-        print(f"  Checking images dir: {images_dir} (exists: {images_dir.exists()})")
-        if images_dir.exists():
-            # ImageId might be a full path or just an identifier
-            image_id_clean = image_id.replace('file://', '').split('/')[-1]
-            possible_paths.append(images_dir / f"{image_id_clean}.jpg")
-            possible_paths.append(images_dir / f"{image_id_clean}.png")
-            print(f"  Looking for: {image_id_clean}.jpg or .png")
+        index = _get_kobo_image_index(kobo_root)
+        covers = index.get(image_id, [])
+        # Prefer FULL size, then GRID
+        covers.sort(key=lambda p: (0 if 'FULL' in p.name else 1))
+        if covers:
+            cover_file = covers[0]
+            print(f"  Found Kobo cached cover: {cover_file.name}")
+            if copy_to:
+                cover_filename = f"{safe_filename}.jpg"
+                dest_path = Path(copy_to) / cover_filename
+                shutil.copy(cover_file, dest_path)
+                print(f"  ✓ Copied Kobo cover: {cover_filename}")
+                return cover_filename
 
-    # Try to find EPUB and extract cover from it
-    if content_id and 'file://' in content_id:
+    # Try to find EPUB and extract cover from it (only for local files)
+    if content_id and content_id.startswith('file://'):
         # Extract the filename from the ContentID
         # ContentID format: file:///mnt/onboard/filename.epub
         # But on the host system, it's at /kobo_root/filename.epub
@@ -361,15 +461,15 @@ def process_cover(image_id, content_id, kobo_root, copy_to, title, isbn=None):
             else:
                 print(f"  ✗ Could not extract cover from EPUB")
 
-    # Try copying from known locations
-    print(f"  Checking {len(possible_paths)} possible paths...")
-    for path in possible_paths:
-        print(f"    Checking: {path} (exists: {path.exists()})")
-        if path.exists() and copy_to:
-            cover_filename = f"{safe_filename}{path.suffix}"
-            dest_path = Path(copy_to) / cover_filename
-            shutil.copy(path, dest_path)
-            print(f"  ✓ Copied cover from Kobo images: {cover_filename}")
+    # Fallback: fetch cover from Open Library using ISBN or title+author
+    if copy_to and (isbn or title):
+        cover_data = fetch_cover_from_openlibrary(isbn=isbn, title=title, author=author)
+        if cover_data:
+            cover_filename = f"{safe_filename}.jpg"
+            cover_path = Path(copy_to) / cover_filename
+            with open(cover_path, 'wb') as f:
+                f.write(cover_data)
+            print(f"  ✓ Fetched cover from Open Library: {cover_filename}")
             return cover_filename
 
     print(f"  ✗ No cover found for this book")

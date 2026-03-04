@@ -1,30 +1,82 @@
 {
   "currently_reading": [
     {
-      "id": "file:///mnt/onboard/mastering-emacs-v5.epub",
-      "title": "Mastering Emacs",
-      "author": "Mickey Petersen",
+      "id": "file:///mnt/onboard/The Kubernetes Book_ 2023 Edition by Nigel Poulton.epub",
+      "title": "The Kubernetes Book",
+      "author": "Nigel Poulton",
       "publisher": null,
       "description": null,
-      "last_read": "2025-11-05T20:55:47Z",
-      "progress_percent": 76,
+      "last_read": "2026-03-04T12:33:03Z",
+      "progress_percent": 0,
       "read_status": 1,
-      "cover_image_id": "file____mnt_onboard_mastering-emacs-v5_epub",
-      "isbn": "urn:uuid:bd6b12a5-02a3-4980-ad4e-32440bbc6f3d",
-      "cover_image": "mastering_emacs.jpg"
+      "cover_image_id": "file____mnt_onboard_The_Kubernetes_Book__2023_Edition_by_Nigel_Poulton_epub",
+      "isbn": "https://leanpub.com/thekubernetesbook",
+      "cover_image": "the_kubernetes_book.jpg"
     },
     {
-      "id": "file:///mnt/onboard/The Pragmatic Programmer - Your Journey to Mastery, 20th Anniversary Edition.epub",
-      "title": "The Pragmatic Programmer: your journey to mastery, 20th Anniversary Edition, 2nd Edition",
-      "author": "Andrew Hunt",
-      "publisher": null,
-      "description": "<span><div><blockquote><p>\"One of the most significant books in my life.\" <i>—Obie Fernandez, Author,</i> The Rails Way<br/><br/>\"Twenty years ago, the first edition of The Pragmatic Programmer completely changed the trajectory of my career. This new edition could do the same for yours.\" <i>—Mike Cohn, Author of</i> Succeeding with Agile<i>,</i> Agile Estimating and Planning<i>, and</i> User Stories Applied<br/><br/>\". . . filled with practical advice, both technical and professional, that will serve you and your projects well for years to come.\" <i>—Andrea Goulet, CEO, Corgibytes, Founder, LegacyCode.Rocks</i><br/><br/>\". . . lightning does strike twice, and this book is proof.\" <i>—VM (Vicky) Brasseur, Director of Open Source Strategy, Juniper Networks</i></p></blockquote><p><i><b>The Pragmatic Programmer</b></i> is one of those rare tech books you'll read, re-read, and read again over the years. Whether you're new to the field or an experienced practitioner, you'll come away with fresh insights each and every time.<br/><br/>Dave Thomas and Andy Hunt wrote the first edition of this influential book in 1999 to help their clients create better software and rediscover the joy of coding. These lessons have helped a generation of programmers examine the very essence of software development, independent of any particular language, framework, or methodology, and the Pragmatic philosophy has spawned hundreds of books, screencasts, and audio books, as well as thousands of careers and success stories.<br/><br/>Now, twenty years later, this new edition re-examines what it means to be a modern programmer. Topics range from personal responsibility and career development to architectural techniques for keeping your code flexible and easy to adapt and reuse. Read this book, and you'll learn how to:</p><ul><li>Fight software rot</li><li>Learn continuously</li><li>Avoid the trap of duplicating knowledge</li><li>Write flexible, dynamic, and adaptable code</li><li>Harness the power of basic tools</li><li>Avoid programming by coincidence</li><li>Learn real requirements</li><li>Solve the underlying problems of concurrent code</li><li>Guard against security vulnerabilities</li><li>Build teams of Pragmatic Programmers</li><li>Take responsibility for your work and career</li><li>Test ruthlessly and effectively, including property-based testing</li><li>Implement the Pragmatic Starter Kit</li><li>Delight your users</li></ul><p>Written as a series of self-contained sections and filled with classic and fresh anecdotes, thoughtful examples, and interesting analogies, <i><b>The Pragmatic Programmer</b></i> illustrates the best approaches and major pitfalls of many different aspects of software development. Whether you're a new coder, an experienced programmer, or a manager responsible for software projects, use these lessons daily, and you'll quickly see improvements in personal productivity, accuracy, and job satisfaction. You'll learn skills and develop habits and attitudes that form the foundation for long-term success in your career.<br/><br/>You'll become a Pragmatic Programmer.</p><p><i>Register your book for convenient access to downloads, updates, and/or corrections as they become available. See inside book for details.</i></p></div></span>",
-      "last_read": "2025-11-03T22:37:08Z",
-      "progress_percent": 43,
+      "id": "4c012701-4599-490d-ba72-d8b26b1410ba",
+      "title": "Verified",
+      "author": "Mike Caulfield, Sam Wineburg",
+      "publisher": "The University of Chicago Press",
+      "description": "<p><strong>An indispensable guide for telling fact from fiction on the internet—often in less than 30 seconds.</strong></p><p>The internet brings information to our fingertips almost instantly. The result is that we often jump to thinking too fast, without taking a few moments to verify the source <em>before</em> engaging with a claim or viral piece of media. Information literacy expert Mike Caulfield and educational researcher Sam Wineburg are here to enable us to take a moment for due dili...",
+      "last_read": "2026-03-04T12:16:15Z",
+      "progress_percent": 8,
       "read_status": 1,
-      "cover_image_id": "file____mnt_onboard_The_Pragmatic_Programmer_-_Your_Journey_to_Mastery,_20th_Anniversary_Edition_epub",
-      "isbn": "9780135956977",
-      "cover_image": "isbn_9780135956977.jpg"
+      "cover_image_id": "63e2fd0a-5a86-45e3-bdce-dafefe269145",
+      "isbn": "9780226829845",
+      "cover_image": "isbn_9780226829845.jpg"
+    },
+    {
+      "id": "file:///mnt/onboard/casting_spels.pdf",
+      "title": "casting_spels",
+      "author": null,
+      "publisher": null,
+      "description": null,
+      "last_read": "2026-02-21T21:40:30Z",
+      "progress_percent": 99,
+      "read_status": 2,
+      "cover_image_id": "file____mnt_onboard_casting_spels_pdf",
+      "isbn": null,
+      "cover_image": "casting_spels.jpg"
+    },
+    {
+      "id": "file:///mnt/onboard/Zamzar/Peak Performance - Zamzar.kepub.epub",
+      "title": "Peak Performance",
+      "author": "Zamzar",
+      "publisher": null,
+      "description": null,
+      "last_read": "2026-02-17T12:23:57Z",
+      "progress_percent": 54,
+      "read_status": 1,
+      "cover_image_id": "file____mnt_onboard_Zamzar_Peak_Performance_-_Zamzar_kepub_epub",
+      "isbn": null,
+      "cover_image": "peak_performance.jpg"
+    },
+    {
+      "id": "26ef1806-bf0b-4602-827f-cea97622441b",
+      "title": "Mastering Cloudflare",
+      "author": "Robert Johnson",
+      "publisher": null,
+      "description": "<p>\"Mastering Cloudflare: Optimizing Security, Performance, and Reliability for the Web\" is an authoritative guide crafted for anyone seeking to harness the full potential of Cloudflare, a leading edge service provider in today’s highly connected digital ecosystem. Designed to support a wide range of users—from web developers and IT professionals to business leaders and cybersecurity experts—this book provides comprehensive insights into leveraging Cloudflare's advanced tools to enhance websi...",
+      "last_read": "2026-01-04T23:27:54Z",
+      "progress_percent": 62,
+      "read_status": 1,
+      "cover_image_id": "40ee7d84-7474-471c-8bc7-688b665abab6",
+      "isbn": "6610000697762",
+      "cover_image": "mastering_cloudflare.jpg"
+    },
+    {
+      "id": "file:///mnt/onboard/the_unix-haters-handbook.pdf",
+      "title": "ugh.book",
+      "author": "simsong",
+      "publisher": null,
+      "description": null,
+      "last_read": "2025-12-15T03:39:29Z",
+      "progress_percent": 7,
+      "read_status": 1,
+      "cover_image_id": "file____mnt_onboard_the_unix-haters-handbook_pdf",
+      "isbn": null,
+      "cover_image": "ughbook.jpg"
     },
     {
       "id": "file:///mnt/onboard/art_of_postgre_sql.epub",
@@ -32,12 +84,25 @@
       "author": "Dimitri Fontaine",
       "publisher": null,
       "description": null,
-      "last_read": "2025-10-31T22:30:27Z",
-      "progress_percent": 5,
+      "last_read": "2025-11-26T23:12:25Z",
+      "progress_percent": 6,
       "read_status": 1,
       "cover_image_id": "file____mnt_onboard_art_of_postgre_sql_epub",
       "isbn": "978-1-949-95036-6",
       "cover_image": "isbn_978-1-949-95036-6.jpg"
+    },
+    {
+      "id": "file:///mnt/onboard/StructureandInterpretationofComputerPrograms.pdf",
+      "title": "StructureandInterpretationofComputerPrograms",
+      "author": null,
+      "publisher": null,
+      "description": null,
+      "last_read": "2025-11-26T21:53:36Z",
+      "progress_percent": 3,
+      "read_status": 1,
+      "cover_image_id": "file____mnt_onboard_StructureandInterpretationofComputerPrograms_pdf",
+      "isbn": null,
+      "cover_image": "structureandinterpretationofcomputerprograms.jpg"
     },
     {
       "id": "file:///mnt/onboard/Game Theory_ A Very Short Introduction by Ken Binmore.epub",
@@ -51,15 +116,54 @@
       "cover_image_id": "file____mnt_onboard_Game_Theory__A_Very_Short_Introduction_by_Ken_Binmore_epub",
       "isbn": "9780199218462",
       "cover_image": "isbn_9780199218462.jpg"
+    },
+    {
+      "id": "file:///mnt/onboard/Kadry_, Lakshmana Kumar Ramasamy_Seifedine/Blockchain in the Industrial Internet of Things - Lakshmana Kumar Ramasamy_Seifedine Kadry_.kepub.epub",
+      "title": "Blockchain in the Industrial Internet of Things",
+      "author": "Lakshmana Kumar Ramasamy;Seifedine Kadry;",
+      "publisher": null,
+      "description": null,
+      "last_read": null,
+      "progress_percent": 0,
+      "read_status": 0,
+      "cover_image_id": "file____mnt_onboard_Kadry_,_Lakshmana_Kumar_Ramasamy_Seifedine_Blockchain_in_the_Industrial_Internet_of_Things_-_Lakshmana_Kumar_Ramasamy_Seifedine_Kadry__kepub_epub",
+      "isbn": null,
+      "cover_image": "blockchain_in_the_industrial_internet_of_things.jpg"
+    },
+    {
+      "id": "file:///mnt/onboard/Krishnamachari, Nicjosja Beije Bhaskar/Blockchain and the Supply Chain_ Concepts, strategies a - Nick Vyas Aljosja Beije Bhaskar Krishnamachari.kepub.epub",
+      "title": "Blockchain and the Supply Chain: Concepts, strategies and practical applications",
+      "author": "Nick Vyas Aljosja Beije Bhaskar Krishnamachari",
+      "publisher": null,
+      "description": null,
+      "last_read": null,
+      "progress_percent": 0,
+      "read_status": 0,
+      "cover_image_id": "file____mnt_onboard_Krishnamachari,_Nicjosja_Beije_Bhaskar_Blockchain_and_the_Supply_Chain__Concepts,_strategies_a_-_Nick_Vyas_Aljosja_Beije_Bhaskar_Krishnamachari_kepub_epub",
+      "isbn": null,
+      "cover_image": "blockchain_and_the_supply_chain_concepts_strategie.jpg"
+    },
+    {
+      "id": "file:///mnt/onboard/See, Solve, Scale_ How Anyone Can Turn an Unsolved Problem into a Breakthrough Success by Danny Warshay.epub",
+      "title": "See, Solve, Scale",
+      "author": "Danny Warshay",
+      "publisher": null,
+      "description": "<p><b>Inspired by Brown University's beloved course&#8212;The Entrepreneurial Process&#8212;Danny Warshay's <i>See, Solve, Scale</i> is a proven and paradigm-shifting method to unlocking the power of entrepreneurship.</b><br>The Entrepreneurial Process, one of Brown University's highest-rated courses, has empowered thousands of students to start their own ventures. You might assume these ventures started because the founders were born entrepreneurs. You might assume that these folks had technical or finance degrees, or worked at fancy consulting firms, or had some other specialized knowledge. Yet that isn't the case. Entrepreneurship is not a spirit or a gift. It is a process that anyone can learn, and that anyone can use to turn a problem into a solution with impact.<br>In <i>See, Solve, Scale</i>, Danny Warshay, the creator of the Entrepreneurial Process course and founding Executive Director of Brown's Center for Entrepreneurship, shares the same set of tools with aspiring...",
+      "last_read": null,
+      "progress_percent": 0,
+      "read_status": 0,
+      "cover_image_id": "file____mnt_onboard_See,_Solve,_Scale__How_Anyone_Can_Turn_an_Unsolved_Problem_into_a_Breakthrough_Success_by_Danny_Warshay_epub",
+      "isbn": "9781250272324",
+      "cover_image": "isbn_9781250272324.jpg"
     }
   ],
   "recently_finished": [
     {
-      "title": "The Kubernetes Book",
-      "author": "Nigel Poulton",
-      "finished_date": "2025-10-24T16:01:29.902",
-      "isbn": "https://leanpub.com/thekubernetesbook"
+      "title": "Co-Intelligence",
+      "author": "Mollick, Ethan",
+      "finished_date": "2025-11-16T17:09:34.714",
+      "isbn": "4942aed5-c933-43dd-98f2-bce8b9309bac"
     }
   ],
-  "last_updated": "2025-11-06T13:59:20.172846"
+  "last_updated": "2026-03-04T08:56:50.148604"
 }
