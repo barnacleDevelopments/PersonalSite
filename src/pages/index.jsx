@@ -205,7 +205,7 @@ const IndexPage = ({ data }) => {
                       },
                     }}
                   >
-                    {t("strong_record")}
+                    {t("learn_more")}
                   </Link>
                   {t("intro_text_3")}
                   <Link

@@ -1,9 +1,9 @@
 module.exports = {
   useLocation: () => ({
-    pathname: '/',
-    search: '',
-    hash: '',
+    pathname: "/",
+    search: "",
+    hash: "",
     state: null,
-    key: 'initial',
+    key: "initial",
   }),
 };

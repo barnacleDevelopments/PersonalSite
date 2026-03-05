@@ -1,9 +1,9 @@
 import { graphql } from "gatsby";
 import { Box, Grid, Heading, Text } from "theme-ui";
 
-import Layout from "../components/app/Layout";
 import PostCard from "../components/PostCard/PostCard";
 import Seo from "../components/Seo/Seo";
+import Layout from "../components/app/Layout";
 
 const AllPostsPage = ({ data }) => {
   const pageData = data.allMdx.edges;

@@ -82,6 +82,20 @@ const AboutPage = ({ data }) => {
               </Link>
               {t("bio_text_2")}
             </Paragraph>
+            <Paragraph variant="regular">
+              {t("bio_text_3a")}
+              <Link
+                to="/climbing"
+                sx={{
+                  color: "orange",
+                  textDecoration: "none",
+                  "&:hover": { textDecoration: "underline" },
+                }}
+              >
+                {t("bio_text_3_link")}
+              </Link>
+              {t("bio_text_3b")}
+            </Paragraph>
           </Box>
         </Grid>
         <Box
