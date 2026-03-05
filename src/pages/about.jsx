@@ -27,7 +27,7 @@ const AboutPage = ({ data }) => {
       if (!technologyMap.has(tech.name)) {
         technologyMap.set(tech.name, {
           image: tech.image,
-          slug,
+          category: tech.category,
           projects: [],
         });
       }
@@ -38,6 +38,7 @@ const AboutPage = ({ data }) => {
   const technologies = Array.from(technologyMap, ([name, data]) => ({
     name,
     image: data.image,
+    category: data.category,
     projects: data.projects,
   }));
 
@@ -98,6 +99,24 @@ const AboutPage = ({ data }) => {
             </Paragraph>
           </Box>
         </Grid>
+
+        <Box
+          sx={{
+            px: [0, 3],
+            my: 3,
+            bg: "primary",
+            color: "white",
+            p: 4,
+            borderRadius: "10px",
+          }}
+        >
+          <Heading variant="subheading1" sx={{ color: "white", mb: 2 }}>
+            {t("projects_by_tech_title")}
+          </Heading>
+          <Paragraph sx={{ mb: 3 }}>{t("projects_by_tech_text")}</Paragraph>
+          <SkillsChart technologies={technologies} />
+        </Box>
+
         <Box
           sx={{
             px: [0, 3],
@@ -117,29 +136,34 @@ const AboutPage = ({ data }) => {
               <b>{t("tech_experience_click_hint")}</b>.
             </Paragraph>
           </Box>
-          <TechListing
-            technologies={technologies}
-            onClick={(technology) => {
-              dialog.current.showModal();
-              setSelectedTechnology(technology);
-            }}
-          />
-        </Box>
-        <Box
-          sx={{
-            px: [0, 3],
-            my: 3,
-            bg: "primary",
-            color: "white",
-            p: 4,
-            borderRadius: "10px",
-          }}
-        >
-          <Heading variant="subheading1" sx={{ color: "white", mb: 2 }}>
-            {t("projects_by_tech_title")}
-          </Heading>
-          <Paragraph sx={{ mb: 3 }}>{t("projects_by_tech_text")}</Paragraph>
-          <SkillsChart technologies={technologies} />
+          {["language", "framework", "cloud"].map((cat) => {
+            const group = technologies.filter((t) => t.category === cat);
+            if (!group.length) return null;
+            return (
+              <Box key={cat} sx={{ mb: 4 }}>
+                <Heading
+                  as="h3"
+                  sx={{
+                    color: "rgba(255,255,255,0.5)",
+                    fontSize: 0,
+                    fontFamily: "heading",
+                    letterSpacing: "0.1em",
+                    textTransform: "uppercase",
+                    mb: 2,
+                  }}
+                >
+                  {t(`category_${cat}`)}
+                </Heading>
+                <TechListing
+                  technologies={group}
+                  onClick={(technology) => {
+                    dialog.current.showModal();
+                    setSelectedTechnology(technology);
+                  }}
+                />
+              </Box>
+            );
+          })}
         </Box>
         <CallToAction
           title={t("cta_title")}
@@ -170,6 +194,7 @@ export const aboutPageQuery = graphql`
           frontmatter {
             technologies {
               name
+              category
               image {
                 childImageSharp {
                   gatsbyImageData
