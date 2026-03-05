@@ -1,15 +1,28 @@
 import { faInstagram, faLinkedin } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
 import { Link, useTranslation } from "gatsby-plugin-react-i18next";
-import { Box, Button, Flex, Grid, Text, Link as ThemeLink } from "theme-ui";
+import {
+  Box,
+  Button,
+  Flex,
+  Grid,
+  Heading,
+  Text,
+  Link as ThemeLink,
+} from "theme-ui";
 
 const Footer = () => {
   const { t } = useTranslation("common");
   return (
     <footer>
-      <Grid sx={{ bg: "primary", pb: 4 }} columns={[1, null, 3]}>
+      <Grid sx={{ bg: "primary", py: 4 }} columns={[1, null, 3]}>
         <Box sx={{ textAlign: "center" }}>
-          <h4 sx={{ mb: 3, color: "white" }}>{t("footer_contact_title")}</h4>
+          <Heading
+            as="h4"
+            sx={{ mb: 3, color: "white", fontFamily: "heading" }}
+          >
+            {t("footer_contact_title")}
+          </Heading>
           <Text variant="small" sx={{ color: "white" }}>
             {t("footer_contact_text")}
           </Text>
@@ -18,7 +31,12 @@ const Footer = () => {
           </Link>
         </Box>
         <Box sx={{ textAlign: "center" }}>
-          <h4 sx={{ mb: 3, color: "white" }}>{t("footer_media_title")}</h4>
+          <Heading
+            as="h4"
+            sx={{ mb: 3, color: "white", fontFamily: "heading" }}
+          >
+            {t("footer_media_title")}
+          </Heading>
           <Flex sx={{ flexDirection: "column", alignItems: "center" }}>
             <ThemeLink
               target="_blank"
@@ -47,7 +65,12 @@ const Footer = () => {
           </Flex>
         </Box>
         <Box sx={{ textAlign: "center" }}>
-          <h4 sx={{ mb: 3, color: "white" }}>{t("footer_nav_title")}</h4>
+          <Heading
+            as="h4"
+            sx={{ mb: 3, color: "white", fontFamily: "heading" }}
+          >
+            {t("footer_nav_title")}
+          </Heading>
           <Flex as="nav" sx={{ flexDirection: "column", alignItems: "center" }}>
             <Link
               to="/"
