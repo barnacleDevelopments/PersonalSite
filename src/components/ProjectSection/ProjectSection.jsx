@@ -13,6 +13,7 @@ export function ProjectSection({
   image,
   imageAlt,
   alignment = "left",
+  caption,
 }) {
   const isLeftAligned = alignment === "left";
 
@@ -38,11 +39,14 @@ export function ProjectSection({
               order: [1, isLeftAligned ? 2 : 1],
             }}
           >
-            <GatsbyImage
-              placeholder="blurred"
-              image={hasImage}
-              alt={imageAlt}
-            />
+            <figure>
+              <GatsbyImage
+                placeholder="blurred"
+                image={hasImage}
+                alt={imageAlt}
+              />
+              <figcaption>{caption}</figcaption>
+            </figure>
           </Box>
         </Grid>
       ) : (

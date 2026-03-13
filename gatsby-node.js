@@ -122,6 +122,16 @@ exports.createPages = async ({ actions, graphql }) => {
                   gatsbyImageData
                 }
               }
+              image4 {
+                childImageSharp {
+                  gatsbyImageData
+                }
+              }
+              image5 {
+                childImageSharp {
+                  gatsbyImageData
+                }
+              }
               technologies {
                 name
                 image {
