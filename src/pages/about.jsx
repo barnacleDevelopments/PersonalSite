@@ -2,7 +2,7 @@ import { graphql } from "gatsby";
 import { StaticImage } from "gatsby-plugin-image";
 import { Link, useTranslation } from "gatsby-plugin-react-i18next";
 import { useRef, useState } from "react";
-import { Box, Grid, Heading, Paragraph } from "theme-ui";
+import { Box, Grid, Heading, Paragraph, Text } from "theme-ui";
 
 import CallToAction from "../components/CallToAction";
 import Seo from "../components/Seo/Seo";
@@ -10,6 +10,7 @@ import SkillsChart from "../components/SkillsChart/SkillsChart";
 import { TechListing } from "../components/TechListing/TechListing";
 import Layout from "../components/app/Layout";
 import ProjectDialog from "../components/dialogs/ProjectDialog";
+import PageContentWrapper from "../layouts/PageWrapper";
 
 const AboutPage = ({ data }) => {
   const { t } = useTranslation("about");
@@ -45,25 +46,26 @@ const AboutPage = ({ data }) => {
   return (
     <Layout>
       <Seo title="About" />
-      <Box
-        sx={{
-          margin: "0 auto",
-          width: ["90%", "80%", "70%"],
-          my: 5,
-        }}
-      >
+      <PageContentWrapper>
         <Heading as="h1" variant="hero">
           {t("page_title")}
         </Heading>
-        <Grid sx={{ mb: 4 }} gap={3} columns={["1fr", "1fr 1fr", "1.5fr 2fr"]}>
+        <Text variant="large" sx={{ my: 3, display: "block" }}>
+          {t("page_description")}
+        </Text>
+        <Grid
+          sx={{ mb: 4 }}
+          gap={3}
+          columns={["1fr", "1fr", "1fr", "0.9fr 2fr"]}
+        >
           <Box
             sx={{
               borderRadius: "10px",
               overflow: "hidden",
+              display: ["none", "none", "none", "block"],
             }}
           >
             <StaticImage
-              style={{ height: "500px" }}
               src="../images/devin_portrait_2.jpg"
               alt="dev portrait"
             />
@@ -171,7 +173,7 @@ const AboutPage = ({ data }) => {
           buttonText={t("cta_button")}
           pageLink={"/projects"}
         />
-      </Box>
+      </PageContentWrapper>
       <ProjectDialog
         ref={dialog}
         title={selectedTechnology?.name}

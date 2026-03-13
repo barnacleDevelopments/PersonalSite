@@ -4,6 +4,7 @@ import { Box, Flex, Grid, Heading, Text } from "theme-ui";
 import PostCategoryCard from "../components/PostCategoryCard/PostCategoryCard";
 import Seo from "../components/Seo/Seo";
 import Layout from "../components/app/Layout";
+import PageContentWrapper from "../layouts/PageWrapper";
 
 const BlogPage = ({ data }) => {
   const categories = data.allMdx.distinct;
@@ -11,13 +12,7 @@ const BlogPage = ({ data }) => {
   return (
     <Layout>
       <Seo title="Blog" />
-      <Box
-        sx={{
-          margin: "0 auto",
-          width: ["90%", "80%", "70%"],
-          my: 5,
-        }}
-      >
+      <PageContentWrapper>
         <Flex sx={{ mb: 5 }}>
           <Box>
             <Heading as="h1" variant="hero">
@@ -48,7 +43,7 @@ const BlogPage = ({ data }) => {
             />
           ))}
         </Grid>
-      </Box>
+      </PageContentWrapper>
     </Layout>
   );
 };

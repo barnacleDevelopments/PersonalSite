@@ -4,6 +4,7 @@ import { Box, Button, Heading, Paragraph, Link as ThemeLink } from "theme-ui";
 
 import Seo from "../components/Seo/Seo";
 import Layout from "../components/app/Layout";
+import PageContentWrapper from "../layouts/PageWrapper";
 
 const ENTE_ALBUM_URL =
   "https://embed.ente.io/?t=uAFNNGB7#8hcNmSB47YPpmYWgZRggLsxdqnGxnmAqu7BRQCrNYJwB";
@@ -14,17 +15,11 @@ const ClimbingPage = () => {
   return (
     <Layout>
       <Seo title="Climbing" />
-      <Box
-        sx={{
-          margin: "0 auto",
-          width: ["90%", "80%", "70%"],
-          my: 5,
-        }}
-      >
+      <PageContentWrapper>
         <Heading as="h1" variant="hero">
           {t("page_title")}
         </Heading>
-        <Paragraph variant="regular" sx={{ mb: 4 }}>
+        <Paragraph variant="large" sx={{ mb: 4 }}>
           {t("page_description")}
         </Paragraph>
         <Box
@@ -58,7 +53,7 @@ const ClimbingPage = () => {
         >
           <Button variant="primary">{t("view_album")}</Button>
         </ThemeLink>
-      </Box>
+      </PageContentWrapper>
     </Layout>
   );
 };
