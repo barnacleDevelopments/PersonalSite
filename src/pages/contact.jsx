@@ -52,7 +52,6 @@ const SubmitSuccess = ({ showToast, t }) => {
           {t("success_title")}
         </Heading>
         <Text variant="regular" sx={{ my: 3, display: "block" }}>
-          {" "}
           {t("success_subtitle")}
         </Text>
         <Flex sx={{ gap: 3, alignItems: "center", mb: 3 }}>

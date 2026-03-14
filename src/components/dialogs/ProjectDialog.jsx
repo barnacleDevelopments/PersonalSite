@@ -5,7 +5,10 @@ import { CloseButton } from "../app/CloseButton";
 
 const ProjectDialog = forwardRef(({ title, projects }, ref) => {
   return (
-    <dialog style={{ position: "fixed", zIndex: 10000, padding: 0 }} ref={ref}>
+    <dialog
+      style={{ position: "fixed", zIndex: 10000, padding: 0, borderRadius: 15 }}
+      ref={ref}
+    >
       {title && projects && (
         <Box
           sx={{
@@ -34,7 +37,7 @@ const ProjectDialog = forwardRef(({ title, projects }, ref) => {
                 }}
               />
             </Flex>
-            <ul>
+            <Box as="ul" style={{ margin: "4px" }}>
               {projects.map((project) => {
                 return (
                   <li key={project.title} sx={{ mb: 2 }}>
@@ -53,7 +56,7 @@ const ProjectDialog = forwardRef(({ title, projects }, ref) => {
                   </li>
                 );
               })}
-            </ul>
+            </Box>
           </Box>
         </Box>
       )}

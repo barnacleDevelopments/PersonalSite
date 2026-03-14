@@ -101,7 +101,6 @@ const AboutPage = ({ data }) => {
             </Paragraph>
           </Box>
         </Grid>
-
         <Box
           sx={{
             px: [0, 3],
@@ -118,7 +117,6 @@ const AboutPage = ({ data }) => {
           <Paragraph sx={{ mb: 3 }}>{t("projects_by_tech_text")}</Paragraph>
           <SkillsChart technologies={technologies} />
         </Box>
-
         <Box
           sx={{
             px: [0, 3],
