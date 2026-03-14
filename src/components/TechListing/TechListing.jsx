@@ -16,7 +16,8 @@ export function TechListing({ technologies, onClick, descriptive = true }) {
                 onClick={() => onClick(x)}
               >
                 <GatsbyImage
-                  placeholder="blurred"
+                  width="24px"
+                  height="24px"
                   style={techImageStyle}
                   image={getImage(x.image)}
                   alt={x.name}
@@ -34,7 +35,6 @@ export function TechListing({ technologies, onClick, descriptive = true }) {
               key={x.name}
             >
               <GatsbyImage
-                placeholder="blurred"
                 style={techImageStyle}
                 image={getImage(x.image)}
                 alt={x.name}
@@ -47,7 +47,7 @@ export function TechListing({ technologies, onClick, descriptive = true }) {
 }
 
 const techImageStyle = {
-  width: "20px",
+  width: "24px",
   mr: 1,
   mb: 2,
 };

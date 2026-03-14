@@ -40,11 +40,7 @@ export function ProjectSection({
             }}
           >
             <figure>
-              <GatsbyImage
-                placeholder="blurred"
-                image={hasImage}
-                alt={imageAlt}
-              />
+              <GatsbyImage image={hasImage} alt={imageAlt} />
               <figcaption>{caption}</figcaption>
             </figure>
           </Box>

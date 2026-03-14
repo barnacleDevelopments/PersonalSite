@@ -148,6 +148,9 @@ module.exports = {
               loadingStrategy: "lazy",
               containerClass: "embedVideo-container",
               iframeId: false,
+              defaults: {
+                placeholder: "blurred",
+              },
             },
           },
           "gatsby-remark-responsive-iframe",

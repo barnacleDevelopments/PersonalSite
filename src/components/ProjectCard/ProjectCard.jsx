@@ -110,11 +110,7 @@ const ProjectCard = ({ project }) => {
               overflow: "hidden",
             }}
           >
-            <GatsbyImage
-              placeholder="blurred"
-              image={getImage(project.image1)}
-              alt={"image 1"}
-            />
+            <GatsbyImage image={getImage(project.image1)} alt={"image 1"} />
           </Box>
         )}
       </Flex>

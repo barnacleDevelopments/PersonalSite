@@ -24,7 +24,6 @@ const PostCard = ({ post, postContent }) => {
         {post.thumbnail && (
           <GatsbyImage
             imgStyle={{ objectFit: "cover" }}
-            placeholder="blurred"
             crossOrigin="anonymous"
             image={cardImage}
             alt={post.title}
