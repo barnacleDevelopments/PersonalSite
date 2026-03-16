@@ -71,20 +71,7 @@ const AboutPage = ({ data }) => {
             />
           </Box>
           <Box>
-            <Paragraph variant="regular">
-              {t("bio_text_1")}
-              <Link
-                to="/contact"
-                sx={{
-                  color: "orange",
-                  textDecoration: "none",
-                  "&:hover": { textDecoration: "underline" },
-                }}
-              >
-                {t("please_reach_out")}
-              </Link>
-              {t("bio_text_2")}
-            </Paragraph>
+            <Paragraph variant="regular">{t("bio_text_1")}</Paragraph>
             <Paragraph variant="regular">
               {t("bio_text_3a")}
               <Link
@@ -98,6 +85,20 @@ const AboutPage = ({ data }) => {
                 {t("bio_text_3_link")}
               </Link>
               {t("bio_text_3b")}
+            </Paragraph>
+            <Paragraph variant="regular">
+              {t("bio_text_4")}
+              <Link
+                to="/contact"
+                sx={{
+                  color: "orange",
+                  textDecoration: "none",
+                  "&:hover": { textDecoration: "underline" },
+                }}
+              >
+                {t("please_reach_out")}
+              </Link>
+              {t("bio_text_2")}
             </Paragraph>
           </Box>
         </Grid>

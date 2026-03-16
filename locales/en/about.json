@@ -1,8 +1,8 @@
 {
   "page_title": "A Little More About Me",
-  "page_description": "I'm a Full Stack Developer specializing in building scalable web applications and cloud-native solutions.",
-  "bio_text_1": "My work spans enterprise platforms, IoT systems, and high-performance websites, working end to end, from frontend to backend to infrastructure. I take a product-first approach, prioritizing user experience while actively seeking out the edge cases and pain points that cause churn, often before the rest of my team even identifies them. I trace those problems back to their root cause, whether that's scaling bottlenecks, pesky race conditions, or a clunky UI that's driving users away. I've delivered production planning and supply chain features for brewery management software using Angular and .NET on Azure, built real-time IoT data pipelines processing sensor telemetry, and developed responsive client websites optimized for performance and SEO. I don't stop at making things work. I design systems with intention, building solutions that are thoughtful, scalable, and built to evolve. ",
-  "please_reach_out": "Please reach out",
+  "page_description": "I'm a Software Product Engineer specializing in building scalable web applications and cloud-native solutions.",
+  "bio_text_1": "I take a product first approach, deeply understanding the domain knowledge that expert users rely on, so that business objectives and user experience drive every architectural decision I make. Software, at its core, is a tool to empower domain experts, and I build with that in mind. I've delivered production planning and supply chain features for brewery management software using Angular and .NET on Azure, built real time IoT data pipelines processing sensor telemetry, and engineered hotel package management, user onboarding, and menu item management interfaces using Next.js and Ruby on Rails.",
+  "please_reach_out": " please reach out",
   "bio_text_2": "; I'm always up for a chat! ",
   "tech_breakdown_title": "Tech Stack Breakdown",
   "category_language": "Language",
@@ -16,7 +16,8 @@
   "projects_by_tech_text": "I don't find skill levels particularly measurable, but I want to provide context into where I've used different technologies. My proficiency is based on real project experience.",
   "bio_text_3a": "Outside of the keyboard, I'm an ",
   "bio_text_3_link": "avid climber",
-  "bio_text_3b": ". The discipline of reading a problem from every angle and thinking it through methodically before ever making a move is exactly the mindset I bring to hard technical problems.",
+  "bio_text_3b": ". The same discipline I use when reading a bouldering problem is exactly the mindset I bring to hard technical problems.",
+  "bio_text_4": "Keep on reading bellow to learn more about my process and ",
   "cta_title": "Checkout Some of my Projects",
   "cta_content": "Every project I take on I take ownership of.",
   "cta_button": "Let's Go!"
