@@ -6,7 +6,7 @@ module.exports = {
   siteMetadata: {
     lang: "en",
     siteUrl: "https://devdeveloper.ca",
-    title: "Devin Davis | Full-Stack Engineer",
+    title: "Devin Davis | Software Product Engineer",
     github: "https://github.com/barnacleDevelopments",
     linkedin: "https://www.linkedin.com/in/devin-dev-d-63008412b/",
     image: {
