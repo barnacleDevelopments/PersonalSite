@@ -15,7 +15,7 @@ module.exports = {
       height: 110,
     },
     description:
-      "Explore the professional portfolio of Devin Davis, a results-oriented Full-Stack Engineer.",
+      "Explore the professional portfolio of Devin Davis, a Product Software Engineer.",
     keywords: [
       "Web development",
       "Full-stack Web developer",
