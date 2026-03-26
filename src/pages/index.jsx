@@ -230,27 +230,6 @@ const IndexPage = ({ data }) => {
         </Box>
         <Box as="section" sx={{ mt: 3 }}>
           <Heading as="h3" variant="subheading1">
-            {t("recent_posts")}
-          </Heading>
-          <Grid
-            sx={{
-              mb: 4,
-              width: "100%",
-            }}
-            gap={3}
-            columns={[1]}
-          >
-            {posts.map((post) => (
-              <PostCard
-                key={post.slug}
-                post={post}
-                postContent={post.excerpt}
-              />
-            ))}
-          </Grid>
-        </Box>
-        <Box as="section" sx={{ mt: 3 }}>
-          <Heading as="h3" variant="subheading1">
             {t("recent_projects")}
           </Heading>
           <Grid
@@ -343,6 +322,28 @@ const IndexPage = ({ data }) => {
               </Box>
             )}
           </Box>
+        </Box>
+
+        <Box as="section" sx={{ mt: 3 }}>
+          <Heading as="h3" variant="subheading1">
+            {t("recent_posts")}
+          </Heading>
+          <Grid
+            sx={{
+              mb: 4,
+              width: "100%",
+            }}
+            gap={3}
+            columns={[1]}
+          >
+            {posts.map((post) => (
+              <PostCard
+                key={post.slug}
+                post={post}
+                postContent={post.excerpt}
+              />
+            ))}
+          </Grid>
         </Box>
         <Box sx={{ mb: 4 }} as="section">
           <CallToAction
