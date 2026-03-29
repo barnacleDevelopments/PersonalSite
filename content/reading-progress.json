@@ -1,17 +1,69 @@
 {
   "currently_reading": [
     {
-      "id": "file:///mnt/onboard/The Kubernetes Book_ 2023 Edition by Nigel Poulton.epub",
-      "title": "The Kubernetes Book",
-      "author": "Nigel Poulton",
+      "id": "file:///mnt/onboard/the_unix-haters-handbook.pdf",
+      "title": "ugh.book",
+      "author": "simsong",
       "publisher": null,
       "description": null,
-      "last_read": "2026-03-04T12:33:03Z",
+      "last_read": "2026-03-29T22:51:19.787",
       "progress_percent": 0,
-      "read_status": 1,
-      "cover_image_id": "file____mnt_onboard_The_Kubernetes_Book__2023_Edition_by_Nigel_Poulton_epub",
-      "isbn": "https://leanpub.com/thekubernetesbook",
-      "cover_image": "the_kubernetes_book.jpg"
+      "read_status": 0,
+      "cover_image_id": "file____mnt_onboard_the_unix-haters-handbook_pdf",
+      "isbn": null,
+      "cover_image": "ughbook.jpg"
+    },
+    {
+      "id": "file:///mnt/onboard/Game Theory_ A Very Short Introduction by Ken Binmore.epub",
+      "title": "Game Theory: A Very Short Introduction",
+      "author": "K. G. Binmore",
+      "publisher": null,
+      "description": "SUMMARY:\nGames are everywhere: Drivers maneuvering in heavy traffic are playing a driving game. Bargain hunters bidding on eBay are playing an auctioning game. The supermarket's price for corn flakes is decided by playing an economic game. This Very Short Introduction offers a succinct tour of the fascinating world of game theory, a ground-breaking field that analyzes how to play games in a rational way. Ken Binmore, a renowned game theorist, explains the theory in a way that is both entertaining and non-mathematical yet also deeply insightful, revealing how game theory can shed light on everything from social gatherings, to ethical decision-making, to successful card-playing strategies, to calculating the sex ratio among bees. With mini-biographies of many fascinating, and occasionally eccentric, founders of the subject--including John Nash, subject of the movie A Beautiful Mind--this book offers a concise overview of a cutting-edge field that has seen spectacular successes in evolutionary biology and economics, and is beginning to revolutionize other disciplines from psychology to political science.",
+      "last_read": "2026-03-29T22:51:02.883",
+      "progress_percent": 0,
+      "read_status": 0,
+      "cover_image_id": "file____mnt_onboard_Game_Theory__A_Very_Short_Introduction_by_Ken_Binmore_epub",
+      "isbn": "9780199218462",
+      "cover_image": "isbn_9780199218462.jpg"
+    },
+    {
+      "id": "file:///mnt/onboard/art_of_postgre_sql.epub",
+      "title": "The Art Of PostgreSQL",
+      "author": "Dimitri Fontaine",
+      "publisher": null,
+      "description": null,
+      "last_read": "2026-03-29T22:50:51.339",
+      "progress_percent": 0,
+      "read_status": 0,
+      "cover_image_id": "file____mnt_onboard_art_of_postgre_sql_epub",
+      "isbn": "978-1-949-95036-6",
+      "cover_image": "isbn_978-1-949-95036-6.jpg"
+    },
+    {
+      "id": "file:///mnt/onboard/StructureandInterpretationofComputerPrograms.pdf",
+      "title": "StructureandInterpretationofComputerPrograms",
+      "author": null,
+      "publisher": null,
+      "description": null,
+      "last_read": "2026-03-29T22:50:44.809",
+      "progress_percent": 0,
+      "read_status": 0,
+      "cover_image_id": "file____mnt_onboard_StructureandInterpretationofComputerPrograms_pdf",
+      "isbn": null,
+      "cover_image": "structureandinterpretationofcomputerprograms.jpg"
+    },
+    {
+      "id": "26ef1806-bf0b-4602-827f-cea97622441b",
+      "title": "Mastering Cloudflare",
+      "author": "Robert Johnson",
+      "publisher": null,
+      "description": "<p>\"Mastering Cloudflare: Optimizing Security, Performance, and Reliability for the Web\" is an authoritative guide crafted for anyone seeking to harness the full potential of Cloudflare, a leading edge service provider in today’s highly connected digital ecosystem. Designed to support a wide range of users—from web developers and IT professionals to business leaders and cybersecurity experts—this book provides comprehensive insights into leveraging Cloudflare's advanced tools to enhance websi...",
+      "last_read": "2026-03-29T22:50:19.350",
+      "progress_percent": 0,
+      "read_status": 0,
+      "cover_image_id": "40ee7d84-7474-471c-8bc7-688b665abab6",
+      "isbn": "6610000697762",
+      "cover_image": "mastering_cloudflare.jpg"
     },
     {
       "id": "4c012701-4599-490d-ba72-d8b26b1410ba",
@@ -27,19 +79,6 @@
       "cover_image": "isbn_9780226829845.jpg"
     },
     {
-      "id": "file:///mnt/onboard/casting_spels.pdf",
-      "title": "casting_spels",
-      "author": null,
-      "publisher": null,
-      "description": null,
-      "last_read": "2026-02-21T21:40:30Z",
-      "progress_percent": 99,
-      "read_status": 2,
-      "cover_image_id": "file____mnt_onboard_casting_spels_pdf",
-      "isbn": null,
-      "cover_image": "casting_spels.jpg"
-    },
-    {
       "id": "file:///mnt/onboard/Zamzar/Peak Performance - Zamzar.kepub.epub",
       "title": "Peak Performance",
       "author": "Zamzar",
@@ -51,71 +90,6 @@
       "cover_image_id": "file____mnt_onboard_Zamzar_Peak_Performance_-_Zamzar_kepub_epub",
       "isbn": null,
       "cover_image": "peak_performance.jpg"
-    },
-    {
-      "id": "26ef1806-bf0b-4602-827f-cea97622441b",
-      "title": "Mastering Cloudflare",
-      "author": "Robert Johnson",
-      "publisher": null,
-      "description": "<p>\"Mastering Cloudflare: Optimizing Security, Performance, and Reliability for the Web\" is an authoritative guide crafted for anyone seeking to harness the full potential of Cloudflare, a leading edge service provider in today’s highly connected digital ecosystem. Designed to support a wide range of users—from web developers and IT professionals to business leaders and cybersecurity experts—this book provides comprehensive insights into leveraging Cloudflare's advanced tools to enhance websi...",
-      "last_read": "2026-01-04T23:27:54Z",
-      "progress_percent": 62,
-      "read_status": 1,
-      "cover_image_id": "40ee7d84-7474-471c-8bc7-688b665abab6",
-      "isbn": "6610000697762",
-      "cover_image": "mastering_cloudflare.jpg"
-    },
-    {
-      "id": "file:///mnt/onboard/the_unix-haters-handbook.pdf",
-      "title": "ugh.book",
-      "author": "simsong",
-      "publisher": null,
-      "description": null,
-      "last_read": "2025-12-15T03:39:29Z",
-      "progress_percent": 7,
-      "read_status": 1,
-      "cover_image_id": "file____mnt_onboard_the_unix-haters-handbook_pdf",
-      "isbn": null,
-      "cover_image": "ughbook.jpg"
-    },
-    {
-      "id": "file:///mnt/onboard/art_of_postgre_sql.epub",
-      "title": "The Art Of PostgreSQL",
-      "author": "Dimitri Fontaine",
-      "publisher": null,
-      "description": null,
-      "last_read": "2025-11-26T23:12:25Z",
-      "progress_percent": 6,
-      "read_status": 1,
-      "cover_image_id": "file____mnt_onboard_art_of_postgre_sql_epub",
-      "isbn": "978-1-949-95036-6",
-      "cover_image": "isbn_978-1-949-95036-6.jpg"
-    },
-    {
-      "id": "file:///mnt/onboard/StructureandInterpretationofComputerPrograms.pdf",
-      "title": "StructureandInterpretationofComputerPrograms",
-      "author": null,
-      "publisher": null,
-      "description": null,
-      "last_read": "2025-11-26T21:53:36Z",
-      "progress_percent": 3,
-      "read_status": 1,
-      "cover_image_id": "file____mnt_onboard_StructureandInterpretationofComputerPrograms_pdf",
-      "isbn": null,
-      "cover_image": "structureandinterpretationofcomputerprograms.jpg"
-    },
-    {
-      "id": "file:///mnt/onboard/Game Theory_ A Very Short Introduction by Ken Binmore.epub",
-      "title": "Game Theory: A Very Short Introduction",
-      "author": "K. G. Binmore",
-      "publisher": null,
-      "description": "SUMMARY:\nGames are everywhere: Drivers maneuvering in heavy traffic are playing a driving game. Bargain hunters bidding on eBay are playing an auctioning game. The supermarket's price for corn flakes is decided by playing an economic game. This Very Short Introduction offers a succinct tour of the fascinating world of game theory, a ground-breaking field that analyzes how to play games in a rational way. Ken Binmore, a renowned game theorist, explains the theory in a way that is both entertaining and non-mathematical yet also deeply insightful, revealing how game theory can shed light on everything from social gatherings, to ethical decision-making, to successful card-playing strategies, to calculating the sex ratio among bees. With mini-biographies of many fascinating, and occasionally eccentric, founders of the subject--including John Nash, subject of the movie A Beautiful Mind--this book offers a concise overview of a cutting-edge field that has seen spectacular successes in evolutionary biology and economics, and is beginning to revolutionize other disciplines from psychology to political science.",
-      "last_read": "2025-10-24T15:53:30Z",
-      "progress_percent": 5,
-      "read_status": 1,
-      "cover_image_id": "file____mnt_onboard_Game_Theory__A_Very_Short_Introduction_by_Ken_Binmore_epub",
-      "isbn": "9780199218462",
-      "cover_image": "isbn_9780199218462.jpg"
     },
     {
       "id": "file:///mnt/onboard/Kadry_, Lakshmana Kumar Ramasamy_Seifedine/Blockchain in the Industrial Internet of Things - Lakshmana Kumar Ramasamy_Seifedine Kadry_.kepub.epub",
@@ -131,17 +105,17 @@
       "cover_image": "blockchain_in_the_industrial_internet_of_things.jpg"
     },
     {
-      "id": "file:///mnt/onboard/Krishnamachari, Nicjosja Beije Bhaskar/Blockchain and the Supply Chain_ Concepts, strategies a - Nick Vyas Aljosja Beije Bhaskar Krishnamachari.kepub.epub",
-      "title": "Blockchain and the Supply Chain: Concepts, strategies and practical applications",
-      "author": "Nick Vyas Aljosja Beije Bhaskar Krishnamachari",
-      "publisher": null,
-      "description": null,
+      "id": "file:///mnt/onboard/Krug, Steve/Don_t Make Me Think, Revisited_ A Common Sense Approach to Web Usability - Steve Krug.kepub.epub",
+      "title": "Don't Make Me Think, Revisited: A Common Sense Approach to Web Usability",
+      "author": "Steve Krug",
+      "publisher": "New Riders",
+      "description": "<div><p><b>Uploaded by [StormRG]</b></p><p>Since<em> Don’t Make Me Think </em>was first published in 2000, hundreds of thousands of Web designers and developers have relied on usability guru Steve Krug’s guide to help them understand the principles of intuitive navigation and information design. Witty, commonsensical, and eminently practical, it’s one of the best-loved and most recommended books on the subject.<br></p><p>Now Steve returns with fresh perspective to reexamine the principles that made<em> Don’t Make Me Think</em> a classic–with updated examples and a new chapter on mobile usability. And it’s still short, profusely illustrated…and best of all–fun to read.<br></p><p>If you’ve read it before, you’ll rediscover what made <em>Don’t Make Me Think</em> so essential to Web designers and developers around the world. If you’ve never read it, you’ll see why so many people have said it should be required reading for anyone working on Web sites.<br></p><p>“After reading it over a couple of hours and putting its ideas to work for the past five years, I can say it has done more to improve my abilities as a Web designer than any other book.”<br>–Jeffrey Zeldman, author of Designing with Web Standards </p><h3>About the Author</h3><p>Steve Krug (pronounced \"kroog\") is best known as the author of<em> Don't Make Me Think: A Common Sense Approach to Web Usability</em>, now in its second edition with over 350,000 copies in print. Ten years later, he finally gathered enough energy to write another one: the usability testing handbook <em>Rocket Surgery Made Easy: The Do-It-Yourself Guide to Finding and Fixing Usability Problems</em>. The books were based on the 20+ years he's spent as a usability consultant for a wide variety of clients like Apple, Bloomberg.com, Lexus.com, NPR, the International Monetary Fund, and many others.<br></p><p>His consulting firm, Advanced Common Sense (\"just me and a few well-placed mirrors\") is based in Chestnut Hill, MA. Steve currently spends most of his time teaching usability workshops, consulting, and watching old episodes of Law and Order. </p></div>",
       "last_read": null,
       "progress_percent": 0,
       "read_status": 0,
-      "cover_image_id": "file____mnt_onboard_Krishnamachari,_Nicjosja_Beije_Bhaskar_Blockchain_and_the_Supply_Chain__Concepts,_strategies_a_-_Nick_Vyas_Aljosja_Beije_Bhaskar_Krishnamachari_kepub_epub",
+      "cover_image_id": "file____mnt_onboard_Krug,_Steve_Don_t_Make_Me_Think,_Revisited__A_Common_Sense_Approach_to_Web_Usability_-_Steve_Krug_kepub_epub",
       "isbn": null,
-      "cover_image": "blockchain_and_the_supply_chain_concepts_strategie.jpg"
+      "cover_image": "dont_make_me_think_revisited_a_common_sense_approa.jpg"
     },
     {
       "id": "file:///mnt/onboard/See, Solve, Scale_ How Anyone Can Turn an Unsolved Problem into a Breakthrough Success by Danny Warshay.epub",
@@ -159,11 +133,29 @@
   ],
   "recently_finished": [
     {
+      "title": "casting_spels",
+      "author": null,
+      "finished_date": "2026-03-29T22:53:32.899",
+      "isbn": null
+    },
+    {
+      "title": "Blockchain and the Supply Chain: Concepts, strategies and practical applications",
+      "author": "Nick Vyas Aljosja Beije Bhaskar Krishnamachari",
+      "finished_date": "2026-03-29T22:50:28.770",
+      "isbn": null
+    },
+    {
+      "title": "The Pragmatic Programmer: your journey to mastery, 20th Anniversary Edition, 2nd Edition",
+      "author": "Andrew Hunt",
+      "finished_date": "2026-03-29T22:49:08.080",
+      "isbn": null
+    },
+    {
       "title": "Co-Intelligence",
       "author": "Mollick, Ethan",
       "finished_date": "2025-11-16T17:09:34.714",
       "isbn": "4942aed5-c933-43dd-98f2-bce8b9309bac"
     }
   ],
-  "last_updated": "2026-03-04T08:56:50.148604"
+  "last_updated": "2026-03-29T19:54:21.533699"
 }
