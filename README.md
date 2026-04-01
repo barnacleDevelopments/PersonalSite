@@ -184,7 +184,3 @@ The site is configured for Netlify deployment:
 - [Gatsby Documentation](https://www.gatsbyjs.com/docs)
 - [Theme-UI Documentation](https://theme-ui.com)
 - [MDX Documentation](https://mdxjs.com)
-
-## License
-
-This project is private and proprietary.
