@@ -2,7 +2,7 @@
 
 A modern portfolio website built with GatsbyJS, featuring blog posts, project showcases, and MDX content management. This site showcases full-stack development and DevOps expertise.
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Prerequisites
 
@@ -35,7 +35,7 @@ npm run build
 npm run serve
 ```
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 .
@@ -59,7 +59,7 @@ npm run serve
 └── gatsby-browser.js     # Browser API customization
 ```
 
-## 🧪 Testing
+## Testing
 
 ### Run Tests
 
@@ -79,7 +79,7 @@ npm run test:watch
 npm run test:coverage
 ```
 
-## 🎨 Tech Stack
+## Tech Stack
 
 - **Framework:** GatsbyJS v5
 - **UI Library:** React 18
@@ -89,7 +89,7 @@ npm run test:coverage
 - **Code Quality:** ESLint + Prettier
 - **Deployment:** Netlify
 
-## 📝 Content Management
+## Content Management
 
 ### Adding Blog Posts
 
@@ -124,7 +124,7 @@ featuredImage: "./assets/project-image.png"
 Project details...
 ```
 
-## 🛠️ Development
+## Development
 
 ### Code Style
 
@@ -147,7 +147,7 @@ Create `.env.development` and `.env.production` files:
 # Add environment-specific variables here
 ```
 
-## 🚢 Deployment
+## Deployment
 
 The site is configured for Netlify deployment:
 
@@ -161,7 +161,7 @@ The site is configured for Netlify deployment:
 - Publish directory: `public`
 - Node version: 18+
 
-## 📦 Key Features
+## Key Features
 
 - **SEO Optimized:** React Helmet, sitemap, RSS feed
 - **PWA Ready:** Manifest configuration
@@ -171,7 +171,7 @@ The site is configured for Netlify deployment:
 - **Syntax Highlighting:** PrismJS integration
 - **Smooth Scrolling:** Anchor link navigation
 
-## 🔧 Configuration Files
+## Configuration Files
 
 - `gatsby-config.js` - Site metadata and plugins
 - `gatsby-node.js` - Dynamic page generation
@@ -179,7 +179,7 @@ The site is configured for Netlify deployment:
 - `eslint.config.mjs` - Linting rules
 - `.claudeignore` - Claude Code exclusions
 
-## 📚 Additional Resources
+## Additional Resources
 
 - [Gatsby Documentation](https://www.gatsbyjs.com/docs)
 - [Theme-UI Documentation](https://theme-ui.com)
