@@ -185,6 +185,6 @@ The site is configured for Netlify deployment:
 - [Theme-UI Documentation](https://theme-ui.com)
 - [MDX Documentation](https://mdxjs.com)
 
-## 📄 License
+## License
 
 This project is private and proprietary.
