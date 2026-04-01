@@ -1,7 +1,6 @@
 # Portfolio Site
 
-A modern portfolio website built with GatsbyJS, featuring blog posts, project showcases, and MDX content management. This site showcases full-stack development and DevOps expertise.
-
+A modern portfolio website built with GatsbyJS, featuring blog posts, project showcases, and MDX content management.
 ## Quick Start
 
 ### Prerequisites
