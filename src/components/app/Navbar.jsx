@@ -55,7 +55,7 @@ const Navbar = () => {
     <Box as="nav" sx={nav}>
       <Flex
         sx={navWrapper}
-        style={{ backgroundColor: !isScrolledTop ? "#ffffff" : null }}
+        style={{ backgroundColor: !isScrolledTop ? "#ffffffe6" : null }}
       >
         <SideNav
           isOpen={sideNavOpen}
@@ -232,6 +232,8 @@ const navWrapper = {
   justifyContent: "space-around",
   alignItems: "center",
   backgroundColor: "primary",
+  "-webkit-backdrop-filter": "blur(10px)",
+  backdropFilter: "blur(10px)",
   boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.25)",
   transition: "background-color .3s",
   i: {
