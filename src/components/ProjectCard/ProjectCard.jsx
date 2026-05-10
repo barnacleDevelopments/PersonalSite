@@ -5,7 +5,7 @@ import { Link, useTranslation } from "gatsby-plugin-react-i18next";
 import { Box, Button, Card, Flex, Heading, Text } from "theme-ui";
 import { TechListing } from "../TechListing/TechListing";
 
-const ProjectCard = ({ project }) => {
+const ProjectCard = ({ project, ...props }) => {
   const { t } = useTranslation("common");
   return (
     <Card
@@ -19,6 +19,7 @@ const ProjectCard = ({ project }) => {
         backgroundColor: "primary",
         mb: 3,
       }}
+      {...props}
     >
       {(project.status === "ongoing" || project.status === "complete") && (
         <Box
@@ -68,10 +69,14 @@ const ProjectCard = ({ project }) => {
               as="h2"
               variant="subheading1"
               color="white"
+              title={project.title}
               sx={{
                 overflowWrap: "anywhere",
                 mt: [3, 3, 3, 1.5],
                 mb: [1.5],
+                whiteSpace: ["wrap", "nowrap"],
+                textOverflow: "ellipsis",
+                overflow: "hidden",
               }}
             >
               {project.title}
