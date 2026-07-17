@@ -1,9 +1,7 @@
-import { faLinkedin } from "@fortawesome/free-brands-svg-icons";
-import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
 import { StaticImage } from "gatsby-plugin-image";
 import { Link, useTranslation } from "gatsby-plugin-react-i18next";
 import { memo, useCallback, useEffect, useRef, useState } from "react";
-import { Box, Flex, Text, Link as ThemeLink } from "theme-ui";
+import { Box, Flex, Link as ThemeLink } from "theme-ui";
 import BuildStatus from "../BuildStatus/BuildStatus";
 import SideNav from "./SideNav";
 
@@ -180,35 +178,18 @@ const Navbar = () => {
             >
               {t("nav_about")}
             </Link>
-
-            <Flex
+            <ThemeLink
               sx={{
-                flexDirection: "column",
-                alignItems: "center",
-                pl: 3,
-                mb: 0.8,
+                ml: 3,
+                fontWeight: "bold",
+                color: !isScrolledTop ? "#30362F" : "white",
               }}
+              target="_blank"
+              href="https://www.linkedin.com/in/devin-dev-d-63008412b"
+              variant="footer"
             >
-              <ThemeLink
-                target="_blank"
-                href="https://www.linkedin.com/in/devin-dev-d-63008412b"
-                sx={{ width: "max-content", svg: { fontSize: "1.2em" } }}
-                variant="footer"
-              >
-                <Text
-                  sx={{
-                    mr: 1,
-                    fontWeight: "bold",
-                    color: !isScrolledTop ? "#30362F" : "white",
-                  }}
-                  variant="small"
-                >
-                  {" "}
-                  LinkedIn
-                </Text>
-                <Icon icon={faLinkedin} />
-              </ThemeLink>
-            </Flex>
+              LinkedIn
+            </ThemeLink>
             <BuildStatus isScrolledTop={isScrolledTop} />
           </Flex>
         </Box>
